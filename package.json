@@ -1,0 +1,30 @@
+{
+  "name": "@moneytree/mt-link-javascript-sdk",
+  "version": "1.0.0",
+  "description": "Moneytree Link JavaScript SDK",
+  "main": "dist/index.js",
+  "repository": "https://github.com/moneytree/mt-link-javascript-sdk",
+  "author": "Moneytree",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && webpack",
+    "preversion": "npm run build && git add dist",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "precommit": "echo done",
+    "commitmsg": "commitlint -e $GIT_PARAMS"
+  },
+  "dependencies": {
+    "conventional-changelog-cli": "^2.0.1",
+    "qs": "^6.5.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.0.0",
+    "@commitlint/config-conventional": "^7.0.1",
+    "@types/qs": "^6.5.1",
+    "awesome-typescript-loader": "^5.2.0",
+    "husky": "^0.14.3",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0"
+  }
+}
