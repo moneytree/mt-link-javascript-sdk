@@ -1,6 +1,6 @@
 # Moneytree Link JavaScript SDK
 
-This library will help you to simply integrate Moneytree tools such as My Account and the Vault without having to do it yourself.
+This is a library for browser client to help you integrate Moneytree tools such as My Account and the Vault without having to do it yourself.
 
 
 ## Installation
@@ -13,18 +13,21 @@ Include the script tag
 Change the `<version>` by the one you need (most likely the latest available).
 You can also replace `<version>` by `master` to always get the latest published, at your own risk.
 
+You will find the library under `window.mtLinkSdk`.
+
 ### CommonJS
 Using NPM simply install the library
 ```shell
-npm install mt-link-javascript-sdk
+npm install @moneytree/mt-link-javascript-sdk
 ```
 
-Then you can use it directly in your code
+Then you can use it directly in your code:
 ```js
 var mtLinkSdk = require('mt-link-javascript-sdk'); // es5
 // or
 import mtLinkSdk from 'mt-link-javascript-sdk'; // es-next
 ```
+The source also include a Typescript definition.
 
 ## API
 
@@ -57,3 +60,5 @@ Config properties:
 
 ### Open the vault to let the user add credentials
 `openVault()`
+
+> Note: `authorize`, `openSettings`, and `openVault` can open in a new tab by sending `true` as an argument.
