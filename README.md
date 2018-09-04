@@ -23,9 +23,9 @@ npm install @moneytree/mt-link-javascript-sdk
 
 Then you can use it directly in your code:
 ```js
-var mtLinkSdk = require('mt-link-javascript-sdk'); // es5
+var mtLinkSdk = require('@moneytree/mt-link-javascript-sdk'); // es5
 // or
-import mtLinkSdk from 'mt-link-javascript-sdk'; // es-next
+import mtLinkSdk from '@moneytree/mt-link-javascript-sdk'; // es-next
 ```
 The source also include a Typescript definition.
 
@@ -41,7 +41,8 @@ Config properties:
   clientId, // string; // The id of the application that asks for authorization.
   response_type, // string; // Tells the authorization server which grant to execute.
   scope, // string[]; // A list of permissions that the application requires.
-  redirectUri, // string; // Holds a URL. A successful response from this endpoint results in a redirect to this URL.
+  redirectUri, // string; // URI to return the user to after authorization is complete.
+  continueTo, // string; // [optional] Parameter appended as `continue` to the `redirectUri`.
   locale, // string; // [optional] To force the display to a specific language (e.g.: en-AU)
   state, // string; // [optional] An opaque value, used for security purposes. If this request parameter is set in the request, then it is returned to the application as part of the redirect_uri.
   appToken, // string; // [optional] The Access Token granted through oauth
@@ -50,15 +51,18 @@ Config properties:
 ```
 
 ### Open the page for the user to authorize your application
-`authorize()`
-
-### Set the access token after init
-`setToken()`
+`authorize({ newTab })`
 
 ### Open the setting page of the user account
-`openSettings()`
+`openSettings({ newTab, backTo })`
 
 ### Open the vault to let the user add credentials
-`openVault()`
+`openVault({ newTab, backTo })`
 
-> Note: `authorize`, `openSettings`, and `openVault` can open in a new tab by sending `true` as an argument.
+### Optional parameters
+```js
+{
+  newTab, // boolean; // Open in a new tab if set to TRUE
+  backTo, // string(url); // Holds a URL. Used to come back to your app. Default to current URI.
+}
+```
