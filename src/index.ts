@@ -6,8 +6,8 @@ interface Config {
   isTestEnvironment?: boolean;
   scope: string[];
   redirectUri?: string;
+  continueTo?: string;
   responseType?: string;
-  appToken?: string;
   locale?: string;
   state?: string;
 }
@@ -15,11 +15,17 @@ interface Config {
 interface Params {
   client_id: string;
   redirect_uri: string;
+  continue: string;
   response_type: string;
   scope: string;
+  back?: string;
   locale?: string;
-  access_token?: string;
   state?: string;
+}
+
+interface LinkOptions {
+  backTo?: string,
+  newTab?: boolean
 }
 
 class LinkSDK {
@@ -34,9 +40,9 @@ class LinkSDK {
     this.params = {
       client_id:config. clientId,
       redirect_uri: config.redirectUri || `${location.protocol}//${location.host}/callback`,
+      continue: config.continueTo || '',
       response_type: config.responseType || 'token',
       scope: config.scope.join(' '),
-      access_token: config.appToken,
       locale: config.locale,
       state: config.state
     };
@@ -48,28 +54,25 @@ class LinkSDK {
     };
   }
 
-  // Set the token from callback or server
-  setToken(appToken: string): void {
-    this.params.access_token = appToken;
-  }
-
   // Open My Account to authorize application to use MtLink API
-  authorize(newTab: boolean = false): void {
+  authorize({ newTab = false } = {}): void {
     const { PATHS: { OAUTH }} = MY_ACCOUNT;
-    const params = qs.stringify(this.params);
+    const params = qs.stringify({ ...this.params });
     window.open(`https://${this.domains.myaccount}/${OAUTH}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Vault page
-  openVault(newTab: boolean = false): void {
-    const params = qs.stringify(this.params);
+  openVault(options: LinkOptions = {}): void {
+    const { newTab = false, backTo = location.href } = options;
+    const params = qs.stringify({ ...this.params, back: backTo });
     window.open(`https://${this.domains.vault}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Guest settings page
-  openSettings(newTab: boolean = false): void {
+  openSettings(options: LinkOptions = {}): void {
+    const { newTab = false, backTo = location.href } = options;
     const { PATHS: { SETTINGS }} = MY_ACCOUNT;
-    const params = qs.stringify(this.params);
+    const params = qs.stringify({ ...this.params, back: backTo });
     window.open(`https://${this.domains.myaccount}?${params}/${SETTINGS}`, newTab ? '_blank' : '_self');
   }
 }
