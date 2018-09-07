@@ -3,19 +3,24 @@ interface Config {
     isTestEnvironment?: boolean;
     scope: string[];
     redirectUri?: string;
+    continueTo?: string;
     responseType?: string;
-    appToken?: string;
     locale?: string;
     state?: string;
+}
+interface LinkOptions {
+    backTo?: string;
+    newTab?: boolean;
 }
 declare class LinkSDK {
     private domains;
     private params;
     init(config: Config): void;
-    setToken(appToken: string): void;
-    authorize(newTab?: boolean): void;
-    openVault(newTab?: boolean): void;
-    openSettings(newTab?: boolean): void;
+    authorize({ newTab }?: {
+        newTab?: boolean | undefined;
+    }): void;
+    openVault(options?: LinkOptions): void;
+    openSettings(options?: LinkOptions): void;
 }
 declare const _default: LinkSDK;
 export default _default;
