@@ -23,9 +23,16 @@ interface Params {
   state?: string;
 }
 
-interface LinkOptions {
-  backTo?: string,
-  newTab?: boolean
+interface VaultOptions {
+  backTo?: string;
+  newTab?: boolean;
+}
+
+interface MyaccountOptions {
+  backTo?: string;
+  newTab?: boolean;
+  email?: string;
+  authPage?: string;
 }
 
 class LinkSDK {
@@ -55,24 +62,34 @@ class LinkSDK {
   }
 
   // Open My Account to authorize application to use MtLink API
-  authorize({ newTab = false } = {}): void {
+  authorize(options: MyaccountOptions = {}): void {
+    const { newTab = false, email, authPage } = options;
     const { PATHS: { OAUTH }} = MY_ACCOUNT;
-    const params = qs.stringify({ ...this.params });
+    const configs = {
+      sdk_platform: 'js',
+      email,
+      auth_action: authPage
+    };
+    const params = qs.stringify({ ...this.params, configs });
     window.open(`https://${this.domains.myaccount}/${OAUTH}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Vault page
-  openVault(options: LinkOptions = {}): void {
+  openVault(options: VaultOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
-    const params = qs.stringify({ ...this.params, back: backTo });
+    const params = qs.stringify({ ...this.params, back_to: backTo });
     window.open(`https://${this.domains.vault}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Guest settings page
-  openSettings(options: LinkOptions = {}): void {
+  openSettings(options: MyaccountOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
     const { PATHS: { SETTINGS }} = MY_ACCOUNT;
-    const params = qs.stringify({ ...this.params, back: backTo });
+    const configs = {
+      sdk_platform: 'js',
+      back_to: backTo
+    };
+    const params = qs.stringify({ ...this.params, configs });
     window.open(`https://${this.domains.myaccount}?${params}/${SETTINGS}`, newTab ? '_blank' : '_self');
   }
 }

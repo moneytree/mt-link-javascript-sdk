@@ -50,19 +50,36 @@ Config properties:
 }
 ```
 
+
 ### Open the page for the user to authorize your application
-`authorize({ newTab })`
+`mtLinkSdk.authorize(options);`
+You can pass the following options:
+- `newTab`: Open in a new browser tab
+  - Values: `true` or `false`
+  - Default: `false`
+- `authPage`: Page to display during unauthenticated redirection
+  - Values: `'login'` or `'signup'`.
+  - Default: `'login'`
+- `email`: To prefill the email field for signup and login
+  - Values: A string
+  - Default: `undefined`
+
 
 ### Open the setting page of the user account
-`openSettings({ newTab, backTo })`
+`mtLinkSdk.openSettings(options);`
+You can pass the following options:
+- `newTab`: Open in a new browser tab
+  - Values: `true` or `false`
+  - Default: `false`
+- `backTo`: Redirect URL for some actions (back, revoke, logout, delete)
+  - Values: A string representing a URL
+  - Default: Current URL
+
 
 ### Open the vault to let the user add credentials
-`openVault({ newTab, backTo })`
+`mtLinkSdk.openVault(options);`
+You can pass the following options:
+- `newTab`: Open in a new browser tab
+  - Values: `true` or `false`
+  - Default: `false`
 
-### Optional parameters
-```js
-{
-  newTab, // boolean; // Open in a new tab if set to TRUE
-  backTo, // string(url); // Holds a URL. Used to come back to your app. Default to current URI.
-}
-```
