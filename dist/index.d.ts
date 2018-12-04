@@ -8,19 +8,23 @@ interface Config {
     locale?: string;
     state?: string;
 }
-interface LinkOptions {
+interface VaultOptions {
     backTo?: string;
     newTab?: boolean;
+}
+interface MyaccountOptions {
+    backTo?: string;
+    newTab?: boolean;
+    email?: string;
+    authPage?: string;
 }
 declare class LinkSDK {
     private domains;
     private params;
     init(config: Config): void;
-    authorize({ newTab }?: {
-        newTab?: boolean | undefined;
-    }): void;
-    openVault(options?: LinkOptions): void;
-    openSettings(options?: LinkOptions): void;
+    authorize(options?: MyaccountOptions): void;
+    openVault(options?: VaultOptions): void;
+    openSettings(options?: MyaccountOptions): void;
 }
 declare const _default: LinkSDK;
 export default _default;
