@@ -1,3 +1,13 @@
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.1.1...1.1.2) (2019-04-04)
+
+
+### Bug Fixes
+
+* **configs:** encode configs parameter value ([448383a](https://github.com/moneytree/mt-link-javascript-sdk/commit/448383a))
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.1.0...1.1.1) (2018-12-04)
 
