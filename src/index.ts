@@ -70,7 +70,8 @@ class LinkSDK {
       email,
       auth_action: authPage
     };
-    const params = qs.stringify({ ...this.params, configs });
+    const endcodedConfigs = encodeURIComponent(qs.stringify(configs));
+    const params = qs.stringify({ ...this.params, configs: endcodedConfigs });
     window.open(`https://${this.domains.myaccount}/${OAUTH}?${params}`, newTab ? '_blank' : '_self');
   }
 
@@ -89,7 +90,8 @@ class LinkSDK {
       sdk_platform: 'js',
       back_to: backTo
     };
-    const params = qs.stringify({ ...this.params, configs });
+    const endcodedConfigs = encodeURIComponent(qs.stringify(configs));
+    const params = qs.stringify({ ...this.params, configs: endcodedConfigs });
     window.open(`https://${this.domains.myaccount}?${params}/${SETTINGS}`, newTab ? '_blank' : '_self');
   }
 }
