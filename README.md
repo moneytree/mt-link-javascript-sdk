@@ -8,10 +8,10 @@ This is a library for browser client to help you integrate Moneytree tools such 
 ### Browser based
 Include the script tag 
 ```html
-<script type="text/javascript" src="https://cdn.rawgit.com/moneytree/mt-link-javascript-sdk/<version>/dist/index.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@moneytree/mt-link-javascript-sdk@<version>/dist/index.js"></script>
 ```
 Change the `<version>` by the one you need (most likely the latest available).
-You can also replace `<version>` by `master` to always get the latest published, at your own risk.
+You can also replace `<version>` by `latest` to always get the latest published, at your own risk.
 
 You will find the library under `window.mtLinkSdk`.
 
