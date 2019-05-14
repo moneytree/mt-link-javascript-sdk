@@ -82,4 +82,6 @@ You can pass the following options:
 - `newTab`: Open in a new browser tab
   - Values: `true` or `false`
   - Default: `false`
-
+- `backTo`: Redirect URL for some actions (back, revoke, logout, delete)
+  - Values: A string representing a URL
+  - Default: Current URL
