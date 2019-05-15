@@ -35,6 +35,11 @@ interface MyaccountOptions {
   authPage?: string;
 }
 
+const encodeConfig = (configs: object): string => {
+  // My Account separate key/values using semicolon
+  return encodeURIComponent(qs.stringify(configs, { delimiter: ';' }));
+}
+
 class LinkSDK {
   private domains: { [name: string]: string }
   private params: Params
@@ -44,14 +49,24 @@ class LinkSDK {
       throw new Error('Need a clientId to initialise');
     }
 
+    const {
+      clientId,
+      redirectUri = `${location.protocol}//${location.host}/callback`,
+      continueTo = '',
+      responseType = 'token',
+      scope = [],
+      locale,
+      state
+    } = config;
+
     this.params = {
-      client_id:config. clientId,
-      redirect_uri: config.redirectUri || `${location.protocol}//${location.host}/callback`,
-      continue: config.continueTo || '',
-      response_type: config.responseType || 'token',
-      scope: config.scope.join(' '),
-      locale: config.locale,
-      state: config.state
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      continue: continueTo,
+      response_type: responseType,
+      scope: scope.join(' '),
+      locale,
+      state
     };
 
     const subdomain = config.isTestEnvironment ? 'TEST_SUBDOMAIN' : 'SUBDOMAIN';
@@ -63,15 +78,16 @@ class LinkSDK {
 
   // Open My Account to authorize application to use MtLink API
   authorize(options: MyaccountOptions = {}): void {
-    const { newTab = false, email, authPage } = options;
+    const { newTab = false, backTo, email, authPage } = options;
     const { PATHS: { OAUTH }} = MY_ACCOUNT;
     const configs = {
       sdk_platform: 'js',
       email,
-      auth_action: authPage
+      auth_action: authPage,
+      back_to: backTo,
+      show_auth_toggle: true
     };
-    const endcodedConfigs = encodeURIComponent(qs.stringify(configs));
-    const params = qs.stringify({ ...this.params, configs: endcodedConfigs });
+    const params = qs.stringify({ ...this.params, configs: encodeConfig(configs) }, { encode: false });
     window.open(`https://${this.domains.myaccount}/${OAUTH}?${params}`, newTab ? '_blank' : '_self');
   }
 
@@ -90,8 +106,7 @@ class LinkSDK {
       sdk_platform: 'js',
       back_to: backTo
     };
-    const endcodedConfigs = encodeURIComponent(qs.stringify(configs));
-    const params = qs.stringify({ ...this.params, configs: endcodedConfigs });
+    const params = qs.stringify({ ...this.params, configs: encodeConfig(configs) }, { encode: false });
     window.open(`https://${this.domains.myaccount}?${params}/${SETTINGS}`, newTab ? '_blank' : '_self');
   }
 }
