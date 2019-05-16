@@ -13,7 +13,7 @@ interface IConfig {
   state?: string;
 }
 
-interface IParams {
+export interface IParams {
   client_id: string;
   locale?: string;
   continueTo?: string;
@@ -27,7 +27,7 @@ export interface IOauthParams {
   state?: string;
 }
 
-interface IDomains {
+export interface IDomains {
   vault: string;
   myaccount: string;
 }
