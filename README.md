@@ -2,40 +2,51 @@
 
 This is a library for browser client to help you integrate Moneytree tools such as My Account and the Vault without having to do it yourself.
 
-
 ## Installation
 
 ### Browser based
-Include the script tag 
+
+Include the script tag
+
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@moneytree/mt-link-javascript-sdk@<version>/dist/index.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@moneytree/mt-link-javascript-sdk@<version>/dist/index.js"
+></script>
 ```
+
 Change the `<version>` by the one you need (most likely the latest available).
 You can also replace `<version>` by `latest` to always get the latest published, at your own risk.
 
 You will find the library under `window.mtLinkSdk`.
 
 ### CommonJS
+
 Using NPM simply install the library
+
 ```shell
 npm install @moneytree/mt-link-javascript-sdk
 ```
 
 Then you can use it directly in your code:
+
 ```js
 var mtLinkSdk = require('@moneytree/mt-link-javascript-sdk'); // es5
 // or
 import mtLinkSdk from '@moneytree/mt-link-javascript-sdk'; // es-next
 ```
+
 The source also include a Typescript definition.
 
 ## API
 
 ### Inititalising the API
-Call the following method with your desired configuration.  
+
+Call the following method with your desired configuration.
 `init(<config>)`
 
 Config properties:
+
 ```js
 {
   clientId, // string; // The id of the application that asks for authorization.
@@ -50,10 +61,11 @@ Config properties:
 }
 ```
 
-
 ### Open the page for the user to authorize your application
+
 `mtLinkSdk.authorize(options);`
 You can pass the following options:
+
 - `newTab`: Open in a new browser tab
   - Values: `true` or `false`
   - Default: `false`
@@ -63,11 +75,18 @@ You can pass the following options:
 - `email`: To prefill the email field for signup and login
   - Values: A string
   - Default: `undefined`
-
+- `backTo`: Redirect URL for some actions (back, revoke, logout, delete)
+  - Values: A string representing a URL
+  - Default: Current URL
+- `showAuthToggle`: show or hide the button to toggle between login and signup pages
+  - Values: `true` or `false`
+  - Default: `true`
 
 ### Open the setting page of the user account
+
 `mtLinkSdk.openSettings(options);`
 You can pass the following options:
+
 - `newTab`: Open in a new browser tab
   - Values: `true` or `false`
   - Default: `false`
@@ -75,10 +94,11 @@ You can pass the following options:
   - Values: A string representing a URL
   - Default: Current URL
 
-
 ### Open the vault to let the user add credentials
+
 `mtLinkSdk.openVault(options);`
 You can pass the following options:
+
 - `newTab`: Open in a new browser tab
   - Values: `true` or `false`
   - Default: `false`
