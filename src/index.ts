@@ -1,9 +1,10 @@
 import * as qs from 'qs';
+
 import * as packageJSON from '../package.json';
 
 import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
 
-interface Config {
+interface IConfig {
   clientId: string;
   scope: string[];
   isTestEnvironment?: boolean;
@@ -14,7 +15,7 @@ interface Config {
   state?: string;
 }
 
-interface Params {
+interface IParams {
   client_id: string;
   redirect_uri: string;
   response_type: string;
@@ -24,17 +25,17 @@ interface Params {
   state?: string;
 }
 
-interface Domains {
+interface IDomains {
   vault: string;
   myaccount: string;
 }
 
-interface VaultOptions {
+interface IVaultOptions {
   backTo?: string;
   newTab?: boolean;
 }
 
-interface MyAccountOptions {
+interface IMyAccountOptions {
   backTo?: string;
   newTab?: boolean;
   email?: string;
@@ -42,7 +43,7 @@ interface MyAccountOptions {
   showAuthToggle?: boolean;
 }
 
-function removeOAuth2Params(params: Params) {
+function removeOAuth2Params(params: IParams) {
   const validParams = { ...params };
   delete validParams.scope;
   delete validParams.redirect_uri;
@@ -52,16 +53,16 @@ function removeOAuth2Params(params: Params) {
   return validParams;
 }
 
-function encodeConfigWithParams(params: Params, configs: { [k: string]: string | boolean | undefined }) {
+function encodeConfigWithParams(params: IParams, configs: { [k: string]: string | boolean | undefined }) {
   const endcodedConfigs = qs.stringify(configs, { delimiter: ';', encode: false });
   return qs.stringify({ ...params, configs: endcodedConfigs });
 }
 
 class LinkSDK {
-  private domains: Domains;
-  private params: Params;
+  private domains: IDomains;
+  private params: IParams;
 
-  init(config: Config): void {
+  public init(config: IConfig): void {
     if (!config.clientId) {
       throw new Error('Need a clientId to initialise');
     }
@@ -93,7 +94,7 @@ class LinkSDK {
   }
 
   // Open My Account to authorize application to use MtLink API
-  authorize(options: MyAccountOptions = {}): void {
+  public authorize(options: IMyAccountOptions = {}): void {
     const { newTab = false, email, authPage, backTo, showAuthToggle } = options;
 
     const params = encodeConfigWithParams(this.params, {
@@ -109,7 +110,7 @@ class LinkSDK {
   }
 
   // Open the Vault page
-  openVault(options: VaultOptions = {}): void {
+  public openVault(options: IVaultOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
     const validParams = removeOAuth2Params(this.params);
     const params = encodeConfigWithParams(validParams, {
@@ -122,7 +123,7 @@ class LinkSDK {
   }
 
   // Open the Guest settings page
-  openSettings(options: MyAccountOptions = {}): void {
+  public openSettings(options: IMyAccountOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
 
     const validParams = removeOAuth2Params(this.params);
