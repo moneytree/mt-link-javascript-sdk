@@ -3,46 +3,61 @@ import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
 
 interface Config {
   clientId: string;
-  isTestEnvironment?: boolean;
   scope: string[];
+  isTestEnvironment?: boolean;
   redirectUri?: string;
   continueTo?: string;
-  responseType?: string;
+  responseType?: 'code' | 'token';
   locale?: string;
   state?: string;
 }
 
-interface Params {
+export interface Params {
   client_id: string;
   redirect_uri: string;
-  continue: string;
   response_type: string;
   scope: string;
-  back?: string;
+  continue?: string;
   locale?: string;
   state?: string;
 }
+
+export type Domains = {
+  vault: string;
+  myaccount: string;
+};
 
 interface VaultOptions {
   backTo?: string;
   newTab?: boolean;
 }
 
-interface MyaccountOptions {
+export interface MyAccountOptions {
   backTo?: string;
   newTab?: boolean;
   email?: string;
   authPage?: string;
+  showAuthToggle?: boolean;
 }
 
-const encodeConfig = (configs: object): string => {
-  // My Account separate key/values using semicolon
-  return encodeURIComponent(qs.stringify(configs, { delimiter: ';' }));
+function removeOAuth2Params(params: Params) {
+  const validParams = { ...params };
+  delete validParams.scope;
+  delete validParams.redirect_uri;
+  delete validParams.response_type;
+  delete validParams.state;
+
+  return validParams;
+}
+
+function encodeConfigWithParams(params: Params, configs: { [k: string]: string | boolean | undefined }) {
+  const endcodedConfigs = qs.stringify(configs, { delimiter: ';', encode: false });
+  return qs.stringify({ ...params, configs: endcodedConfigs });
 }
 
 class LinkSDK {
-  private domains: { [name: string]: string }
-  private params: Params
+  private domains: Domains;
+  private params: Params;
 
   init(config: Config): void {
     if (!config.clientId) {
@@ -52,7 +67,6 @@ class LinkSDK {
     const {
       clientId,
       redirectUri = `${location.protocol}//${location.host}/callback`,
-      continueTo = '',
       responseType = 'token',
       scope = [],
       locale,
@@ -60,9 +74,9 @@ class LinkSDK {
     } = config;
 
     this.params = {
+      continue: config.continueTo,
       client_id: clientId,
       redirect_uri: redirectUri,
-      continue: continueTo,
       response_type: responseType,
       scope: scope.join(' '),
       locale,
@@ -77,37 +91,46 @@ class LinkSDK {
   }
 
   // Open My Account to authorize application to use MtLink API
-  authorize(options: MyaccountOptions = {}): void {
-    const { newTab = false, backTo, email, authPage } = options;
-    const { PATHS: { OAUTH }} = MY_ACCOUNT;
-    const configs = {
+  authorize(options: MyAccountOptions = {}): void {
+    const { newTab = false, email, authPage, backTo, showAuthToggle } = options;
+
+    const params = encodeConfigWithParams(this.params, {
       sdk_platform: 'js',
-      email,
+      email: email ? encodeURIComponent(email) : undefined,
       auth_action: authPage,
       back_to: backTo,
-      show_auth_toggle: true
-    };
-    const params = qs.stringify({ ...this.params, configs: encodeConfig(configs) }, { encode: false });
-    window.open(`https://${this.domains.myaccount}/${OAUTH}?${params}`, newTab ? '_blank' : '_self');
+      show_auth_toggle: showAuthToggle
+    });
+
+    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Vault page
   openVault(options: VaultOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
-    const params = qs.stringify({ ...this.params, back_to: backTo });
+    const validParams = removeOAuth2Params(this.params);
+    const params = encodeConfigWithParams(validParams, {
+      sdk_platform: 'js',
+      back_to: backTo
+    });
+
     window.open(`https://${this.domains.vault}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Guest settings page
-  openSettings(options: MyaccountOptions = {}): void {
+  openSettings(options: MyAccountOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
-    const { PATHS: { SETTINGS }} = MY_ACCOUNT;
-    const configs = {
+
+    const validParams = removeOAuth2Params(this.params);
+    const params = encodeConfigWithParams(validParams, {
       sdk_platform: 'js',
       back_to: backTo
-    };
-    const params = qs.stringify({ ...this.params, configs: encodeConfig(configs) }, { encode: false });
-    window.open(`https://${this.domains.myaccount}?${params}/${SETTINGS}`, newTab ? '_blank' : '_self');
+    });
+
+    window.open(
+      `https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.SETTINGS}?${params}`,
+      newTab ? '_blank' : '_self'
+    );
   }
 }
 
