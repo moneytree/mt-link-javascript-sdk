@@ -1,4 +1,6 @@
 import * as qs from 'qs';
+import * as packageJSON from '../package.json';
+
 import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
 
 interface Config {
@@ -12,7 +14,7 @@ interface Config {
   state?: string;
 }
 
-export interface Params {
+interface Params {
   client_id: string;
   redirect_uri: string;
   response_type: string;
@@ -22,17 +24,17 @@ export interface Params {
   state?: string;
 }
 
-export type Domains = {
+interface Domains {
   vault: string;
   myaccount: string;
-};
+}
 
 interface VaultOptions {
   backTo?: string;
   newTab?: boolean;
 }
 
-export interface MyAccountOptions {
+interface MyAccountOptions {
   backTo?: string;
   newTab?: boolean;
   email?: string;
@@ -95,8 +97,9 @@ class LinkSDK {
     const { newTab = false, email, authPage, backTo, showAuthToggle } = options;
 
     const params = encodeConfigWithParams(this.params, {
+      email,
       sdk_platform: 'js',
-      email: email ? encodeURIComponent(email) : undefined,
+      sdk_version: packageJSON.version,
       auth_action: authPage,
       back_to: backTo,
       show_auth_toggle: showAuthToggle
@@ -111,6 +114,7 @@ class LinkSDK {
     const validParams = removeOAuth2Params(this.params);
     const params = encodeConfigWithParams(validParams, {
       sdk_platform: 'js',
+      sdk_version: packageJSON.version,
       back_to: backTo
     });
 
@@ -124,6 +128,7 @@ class LinkSDK {
     const validParams = removeOAuth2Params(this.params);
     const params = encodeConfigWithParams(validParams, {
       sdk_platform: 'js',
+      sdk_version: packageJSON.version,
       back_to: backTo
     });
 

@@ -7,10 +7,9 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "noImplicitAny": true,
+    "resolveJsonModule": true,
     "strictNullChecks": true,
-    "lib": [ "es2015", "dom" ]
+    "lib": ["es2015", "dom"]
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
