@@ -1,8 +1,8 @@
-export const DOMAIN = 'getmoneytree.com'
+export const DOMAIN = 'getmoneytree.com';
 
 export const VAULT = {
   SUBDOMAIN: 'vault',
-  TEST_SUBDOMAIN: 'vault-staging',
+  TEST_SUBDOMAIN: 'vault-staging'
 };
 
 export const MY_ACCOUNT = {
@@ -12,4 +12,4 @@ export const MY_ACCOUNT = {
     OAUTH: 'oauth/authorize',
     SETTINGS: 'settings'
   }
-}
+};

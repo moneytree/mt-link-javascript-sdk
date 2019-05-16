@@ -54,7 +54,7 @@ class LinkSDK {
   private params: IParams;
   private oauthParams: IOauthParams;
 
-  init(config: IConfig): void {
+  public init(config: IConfig): void {
     if (!config.clientId) {
       throw new Error('Need a clientId to initialise');
     }
@@ -89,7 +89,7 @@ class LinkSDK {
   }
 
   // Open My Account to authorize application to use MtLink API
-  authorize(options: IMyAccountOptions = {}): void {
+  public authorize(options: IMyAccountOptions = {}): void {
     const { newTab = false, email, authPage, backTo, showAuthToggle } = options;
 
     const params = encodeConfigWithParams(
@@ -107,7 +107,7 @@ class LinkSDK {
   }
 
   // Open the Vault page
-  openVault(options: IVaultOptions = {}): void {
+  public openVault(options: IVaultOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
     const params = encodeConfigWithParams(this.params, {
       sdk_platform: 'js',
@@ -119,7 +119,7 @@ class LinkSDK {
   }
 
   // Open the Guest settings page
-  openSettings(options: IMyAccountOptions = {}): void {
+  public openSettings(options: IMyAccountOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
 
     const params = encodeConfigWithParams(this.params, {
