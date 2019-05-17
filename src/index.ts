@@ -1,5 +1,4 @@
 import * as qs from 'qs';
-import * as packageJSON from '../package.json';
 
 import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
 
@@ -99,7 +98,7 @@ class LinkSDK {
     const params = encodeConfigWithParams(this.params, {
       email,
       sdk_platform: 'js',
-      sdk_version: packageJSON.version,
+      sdk_version: VERSION,
       auth_action: authPage,
       back_to: backTo,
       show_auth_toggle: showAuthToggle
@@ -114,7 +113,7 @@ class LinkSDK {
     const validParams = removeOAuth2Params(this.params);
     const params = encodeConfigWithParams(validParams, {
       sdk_platform: 'js',
-      sdk_version: packageJSON.version,
+      sdk_version: VERSION,
       back_to: backTo
     });
 
@@ -128,7 +127,7 @@ class LinkSDK {
     const validParams = removeOAuth2Params(this.params);
     const params = encodeConfigWithParams(validParams, {
       sdk_platform: 'js',
-      sdk_version: packageJSON.version,
+      sdk_version: VERSION,
       back_to: backTo
     });
 
