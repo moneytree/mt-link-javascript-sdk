@@ -1,3 +1,19 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.1.2...1.2.0) (2019-05-17)
+
+
+### Bug Fixes
+
+* **configs:** separate configs option by semicolon ([db2bed4](https://github.com/moneytree/mt-link-javascript-sdk/commit/db2bed4))
+* **encoding:** fix enconding issue and some typecript typing tweaks ([239704f](https://github.com/moneytree/mt-link-javascript-sdk/commit/239704f))
+
+
+### Features
+
+* **sdkVersion:** add sdk version ([bbc9a87](https://github.com/moneytree/mt-link-javascript-sdk/commit/bbc9a87))
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.1.1...1.1.2) (2019-04-04)
 
