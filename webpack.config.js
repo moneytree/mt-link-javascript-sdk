@@ -1,4 +1,6 @@
 const path = require('path');
+const packageJSON = require('./package.json');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'production',
@@ -21,5 +23,10 @@ module.exports = {
         loader: 'awesome-typescript-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(packageJSON.version)
+    })
+  ]
 };

@@ -78,9 +78,9 @@ You can pass the following options:
 - `backTo`: Redirect URL for some actions (back, revoke, logout, delete)
   - Values: A string representing a URL
   - Default: Current URL
-- `showAuthToggle`: show or hide the button to toggle between login and signup pages
-  - Values: `true` or `false`
-  - Default: `true`
+- `showAuthToggle`: Option to hide the button to toggle between login and signup pages
+  - Values: `false`
+  - Default: `undefined`
 
 ### Open the setting page of the user account
 
