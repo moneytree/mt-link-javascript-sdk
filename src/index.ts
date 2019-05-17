@@ -1,137 +1,166 @@
 import * as qs from 'qs';
 
-import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
+import { MY_ACCOUNT, VAULT } from './endpoints';
+import { extractConfigsFromOptionsOrDefault, getServerHostByEnvironment, IParams } from './helpers';
 
-interface IConfig {
-  clientId: string;
-  scope: string[];
+export interface ISDKConfigOptions {
+  newTab?: boolean;
   isTestEnvironment?: boolean;
+  locale?: string;
+  state?: string;
+}
+
+// sdk authorize method options
+interface IAuthorizeOptions {
   redirectUri?: string;
-  continueTo?: string;
+  scope?: string[];
   responseType?: 'code' | 'token';
-  locale?: string;
   state?: string;
 }
 
-interface IParams {
-  client_id: string;
-  locale?: string;
-}
-
-interface IOauthParams {
-  client_id: string;
-  redirect_uri: string;
-  response_type: string;
-  scope: string;
-  state?: string;
-}
-
-interface IDomains {
-  vault: string;
-  myaccount: string;
-}
-
-interface IVaultOptions {
-  backTo?: string;
-  newTab?: boolean;
-}
-
-interface IMyAccountOptions {
-  backTo?: string;
-  newTab?: boolean;
+// config key of the server query parameters
+export interface IParamConfigsOptions {
+  authPage?: 'login' | 'signup';
   email?: string;
-  authPage?: string;
+  backTo?: string;
   showAuthToggle?: boolean;
 }
 
-function encodeConfigWithParams(params: any, configs: { [k: string]: string | boolean | undefined }) {
-  const endcodedConfigs = qs.stringify(configs, { delimiter: ';', encode: false });
-  return qs.stringify({ ...params, configs: endcodedConfigs });
+interface IInitConfig extends IAuthorizeOptions, ISDKConfigOptions, IParamConfigsOptions {
+  clientId: string;
+}
+
+export interface IAuthorizeParams {
+  clientId: string;
+  redirectUri: string;
+  scope: string[];
+  responseType: 'code' | 'token';
+  state?: string;
 }
 
 class LinkSDK {
-  private domains: IDomains;
-  private params: IParams;
-  private oauthParams: IOauthParams;
+  private authorizeParams: IAuthorizeParams = {} as IAuthorizeParams;
+  private commonParams: ISDKConfigOptions = {};
+  private configsParams: IParamConfigsOptions = {};
 
-  init(config: IConfig): void {
-    if (!config.clientId) {
-      throw new Error('Need a clientId to initialise');
+  public init(config: IInitConfig) {
+    const { clientId } = config;
+
+    if (!clientId) {
+      throw new Error('[mt-link-javascript-sdk] Missing "clientId" in init parameter config.');
     }
 
     const {
-      clientId,
-      redirectUri = `${location.protocol}//${location.host}/callback`,
+      // oauth2
+      state,
       responseType = 'token',
+      redirectUri = `${location.protocol}//${location.host}/callback`,
       scope = [],
-      locale,
-      state
+
+      // configs
+      email,
+      backTo = location.href,
+      authPage = 'login',
+      showAuthToggle = true,
+
+      // sdk specific
+      isTestEnvironment = false,
+      newTab = false,
+      locale
     } = config;
 
-    this.params = {
-      client_id: clientId,
-      locale
-    };
-
-    this.oauthParams = {
-      client_id: clientId,
-      redirect_uri: redirectUri,
-      response_type: responseType,
-      scope: scope.join(' '),
-      state
-    };
-
-    const subdomain = config.isTestEnvironment ? 'TEST_SUBDOMAIN' : 'SUBDOMAIN';
-    this.domains = {
-      vault: `${VAULT[subdomain]}.${DOMAIN}`,
-      myaccount: `${MY_ACCOUNT[subdomain]}.${DOMAIN}`
-    };
+    this.authorizeParams = { state, clientId, redirectUri, scope, responseType };
+    this.commonParams = { locale, newTab, isTestEnvironment };
+    this.configsParams = { email, backTo, authPage, showAuthToggle };
   }
 
   // Open My Account to authorize application to use MtLink API
-  authorize(options: IMyAccountOptions = {}): void {
-    const { newTab = false, email, authPage, backTo, showAuthToggle } = options;
+  public authorize(options: IAuthorizeOptions & IParamConfigsOptions & ISDKConfigOptions = {}) {
+    const { authorizeParams, commonParams } = this;
 
-    const params = encodeConfigWithParams(
-        { ...this.oauthParams, ...this.params }, {
-          email,
-          sdk_platform: 'js',
-          sdk_version: VERSION,
-          auth_action: authPage,
-          back_to: backTo,
-          show_auth_toggle: showAuthToggle
-      }
-    );
+    if (!authorizeParams.clientId) {
+      throw new Error('[mt-link-javascript-sdk] Calling "authorize" without first calling "init".');
+    }
 
-    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}?${params}`, newTab ? '_blank' : '_self');
+    const {
+      // oauth2
+      redirectUri = authorizeParams.redirectUri,
+      scope = authorizeParams.scope,
+      responseType = authorizeParams.responseType,
+      state = authorizeParams.state,
+
+      // sdk specific
+      locale = commonParams.locale,
+      isTestEnvironment = commonParams.isTestEnvironment,
+      newTab = commonParams.newTab
+    } = options;
+
+    const params = qs.stringify({
+      client_id: authorizeParams.clientId,
+      scope: scope && scope.length ? scope.join(' ') : undefined,
+      state,
+      locale,
+      redirect_uri: redirectUri,
+      response_type: responseType,
+      configs: extractConfigsFromOptionsOrDefault(options as IParams, this.configsParams as IParams)
+    });
+
+    const domain = getServerHostByEnvironment(MY_ACCOUNT, isTestEnvironment);
+    window.open(`${domain}/${MY_ACCOUNT.PATHS.OAUTH}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Vault page
-  openVault(options: IVaultOptions = {}): void {
-    const { newTab = false, backTo = location.href } = options;
-    const params = encodeConfigWithParams(this.params, {
-      sdk_platform: 'js',
-      sdk_version: VERSION,
-      back_to: backTo
+  public openVault(options: IParamConfigsOptions & ISDKConfigOptions = {}) {
+    const { authorizeParams, commonParams } = this;
+
+    if (!authorizeParams.clientId) {
+      throw new Error('[mt-link-javascript-sdk] Calling "openVault" without first calling "init".');
+    }
+
+    const {
+      // sdk specific
+      state,
+      locale = commonParams.locale,
+      isTestEnvironment = commonParams.isTestEnvironment,
+      newTab = commonParams.newTab
+    } = options;
+
+    const params = qs.stringify({
+      state,
+      locale,
+      client_id: authorizeParams.clientId,
+      configs: extractConfigsFromOptionsOrDefault(options as IParams, this.configsParams as IParams)
     });
 
-    window.open(`https://${this.domains.vault}?${params}`, newTab ? '_blank' : '_self');
+    const domain = getServerHostByEnvironment(VAULT, isTestEnvironment);
+    window.open(`${domain}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Guest settings page
-  openSettings(options: IMyAccountOptions = {}): void {
-    const { newTab = false, backTo = location.href } = options;
+  public openSettings(options: IParamConfigsOptions & ISDKConfigOptions = {}) {
+    const { authorizeParams, commonParams } = this;
 
-    const params = encodeConfigWithParams(this.params, {
-      sdk_platform: 'js',
-      sdk_version: VERSION,
-      back_to: backTo
+    if (!authorizeParams.clientId) {
+      throw new Error('[mt-link-javascript-sdk] Calling "openSettings" without first calling "init".');
+    }
+
+    const {
+      // sdk specific
+      state,
+      locale = commonParams.locale,
+      isTestEnvironment = commonParams.isTestEnvironment,
+      newTab = commonParams.newTab
+    } = options;
+
+    const params = qs.stringify({
+      state,
+      locale,
+      client_id: authorizeParams.clientId,
+      configs: extractConfigsFromOptionsOrDefault(options as IParams, this.configsParams as IParams)
     });
 
-    window.open(
-      `https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.SETTINGS}?${params}`,
-      newTab ? '_blank' : '_self'
-    );
+    const domain = getServerHostByEnvironment(MY_ACCOUNT, isTestEnvironment);
+    window.open(`${domain}/${MY_ACCOUNT.PATHS.SETTINGS}?${params}`, newTab ? '_blank' : '_self');
   }
 }
 
