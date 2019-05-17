@@ -40,67 +40,77 @@ The source also include a Typescript definition.
 
 ## API
 
-### Inititalising the API
+### Initialization
+`mtLinkSdk.init(config);`
 
-Call the following method with your desired configuration.
-`init(<config>)`
-
-Config properties:
+Always call the `init` method to initialize before using any other API, calling any other methods before initialization will failed.
+`init` method receives a config parameter. The structure of the config parameter is as below:
 
 ```js
 {
-  clientId, // string; // The id of the application that asks for authorization.
-  response_type, // string; // Tells the authorization server which grant to execute.
-  scope, // string[]; // A list of permissions that the application requires.
-  redirectUri, // string; // URI to return the user to after authorization is complete.
-  locale, // string; // [optional] To force the display to a specific language (e.g.: en-AU)
-  state, // string; // [optional] An opaque value, used for security purposes. If this request parameter is set in the request, then it is returned to the application as part of the redirect_uri.
-  appToken, // string; // [optional] The Access Token granted through oauth
-  isTestEnvironment // boolean; // [optional] If you wanna use the staging or production environemnt
+  clientId: string; // The ID of the application.
+  redirectUri?: string; // Redirect the user to this URI after the application has been authorized successfully.
+  scope?: string[]; // An arrays of permissions that the application requires.
+  responseType?: 'code' | 'token'; // Tells the authorization server to use either 'code' or 'token' grant.
+
+  state?: string; // To hold a string (can be encoded), the same string will be appended to the redirected URI after a request. Can be use for validation or keep track of an application previous state before the request.
+
+  newTab?: boolean; // When set to "true", always API call will execute the request in a new browser tab.
+  isTestEnvironment?: boolean; // When set to "true", staging domain will be used for all requests.
+  locale?: string; // E.g: "en", "en-AU". Will inform the authorization server to use this locale if it is supported.
+
+  authPage?: 'login' | 'signup'; // Type of screen to display if the guest is not logged in (no valid session) while calling the API.
+  email?: string; // Prefill the login or sign up form with this email value.
+  backTo?: string; // Revoking the application access, logout, delete guest account or clicking on a "go back" header will redirect the guest to the URI set in this value. After a redirection the URI will appended with either (revoke_app, delete_account, open_vault, logout). E.g: http://google.com?action=revoke
+  showAuthToggle?: boolean; // Sign up and login sceens can toggle between each other with a button, setting this value to "false" will hide the button.
+}
+```
+
+Apart from `clientId` which is mandatory for initialization, everything else with a `?` is optional and have a default value as below.
+
+```js
+{
+  redirectUri: `${location.protocol}//${location.host}/callback`
+  responseType: 'token',
+
+  newTab: false,
+  isTestEnvironment: false,
+
+  authPage: 'login',
+  showAuthToggle: true,
+
+  // everything below will not be set and used
+  scope: undefined, // authorization server will default to "guest_read"
+  state: undefined,
+
+  locale: undefined,
+
+  email: undefined,
+  backTo: undefined
 }
 ```
 
 ### Open the page for the user to authorize your application
 
 `mtLinkSdk.authorize(options);`
-You can pass the following options:
+All the acceptable options value are the same as initilization config object exclude the `clientId`.
+Options passed via this API will override the config passed during initialization.
 
-- `newTab`: Open in a new browser tab
-  - Values: `true` or `false`
-  - Default: `false`
-- `authPage`: Page to display during unauthenticated redirection
-  - Values: `'login'` or `'signup'`.
-  - Default: `'login'`
-- `email`: To prefill the email field for signup and login
-  - Values: A string
-  - Default: `undefined`
-- `backTo`: Redirect URL for some actions (back, revoke, logout, delete)
-  - Values: A string representing a URL
-  - Default: Current URL
-- `showAuthToggle`: Option to hide the button to toggle between login and signup pages
-  - Values: `false`
-  - Default: `undefined`
+Calling this method before `init` will throw an `Error`.
 
 ### Open the setting page of the user account
 
 `mtLinkSdk.openSettings(options);`
-You can pass the following options:
+All the acceptable options value are the same as initilization config object excluding the follwing:
+- `clientId`
+- `redirectUri`
+- `scope`
+- `responseType`
+Options passed via this API will override the config passed during initialization.
 
-- `newTab`: Open in a new browser tab
-  - Values: `true` or `false`
-  - Default: `false`
-- `backTo`: Redirect URL for some actions (back, revoke, logout, delete)
-  - Values: A string representing a URL
-  - Default: Current URL
+Calling this method before `init` will throw an `Error`.
 
 ### Open the vault to let the user add credentials
 
 `mtLinkSdk.openVault(options);`
-You can pass the following options:
-
-- `newTab`: Open in a new browser tab
-  - Values: `true` or `false`
-  - Default: `false`
-- `backTo`: Redirect URL for some actions (back, revoke, logout, delete)
-  - Values: A string representing a URL
-  - Default: Current URL
+All the acceptable options are exactly the same as the `openSettings`.
