@@ -2,7 +2,7 @@ import * as qs from 'qs';
 
 import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
 
-interface Config {
+interface IConfig {
   clientId: string;
   scope: string[];
   isTestEnvironment?: boolean;
@@ -13,27 +13,30 @@ interface Config {
   state?: string;
 }
 
-interface Params {
+interface IParams {
+  client_id: string;
+  locale?: string;
+}
+
+interface IOauthParams {
   client_id: string;
   redirect_uri: string;
   response_type: string;
   scope: string;
-  continue?: string;
-  locale?: string;
   state?: string;
 }
 
-interface Domains {
+interface IDomains {
   vault: string;
   myaccount: string;
 }
 
-interface VaultOptions {
+interface IVaultOptions {
   backTo?: string;
   newTab?: boolean;
 }
 
-interface MyAccountOptions {
+interface IMyAccountOptions {
   backTo?: string;
   newTab?: boolean;
   email?: string;
@@ -41,26 +44,17 @@ interface MyAccountOptions {
   showAuthToggle?: boolean;
 }
 
-function removeOAuth2Params(params: Params) {
-  const validParams = { ...params };
-  delete validParams.scope;
-  delete validParams.redirect_uri;
-  delete validParams.response_type;
-  delete validParams.state;
-
-  return validParams;
-}
-
-function encodeConfigWithParams(params: Params, configs: { [k: string]: string | boolean | undefined }) {
+function encodeConfigWithParams(params: any, configs: { [k: string]: string | boolean | undefined }) {
   const endcodedConfigs = qs.stringify(configs, { delimiter: ';', encode: false });
   return qs.stringify({ ...params, configs: endcodedConfigs });
 }
 
 class LinkSDK {
-  private domains: Domains;
-  private params: Params;
+  private domains: IDomains;
+  private params: IParams;
+  private oauthParams: IOauthParams;
 
-  init(config: Config): void {
+  init(config: IConfig): void {
     if (!config.clientId) {
       throw new Error('Need a clientId to initialise');
     }
@@ -75,12 +69,15 @@ class LinkSDK {
     } = config;
 
     this.params = {
-      continue: config.continueTo,
+      client_id: clientId,
+      locale
+    };
+
+    this.oauthParams = {
       client_id: clientId,
       redirect_uri: redirectUri,
       response_type: responseType,
       scope: scope.join(' '),
-      locale,
       state
     };
 
@@ -92,26 +89,27 @@ class LinkSDK {
   }
 
   // Open My Account to authorize application to use MtLink API
-  authorize(options: MyAccountOptions = {}): void {
+  authorize(options: IMyAccountOptions = {}): void {
     const { newTab = false, email, authPage, backTo, showAuthToggle } = options;
 
-    const params = encodeConfigWithParams(this.params, {
-      email,
-      sdk_platform: 'js',
-      sdk_version: VERSION,
-      auth_action: authPage,
-      back_to: backTo,
-      show_auth_toggle: showAuthToggle
-    });
+    const params = encodeConfigWithParams(
+        { ...this.oauthParams, ...this.params }, {
+          email,
+          sdk_platform: 'js',
+          sdk_version: VERSION,
+          auth_action: authPage,
+          back_to: backTo,
+          show_auth_toggle: showAuthToggle
+      }
+    );
 
     window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}?${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Vault page
-  openVault(options: VaultOptions = {}): void {
+  openVault(options: IVaultOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
-    const validParams = removeOAuth2Params(this.params);
-    const params = encodeConfigWithParams(validParams, {
+    const params = encodeConfigWithParams(this.params, {
       sdk_platform: 'js',
       sdk_version: VERSION,
       back_to: backTo
@@ -121,11 +119,10 @@ class LinkSDK {
   }
 
   // Open the Guest settings page
-  openSettings(options: MyAccountOptions = {}): void {
+  openSettings(options: IMyAccountOptions = {}): void {
     const { newTab = false, backTo = location.href } = options;
 
-    const validParams = removeOAuth2Params(this.params);
-    const params = encodeConfigWithParams(validParams, {
+    const params = encodeConfigWithParams(this.params, {
       sdk_platform: 'js',
       sdk_version: VERSION,
       back_to: backTo
