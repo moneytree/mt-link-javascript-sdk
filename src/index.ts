@@ -4,7 +4,7 @@ import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
 
 interface IConfig {
   clientId: string;
-  scope: string[];
+  scope?: string[];
   isTestEnvironment?: boolean;
   redirectUri?: string;
   continueTo?: string;
@@ -16,13 +16,14 @@ interface IConfig {
 interface IParams {
   client_id: string;
   locale?: string;
+  continueTo?: string;
 }
 
-interface IOauthParams {
+export interface IOauthParams {
   client_id: string;
   redirect_uri: string;
   response_type: string;
-  scope: string;
+  scope?: string;
   state?: string;
 }
 
@@ -65,19 +66,21 @@ class LinkSDK {
       responseType = 'token',
       scope = [],
       locale,
-      state
+      state,
+      continueTo
     } = config;
 
     this.params = {
       client_id: clientId,
-      locale
+      locale,
+      continueTo
     };
 
     this.oauthParams = {
       client_id: clientId,
       redirect_uri: redirectUri,
       response_type: responseType,
-      scope: scope.join(' '),
+      scope: scope.length ? scope.join(' ') : undefined,
       state
     };
 
@@ -93,13 +96,14 @@ class LinkSDK {
     const { newTab = false, email, authPage, backTo, showAuthToggle } = options;
 
     const params = encodeConfigWithParams(
-        { ...this.oauthParams, ...this.params }, {
-          email,
-          sdk_platform: 'js',
-          sdk_version: VERSION,
-          auth_action: authPage,
-          back_to: backTo,
-          show_auth_toggle: showAuthToggle
+      { ...this.oauthParams, ...this.params },
+      {
+        email,
+        sdk_platform: 'js',
+        sdk_version: VERSION,
+        auth_action: authPage,
+        back_to: backTo,
+        show_auth_toggle: showAuthToggle
       }
     );
 
