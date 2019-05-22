@@ -1,12 +1,28 @@
 interface IConfig {
     clientId: string;
-    scope: string[];
+    scope?: string[];
     isTestEnvironment?: boolean;
     redirectUri?: string;
     continueTo?: string;
     responseType?: 'code' | 'token';
     locale?: string;
     state?: string;
+}
+export interface IParams {
+    client_id: string;
+    locale?: string;
+    continueTo?: string;
+}
+export interface IOauthParams {
+    client_id: string;
+    redirect_uri: string;
+    response_type: string;
+    scope?: string;
+    state?: string;
+}
+export interface IDomains {
+    vault: string;
+    myaccount: string;
 }
 interface IVaultOptions {
     backTo?: string;
