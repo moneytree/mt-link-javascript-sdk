@@ -8,8 +8,9 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && webpack",
-    "preversion": "npm run build && git add dist",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "prepareRelease": "npm run build && git add dist",
+    "createChangelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "version": "npm run prepareRelease && npm run createChangelog",
     "precommit": "yarn lint && yarn test",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "test": "jest",
