@@ -1,3 +1,7 @@
+## [1.2.3](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.2.2...1.2.3) (2019-05-23)
+
+
+
 ## [1.2.2](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.2.1...1.2.2) (2019-05-23)
 
 
