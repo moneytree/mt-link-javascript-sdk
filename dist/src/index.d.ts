@@ -11,7 +11,7 @@ interface IConfig {
 export interface IParams {
     client_id: string;
     locale?: string;
-    continueTo?: string;
+    continue?: string;
 }
 export interface IOauthParams {
     client_id: string;
