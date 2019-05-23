@@ -77,7 +77,7 @@ describe('LinkSDK', () => {
         continueTo: value
       });
 
-      expect(mockValue.params.continueTo).toBe(value);
+      expect(mockValue.params.continue).toBe(value);
     });
 
     test('responseType', async () => {

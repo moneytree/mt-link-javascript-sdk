@@ -16,7 +16,7 @@ interface IConfig {
 export interface IParams {
   client_id: string;
   locale?: string;
-  continueTo?: string;
+  continue?: string;
 }
 
 export interface IOauthParams {
@@ -73,14 +73,14 @@ class LinkSDK {
     this.params = {
       client_id: clientId,
       locale,
-      continueTo
+      continue: continueTo
     };
 
     this.oauthParams = {
       client_id: clientId,
       redirect_uri: redirectUri,
       response_type: responseType,
-      scope: scope.length ? scope.join(' ') : undefined,
+      scope: scope.join(' ') || undefined,
       state
     };
 
