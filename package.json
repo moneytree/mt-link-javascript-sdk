@@ -20,24 +20,24 @@
     "lint": "tslint --project tsconfig.json"
   },
   "dependencies": {
-    "conventional-changelog-cli": "^2.0.1",
-    "qs": "^6.5.2"
+    "conventional-changelog-cli": "^2.0.28",
+    "qs": "^6.9.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.0.0",
-    "@commitlint/config-conventional": "^7.0.1",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "@moneytree/tslint-rules": "^1.0.2",
-    "@types/jest": "^24.0.13",
-    "@types/node-fetch": "^2.3.3",
-    "@types/qs": "^6.5.1",
+    "@types/jest": "^24.0.23",
+    "@types/node-fetch": "^2.5.4",
+    "@types/qs": "^6.9.0",
     "awesome-typescript-loader": "^5.2.0",
-    "husky": "^0.14.3",
-    "jest": "^24.8.0",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
     "node-fetch": "^2.5.0",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
-    "typescript": "^3.0.1",
-    "webpack": "^4.16.3",
-    "webpack-cli": "^3.1.0"
+    "ts-jest": "^24.2.0",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }
