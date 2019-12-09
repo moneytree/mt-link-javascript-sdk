@@ -1,21 +1,16 @@
 const packageJSON = require('./package.json');
 
 module.exports = {
-  errorOnDeprecated: true,
   moduleFileExtensions: ['ts', 'js'],
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts$',
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '(/__tests__/.*|(\\.|/)(test|spec))\\.d\.ts$'
-  ],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?)$',
+  testPathIgnorePatterns: ['/node_modules/', '(/__tests__/.*|(\\.|/)(test|spec))\\.d.ts$'],
   transform: {
-    '.ts': 'ts-jest'
+    '^.+\\.tsx?$': 'ts-jest'
   },
   collectCoverage: true,
   coverageDirectory: '<rootDir>/jest/coverage',
-  coveragePathIgnorePatterns: [
-    '/__tests__/'
-  ],
+  coveragePathIgnorePatterns: ['/__tests__/'],
+  errorOnDeprecated: true,
   globals: {
     VERSION: packageJSON.version
   }

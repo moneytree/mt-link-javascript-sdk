@@ -1,4 +1,4 @@
-import * as qs from 'qs';
+import { stringify } from 'qs';
 
 import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
 
@@ -45,9 +45,22 @@ interface IMyAccountOptions {
   showAuthToggle?: boolean;
 }
 
-function encodeConfigWithParams(params: any, configs: { [k: string]: string | boolean | undefined }) {
-  const endcodedConfigs = qs.stringify(configs, { delimiter: ';', encode: false });
-  return qs.stringify({ ...params, configs: endcodedConfigs });
+interface IUrlConfig {
+  email?: string;
+  auth_action?: string;
+  show_auth_toggle?: boolean;
+}
+
+const commonUrlConfig = {
+  sdk_platform: 'js',
+  sdk_version: VERSION
+};
+
+type ICommonUrlConfig = typeof commonUrlConfig & { back_to?: string };
+
+function encodeConfigWithParams<Params, Configs>(params: Params, configs: Configs) {
+  const encodedConfigs = stringify(configs, { delimiter: ';', encode: false });
+  return stringify({ ...params, configs: encodedConfigs }, { addQueryPrefix: true });
 }
 
 class LinkSDK {
@@ -55,20 +68,21 @@ class LinkSDK {
   private params: IParams;
   private oauthParams: IOauthParams;
 
-  public init(config: IConfig): void {
-    if (!config.clientId) {
-      throw new Error('Need a clientId to initialise');
-    }
+  private isInitialized: boolean = false;
 
-    const {
-      clientId,
-      redirectUri = `${location.protocol}//${location.host}/callback`,
-      responseType = 'token',
-      scope = [],
-      locale,
-      state,
-      continueTo
-    } = config;
+  public init({
+    clientId,
+    scope = [],
+    isTestEnvironment,
+    redirectUri = `${location.protocol}//${location.host}/callback`,
+    continueTo,
+    responseType = 'token',
+    locale,
+    state
+  }: IConfig): void {
+    if (!clientId) {
+      throw new Error('Need a clientId to initialize');
+    }
 
     this.params = {
       client_id: clientId,
@@ -84,59 +98,63 @@ class LinkSDK {
       state
     };
 
-    const subdomain = config.isTestEnvironment ? 'TEST_SUBDOMAIN' : 'SUBDOMAIN';
+    const subdomain = isTestEnvironment ? 'TEST_SUBDOMAIN' : 'SUBDOMAIN';
     this.domains = {
       vault: `${VAULT[subdomain]}.${DOMAIN}`,
       myaccount: `${MY_ACCOUNT[subdomain]}.${DOMAIN}`
     };
+
+    this.isInitialized = true;
   }
 
   // Open My Account to authorize application to use MtLink API
-  public authorize(options: IMyAccountOptions = {}): void {
-    const { newTab = false, email, authPage, backTo, showAuthToggle } = options;
+  public authorize({ newTab = false, email, authPage, backTo, showAuthToggle }: IMyAccountOptions = {}): void {
+    if (!this.isInitialized) {
+      throw new Error('SDK not initialized');
+    }
 
-    const params = encodeConfigWithParams(
+    const params = encodeConfigWithParams<IParams | IOauthParams, ICommonUrlConfig & IUrlConfig>(
       { ...this.oauthParams, ...this.params },
       {
+        ...commonUrlConfig,
         email,
-        sdk_platform: 'js',
-        sdk_version: VERSION,
         auth_action: authPage,
         back_to: backTo,
         show_auth_toggle: showAuthToggle
       }
     );
 
-    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}?${params}`, newTab ? '_blank' : '_self');
+    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Vault page
-  public openVault(options: IVaultOptions = {}): void {
-    const { newTab = false, backTo = location.href } = options;
-    const params = encodeConfigWithParams(this.params, {
-      sdk_platform: 'js',
-      sdk_version: VERSION,
+  public openVault({ newTab = false, backTo = location.href }: IVaultOptions = {}): void {
+    if (!this.isInitialized) {
+      throw new Error('SDK not initialized');
+    }
+
+    const params = encodeConfigWithParams<IParams, ICommonUrlConfig>(this.params, {
+      ...commonUrlConfig,
       back_to: backTo
     });
 
-    window.open(`https://${this.domains.vault}?${params}`, newTab ? '_blank' : '_self');
+    window.open(`https://${this.domains.vault}${params}`, newTab ? '_blank' : '_self');
   }
 
   // Open the Guest settings page
-  public openSettings(options: IMyAccountOptions = {}): void {
-    const { newTab = false, backTo = location.href } = options;
+  public openSettings({ newTab = false, backTo = location.href }: IMyAccountOptions = {}): void {
+    if (!this.isInitialized) {
+      throw new Error('SDK not initialized');
+    }
 
-    const params = encodeConfigWithParams(this.params, {
-      sdk_platform: 'js',
-      sdk_version: VERSION,
+    const params = encodeConfigWithParams<IParams, ICommonUrlConfig>(this.params, {
+      ...commonUrlConfig,
       back_to: backTo
     });
 
-    window.open(
-      `https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.SETTINGS}?${params}`,
-      newTab ? '_blank' : '_self'
-    );
+    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.SETTINGS}${params}`, newTab ? '_blank' : '_self');
   }
 }
 
+// Probably there is no need for this to be a class if initialized here.
 export default new LinkSDK();

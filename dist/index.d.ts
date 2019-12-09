@@ -39,10 +39,11 @@ declare class LinkSDK {
     private domains;
     private params;
     private oauthParams;
-    init(config: IConfig): void;
-    authorize(options?: IMyAccountOptions): void;
-    openVault(options?: IVaultOptions): void;
-    openSettings(options?: IMyAccountOptions): void;
+    private isInitialized;
+    init({ clientId, scope, isTestEnvironment, redirectUri, continueTo, responseType, locale, state }: IConfig): void;
+    authorize({ newTab, email, authPage, backTo, showAuthToggle }?: IMyAccountOptions): void;
+    openVault({ newTab, backTo }?: IVaultOptions): void;
+    openSettings({ newTab, backTo }?: IMyAccountOptions): void;
 }
 declare const _default: LinkSDK;
 export default _default;
