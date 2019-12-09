@@ -2,21 +2,15 @@ import linkSDK, { IParams, IDomains, IOauthParams } from '..';
 import { DOMAIN, VAULT, MY_ACCOUNT } from '../endpoints';
 import * as packageJSON from '../../package.json';
 
-describe('LinkSDK', () => {
-  const value = 'test';
-  const mockValue = {} as { params: IParams; domains: IDomains, oauthParams: IOauthParams };
+const value = 'test';
+const mockValue = {} as { params: IParams; domains: IDomains; oauthParams: IOauthParams };
 
+describe('LinkSDK', () => {
   describe('init', () => {
     test('no clientId', async () => {
-      const errorTracker = jest.fn();
-
-      try {
+      expect(() => {
         linkSDK.init({ clientId: '' });
-      } catch (error) {
-        errorTracker(error);
-      }
-
-      expect(errorTracker).toBeCalled();
+      }).toThrow('Need a clientId to initialize');
     });
 
     test('default', async () => {
@@ -109,14 +103,10 @@ describe('LinkSDK', () => {
   });
 
   describe('authorize', () => {
-    test('Calling "authorize" method before an init will failed', async () => {
-      try {
+    test('Calling "authorize" method before an init will fail', async () => {
+      expect(() => {
         linkSDK.authorize();
-
-        throw new Error('failed');
-      } catch (error) {
-        expect(error.message).not.toBe('failed');
-      }
+      }).toThrow('SDK not initialized');
     });
 
     test('default params', async () => {
@@ -125,12 +115,12 @@ describe('LinkSDK', () => {
       linkSDK.init.call(mockValue, {
         clientId: value
       });
+      // @ts-ignore Ignores missing arguments to test user passing no arguments
       linkSDK.authorize.call(mockValue);
 
       expect(open).toBeCalled();
 
-      const url = open.mock.calls[0][0];
-      const isNewTab = open.mock.calls[0][1];
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
 
       const host = `https://${mockValue.domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}`;
       expect(url).toContain(host);
@@ -162,17 +152,16 @@ describe('LinkSDK', () => {
 
       expect(open).toBeCalled();
 
-      const isNewTab = open.mock.calls[0][1];
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
       expect(isNewTab).toBe('_blank');
 
-      const url = open.mock.calls[0][0];
       const { params, domains, oauthParams } = mockValue;
       const host = `https://${domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}`;
       const qs =
         `client_id=${params.client_id}&redirect_uri=${encodeURIComponent(oauthParams.redirect_uri)}` +
         `&response_type=token&scope=${value}`;
       const configs = encodeURIComponent(
-        `email=${email};sdk_platform=js;sdk_version=${packageJSON.version};auth_action=${authPage}`
+        `sdk_platform=js;sdk_version=${packageJSON.version};email=${email};auth_action=${authPage}`
       );
 
       expect(url).toBe(`${host}?${qs}&configs=${configs}`);
@@ -180,14 +169,10 @@ describe('LinkSDK', () => {
   });
 
   describe('openVault', () => {
-    test('Calling "openVault" method before an init will failed', async () => {
-      try {
+    test('Calling "openVault" method before an init will fail', async () => {
+      expect(() => {
         linkSDK.openVault();
-
-        throw new Error('failed');
-      } catch (error) {
-        expect(error.message).not.toBe('failed');
-      }
+      }).toThrow('SDK not initialized');
     });
 
     test('default params', async () => {
@@ -197,12 +182,12 @@ describe('LinkSDK', () => {
         clientId: value,
         scope: [value]
       });
+      // @ts-ignore Ignores missing arguments to test user passing no arguments
       linkSDK.openVault.call(mockValue);
 
       expect(open).toBeCalled();
 
-      const url = open.mock.calls[0][0];
-      const isNewTab = open.mock.calls[0][1];
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
 
       const host = `https://${mockValue.domains.vault}`;
       expect(url).toContain(host);
@@ -231,10 +216,9 @@ describe('LinkSDK', () => {
 
       expect(open).toBeCalled();
 
-      const isNewTab = open.mock.calls[0][1];
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
       expect(isNewTab).toBe('_blank');
 
-      const url = open.mock.calls[0][0];
       const { params, domains } = mockValue;
       const host = `https://${domains.vault}`;
       const qs = `client_id=${params.client_id}`;
@@ -246,13 +230,10 @@ describe('LinkSDK', () => {
 
   describe('openSettings', () => {
     test('Calling "openSettings" method before an init will failed', async () => {
-      try {
+      expect(() => {
+        // @ts-ignore Ignores missing arguments to test user passing no arguments
         linkSDK.openSettings();
-
-        throw new Error('failed');
-      } catch (error) {
-        expect(error.message).not.toBe('failed');
-      }
+      }).toThrow('SDK not initialized');
     });
 
     test('default params', async () => {
@@ -262,12 +243,12 @@ describe('LinkSDK', () => {
         clientId: value,
         scope: [value]
       });
+      // @ts-ignore Ignores missing arguments to test user passing no arguments
       linkSDK.openSettings.call(mockValue);
 
       expect(open).toBeCalled();
 
-      const url = open.mock.calls[0][0];
-      const isNewTab = open.mock.calls[0][1];
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
 
       const host = `https://${mockValue.domains.myaccount}/${MY_ACCOUNT.PATHS.SETTINGS}`;
       expect(url).toContain(host);
@@ -296,10 +277,9 @@ describe('LinkSDK', () => {
 
       expect(open).toBeCalled();
 
-      const isNewTab = open.mock.calls[0][1];
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
       expect(isNewTab).toBe('_blank');
 
-      const url = open.mock.calls[0][0];
       const { params, domains } = mockValue;
       const host = `https://${domains.myaccount}/${MY_ACCOUNT.PATHS.SETTINGS}`;
       const qs = `client_id=${params.client_id}`;
