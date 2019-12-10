@@ -82,6 +82,15 @@ You can pass the following options:
   - Values: `false`
   - Default: `undefined`
 
+### Logout from current session
+
+`mtLinkSdk.logout(options);`
+You can pass the following options:
+
+- `newTab`: Open in a new browser tab
+  - Values: `true` or `false`
+  - Default: `false`
+
 ### Open the setting page of the user account
 
 `mtLinkSdk.openSettings(options);`
