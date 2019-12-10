@@ -1,21 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
 
-  context: path.join(process.cwd(), 'src'),
-  entry: {
-    app: './index.js'
-  },
-
-  output: {
-    path: path.join(process.cwd(), 'dist'),
-    filename: '[name].[hash].js',
-    publicPath: '/',
-    sourceMapFilename: '[name].map'
+  resolve: {
+    extensions: ['.ts', '.js']
   },
 
   devtool: 'source-map', // enhance debugging by adding meta info for the browser devtools
@@ -24,7 +15,6 @@ module.exports = {
     publicPath: '/',
     port: 9000,
     https: true,
-    contentBase: path.join(process.cwd(), 'dist'), // static file location
     host: 'localhost',
     historyApiFallback: true, // true for index.html upon 404, object for multiple paths
     noInfo: false,
@@ -35,20 +25,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+        test: /\.tsx?$/,
+        loader: 'ts-loader'
       }
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: './src/index.html'
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
