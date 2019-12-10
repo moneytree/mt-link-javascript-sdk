@@ -9,5 +9,6 @@ export declare const MY_ACCOUNT: {
     PATHS: {
         OAUTH: string;
         SETTINGS: string;
+        LOGOUT: string;
     };
 };
