@@ -168,6 +168,66 @@ describe('LinkSDK', () => {
     });
   });
 
+  describe('logout', () => {
+    test('Calling "logout" method before an init will fail', async () => {
+      expect(() => {
+        linkSDK.logout();
+      }).toThrow('SDK not initialized');
+    });
+
+    test('default params', async () => {
+      const open = (window.open = jest.fn());
+
+      linkSDK.init.call(mockValue, {
+        clientId: value
+      });
+      // @ts-ignore Ignores missing arguments to test user passing no arguments
+      linkSDK.logout.call(mockValue);
+
+      expect(open).toBeCalled();
+
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
+
+      const host = `https://${mockValue.domains.myaccount}/${MY_ACCOUNT.PATHS.LOGOUT}`;
+      expect(url).toContain(host);
+      expect(isNewTab).toBe('_self');
+
+      const { params, oauthParams } = mockValue;
+
+      const configs = encodeURIComponent(`sdk_platform=js;sdk_version=${packageJSON.version}`);
+      const qs =
+        `client_id=${params.client_id}&redirect_uri=${encodeURIComponent(oauthParams.redirect_uri)}` +
+        `&response_type=token&configs=${configs}`;
+      expect(url).toBe(`${host}?${qs}`);
+    });
+
+    test('with params', async () => {
+      const open = (window.open = jest.fn());
+
+      linkSDK.init.call(mockValue, {
+        clientId: value,
+        scope: [value]
+      });
+      linkSDK.logout.call(mockValue, {
+        newTab: true
+      });
+
+      expect(open).toBeCalled();
+
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
+      expect(isNewTab).toBe('_blank');
+
+      const { params, domains, oauthParams } = mockValue;
+      const host = `https://${domains.myaccount}/${MY_ACCOUNT.PATHS.LOGOUT}`;
+      const qs =
+        `client_id=${params.client_id}&redirect_uri=${encodeURIComponent(oauthParams.redirect_uri)}` +
+        `&response_type=token&scope=${value}`;
+      const configs = encodeURIComponent(`sdk_platform=js;sdk_version=${packageJSON.version}`);
+
+      expect(url).toBe(`${host}?${qs}&configs=${configs}`);
+    });
+  });
+
   describe('openVault', () => {
     test('Calling "openVault" method before an init will fail', async () => {
       expect(() => {

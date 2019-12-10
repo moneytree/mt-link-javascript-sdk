@@ -10,6 +10,7 @@ export const MY_ACCOUNT = {
   TEST_SUBDOMAIN: 'myaccount-staging',
   PATHS: {
     OAUTH: 'oauth/authorize',
-    SETTINGS: 'settings'
+    SETTINGS: 'settings',
+    LOGOUT: 'guests/logout'
   }
 };

@@ -127,6 +127,20 @@ class LinkSDK {
     window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}${params}`, newTab ? '_blank' : '_self');
   }
 
+  // Open My Account and logs you out from the current session
+  public logout({ newTab = false }: IMyAccountOptions = {}): void {
+    if (!this.isInitialized) {
+      throw new Error('SDK not initialized');
+    }
+
+    const params = encodeConfigWithParams<IParams | IOauthParams, ICommonUrlConfig & IUrlConfig>(
+      { ...this.oauthParams, ...this.params },
+      { ...commonUrlConfig }
+    );
+
+    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.LOGOUT}${params}`, newTab ? '_blank' : '_self');
+  }
+
   // Open the Vault page
   public openVault({ newTab = false, backTo = location.href }: IVaultOptions = {}): void {
     if (!this.isInitialized) {
