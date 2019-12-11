@@ -57,7 +57,7 @@ Config properties:
   locale, // string; // [optional] To force the display to a specific language (e.g.: en-AU).
   state, // string; // [optional] An opaque value, used for security purposes. If this request parameter is set in the request, then it is returned to the application as part of the redirect_uri.
   appToken, // string; // [optional] The Access Token granted through oauth
-  isTestEnvironment // boolean; // [optional] If you wanna use the staging or production environemnt
+  isTestEnvironment // boolean; // [optional] If you wanna use the staging or production environment
 }
 ```
 
@@ -114,3 +114,12 @@ You can pass the following options:
 - `backTo`: Redirect URL for some actions (back, revoke, logout, delete)
   - Values: A string representing a URL
   - Default: Current URL
+
+### Open the customer support to let the user contact support
+
+`mtLinkSdk.openCustomerSupport(options);`
+You can pass the following options:
+
+- `newTab`: Open in a new browser tab
+  - Values: `true` or `false`
+  - Default: `false`

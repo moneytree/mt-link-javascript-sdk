@@ -44,6 +44,7 @@ declare class LinkSDK {
     authorize({ newTab, email, authPage, backTo, showAuthToggle }?: IMyAccountOptions): void;
     logout({ newTab }?: IMyAccountOptions): void;
     openVault({ newTab, backTo }?: IVaultOptions): void;
+    openCustomerSupport({ newTab }?: IVaultOptions): void;
     openSettings({ newTab, backTo }?: IMyAccountOptions): void;
 }
 declare const _default: LinkSDK;

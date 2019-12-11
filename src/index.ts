@@ -155,6 +155,19 @@ class LinkSDK {
     window.open(`https://${this.domains.vault}${params}`, newTab ? '_blank' : '_self');
   }
 
+  // Open Customer Support page
+  public openCustomerSupport({ newTab = false }: IVaultOptions = {}): void {
+    if (!this.isInitialized) {
+      throw new Error('SDK not initialized');
+    }
+
+    const params = encodeConfigWithParams<IParams, ICommonUrlConfig>(this.params, {
+      ...commonUrlConfig
+    });
+
+    window.open(`https://${this.domains.vault}/${VAULT.PATHS.CUSTOMER_SUPPORT}${params}`, newTab ? '_blank' : '_self');
+  }
+
   // Open the Guest settings page
   public openSettings({ newTab = false, backTo = location.href }: IMyAccountOptions = {}): void {
     if (!this.isInitialized) {

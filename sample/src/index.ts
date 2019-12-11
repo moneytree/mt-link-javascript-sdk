@@ -15,10 +15,11 @@ const authorizeBtn = document.getElementById('authorize-btn') as HTMLButtonEleme
 const logoutBtn = document.getElementById('logout-btn') as HTMLButtonElement;
 const goToSettingsBtn = document.getElementById('settings-btn') as HTMLButtonElement;
 const goToVaultBtn = document.getElementById('vault-btn') as HTMLButtonElement;
+const goToCustomerSupportBtn = document.getElementById('customer-support-btn') as HTMLButtonElement;
 const tokenInfoLbl = document.getElementById('access-token-text') as HTMLButtonElement;
 const accessTokenLabel = document.getElementById('access-token-text') as HTMLParagraphElement;
 
-if (!authorizeBtn || !logoutBtn || !goToSettingsBtn || !goToVaultBtn) {
+if (!authorizeBtn || !logoutBtn || !goToSettingsBtn || !goToVaultBtn || !goToCustomerSupportBtn) {
   throw new Error('An error occurred');
 }
 
@@ -42,6 +43,11 @@ goToVaultBtn.onclick = () => {
   LinkSDK.openVault({ newTab: false });
 };
 
+// Launch vault route when clicked
+goToCustomerSupportBtn.onclick = () => {
+  LinkSDK.openCustomerSupport({ newTab: false });
+};
+
 const initializeLinkSDK = () => {
   LinkSDK.init({
     clientId: AWESOME_APP_ID,
@@ -63,6 +69,7 @@ const validateToken = async () => {
     goToSettingsBtn.disabled = true;
     goToVaultBtn.disabled = true;
     logoutBtn.disabled = true;
+    goToCustomerSupportBtn.disabled = true;
     return;
   }
 
