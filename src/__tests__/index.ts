@@ -288,6 +288,80 @@ describe('LinkSDK', () => {
     });
   });
 
+  describe('connectService', () => {
+    test('Calling "connectService" method before an init will fail', async () => {
+      expect(() => {
+        // @ts-ignore Ignores missing arguments to test user passing no arguments
+        linkSDK.connectService();
+      }).toThrow('SDK not initialized');
+    });
+
+    test('no params', async () => {
+      linkSDK.init.call(mockValue, {
+        clientId: value,
+        scope: [value]
+      });
+
+      expect(() => {
+        // @ts-ignore Ignores missing arguments to test user passing no arguments
+        linkSDK.connectService.call(mockValue);
+      }).toThrow('Key not provided');
+    });
+
+    test('default params', async () => {
+      const open = (window.open = jest.fn());
+
+      linkSDK.init.call(mockValue, {
+        clientId: value,
+        scope: [value]
+      });
+      // @ts-ignore Ignores missing arguments to test user passing no arguments
+      linkSDK.connectService.call(mockValue, { key: value });
+
+      expect(open).toBeCalled();
+
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
+
+      const host = `https://${mockValue.domains.vault}/${VAULT.PATHS.SERVICE}/${value}`;
+      expect(url).toContain(host);
+      expect(isNewTab).toBe('_self');
+
+      const { params } = mockValue;
+      const qs = `client_id=${params.client_id}`;
+      const configs = encodeURIComponent(`sdk_platform=js;sdk_version=${packageJSON.version};back_to=${location.href}`);
+
+      expect(url).toBe(`${host}?${qs}&configs=${configs}`);
+    });
+
+    test('with params', async () => {
+      const open = (window.open = jest.fn());
+      const backTo = 'http://google.com';
+
+      linkSDK.init.call(mockValue, {
+        clientId: value,
+        scope: [value],
+        isTestEnvironment: true
+      });
+      linkSDK.connectService.call(mockValue, {
+        key: value,
+        backTo,
+        newTab: true
+      });
+
+      expect(open).toBeCalled();
+
+      const [[url, isNewTab]] = open.mock.calls; // [0][1]
+      expect(isNewTab).toBe('_blank');
+
+      const { params } = mockValue;
+      const host = `https://${mockValue.domains.vault}/${VAULT.PATHS.SERVICE}/${value}`;
+      const qs = `client_id=${params.client_id}`;
+      const configs = encodeURIComponent(`sdk_platform=js;sdk_version=${packageJSON.version};back_to=${backTo}`);
+
+      expect(url).toBe(`${host}?${qs}&configs=${configs}`);
+    });
+  });
+
   describe('openSettings', () => {
     test('Calling "openSettings" method before an init will failed', async () => {
       expect(() => {

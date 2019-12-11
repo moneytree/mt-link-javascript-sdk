@@ -15,10 +15,12 @@ const authorizeBtn = document.getElementById('authorize-btn') as HTMLButtonEleme
 const logoutBtn = document.getElementById('logout-btn') as HTMLButtonElement;
 const goToSettingsBtn = document.getElementById('settings-btn') as HTMLButtonElement;
 const goToVaultBtn = document.getElementById('vault-btn') as HTMLButtonElement;
+const connectServiceBtn = document.getElementById('connect-service-btn') as HTMLButtonElement;
+const connectServiceKey = document.getElementById('connect-service-key') as HTMLButtonElement;
 const tokenInfoLbl = document.getElementById('access-token-text') as HTMLButtonElement;
 const accessTokenLabel = document.getElementById('access-token-text') as HTMLParagraphElement;
 
-if (!authorizeBtn || !logoutBtn || !goToSettingsBtn || !goToVaultBtn) {
+if (!authorizeBtn || !logoutBtn || !goToSettingsBtn || !goToVaultBtn || !connectServiceBtn) {
   throw new Error('An error occurred');
 }
 
@@ -42,6 +44,11 @@ goToVaultBtn.onclick = () => {
   LinkSDK.openVault({ newTab: false });
 };
 
+// Launch vault on specific service route when clicked
+connectServiceBtn.onclick = () => {
+  LinkSDK.connectService({ key: connectServiceKey.value, newTab: false });
+};
+
 const initializeLinkSDK = () => {
   LinkSDK.init({
     clientId: AWESOME_APP_ID,
@@ -62,6 +69,7 @@ const validateToken = async () => {
   if (!accessToken) {
     goToSettingsBtn.disabled = true;
     goToVaultBtn.disabled = true;
+    connectServiceBtn.disabled = true;
     logoutBtn.disabled = true;
     return;
   }

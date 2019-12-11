@@ -28,6 +28,9 @@ interface IVaultOptions {
     backTo?: string;
     newTab?: boolean;
 }
+interface IVaultService extends IVaultOptions {
+    key: string;
+}
 interface IMyAccountOptions {
     backTo?: string;
     newTab?: boolean;
@@ -44,6 +47,7 @@ declare class LinkSDK {
     authorize({ newTab, email, authPage, backTo, showAuthToggle }?: IMyAccountOptions): void;
     logout({ newTab }?: IMyAccountOptions): void;
     openVault({ newTab, backTo }?: IVaultOptions): void;
+    connectService(vaultParams: IVaultService): void;
     openSettings({ newTab, backTo }?: IMyAccountOptions): void;
 }
 declare const _default: LinkSDK;
