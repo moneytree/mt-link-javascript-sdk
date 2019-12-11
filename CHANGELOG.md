@@ -1,3 +1,13 @@
+# [1.3.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.2.3...1.3.0) (2019-12-11)
+
+
+### Features
+
+* **index:** new logout endpoint ([64156ca](https://github.com/moneytree/mt-link-javascript-sdk/commit/64156caba35f251f6a501edba60f736ab13da57c))
+* **sample_app:** add a very basic sample app to test the SDK ([84a4d18](https://github.com/moneytree/mt-link-javascript-sdk/commit/84a4d187506960f44dffd102b62ce4732bec3301))
+
+
+
 ## [1.2.3](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.2.2...1.2.3) (2019-05-23)
 
 
@@ -7,7 +17,7 @@
 
 ### Bug Fixes
 
-* **continue:** rename param to "continue" as intended ([b9dc043](https://github.com/moneytree/mt-link-javascript-sdk/commit/b9dc043))
+* **continue:** rename param to "continue" as intended ([b9dc043](https://github.com/moneytree/mt-link-javascript-sdk/commit/b9dc0437ab91d2378ade516f3f178606ae38f1ae))
 
 
 
@@ -16,12 +26,12 @@
 
 ### Bug Fixes
 
-* **continueTo:** resupport continueTo ([c71c280](https://github.com/moneytree/mt-link-javascript-sdk/commit/c71c280))
+* **continueTo:** resupport continueTo ([c71c280](https://github.com/moneytree/mt-link-javascript-sdk/commit/c71c28079ce31ead8b16ef124adef735cc23f146))
 
 
 ### Features
 
-* **lint:** add lint support ([1d1a302](https://github.com/moneytree/mt-link-javascript-sdk/commit/1d1a302))
+* **lint:** add lint support ([1d1a302](https://github.com/moneytree/mt-link-javascript-sdk/commit/1d1a3028c3ca512526efe1ec1634f8d6adbc9665))
 
 
 
@@ -30,13 +40,13 @@
 
 ### Bug Fixes
 
-* **configs:** separate configs option by semicolon ([db2bed4](https://github.com/moneytree/mt-link-javascript-sdk/commit/db2bed4))
-* **encoding:** fix enconding issue and some typecript typing tweaks ([239704f](https://github.com/moneytree/mt-link-javascript-sdk/commit/239704f))
+* **configs:** separate configs option by semicolon ([db2bed4](https://github.com/moneytree/mt-link-javascript-sdk/commit/db2bed4cc205d01e88c3fe7f2d6f2802e2c54a4e))
+* **encoding:** fix enconding issue and some typecript typing tweaks ([239704f](https://github.com/moneytree/mt-link-javascript-sdk/commit/239704f4819c68c4d682e28511e5ee3b26d8fe0b))
 
 
 ### Features
 
-* **sdkVersion:** add sdk version ([bbc9a87](https://github.com/moneytree/mt-link-javascript-sdk/commit/bbc9a87))
+* **sdkVersion:** add sdk version ([bbc9a87](https://github.com/moneytree/mt-link-javascript-sdk/commit/bbc9a8724a96ea548f93165f101a237ed8a1e157))
 
 
 
@@ -45,7 +55,7 @@
 
 ### Bug Fixes
 
-* **configs:** encode configs parameter value ([448383a](https://github.com/moneytree/mt-link-javascript-sdk/commit/448383a))
+* **configs:** encode configs parameter value ([448383a](https://github.com/moneytree/mt-link-javascript-sdk/commit/448383a94b96beeeafd79a9ec5e15732b8d1866d))
 
 
 
@@ -58,16 +68,16 @@
 
 ### Features
 
-* **link2app:** adding an option to go back to caller ([f67ac97](https://github.com/moneytree/mt-link-javascript-sdk/commit/f67ac97))
+* **link2app:** adding an option to go back to caller ([f67ac97](https://github.com/moneytree/mt-link-javascript-sdk/commit/f67ac9739b2685db54e6ef792ecccc8f7802bef7))
 
 
 
-# [1.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/333cf8c...1.0.0) (2018-08-01)
+# [1.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/333cf8c36f7a8299c2bccf441454b04d31e7d907...1.0.0) (2018-08-01)
 
 
 ### Features
 
-* creating a JS SDK ([333cf8c](https://github.com/moneytree/mt-link-javascript-sdk/commit/333cf8c))
+* creating a JS SDK ([333cf8c](https://github.com/moneytree/mt-link-javascript-sdk/commit/333cf8c36f7a8299c2bccf441454b04d31e7d907))
 
 
 
