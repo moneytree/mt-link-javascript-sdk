@@ -14,7 +14,7 @@ module.exports = {
     umdNamedDefine: true
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.js']
   },
   module: {
     rules: [
