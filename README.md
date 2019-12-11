@@ -50,11 +50,11 @@ Config properties:
 ```js
 {
   clientId, // string; // The id of the application that asks for authorization.
-  response_type, // string; // Tells the authorization server which grant to execute.
+  responseType, // string; // Tells the authorization server which grant to execute (e.g.: code).
   scope, // string[]; // A list of permissions that the application requires.
   redirectUri, // string; // URI to return the user to after authorization is complete.
   continueTo, // string; // [optional] Parameter appended as `continue` to the `redirectUri`.
-  locale, // string; // [optional] To force the display to a specific language (e.g.: en-AU)
+  locale, // string; // [optional] To force the display to a specific language (e.g.: en-AU).
   state, // string; // [optional] An opaque value, used for security purposes. If this request parameter is set in the request, then it is returned to the application as part of the redirect_uri.
   appToken, // string; // [optional] The Access Token granted through oauth
   isTestEnvironment // boolean; // [optional] If you wanna use the staging or production environemnt
