@@ -91,6 +91,10 @@ You can pass the following options:
   - Values: `true` or `false`
   - Default: `false`
 
+- `backTo`: Redirect back to this url after logout, url must be whitelisted (contact support)
+  - Values: A string representing a URL
+  - Default: `undefined`
+
 ### Open the setting page of the user account
 
 `mtLinkSdk.openSettings(options);`

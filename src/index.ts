@@ -49,6 +49,7 @@ interface IUrlConfig {
   email?: string;
   auth_action?: string;
   show_auth_toggle?: boolean;
+  back_to?: string;
 }
 
 const commonUrlConfig = {
@@ -128,14 +129,25 @@ class LinkSDK {
   }
 
   // Open My Account and logs you out from the current session
-  public logout({ newTab = false }: IMyAccountOptions = {}): void {
+  public logout({ newTab = false, backTo = '' }: IMyAccountOptions = {}): void {
     if (!this.isInitialized) {
       throw new Error('SDK not initialized');
     }
 
+    const newCommonUrlConfig: ICommonUrlConfig & IUrlConfig = { ...commonUrlConfig };
+    const queryString = {
+      ...this.oauthParams,
+      ...this.params
+    };
+
+    if (backTo) {
+      delete queryString.redirect_uri;
+      newCommonUrlConfig.back_to = backTo;
+    }
+
     const params = encodeConfigWithParams<IParams | IOauthParams, ICommonUrlConfig & IUrlConfig>(
-      { ...this.oauthParams, ...this.params },
-      { ...commonUrlConfig }
+      queryString,
+      newCommonUrlConfig
     );
 
     window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.LOGOUT}${params}`, newTab ? '_blank' : '_self');
