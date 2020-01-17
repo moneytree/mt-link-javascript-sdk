@@ -29,7 +29,11 @@ authorizeBtn.onclick = () => {
 
 // Launch logout route when clicked
 logoutBtn.onclick = () => {
-  LinkSDK.logout();
+  const value = document.getElementById('logout-url').value;
+
+  LinkSDK.logout({
+    backTo: value ? value : undefined
+  });
 };
 
 // Launch settings route when clicked
@@ -62,7 +66,7 @@ const validateToken = async () => {
   if (!accessToken) {
     goToSettingsBtn.disabled = true;
     goToVaultBtn.disabled = true;
-    logoutBtn.disabled = true;
+    // logoutBtn.disabled = true;
     return;
   }
 
