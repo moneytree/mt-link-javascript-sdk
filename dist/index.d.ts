@@ -42,7 +42,7 @@ declare class LinkSDK {
     private isInitialized;
     init({ clientId, scope, isTestEnvironment, redirectUri, continueTo, responseType, locale, state }: IConfig): void;
     authorize({ newTab, email, authPage, backTo, showAuthToggle }?: IMyAccountOptions): void;
-    logout({ newTab }?: IMyAccountOptions): void;
+    logout({ newTab, backTo }?: IMyAccountOptions): void;
     openVault({ newTab, backTo }?: IVaultOptions): void;
     openSettings({ newTab, backTo }?: IMyAccountOptions): void;
 }

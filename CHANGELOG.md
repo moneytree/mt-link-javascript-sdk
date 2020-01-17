@@ -1,4 +1,9 @@
-# [1.3.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.2.3...1.3.0) (2019-12-11)
+## [1.3.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.2.3...1.3.1) (2020-01-17)
+
+
+### Bug Fixes
+
+* **logout:** add optional backTo parameter ([9b9da89](https://github.com/moneytree/mt-link-javascript-sdk/commit/9b9da8941ff58049ed200d6dd6324bc5918adca0))
 
 
 ### Features
