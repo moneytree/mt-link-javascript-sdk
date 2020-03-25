@@ -1,186 +1,100 @@
-import { stringify } from 'qs';
+import { v4 as uuid } from 'uuid';
 
-import { DOMAIN, MY_ACCOUNT, VAULT } from './endpoints';
+import authorize from './api/authorize';
+import onboard from './api/onboard';
+import logout from './api/logout';
+import openService from './api/open-service';
+import requestMagicLink from './api/request-magic-link';
+import exchangeToken from './api/exchange-token';
+import tokenInfo from './api/token-info';
+import {
+  StoredOptions,
+  ServiceId,
+  ConfigsOptions,
+  LogoutOptions,
+  InitOptions,
+  AuthorizeOptions,
+  ExchangeTokenOptions,
+  TokenInfoOptions,
+  RequestMagicLinkOptions,
+  TokenInfo,
+  Mode
+} from './typings';
+import storage from './storage';
 
-interface IConfig {
-  clientId: string;
-  scope?: string[];
-  isTestEnvironment?: boolean;
-  redirectUri?: string;
-  continueTo?: string;
-  responseType?: 'code' | 'token';
-  locale?: string;
-  state?: string;
-}
+export * from './typings';
 
-export interface IParams {
-  client_id: string;
-  locale?: string;
-  continue?: string;
-}
+const validModes: Mode[] = ['production', 'staging', 'develop', 'local'];
 
-export interface IOauthParams {
-  client_id: string;
-  redirect_uri: string;
-  response_type: string;
-  scope?: string;
-  state?: string;
-}
+export class MtLinkSdk {
+  public storedOptions: StoredOptions = {
+    mode: 'production',
+    state: storage.get('state') || uuid(),
+    codeVerifier: storage.get('codeVerifier') || uuid()
+  };
 
-export interface IDomains {
-  vault: string;
-  myaccount: string;
-}
-
-interface IVaultOptions {
-  backTo?: string;
-  newTab?: boolean;
-}
-
-interface IMyAccountOptions {
-  backTo?: string;
-  newTab?: boolean;
-  email?: string;
-  authPage?: string;
-  showAuthToggle?: boolean;
-}
-
-interface IUrlConfig {
-  email?: string;
-  auth_action?: string;
-  show_auth_toggle?: boolean;
-  back_to?: string;
-}
-
-const commonUrlConfig = {
-  sdk_platform: 'js',
-  sdk_version: VERSION
-};
-
-type ICommonUrlConfig = typeof commonUrlConfig & { back_to?: string };
-
-function encodeConfigWithParams<Params, Configs>(params: Params, configs: Configs) {
-  const encodedConfigs = stringify(configs, { delimiter: ';', encode: false });
-  return stringify({ ...params, configs: encodedConfigs }, { addQueryPrefix: true });
-}
-
-class LinkSDK {
-  private domains: IDomains;
-  private params: IParams;
-  private oauthParams: IOauthParams;
-
-  private isInitialized: boolean = false;
-
-  public init({
-    clientId,
-    scope = [],
-    isTestEnvironment,
-    redirectUri = `${location.protocol}//${location.host}/callback`,
-    continueTo,
-    responseType = 'token',
-    locale,
-    state
-  }: IConfig): void {
+  public init(clientId: string, options: InitOptions = {}) {
     if (!clientId) {
-      throw new Error('Need a clientId to initialize');
+      throw new Error('[mt-link-sdk] Missing parameter `client_id` in `init`.');
     }
 
-    this.params = {
-      client_id: clientId,
-      locale,
-      continue: continueTo
+    const { mode = 'production', ...rest } = options;
+
+    // sdk instance state
+    this.storedOptions = {
+      ...this.storedOptions,
+      ...rest,
+      clientId,
+      mode: validModes.indexOf(mode) === -1 ? 'production' : mode
     };
 
-    this.oauthParams = {
-      client_id: clientId,
-      redirect_uri: redirectUri,
-      response_type: responseType,
-      scope: scope.join(' ') || undefined,
-      state
-    };
-
-    const subdomain = isTestEnvironment ? 'TEST_SUBDOMAIN' : 'SUBDOMAIN';
-    this.domains = {
-      vault: `${VAULT[subdomain]}.${DOMAIN}`,
-      myaccount: `${MY_ACCOUNT[subdomain]}.${DOMAIN}`
-    };
-
-    this.isInitialized = true;
+    storage.set('state', this.storedOptions.state);
+    storage.set('codeVerifier', this.storedOptions.codeVerifier);
   }
 
-  // Open My Account to authorize application to use MtLink API
-  public authorize({ newTab = false, email, authPage, backTo, showAuthToggle }: IMyAccountOptions = {}): void {
-    if (!this.isInitialized) {
-      throw new Error('SDK not initialized');
-    }
-
-    const params = encodeConfigWithParams<IParams | IOauthParams, ICommonUrlConfig & IUrlConfig>(
-      { ...this.oauthParams, ...this.params },
-      {
-        ...commonUrlConfig,
-        email,
-        auth_action: authPage,
-        back_to: backTo,
-        show_auth_toggle: showAuthToggle
-      }
-    );
-
-    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.OAUTH}${params}`, newTab ? '_blank' : '_self');
+  public authorize(options?: AuthorizeOptions): void {
+    authorize(this.storedOptions, options);
   }
 
-  // Open My Account and logs you out from the current session
-  public logout({ newTab = false, backTo = '' }: IMyAccountOptions = {}): void {
-    if (!this.isInitialized) {
-      throw new Error('SDK not initialized');
-    }
-
-    const newCommonUrlConfig: ICommonUrlConfig & IUrlConfig = { ...commonUrlConfig };
-    const queryString = {
-      ...this.oauthParams,
-      ...this.params
-    };
-
-    if (backTo) {
-      delete queryString.redirect_uri;
-      newCommonUrlConfig.back_to = backTo;
-    }
-
-    const params = encodeConfigWithParams<IParams | IOauthParams, ICommonUrlConfig & IUrlConfig>(
-      queryString,
-      newCommonUrlConfig
-    );
-
-    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.LOGOUT}${params}`, newTab ? '_blank' : '_self');
+  public onboard(options?: AuthorizeOptions): void {
+    onboard(this.storedOptions, options);
   }
 
-  // Open the Vault page
-  public openVault({ newTab = false, backTo = location.href }: IVaultOptions = {}): void {
-    if (!this.isInitialized) {
-      throw new Error('SDK not initialized');
-    }
-
-    const params = encodeConfigWithParams<IParams, ICommonUrlConfig>(this.params, {
-      ...commonUrlConfig,
-      back_to: backTo
-    });
-
-    window.open(`https://${this.domains.vault}${params}`, newTab ? '_blank' : '_self');
+  public logout(options?: LogoutOptions): void {
+    logout(this.storedOptions, options);
   }
 
-  // Open the Guest settings page
-  public openSettings({ newTab = false, backTo = location.href }: IMyAccountOptions = {}): void {
-    if (!this.isInitialized) {
-      throw new Error('SDK not initialized');
-    }
+  public openService(serviceId: ServiceId, options?: ConfigsOptions): void {
+    openService(this.storedOptions, serviceId, options);
+  }
 
-    const params = encodeConfigWithParams<IParams, ICommonUrlConfig>(this.params, {
-      ...commonUrlConfig,
-      back_to: backTo
-    });
+  public requestMagicLink(options?: RequestMagicLinkOptions): Promise<void> {
+    return requestMagicLink(this.storedOptions, options);
+  }
 
-    window.open(`https://${this.domains.myaccount}/${MY_ACCOUNT.PATHS.SETTINGS}${params}`, newTab ? '_blank' : '_self');
+  public exchangeToken(options?: ExchangeTokenOptions): Promise<string> {
+    return exchangeToken(this.storedOptions, options);
+  }
+
+  public tokenInfo(token: string, options?: TokenInfoOptions): Promise<TokenInfo> {
+    return tokenInfo(this.storedOptions, token, options);
   }
 }
 
-// Probably there is no need for this to be a class if initialized here.
-export default new LinkSDK();
+const mtLinkSdk = new MtLinkSdk();
+
+declare global {
+  interface Window {
+    mtLinkSdk: MtLinkSdk;
+    MtLinkSdk: typeof MtLinkSdk;
+  }
+}
+
+// istanbul ignore next
+// NOTE: don't know how to include test coverage for `if (window)`
+if (window) {
+  window.mtLinkSdk = mtLinkSdk;
+  window.MtLinkSdk = MtLinkSdk;
+}
+
+export default mtLinkSdk;
