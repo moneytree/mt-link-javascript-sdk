@@ -14,8 +14,9 @@
     "prepareRelease": "npm run build && git add dist",
     "createChangelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "version": "npm run prepareRelease && npm run createChangelog",
-    "test": "jest",
-    "lint": "tslint --project tsconfig.json"
+    "test": "jest --no-cache",
+    "lint": "tslint --project tsconfig.json",
+    "start:docs": "docsify serve docs"
   },
   "dependencies": {
     "crypto-browserify": "^3.12.0",
@@ -35,6 +36,7 @@
     "@types/url-safe-base64": "^1.1.0",
     "@types/uuid": "^8.0.0",
     "conventional-changelog-cli": "^2.0.28",
+    "docsify-cli": "^4.4.1",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
     "node-fetch": "^2.5.0",
