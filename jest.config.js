@@ -1,17 +1,14 @@
 const packageJSON = require('./package.json');
 
 module.exports = {
-  moduleFileExtensions: ['ts', 'js'],
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?)$',
-  testPathIgnorePatterns: ['/node_modules/', '(/__tests__/.*|(\\.|/)(test|spec))\\.d.ts$'],
-  transform: {
-    '^.+\\.tsx?$': 'ts-jest'
-  },
+  preset: 'ts-jest',
   collectCoverage: true,
-  coverageDirectory: '<rootDir>/jest/coverage',
-  coveragePathIgnorePatterns: ['/__tests__/'],
-  errorOnDeprecated: true,
+  setupFilesAfterEnv: ['./scripts/jest/setup.ts'],
+  modulePathIgnorePatterns: [
+    // https://github.com/facebook/jest/issues/2070#issuecomment-431706685
+    '<rootDir>/.*/__mocks__'
+  ],
   globals: {
-    VERSION: packageJSON.version
+    __VERSION__: packageJSON.version
   }
 };
