@@ -20,7 +20,7 @@ export default function openService(
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
     locale,
-    configs: generateConfigs(mergeConfigs(storedOptions, rest))
+    configs: generateConfigs(mergeConfigs(storedOptions, rest)),
   });
 
   switch (serviceId) {

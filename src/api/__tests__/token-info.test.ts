@@ -18,15 +18,15 @@ describe('api', () => {
       locale: 'locale',
       aud: {
         uid: 'aud-uid',
-        name: 'aud-name'
+        name: 'aud-name',
       },
       exp: 'exp',
-      scopes: 'scopes'
+      scopes: 'scopes',
     };
 
     const mtLinkSdk = new MtLinkSdk();
     mtLinkSdk.init(clientId, {
-      redirectUri
+      redirectUri,
     });
 
     test('token is required', async () => {
@@ -52,7 +52,7 @@ describe('api', () => {
       const query = qs.stringify({
         client_id: clientId,
         redirect_uri: redirectUri,
-        response_type: 'token'
+        response_type: 'token',
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;
@@ -61,8 +61,8 @@ describe('api', () => {
       expect(fetch).toBeCalledWith(url, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
     });
 
@@ -77,7 +77,7 @@ describe('api', () => {
       const query = qs.stringify({
         client_id: clientId,
         redirect_uri: newRedirectUri,
-        response_type: 'token'
+        response_type: 'token',
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;

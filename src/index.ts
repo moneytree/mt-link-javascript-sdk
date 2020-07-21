@@ -18,7 +18,7 @@ import {
   TokenInfoOptions,
   RequestMagicLinkOptions,
   TokenInfo,
-  Mode
+  Mode,
 } from './typings';
 import storage from './storage';
 
@@ -30,10 +30,10 @@ export class MtLinkSdk {
   public storedOptions: StoredOptions = {
     mode: 'production',
     state: storage.get('state') || uuid(),
-    codeVerifier: storage.get('codeVerifier') || uuid()
+    codeVerifier: storage.get('codeVerifier') || uuid(),
   };
 
-  public init(clientId: string, options: InitOptions = {}) {
+  public init(clientId: string, options: InitOptions = {}): void {
     if (!clientId) {
       throw new Error('[mt-link-sdk] Missing parameter `client_id` in `init`.');
     }
@@ -45,7 +45,7 @@ export class MtLinkSdk {
       ...this.storedOptions,
       ...rest,
       clientId,
-      mode: validModes.indexOf(mode) === -1 ? 'production' : mode
+      mode: validModes.indexOf(mode) === -1 ? 'production' : mode,
     };
 
     storage.set('state', this.storedOptions.state);

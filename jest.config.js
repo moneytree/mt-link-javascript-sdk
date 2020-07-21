@@ -6,9 +6,9 @@ module.exports = {
   setupFilesAfterEnv: ['./scripts/jest/setup.ts'],
   modulePathIgnorePatterns: [
     // https://github.com/facebook/jest/issues/2070#issuecomment-431706685
-    '<rootDir>/.*/__mocks__'
+    '<rootDir>/.*/__mocks__',
   ],
   globals: {
-    __VERSION__: packageJSON.version
-  }
+    __VERSION__: packageJSON.version,
+  },
 };

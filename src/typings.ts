@@ -30,7 +30,10 @@ interface OAuthSharedParams {
   codeVerifier?: string;
 }
 
-export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions {
+export interface AuthorizeOptions
+  extends OAuthSharedParams,
+    ConfigsOptions,
+    AuthorizeConfigsOptions {
   country?: string;
   scopes?: Scopes;
 }

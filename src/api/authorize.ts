@@ -7,7 +7,10 @@ import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, AuthorizeOptions } from '../typings';
 import storage from '../storage';
 
-export default function authorize(storedOptions: StoredOptions, options: AuthorizeOptions = {}): void {
+export default function authorize(
+  storedOptions: StoredOptions,
+  options: AuthorizeOptions = {}
+): void {
   if (!window) {
     throw new Error('[mt-link-sdk] `authorize` only works in the browser.');
   }
@@ -55,7 +58,8 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
   }
 
   const codeChallenge =
-    codeVerifier && encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
+    codeVerifier &&
+    encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
 
   const queryString = stringify({
     client_id: clientId,
@@ -68,8 +72,11 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
     state,
     country,
     locale,
-    configs: generateConfigs(mergeConfigs(storedOptions, rest))
+    configs: generateConfigs(mergeConfigs(storedOptions, rest)),
   });
 
-  window.open(`${MY_ACCOUNT_DOMAINS[mode]}/oauth/authorize?${queryString}`, getIsTabValue(isNewTab));
+  window.open(
+    `${MY_ACCOUNT_DOMAINS[mode]}/oauth/authorize?${queryString}`,
+    getIsTabValue(isNewTab)
+  );
 }
