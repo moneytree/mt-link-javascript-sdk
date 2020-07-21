@@ -1,6 +1,7 @@
 const path = require('path');
-const packageJSON = require('./package.json');
 const webpack = require('webpack');
+
+const packageJSON = require('./package.json');
 
 module.exports = {
   mode: 'production',
@@ -8,10 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
-    libraryTarget: 'umd',
-    library: 'mtLinkSdk',
-    libraryExport: 'default',
-    umdNamedDefine: true
+    libraryTarget: 'commonjs2'
   },
   resolve: {
     extensions: ['.ts', '.js']
@@ -26,7 +24,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      VERSION: JSON.stringify(packageJSON.version)
+      __VERSION__: JSON.stringify(packageJSON.version)
     })
   ]
 };
