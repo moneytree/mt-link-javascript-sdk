@@ -32,19 +32,19 @@ const newInstance = new window.MtLinkSdk();
 
 ### Typscript
 
-The source also includes Typescript definition out of the box.
+The source also includes Typescript definitions out of the box.
 
 ### Polyfills
 We use [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) internally, if you wish to support old browsers (e.g: IE11), make sure to add the necessary polyfills.
 
 ## API
 
-SDK offers various APIs below to help from getting guest consent via authorization to exchange for a token to access guest financial data.
+The Moneytree LINK Javascript SDK exposes APIs to get guest consent to access financial data, and exchange an authorization grant for an access token.
 
 ### init
 
-SDK initialization method, it is not necessary to call `init` to use some of the APIs.<br /><br />
-APIs that requires beforehand `init` call are usually related to OAuth and requires a client id which can only be set via the `init` parameter. These APIs are listed below:
+The `init` call is used to initialize the SDK and set default options for API calls. Some LINK APIs can be used without calling `init`.<br /><br />
+Calls related to OAuth require a client id which can only be set via the `init` function. These APIs include:
 - authorize
 - onboard
 - exchangeToken
@@ -58,19 +58,19 @@ mtLinkSdk.init(clientId, options);
 
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
-| clientId | string | true | | <p>OAuth `clientId` of the app (please request this from your Moneytree representative if you need one).<p><p><strong>NOTE:</strong> SDK will throw an error if none was provided.</p> |
-| <span id="api-init_options">options</span> | object | false | | <p>This options includes all the value below and also every `options` parameters of the other APIs, options values passed here during initialization will be used as the default value of other APIs in cases where no value was passed when calling the other APIs.</p><p>The options are [authorize options](#api-authorize_options) and [common options](#common-api-options); refer to each individual links for more details.</p> |
-| options.mode | `production`, ` staging`, ` develop`, ` local` | false | `production` | <p>Environment for the SDK to connect to, the SDK will connect to Moneytree production server by default.<li>For Moneytree client, please use `staging` for development as `develop` will contain unstable features.</li><li>`local` should only be used for SDK development as it requires various setup locally.</li></p> |
+| clientId | string | true | | <p>OAuth `clientId` of the app (please request this from your Moneytree representative if you need one).<p><p><strong>NOTE:</strong> This function will throw an error if this parameter isn't provided.</p> |
+| <span id="api-init_options">options</span> | object | false | | <p>These options include all of the values below and also all `options` parameters of the other APIs. Options values passed here during initialization will be used by default if no options are passed when calling a specific API.</p><p>Available options are documented under [authorize options](#api-authorize_options) and [common options](#common-api-options); refer to each individual link for more details.</p> |
+| options.mode | `production`, ` staging`, ` develop`, ` local` | false | `production` | <p>Environment for the SDK to connect to, the SDK will connect to the Moneytree production server by default.<ul><li>Moneytree clients should use `staging` for development as `develop` may contain unstable features.</li><li>`local` should only be used for SDK development as it has local dependencies.</li></ul></p> |
 | options.locale | string | false | Auto detect. | Force Moneytree to load content in this specific locale. A default value will be auto detected based on guest langauges configurations and location if available. Check this [spec](https://www.w3.org/TR/html401/struct/dirlang.html#h-8.1.1) for more information.<br /><br />Currently supported values are:<br />`en`, `en-AU`, `ja`. |
-| options.cobrandClientId (private) | string | false | | <strong>NOTE: this is for Moneytree internal use, please do not use it to avoid unintended behavior!</strong><br /><br />Brand Moneytree apps with client's branding. E.g: logo or theme.
+| options.cobrandClientId (private) | string | false | | <strong>NOTE: This is an internal attribute. Please do not use it unless instructed by your integration representative.</strong><br /><br />Brand Moneytree apps with client's branding. E.g: logo or theme.
 
 ### authorize
 
-OAuth authorization method to request guest permission to allow data access via [Link API](https://getmoneytree.com/au/link/about).<br /><br />
-Guest login are required for this to work, by default we will show the login screen and redirect the guest to the consent screen after they login (Redirection happened immediately if their existing session exists, you can refer [this](#authorize_option_force_logout) option below to force logout an existing guest session).<br /><br />
-You can also change to display sign up instead of login screen as default by setting [this](#authorize_option_auth_action) option.
+OAuth authorization method to request guest consent to access data via the [Link API](https://getmoneytree.com/au/link/about).<br /><br />
+Guest login is required for this SDK to work, by default we will show the login screen and redirect the guest to the consent screen after they log in (Redirection happens immediately if they are currently logged in; you may pass the [forceLogout option](#authorize_option_force_logout) to force the guest to log in, even if they have an active session.)<br /><br />
+You may also choose to display the sign up form by default by passing the [authAction option](#authorize_option_auth_action).
 
-<strong>NOTE:</strong> Please remember to call `init` beforehand.
+<strong>NOTE:</strong> You must initialize the SDK (via the `init` method) before calling this API.
 
 <h6>Usage:</h6>
 
@@ -80,25 +80,25 @@ mtLinkSdk.authorize(options);
 
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
-| <span id="api-authorize_options">options</span> | object | false | Value set during `init`. | Optional parameters. Includes all options in [common options](#common-api-options). |
-| options.scopes | string <p><strong>OR</strong></p> string[] | false | Value set during `init`.<p><strong>OR</strong></p>`guest_read` | Scopes of access permissions, can be one or an array of the below scopes.<br /><br />Currently supported scopes are:<br />`guest_read`, `accounts_read`, `points_read`, `point_transactions_read`, `transactions_read`, `transactions_write`, `expense_claims_read`, `categories_read`, `investment_accounts_read`, `investment_transactions_read`, `notifications_read`, `request_refresh`, `life_insurance_read`. |
-| options.redirectUri | string | false | Value set during `init`. | OAuth redirection uri, refer [here](https://www.oauth.com/oauth2-servers/redirect-uris/) for more details.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
-| options.state | string | false | Value set during `init`.<p><strong>OR</strong></p>Randomly generated [uuid](<https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)>). | Refer [here](https://auth0.com/docs/protocols/oauth2/oauth-state) for more details.<br /><br /><strong>NOTE:</strong> Make sure to set this value if your server are generating the value from the server and is redirecting back to your server so that your server can use it to exchange for a token. |
-| options.codeVerifier | string | false | Value set during `init`.<p><strong>OR</strong></p>Randomly generated [uuid](<https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)>). | For [security reasons](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce#why-you-should-never-use-the-implicit-flow-again) we removed support of using implicit flow instead opting to use [PKCE](https://auth0.com/docs/flows/concepts/auth-code-pkce)/[code grant](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/).<p>We only support SHA256, hence this `codeVerifier` will be used to generate the `code_challenge` using SHA256 encoding method. Refer [here](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce) for more details.</p><strong>NOTE:</strong> Make sure to set this value if your server are generating the value from the server and is redirecting back to your server so that your server can use it to exchange for a token. |
+| <span id="api-authorize_options">options</span> | object | false | Value set during `init`. | Optional parameters as described in [common options](#common-api-options). |
+| options.scopes | string <p><strong>OR</strong></p> string[] | false | Value set during `init`.<p><strong>OR</strong></p>`guest_read` | Access scopes you're requesting. This can be a single scope, or an array of scopes.<br /><br />Currently supported scopes are:<br />`guest_read`, `accounts_read`, `points_read`, `point_transactions_read`, `transactions_read`, `transactions_write`, `expense_claims_read`, `categories_read`, `investment_accounts_read`, `investment_transactions_read`, `notifications_read`, `request_refresh`, `life_insurance_read`. |
+| options.redirectUri | string | false | Value set during `init`. | OAuth redirection URI, refer [here](https://www.oauth.com/oauth2-servers/redirect-uris/) for more details.<br /><br /><strong>NOTE:</strong> This function will throw an error if this value is undefined <strong>and</strong> no default value was provided in the [init options](?id=api-init_options). |
+| options.state | string | false | Value set during `init`.<p><strong>OR</strong></p>Randomly generated [uuid](<https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)>). | Refer [here](https://auth0.com/docs/protocols/oauth2/oauth-state) for more details.<br /><br /><strong>NOTE:</strong> Make sure to set this value explicitly if your server generates an identifier for the OAuth authorization request so that you can use to acquire the access token after the OAuth redirect occurs. |
+| options.codeVerifier | string | false | Value set during `init`.<p><strong>OR</strong></p>Randomly generated [uuid](<https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)>). | For [security reasons](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce#why-you-should-never-use-the-implicit-flow-again) we removed support for implicit flow. We have opted for the [PKCE](https://auth0.com/docs/flows/concepts/auth-code-pkce)/[code grant](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow.<p>We only support SHA256, therefore this `codeVerifier` will be used to generate the `code_challenge` using the SHA256 hash algorithm. [Click here](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce) for more details.</p><strong>NOTE:</strong> Make sure to set this value explicitly if your server generates an identifier for the OAuth authorization request so that you can use to acquire the access token after the OAuth redirect occurs. |
 | <span id="authorize_option_force_logout">options.forceLogout</span> | boolean | false | `false` | Force existing guest session to logout and call authorize with a clean state. |
-| options.country | `AU`, ` JP` | false | Value set during `init`. | Server location for the guest to login or sign up. If you wish to restrict your guest to only one country, make sure to set this value.<br /><br /><strong>NOTE:</strong> For app created after 2020-07-08, the sign up form will display a country selection dropdown for the guest to choose when this value is undefined or invalid. |
+| options.country | `AU`, ` JP` | false | Value set during `init`. | Server location for the guest to login or sign up. If you wish to restrict your guest to only one country, make sure to set this value.<br /><br /><strong>NOTE:</strong> For apps created after 2020-07-08, the sign up form will display a country selection dropdown for the guest to select a country when this value is undefined or invalid. |
 
 ### onboard
 
-Onboard allows a new guest to get onboard faster to use an app without having to go through the registration process. All you have to do is provide an email with all the same configuration as [authorize](#authorize) method options, we will then show them a consent screen explaining all the details, the moment a guest gave their approval, a new Moneytree account will be created on their behalf and authorization is completed. Resulting behavior will be the same as [authorize](#authorize) redirection flow.
+The onboard API allows a new guest to get onboard faster without having to go through the registration process. All you have to do is provide an emai address and pass the same options parameter as the [authorize](#authorize) function. We will display a consent screen explaining the access requests and applicable scopes. Once the guest consents, a new Moneytree account will be created on their behalf and authorization is completed. Resulting behavior will be the same as the [authorize](#authorize) redirection flow.
 
-Onboard will force all current guest session to logout, hence you do not have to call [logout](#logout) manually to ensure a clean state.
+Onboard will force any current guest session to logout, hence you do not have to call [logout](#logout) manually to ensure a clean state.
 
-If an account with this email existed, we will redirect the guest to the login screen.
+If an account with this email address already exists we will redirect the guest to the login screen.
 
 <strong>NOTE:</strong>
-<li>Please remember to call `init` beforehand.</li>
-<li>For legal reason, you will have to setup your app's terms and condition link to use the onboard feature (please consult your Moneytree representative).</li>
+<li>You must call `init` before using this API.</li>
+<li>For legal reasons, you will have to set up your app's terms and conditions link to use the onboard API. Please ask your Moneytree representative for more details.</li>
 
 <h6>Usage:</h6>
 
@@ -108,27 +108,27 @@ mtLinkSdk.onboard(options)
 
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
-| options | object | false | Value set during `init`. | Optional parameters.<br /><br />All the supported options are the same as [authorize](#authorize) method options and [common options](#common-api-options) except the options in the following list.<br /><br />Not supported options from [authorize](#authorize) and [common options](#common-api-options) are:<li>forceLogout</li><li>authAction</li><li>showAuthToggle</li><li>showRememberMe</li> |
+| options | object | false | Value set during `init`. | Optional parameters.<br /><br />Most options are the same as the [authorize method](#authorize) options and [common options](#common-api-options) with a few exceptions.<br /><br />Unsupported options from [authorize](#authorize) and [common options](#common-api-options) are:<li>forceLogout</li><li>authAction</li><li>showAuthToggle</li><li>showRememberMe</li> |
 | options.country | `AU`, ` JP` | true | Value set during `init`. | Server location for the guest to login or sign up.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
-| options.email | string | true | Value set during `init`. | A new Moneytree account will be created with this email, if an existing account with this email exists, the guest will be redirected to login screen.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
+| options.email | string | true | Value set during `init`. | A new Moneytree account will be created with this email address. If an existing account with this email exists, the guest will be redirected to the login screen.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
 
 ### exchangeToken
 
 Since we are using PKCE/Code grant, we will have to exchange the `code` for a token. You can optionally pass `code` via options parameter or it will fallback to automatically extract it from the browser URL.
 
-By default options values for `state`, `codeVerifier` and `onboard` will used the default value from `init`, however if you explicitly passed a new value when calling `authorize` or `onboard` via the options parameter, make sure to reuse the same value when calling this API or else authentication server will throw an error because the values does not matched.
+Options for the `state`, `codeVerifier` and `onboard` calls will use the default value from `init`, however if you explicitly pass a new value when calling `authorize` or `onboard` via the options parameter, make sure to reuse the same value when calling this API, otherwise the authentication server will throw an error due to a value mismatch.
 
-If there is a `state` passed via this API option (or it exists in the URL), it will be used internally to compared to the `state` used in the previous `authorize` or `onboard` call during the same session, this API will throw an error when both states does not matched. Refer [here](https://auth0.com/docs/protocols/oauth2/oauth-state) for more details.
+If there is a `state` passed via this API option (or it exists in the URL), it will be used internally to compare to the `state` used in the previous `authorize` or `onboard` call during the same session. This API will throw an error when states do not match. Refer [here](https://auth0.com/docs/protocols/oauth2/oauth-state) for more details.
 
-`code` will be invalidated (can be used only once) after exchanged for a token, it is your responsibility to store the token yourself as the SDK do not store it internally.
+`code` will be invalidated (can be used only once) after exchanged for a token, it is your responsibility to store the token yourself as the SDK does not store it internally.
 
 Refer [here](https://www.oauth.com/oauth2-servers/pkce/authorization-code-exchange/) for more details.
 
 <h6>Usage:</h6>
 
-One way to use this API is by calling it in the redirected page script. For example, if `authorize` redirect to `https://yourapp.com/callback?code=somecode`, you can call this API in the script loaded by the redirected URL and the API will automatically extract the code to exchange for a token.
+One way to use this API is by calling it in the script on your redirection page. For example, if `authorize` redirects to `https://yourapp.com/callback?code=somecode`, you can call this function in the script loaded on that redirection page and the client library will automatically extract the code to exchange for a token.
 
-Alternatively, you can extract the `code` manually from the redirected URL and pass it to this API as options anywhere in your codebase as you wish.
+Alternatively, you can extract the `code` manually from the redirect URL and pass it to this function via the options object yourself.
 
 
 ```javascript
@@ -138,16 +138,16 @@ const token = await mtLinkSdk.exchangeToken(options);
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
 | options | object | false | Value set during `init`. | Optional parameters. |
-| options.code | string | false | Value from browser URL | Code from OAuth redirection used to exchange for a token, SDK will try to extract it from the browser URL if none was provided.<br /><br /><strong>NOTE:</strong> SDK will throw an error if no value was provided here or failed to extract from browser URL. |
-| options.state | string | false | Value set during `init`. | Make sure the value of `state` here is the same state value used during `authorize` or `onboard` call. |
-| options.codeVerifier | string | false | Value set during `init`. | Make sure the value of `codeVerifier` here is the same state value used during `authorize` or `onboard` call. |
-| options.redirectUri | string | false | Value set during `init`. | Make sure the value of `redirectUri` here is the same state value used during `authorize` or `onboard` call.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
+| options.code | string | false | Value from browser URL | Code from OAuth redirection used to exchange for a token, SDK will try to extract it from the browser URL if none is provided.<br /><br /><strong>NOTE:</strong> SDK will throw an error if no value is provided here and the client library failed to extract it from browser URL. |
+| options.state | string | false | Value set during `init`. | Make sure the value of `state` here is the same state value used during the `authorize` or `onboard` call. |
+| options.codeVerifier | string | false | Value set during `init`. | Make sure the value of `codeVerifier` here is the same codeVerifier value used during the `authorize` or `onboard` call. |
+| options.redirectUri | string | false | Value set during `init`. | Make sure the value of `redirectUri` here is the same redirectUri value used during the `authorize` or `onboard` call.<br /><br /><strong>NOTE:</strong> The SDK will throw an error if both this parameter and the default value from the [init options](?id=api-init_options) are undefined. |
 
 ### tokenInfo
 
 You can validate a token or get guest or resource server information related to the token by calling this API.
 
-<strong>NOTE:</strong> this API will throw an error if the token was expired.
+<strong>NOTE:</strong> This function will throw an error if the token has expired.
 
 <h6>Usage:</h6>
 
@@ -167,9 +167,9 @@ tokenInfo.isMtClient // for internal use
 
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
-| token | string | true | | Token you wish to get info of. |
+| token | string | true | | Token you wish to get info for. |
 | options | object | false | Value set during `init`. | Optional parameters. |
-| options.redirectUri | string | false | Value set during `init`. | Make sure the value of `redirectUri` here is the same state value used during `authorize` or `onboard` call.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
+| options.redirectUri | string | false | Value set during `init`. | Make sure the value of `redirectUri` here is the same state value used during `authorize` or `onboard` call.<br /><br /><strong>NOTE:</strong> The SDK will throw an error if both this parameter and the default value from the [init options](?id=api-init_options) are undefined. |
 
 ### logout
 
@@ -187,9 +187,9 @@ mtLinkSdk.logout(options);
 
 ### openService
 
-This is a method to open various services provided by Moneytree such as Moneytree account settings and Vault etc.
+This is a method to open various services provided by Moneytree such as Moneytree account settings, Vault etc.
 
-<strong>NOTE:</strong> calling this API before calling `init` will open the services without branding (no company logo etc.).
+<strong>NOTE:</strong> calling this API before calling `init` will open the services view without branding (company logo etc.)
 
 <h6>Usage:</h6>
 
@@ -199,12 +199,12 @@ mtLinkSdk.openService(serviceId, options);
 
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
-| serviceId | `vault`, `myaccount-settings`, `link-kit` | true | | Open a service by Id, current supported services are:<br /><li>`vault` - A service to set your banks credentials.</li><li>`myaccount-settings` - Display screens too change your Moneytree account settings.</li><li>`link-kit` - A service to view all your financial data.<br /><br /><strong>NOTE:</strong> SDK will throw an error if none was provided. |
+| serviceId | `vault`, `myaccount-settings`, `link-kit` | true | | Open a service by Id, current supported services are:<br /><li>`vault` - Manage your financial institution credentials.</li><li>`myaccount-settings` - Manage your Moneytree account settings.</li><li>`link-kit` - View all your financial data.<br /><br /><strong>NOTE:</strong> This function will throw an error if you do not specify a valid service ID. |
 | options | object | false | Value set during `init`. | Optional parameters. Includes all options in [common options](#common-api-options). |
 
 ### requestMagicLink
 
-Request for a magic link (password-less link) sent to guest email, clicking on the link in the email will log a guest in directly to the screen as indicated by the parameter.
+Request for a magic link (password-less login link) to be sent to the guest's email address. Clicking on the link in the email will log a guest in directly to the screen specified by the `magicLinkTo` parameter.
 
 <h6>Usage:</h6>
 
@@ -215,23 +215,23 @@ mtLinkSdk.requestMagicLink(options);
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
 | options | object | false | Value set during `init`. | Optional parameters. Includes all options in [common options](#common-api-options). |
-| options.magicLinkTo | string | true | `settings` (for mobile view)<p><strong>OR</strong></p>`settings/update-email` (for desktop view) | Redirection to location after login, current supported location are:<li>`settings` - Root Moneytree account settings screen.</li><li>`settings/authorized-applications` - List of apps currently connected to Moneytree screen.</li><li>`settings/change-language` - Change Moneytree account language screen.<li>`settings/email-preferences` - Change Moneytree email preferences screen</li><li>`settings/delete-account` - Delete Moneytree account screen</li><li>`settings/update-email` - Change Moneytree account email screen</li><li>`settings/update-password` - Change Moneytree account password</li> |
-| options.email | string | true | Value set during `init`. | Magic link will be sent to this email.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
+| options.magicLinkTo | string | true | `settings` (for mobile view)<p><strong>OR</strong></p>`settings/update-email` (for desktop view) | Redirection to location after login, currently supported locations include:<li>`settings` - Main Moneytree account settings screen.</li><li>`settings/authorized-applications` - List of apps currently connected to Moneytree.</li><li>`settings/change-language` - Change Moneytree account language screen.<li>`settings/email-preferences` - Change Moneytree email preferences screen</li><li>`settings/delete-account` - Delete Moneytree account screen.</li><li>`settings/update-email` - Change Moneytree account email screen.</li><li>`settings/update-password` - Change Moneytree account password screen.</li> |
+| options.email | string | true | Value set during `init`. | Magic link will be sent to this email.<br /><br /><strong>NOTE:</strong> This function will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
 
 ## Common API options
 
-Common options are options that is used by multiple APIs. Instead of repeating the same documentation in every APIs, we will link refer them to here.
+These common options are used in multiple APIs. Instead of repeating the same options in every definition, they are documented here.
 
-<strong>NOTE:</strong> Since `options` are optional, SDK will read from [init options](?id=api-init_options) by default if none was provided.
+<strong>NOTE:</strong> Since `options` are optional for each function call in the SDK, they will be read from the [init options](?id=api-init_options) by default if none are provided.
 
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
 | options.email | string | false | Value set during `init`. | Email used to pre-fill the email field in login or sign up or form. |
-| options.backTo | string | false | Value set during `init`. | A redirection URL for redirecting a guest back to during the following condition: <li>Guest click on `Back to [App Name]` button in any Moneytree screens.</li><li>Refuse to give consent to access permission in the consent screen.</li><li>Logout from Moneytree via an app with this client id</li><li>Revoke an app from settings screen opened via an app with this client id</li><br /><br /><strong>NOTE:</strong> No `Back to [App Name]` button will be shown if this value is not set, and any of the actions mentioned above will redirect the guest back to login screen by default. |
-| <span id="authorize_option_auth_action">options.authAction</span> | `login`, ` signup` | false | Value set during `init`.<p><strong>OR</strong></p>`login` | Show login or sign up screen when a session do not exists during an `authorize` call. |
+| options.backTo | string | false | Value set during `init`. | A redirection URL for redirecting a guest back to in the following condition: <li>Guest clicks on `Back to [App Name]` button in any Moneytree screen.</li><li>Guest refuses to give consent to access permission in the consent screen.</li><li>Guest logs out from Moneytree via an app with this client id</li><li>Revoke an app's consent from settings screen opened via an app with this client id</li><br /><br /><strong>NOTE:</strong> No `Back to [App Name]` button will be shown if this value is not set, and any of the actions mentioned above will redirect the guest back to login screen by default. |
+| <span id="authorize_option_auth_action">options.authAction</span> | `login`, ` signup` | false | Value set during `init`.<p><strong>OR</strong></p>`login` | Show login or sign up screen when a session does not exist during an `authorize` call. |
 | options.showAuthToggle | boolean | false | Value set during `init`.<p><strong>OR</strong></p>`true` | If you wish to disable the login to sign up form toggle button and vice-versa in the auth screen, set this to `false`.
-| options.showRememberMe | boolean | false | Value set during `init`.<p><strong>OR</strong></p>`true` | If you wish to disable the `Stayed login for 30 days` checkbox in the login screen, set this to `false`.
-| options.isNewTab | boolean | false | Value set during `init`.<p><strong>OR</strong></p>`false` | Call method and open/render in a new browser tab, default to same tab.
+| options.showRememberMe | boolean | false | Value set during `init`.<p><strong>OR</strong></p>`true` | If you wish to disable the `Stay logged in for 30 days` checkbox in the login screen, set this to `false`.
+| options.isNewTab | boolean | false | Value set during `init`.<p><strong>OR</strong></p>`false` | Call method and open/render in a new browser tab, by default all views open in the same tab.
 | options.sdk_platform (private) | string | false | Generated by the SDK. | <strong>NOTE: this is for Moneytree internal use, please do not use it to avoid unintended behavior!</strong><br /><br />Indicating sdk platform.
 | options.sdk_version (private) | semver | false | Generated by the SDK. | <strong>NOTE: this is for Moneytree internal use, please do not use it to avoid unintended behavior!</strong><br /><br />Indicating sdk version.
 
