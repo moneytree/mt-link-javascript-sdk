@@ -22,10 +22,10 @@ export default async function requestMagicLink(
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
     locale,
-    configs: generateConfigs(configs)
+    configs: generateConfigs(configs),
   });
 
-  const url: string = `${MY_ACCOUNT_DOMAINS[mode]}/magic-link.json?${queryString}`;
+  const url = `${MY_ACCOUNT_DOMAINS[mode]}/magic-link.json?${queryString}`;
 
   let magicLinkToValue = magicLinkTo || '/settings';
 
@@ -37,12 +37,12 @@ export default async function requestMagicLink(
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email,
-        magic_link_to: magicLinkToValue
-      })
+        magic_link_to: magicLinkToValue,
+      }),
     });
 
     if (response.status < 200 || response.status >= 300) {

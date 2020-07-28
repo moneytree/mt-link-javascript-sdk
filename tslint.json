@@ -1,6 +1,0 @@
-{
-  "extends": ["@moneytree/tslint-rules"],
-  "linterOptions": {
-    "exclude": ["**/node_modules/**"]
-  }
-}

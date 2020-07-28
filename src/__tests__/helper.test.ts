@@ -23,7 +23,7 @@ describe('helper', () => {
             backTo: 'backTo',
             authAction: 'signup',
             showAuthToggle: true,
-            showRememberMe: true
+            showRememberMe: true,
           },
           {}
         )
@@ -32,7 +32,7 @@ describe('helper', () => {
         backTo: 'backTo',
         authAction: 'signup',
         showAuthToggle: true,
-        showRememberMe: true
+        showRememberMe: true,
       });
     });
 
@@ -44,14 +44,14 @@ describe('helper', () => {
             backTo: 'backTo',
             authAction: 'signup',
             showAuthToggle: true,
-            showRememberMe: true
+            showRememberMe: true,
           },
           {
             email: 'newEmail',
             backTo: 'newBackTo',
             authAction: 'login',
             showAuthToggle: false,
-            showRememberMe: false
+            showRememberMe: false,
           }
         )
       ).toMatchObject({
@@ -59,7 +59,7 @@ describe('helper', () => {
         backTo: 'newBackTo',
         authAction: 'login',
         showAuthToggle: false,
-        showRememberMe: false
+        showRememberMe: false,
       });
     });
 
@@ -72,11 +72,11 @@ describe('helper', () => {
             authAction: 'signup',
             showAuthToggle: true,
             showRememberMe: true,
-            // @ts-ignore
-            whatIsThis: false
+            // @ts-ignore: set unsupported key
+            whatIsThis: false,
           },
           {
-            whatIsThis2: false
+            whatIsThis2: false,
           }
         )
       ).toMatchObject({
@@ -84,7 +84,7 @@ describe('helper', () => {
         backTo: 'backTo',
         authAction: 'signup',
         showAuthToggle: true,
-        showRememberMe: true
+        showRememberMe: true,
       });
     });
 
@@ -96,39 +96,34 @@ describe('helper', () => {
             backTo: 'backTo',
             authAction: 'signup',
             showAuthToggle: true,
-            showRememberMe: true
+            showRememberMe: true,
           },
           {
             email: 'newEmail',
             backTo: 'newBackTo',
             authAction: 'login',
-            showAuthToggle: false
+            showAuthToggle: false,
           },
           ['email', 'backTo']
         )
       ).toMatchObject({
         authAction: 'login',
         showAuthToggle: false,
-        showRememberMe: true
+        showRememberMe: true,
       });
     });
   });
 
   describe('generateConfigs', () => {
     test('with parameter', () => {
-      // to test hasOwnProperty not including inherit property
-      const obj = Object.create({ name: 'inherit' });
-
       expect(
-        generateConfigs(
-          Object.assign(obj, {
-            email: 'email',
-            backTo: 'backTo',
-            authAction: 'signup',
-            showAuthToggle: true,
-            showRememberMe: true
-          })
-        )
+        generateConfigs({
+          email: 'email',
+          backTo: 'backTo',
+          authAction: 'signup',
+          showAuthToggle: true,
+          showRememberMe: true,
+        })
       ).toBe(
         `sdk_platform=js&sdk_version=${packageJson.version}&email=email&back_to=backTo&auth_action=signup&show_auth_toggle=true` +
           `&show_remember_me=true`

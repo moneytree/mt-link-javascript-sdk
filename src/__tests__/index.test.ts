@@ -22,7 +22,7 @@ describe('index', () => {
     const instance = new MtLinkSdk();
 
     instance.init('clientId', {
-      redirectUri: 'redirectUri'
+      redirectUri: 'redirectUri',
     });
 
     const options = instance.storedOptions;
@@ -31,7 +31,7 @@ describe('index', () => {
       codeVerifier: options.codeVerifier,
       mode: options.mode,
       redirectUri: options.redirectUri,
-      state: options.state
+      state: options.state,
     };
 
     const result1 = instance.authorize({ scopes: 'scopes' });
@@ -59,7 +59,7 @@ describe('index', () => {
     expect(result6).toBe('test');
     expect(exchangeToken).toBeCalledWith(storedOptions, { code: 'code' });
 
-    // @ts-ignore
+    // @ts-ignore: set tokenInfo with invalid type value
     mocked(tokenInfo).mockResolvedValueOnce('test');
     const result7 = await instance.tokenInfo('test');
     expect(result7).toBe('test');
@@ -82,7 +82,7 @@ describe('index', () => {
     mtLinkSdk.init('clientId', {
       mode: 'local',
       state: 'state',
-      codeVerifier: 'codeVerifier'
+      codeVerifier: 'codeVerifier',
     });
 
     expect(mtLinkSdk.storedOptions.mode).toBe('local');
@@ -92,8 +92,8 @@ describe('index', () => {
 
   test('invalid mode default to production', () => {
     mtLinkSdk.init('clientId', {
-      // @ts-ignore
-      mode: 'invalid'
+      // @ts-ignore: set mode to unsupported value
+      mode: 'invalid',
     });
 
     expect(mtLinkSdk.storedOptions.mode).toBe('production');

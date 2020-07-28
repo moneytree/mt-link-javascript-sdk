@@ -24,16 +24,19 @@ export default async function tokenInfo(
   const queryParams = qs.stringify({
     client_id: clientId, // TODO: test if we need this
     redirect_uri: redirectUri,
-    response_type: 'token'
+    response_type: 'token',
   });
 
   try {
-    const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/oauth/token/info.json?${queryParams}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
+    const response = await fetch(
+      `${MY_ACCOUNT_DOMAINS[mode]}/oauth/token/info.json?${queryParams}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
 
     const result = await response.json();
 
@@ -51,7 +54,7 @@ export default async function tokenInfo(
       clientName: result.aud.name,
       expTimestamp: result.exp,
       scopes: result.scopes,
-      isMtClient: result.is_mt_client
+      isMtClient: result.is_mt_client,
     };
   } catch (error) {
     throw new Error(`[mt-link-sdk] \`tokenInfo\` execution failed. ${error}`);

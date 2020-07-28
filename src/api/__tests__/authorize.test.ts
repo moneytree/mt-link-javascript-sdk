@@ -54,7 +54,7 @@ describe('api', () => {
         country,
         scopes,
         locale,
-        cobrandClientId
+        cobrandClientId,
       });
 
       authorize(mtLinkSdk.storedOptions);
@@ -72,7 +72,7 @@ describe('api', () => {
         state,
         country,
         locale,
-        configs: generateConfigs()
+        configs: generateConfigs(),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
       expect(open).toBeCalledWith(url, '_self');
@@ -99,7 +99,7 @@ describe('api', () => {
         codeVerifier,
         redirectUri,
         country,
-        scopes
+        scopes,
       });
 
       expect(open).toBeCalledTimes(1);
@@ -113,7 +113,7 @@ describe('api', () => {
         code_challenge_method: 'S256',
         state,
         country,
-        configs: generateConfigs()
+        configs: generateConfigs(),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
       expect(open).toBeCalledWith(url, '_self');
@@ -125,7 +125,7 @@ describe('api', () => {
 
     test('without window', () => {
       const windowSpy = jest.spyOn(global, 'window', 'get');
-      // @ts-ignore
+      // @ts-ignore: mocking window object to undefined
       windowSpy.mockImplementation(() => undefined);
 
       expect(() => {

@@ -34,7 +34,7 @@ describe('api', () => {
       await requestMagicLink(new MtLinkSdk().storedOptions, { email });
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: generateConfigs(),
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
@@ -43,22 +43,25 @@ describe('api', () => {
       expect(fetch).toBeCalledWith(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
-          magic_link_to: '/settings'
-        })
+          magic_link_to: '/settings',
+        }),
       });
     });
 
     test('prefix magicLinkTo with "/" if provided value do not have one', async () => {
       fetch.mockClear();
 
-      await requestMagicLink(new MtLinkSdk().storedOptions, { email, magicLinkTo: 'settings/delete-account' });
+      await requestMagicLink(new MtLinkSdk().storedOptions, {
+        email,
+        magicLinkTo: 'settings/delete-account',
+      });
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: generateConfigs(),
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
@@ -67,12 +70,12 @@ describe('api', () => {
       expect(fetch).toBeCalledWith(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
-          magic_link_to: '/settings/delete-account'
-        })
+          magic_link_to: '/settings/delete-account',
+        }),
       });
     });
 
@@ -82,7 +85,9 @@ describe('api', () => {
       fetch.mockClear();
       fetch.mockResolvedValueOnce({ status: 400, statusText } as Response);
 
-      await expect(requestMagicLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(statusText);
+      await expect(requestMagicLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(
+        statusText
+      );
     });
 
     test('calling after init will includes client id', async () => {
@@ -95,7 +100,7 @@ describe('api', () => {
       mtLinkSdk.init(clientId, {
         email,
         locale,
-        cobrandClientId
+        cobrandClientId,
       });
 
       await requestMagicLink(mtLinkSdk.storedOptions);
@@ -104,7 +109,7 @@ describe('api', () => {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs()
+        configs: generateConfigs(),
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
@@ -113,12 +118,12 @@ describe('api', () => {
       expect(fetch).toBeCalledWith(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
-          magic_link_to: '/settings'
-        })
+          magic_link_to: '/settings',
+        }),
       });
     });
   });

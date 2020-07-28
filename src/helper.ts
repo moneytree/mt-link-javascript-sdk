@@ -9,17 +9,21 @@ export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
 }
 
-export function getIsTabValue(isNewTab: boolean = false): '' | '_self' {
+export function getIsTabValue(isNewTab = false): '' | '_self' {
   return isNewTab ? '' : '_self';
 }
 
-export function mergeConfigs(initValues: InitOptions, newValues: ConfigsOptions, ignoreKeys: string[] = []) {
+export function mergeConfigs(
+  initValues: InitOptions,
+  newValues: ConfigsOptions,
+  ignoreKeys: string[] = []
+): ConfigsOptions {
   const {
     email: defaultEmail,
     backTo: defaultBackTo,
     authAction: defaultAuthAction,
     showAuthToggle: defaultShowAuthToggle,
-    showRememberMe: defaultShowRememberMe
+    showRememberMe: defaultShowRememberMe,
   } = initValues;
 
   const {
@@ -37,7 +41,7 @@ export function mergeConfigs(initValues: InitOptions, newValues: ConfigsOptions,
     backTo,
     authAction,
     showAuthToggle,
-    showRememberMe
+    showRememberMe,
   };
 
   if (ignoreKeys.length) {
@@ -55,18 +59,16 @@ export function mergeConfigs(initValues: InitOptions, newValues: ConfigsOptions,
   return configs;
 }
 
-export function generateConfigs(configs: ConfigsOptions = {}) {
+export function generateConfigs(configs: ConfigsOptions = {}): string {
   const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | undefined } = {};
 
   for (const key in configs) {
-    if (configs.hasOwnProperty(key)) {
-      snakeCaseConfigs[snakeCase(key)] = configs[key as keyof ConfigsOptions];
-    }
+    snakeCaseConfigs[snakeCase(key)] = configs[key as keyof ConfigsOptions];
   }
 
   return stringify({
     sdk_platform: 'js',
     sdk_version: __VERSION__,
-    ...snakeCaseConfigs
+    ...snakeCaseConfigs,
   });
 }

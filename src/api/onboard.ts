@@ -21,7 +21,7 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     redirectUri: defaultRedirectUri,
     state: defaultState,
     codeVerifier: defaultCodeVerifier,
-    country: defaultCountry
+    country: defaultCountry,
   } = storedOptions;
 
   if (!clientId) {
@@ -37,7 +37,12 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     isNewTab,
     ...rest
   } = options;
-  const configs = mergeConfigs(storedOptions, rest, ['authAction', 'showAuthToggle', 'showRememberMe', 'forceLogout']);
+  const configs = mergeConfigs(storedOptions, rest, [
+    'authAction',
+    'showAuthToggle',
+    'showRememberMe',
+    'forceLogout',
+  ]);
 
   const { email } = configs;
 
@@ -70,7 +75,8 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
   }
 
   const codeChallenge =
-    codeVerifier && encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
+    codeVerifier &&
+    encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
 
   const queryString = stringify({
     client_id: clientId,
@@ -83,7 +89,7 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     state,
     country,
     locale,
-    configs: generateConfigs(configs)
+    configs: generateConfigs(configs),
   });
 
   window.open(`${MY_ACCOUNT_DOMAINS[mode]}/onboard?${queryString}`, getIsTabValue(isNewTab));

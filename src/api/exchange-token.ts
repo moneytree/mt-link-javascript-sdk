@@ -10,12 +10,12 @@ function getCodeAndState(): { code?: string; state?: string } {
   }
 
   const { code, state } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true
+    ignoreQueryPrefix: true,
   });
 
   return {
     code: (Array.isArray(code) ? code[code.length - 1] : code) as string,
-    state: (Array.isArray(state) ? state[state.length - 1] : state) as string
+    state: (Array.isArray(state) ? state[state.length - 1] : state) as string,
   };
 }
 
@@ -28,7 +28,7 @@ export default async function exchangeToken(
     redirectUri: defaultRedirectUri,
     state: defaultState,
     mode,
-    codeVerifier: defaultCodeVerifier
+    codeVerifier: defaultCodeVerifier,
   } = storedOptions;
 
   if (!clientId) {
@@ -41,7 +41,7 @@ export default async function exchangeToken(
     redirectUri = defaultRedirectUri,
     state = extractedState,
     codeVerifier = defaultCodeVerifier,
-    code = extractedCode
+    code = extractedCode,
   } = options;
 
   if (!code) {
@@ -66,7 +66,7 @@ export default async function exchangeToken(
     const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/oauth/token.json`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         code,
@@ -74,8 +74,8 @@ export default async function exchangeToken(
         grant_type: 'authorization_code',
         redirect_uri: redirectUri,
         code_verifier: codeVerifier || undefined,
-        code_challenge_method: codeVerifier ? 'S256' : undefined
-      })
+        code_challenge_method: codeVerifier ? 'S256' : undefined,
+      }),
     });
 
     const result = await response.json();

@@ -28,5 +28,5 @@ export function set(key: string, value: string): void {
 
 export default {
   set,
-  get
+  get,
 };

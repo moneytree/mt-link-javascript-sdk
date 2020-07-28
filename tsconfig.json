@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "strict": true,
+    "sourceMap": true,
     "declaration": true,
     "esModuleInterop": true,
-    "outDir": "./dist",
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "noImplicitAny": true,
     "resolveJsonModule": true,
-    "strictNullChecks": true,
+    "removeComments": true,
+    "outDir": "./dist",
     "lib": ["es2015", "dom"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.json"],

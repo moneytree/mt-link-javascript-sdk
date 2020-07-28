@@ -39,7 +39,7 @@ describe('api', () => {
     test('email is required', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
-        redirectUri
+        redirectUri,
       });
 
       expect(() => {
@@ -53,7 +53,7 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
         redirectUri,
-        email
+        email,
       });
 
       expect(() => {
@@ -83,7 +83,7 @@ describe('api', () => {
         scopes,
         email,
         locale,
-        cobrandClientId
+        cobrandClientId,
       });
 
       onboard(mtLinkSdk.storedOptions);
@@ -101,7 +101,7 @@ describe('api', () => {
         state,
         country,
         locale,
-        configs: generateConfigs({ email })
+        configs: generateConfigs({ email }),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
       expect(open).toBeCalledWith(url, '_self');
@@ -129,7 +129,7 @@ describe('api', () => {
         redirectUri,
         country,
         scopes,
-        email
+        email,
       });
 
       expect(open).toBeCalledTimes(1);
@@ -143,7 +143,7 @@ describe('api', () => {
         code_challenge_method: 'S256',
         state,
         country,
-        configs: generateConfigs({ email })
+        configs: generateConfigs({ email }),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
       expect(open).toBeCalledWith(url, '_self');
@@ -155,7 +155,7 @@ describe('api', () => {
 
     test('without window', () => {
       const windowSpy = jest.spyOn(global, 'window', 'get');
-      // @ts-ignore
+      // @ts-ignore: mocking window object to undefined
       windowSpy.mockImplementation(() => undefined);
 
       expect(() => {
