@@ -30,7 +30,7 @@ export class MtLinkSdk {
   public storedOptions: StoredOptions = {
     mode: 'production',
     state: storage.get('state') || uuid(),
-    codeVerifier: storage.get('codeVerifier') || uuid(),
+    codeVerifier: storage.get('codeVerifier') || '',
   };
 
   public init(clientId: string, options: InitOptions = {}): void {
