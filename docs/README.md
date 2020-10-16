@@ -169,8 +169,6 @@ tokenInfo.isMtClient // for internal use
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
 | token | string | true | | Token you wish to get info for. |
-| options | object | false | Value set during `init`. | Optional parameters. |
-| options.redirectUri | string | false | Value set during `init`. | Make sure the value of `redirectUri` here is the same state value used during `authorize` or `onboard` call.<br /><br /><strong>NOTE:</strong> The SDK will throw an error if both this parameter and the default value from the [init options](?id=api-init_options) are undefined. |
 
 ### logout
 

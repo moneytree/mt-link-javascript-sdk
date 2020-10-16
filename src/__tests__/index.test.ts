@@ -63,7 +63,6 @@ describe('index', () => {
     mocked(tokenInfo).mockResolvedValueOnce('test');
     const result7 = await instance.tokenInfo('test');
     expect(result7).toBe('test');
-    expect(tokenInfo).toBeCalledWith(storedOptions, 'test', undefined);
   });
 
   test('mtLinkSdk', () => {
