@@ -48,7 +48,6 @@ export declare type MagicLinkTo = string | 'settings' | 'settings/authorized-app
 export interface RequestMagicLinkOptions extends ConfigsOptions {
     magicLinkTo?: MagicLinkTo;
 }
-export declare type TokenInfoOptions = Omit<Omit<OAuthSharedParams, 'state'>, 'codeVerifier'>;
 export interface TokenInfo {
     guestUid: string;
     resourceServer: string;

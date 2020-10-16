@@ -1,4 +1,4 @@
-import { StoredOptions, ServiceId, ConfigsOptions, LogoutOptions, InitOptions, AuthorizeOptions, ExchangeTokenOptions, TokenInfoOptions, RequestMagicLinkOptions, TokenInfo } from './typings';
+import { StoredOptions, ServiceId, ConfigsOptions, LogoutOptions, InitOptions, AuthorizeOptions, ExchangeTokenOptions, RequestMagicLinkOptions, TokenInfo } from './typings';
 export * from './typings';
 export declare class MtLinkSdk {
     storedOptions: StoredOptions;
@@ -9,7 +9,7 @@ export declare class MtLinkSdk {
     openService(serviceId: ServiceId, options?: ConfigsOptions): void;
     requestMagicLink(options?: RequestMagicLinkOptions): Promise<void>;
     exchangeToken(options?: ExchangeTokenOptions): Promise<string>;
-    tokenInfo(token: string, options?: TokenInfoOptions): Promise<TokenInfo>;
+    tokenInfo(token: string): Promise<TokenInfo>;
 }
 declare const mtLinkSdk: MtLinkSdk;
 declare global {
