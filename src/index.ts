@@ -15,7 +15,6 @@ import {
   InitOptions,
   AuthorizeOptions,
   ExchangeTokenOptions,
-  TokenInfoOptions,
   RequestMagicLinkOptions,
   TokenInfo,
   Mode,
@@ -76,8 +75,8 @@ export class MtLinkSdk {
     return exchangeToken(this.storedOptions, options);
   }
 
-  public tokenInfo(token: string, options?: TokenInfoOptions): Promise<TokenInfo> {
-    return tokenInfo(this.storedOptions, token, options);
+  public tokenInfo(token: string): Promise<TokenInfo> {
+    return tokenInfo(this.storedOptions, token);
   }
 }
 

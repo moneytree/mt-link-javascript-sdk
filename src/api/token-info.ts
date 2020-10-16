@@ -1,35 +1,19 @@
-import qs from 'qs';
-
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
-import { StoredOptions, TokenInfoOptions, TokenInfo } from '../typings';
+import { StoredOptions, TokenInfo } from '../typings';
 
 export default async function tokenInfo(
   storedOptions: StoredOptions,
-  token: string,
-  options: TokenInfoOptions = {}
+  token: string
 ): Promise<TokenInfo> {
-  const { clientId, redirectUri: defaultRedirectUri, mode } = storedOptions;
-  const { redirectUri = defaultRedirectUri } = options;
+  const { mode } = storedOptions;
 
   if (!token) {
     throw new Error('[mt-link-sdk] Missing parameter `token` in `tokenInfo`.');
   }
 
-  if (!redirectUri) {
-    throw new Error(
-      '[mt-link-sdk] Missing option `redirectUri` in `tokenInfo`, make sure to pass one via `tokenInfo` options or `init` options.'
-    );
-  }
-
-  const queryParams = qs.stringify({
-    client_id: clientId, // TODO: test if we need this
-    redirect_uri: redirectUri,
-    response_type: 'token',
-  });
-
   try {
     const response = await fetch(
-      `${MY_ACCOUNT_DOMAINS[mode]}/oauth/token/info.json?${queryParams}`,
+      `${MY_ACCOUNT_DOMAINS[mode]}/oauth/token/info.json`,
       {
         method: 'GET',
         headers: {

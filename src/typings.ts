@@ -78,8 +78,6 @@ export interface RequestMagicLinkOptions extends ConfigsOptions {
   magicLinkTo?: MagicLinkTo;
 }
 
-export type TokenInfoOptions = Omit<Omit<OAuthSharedParams, 'state'>, 'codeVerifier'>;
-
 export interface TokenInfo {
   guestUid: string;
   resourceServer: string;
