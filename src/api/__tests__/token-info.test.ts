@@ -1,5 +1,4 @@
 import fetch from 'jest-fetch-mock';
-import qs from 'qs';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
@@ -35,54 +34,22 @@ describe('api', () => {
       );
     });
 
-    test('redirectUri is required', async () => {
-      const instance = new MtLinkSdk();
-
-      await expect(tokenInfo(instance.storedOptions, token)).rejects.toThrow(
-        '[mt-link-sdk] Missing option `redirectUri` in `tokenInfo`, make sure to pass one via `tokenInfo` options or `init` options.'
-      );
-    });
-
     test('make request', async () => {
       fetch.mockClear();
       fetch.mockResponseOnce(JSON.stringify(response));
 
       await tokenInfo(mtLinkSdk.storedOptions, token);
 
-      const query = qs.stringify({
-        client_id: clientId,
-        redirect_uri: redirectUri,
-        response_type: 'token',
-      });
-
-      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;
+      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json`;
 
       expect(fetch).toBeCalledTimes(1);
       expect(fetch).toBeCalledWith(url, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
+          'x-api-key': clientId,
         },
       });
-    });
-
-    test('use option', async () => {
-      fetch.mockClear();
-      fetch.mockResponseOnce(JSON.stringify(response));
-
-      const newRedirectUri = 'newRedirectUri';
-
-      await tokenInfo(mtLinkSdk.storedOptions, token, { redirectUri: newRedirectUri });
-
-      const query = qs.stringify({
-        client_id: clientId,
-        redirect_uri: newRedirectUri,
-        response_type: 'token',
-      });
-
-      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;
-
-      expect(fetch.mock.calls[0][0]).toBe(url);
     });
 
     test('failed to request', async () => {
