@@ -1,3 +1,24 @@
+# [2.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.4.0...2.0.0) (2020-10-19)
+
+
+### Features
+
+- Support OAuth 2.0 Authorization Code with PKCE Flow.
+- Enable to onboard a guest faster.
+- Support Magic link(password-less login link).
+
+
+# [1.4.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.3.1...1.4.0) (2020-01-17)
+
+
+# [1.3.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.3.0...1.3.1) (2020-01-17)
+
+
+### Bug Fixes
+
+* **logout:** add optional backTo parameter ([9b9da89](https://github.com/moneytree/mt-link-javascript-sdk/commit/9b9da8941ff58049ed200d6dd6324bc5918adca0))
+
+
 # [1.3.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.2.3...1.3.0) (2019-12-11)
 
 
