@@ -202,6 +202,80 @@ mtLinkSdk.openService(serviceId, options);
 | - | - | - | - | - |
 | serviceId | `vault`, `myaccount-settings`, `link-kit` | true | | Open a service by Id, current supported services are:<br /><li>`vault` - Manage your financial institution credentials.</li><li>`myaccount-settings` - Manage your Moneytree account settings.</li><li>`link-kit` - View all your financial data.<br /><br /><strong>NOTE:</strong> This function will throw an error if you do not specify a valid service ID. |
 | options | object | false | Value set during `init`. | Optional parameters. Includes all options in [common options](#common-api-options). |
+| options.view | `services-list`, `service-connection`, `connection-setting`, `customer-support` | false | | We provide the way to open the Vault's specific pages.  Please check the following sessions:<br /> <li>[Open Vault Services Page](#open-vault-services-page)</li><li>[Open Vault Service Connection Page](#open-vault-service-connection-page)</li><li>[Open Vault Service Setting Page](#open-vault-service-setting-page)</li><li>[Open Vault Customer Support Page](#open-vault-customer-support-page)</li> <br /><br /><strong>NOTE:</strong> The serviceId must be `vault` to enable this option.|
+
+#### Open Vault Services Page
+
+It has to include these properties of `options` below when calling [openService](#openservice) API.
+
+<strong>NOTE:</strong> This scenario only works when serviceId is `vault`.
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.openService('vault', { view: 'services-list', type: 'bank', group: 'grouping_bank', search: 'japan' });
+```
+
+| Parameter | Type | Required | Default Value | Description |
+| - | - | - | - | - |
+| serviceId | `vault` | true | | Open a Vault service.|
+| options.view | `services-list` | true | | Assign to open services page.|
+| options.type | `bank` (personal bank), <br />`credit_card` (personal credit card), <br />`stored_value` (electronic money), `point` (loyalty point), <br />`corporate` (corporate bank or card) | false | | Filter the services by type. |
+| options.group | `grouping_bank`, `grouping_bank_credit_card`, `grouping_bank_dc_card`, `grouping_corporate_credit_card`, `grouping_credit_card`, `grouping_credit_coop`, `grouping_credit_union`, `grouping_dc_pension_plan`, `grouping_debit_card`, `grouping_digital_money`, `grouping_ja_bank`, `grouping_life_insurance`, `grouping_point`, `grouping_regional_bank`, `grouping_stock`, `grouping_testing` | false | | Filter the services by group. |
+| options.search | string | false | |  Filter the services by the search term. |
+
+#### Open Vault Service Connection Page
+
+It has to include these properties of `options` below when calling [openService](#openservice) API.
+
+<strong>NOTE:</strong> This scenario only works when serviceId is `vault`.
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.openService('vault', { view: 'service-connection', entityKey: 'yucho_bank'});
+```
+
+| Parameter | Type | Required | Default Value | Description |
+| - | - | - | - | - |
+| serviceId | `vault` | true | | Open a Vault service|
+| options.view | `service-connection` | true | | Assign to open service connection page|
+| options.entityKey | string | true | | Service entity key <br /><br /><strong>NOTE:</strong> Top page of the Vault would be shown if `entityKey` is invalid.|
+
+#### Open Vault Service Setting Page
+
+It has to include these properties of `options` below when calling [openService](#openservice) API.
+
+<strong>NOTE:</strong> This scenario only works when serviceId is `vault`.
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.openService('vault', { view: 'connection-setting', credentialId: '123456'});
+```
+
+| Parameter | Type | Required | Default Value | Description |
+| - | - | - | - | - |
+| serviceId | `vault` | true | | Open a Vault service|
+| options.view | `connection-setting` | true | | Assign to open connection setting page|
+| options.credentialId | string | true | | Service credential Id <br /><br /><strong>NOTE:</strong> Top page of the Vault would be shown if the `credentialId` is invalid.|
+
+#### Open Vault Customer Support Page
+
+It has to include these properties of `options` below when calling [openService](#openservice) API.
+
+<strong>NOTE:</strong> This scenario only works when serviceId is `vault`.
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.openService('vault', { view: 'customer-support' });
+```
+
+| Parameter | Type | Required | Default Value | Description |
+| - | - | - | - | - |
+| serviceId | `vault` | true | | Open a Vault service|
+| options.view | `customer-support` | true | | Assign to open customer support page|
 
 ### requestMagicLink
 

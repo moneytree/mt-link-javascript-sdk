@@ -44,6 +44,94 @@ describe('api', () => {
       expect(open).toBeCalledWith(url, '_self');
     });
 
+    test('vault/services-list', () => {
+      open.mockClear();
+
+      openService(new MtLinkSdk().storedOptions, 'vault', {
+        view: 'services-list',
+        type: 'bank',
+        group: 'grouping_testing',
+        search: 'vault',
+        showRememberMe: false,
+      });
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        configs: generateConfigs({
+          showRememberMe: false,
+        }),
+        group: 'grouping_testing',
+        type: 'bank',
+        search: 'vault',
+      });
+      const url = `${VAULT_DOMAINS.production}/services?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self');
+    });
+
+    test('vault/service-connection', () => {
+      open.mockClear();
+
+      openService(new MtLinkSdk().storedOptions, 'vault', {
+        view: 'service-connection',
+        entityKey: 'fauxbank_test_bank',
+        showRememberMe: false,
+      });
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        configs: generateConfigs({
+          showRememberMe: false,
+        }),
+      });
+      const url = `${VAULT_DOMAINS.production}/service/fauxbank_test_bank?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self');
+    });
+
+    test('vault/connection-setting', () => {
+      open.mockClear();
+
+      openService(new MtLinkSdk().storedOptions, 'vault', {
+        view: 'connection-setting',
+        credentialId: '123',
+        showRememberMe: false,
+      });
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        configs: generateConfigs({
+          showRememberMe: false,
+        }),
+      });
+      const url = `${VAULT_DOMAINS.production}/connection/123?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self');
+    });
+
+    test('vault/customer-support', () => {
+      open.mockClear();
+
+      openService(new MtLinkSdk().storedOptions, 'vault', {
+        view: 'customer-support',
+        showRememberMe: false,
+      });
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        configs: generateConfigs({
+          showRememberMe: false,
+        }),
+      });
+      const url = `${VAULT_DOMAINS.production}/customer-support?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self');
+    });
+
     test('link-kit', () => {
       open.mockClear();
 

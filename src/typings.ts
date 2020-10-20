@@ -18,6 +18,38 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
   isNewTab?: boolean;
 }
 
+export type ServicesListType = {
+  view?: 'services-list';
+  group?:
+    | 'grouping_bank'
+    | 'grouping_bank_credit_card'
+    | 'grouping_bank_dc_card'
+    | 'grouping_corporate_credit_card'
+    | 'grouping_credit_card'
+    | 'grouping_credit_coop'
+    | 'grouping_credit_union'
+    | 'grouping_dc_pension_plan'
+    | 'grouping_debit_card'
+    | 'grouping_digital_money'
+    | 'grouping_ja_bank'
+    | 'grouping_life_insurance'
+    | 'grouping_point'
+    | 'grouping_regional_bank'
+    | 'grouping_stock'
+    | 'grouping_testing';
+  type?: 'bank' | 'credit_card' | 'stored_value' | 'point' | 'corporate';
+  search?: string;
+};
+
+export type ServiceConnectionType = { view?: 'service-connection'; entityKey: string };
+
+export type ConnectionSettingType = { view?: 'connection-setting'; credentialId: string };
+
+export type CustomerSupportType = { view?: 'customer-support' };
+
+export type OpenServicesConfigsOptions = ConfigsOptions &
+  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
+
 export type Scopes = string | string[];
 
 interface AuthorizeConfigsOptions {

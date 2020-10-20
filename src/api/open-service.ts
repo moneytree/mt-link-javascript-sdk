@@ -2,38 +2,112 @@ import { stringify } from 'qs';
 
 import { generateConfigs, mergeConfigs, getIsTabValue } from '../helper';
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../server-paths';
-import { StoredOptions, ServiceId, ConfigsOptions } from '../typings';
+import {
+  StoredOptions,
+  ServiceId,
+  OpenServicesConfigsOptions,
+  ConnectionSettingType,
+  ServiceConnectionType,
+  ServicesListType,
+} from '../typings';
+
+interface QueryData {
+  client_id?: string;
+  cobrand_client_id?: string;
+  locale?: string;
+  configs: string;
+}
 
 export default function openService(
   storedOptions: StoredOptions,
   serviceId: ServiceId,
-  options: ConfigsOptions = {}
+  options: OpenServicesConfigsOptions = {}
 ): void {
   if (!window) {
     throw new Error('[mt-link-sdk] `openService` only works in the browser.');
   }
 
   const { clientId, mode, cobrandClientId, locale } = storedOptions;
-  const { isNewTab, ...rest } = options;
+  const { isNewTab, view, ...rest } = options;
 
-  const queryString = stringify({
-    client_id: clientId,
-    cobrand_client_id: cobrandClientId,
-    locale,
-    configs: generateConfigs(mergeConfigs(storedOptions, rest)),
-  });
+  const getQueryValue = (needStringify = true): string | QueryData => {
+    const query: QueryData = {
+      client_id: clientId,
+      cobrand_client_id: cobrandClientId,
+      locale,
+      configs: generateConfigs(mergeConfigs(storedOptions, rest)),
+    };
+
+    if (!needStringify) {
+      return query;
+    }
+
+    return stringify(query);
+  };
 
   switch (serviceId) {
     case 'vault':
-      window.open(`${VAULT_DOMAINS[mode]}?${queryString}`, getIsTabValue(isNewTab));
+      if (!view) {
+        window.open(`${VAULT_DOMAINS[mode]}?${getQueryValue()}`, getIsTabValue(isNewTab));
+        break;
+      }
+
+      switch (view) {
+        case 'services-list':
+          // eslint-disable-next-line no-case-declarations
+          const { group, type, search } = options as ServicesListType;
+
+          window.open(
+            `${VAULT_DOMAINS[mode]}/services?${stringify({
+              ...(getQueryValue(false) as QueryData),
+              group,
+              type,
+              search,
+            })}`,
+            getIsTabValue(isNewTab)
+          );
+          break;
+
+        case 'service-connection':
+          // eslint-disable-next-line no-case-declarations
+          const { entityKey } = options as ServiceConnectionType;
+
+          window.open(
+            `${VAULT_DOMAINS[mode]}/service/${entityKey}?${getQueryValue()}`,
+            getIsTabValue(isNewTab)
+          );
+          break;
+
+        case 'connection-setting':
+          // eslint-disable-next-line no-case-declarations
+          const { credentialId } = options as ConnectionSettingType;
+
+          window.open(
+            `${VAULT_DOMAINS[mode]}/connection/${credentialId}?${getQueryValue()}`,
+            getIsTabValue(isNewTab)
+          );
+          break;
+
+        case 'customer-support':
+        default:
+          window.open(
+            `${VAULT_DOMAINS[mode]}/customer-support?${getQueryValue()}`,
+            getIsTabValue(isNewTab)
+          );
+          break;
+      }
+
       break;
 
     case 'myaccount-settings':
-      window.open(`${MY_ACCOUNT_DOMAINS[mode]}/settings?${queryString}`, getIsTabValue(isNewTab));
+      window.open(
+        `${MY_ACCOUNT_DOMAINS[mode]}/settings?${getQueryValue()}`,
+        getIsTabValue(isNewTab)
+      );
       break;
 
     case 'link-kit':
-      window.open(`${LINK_KIT_DOMAINS[mode]}?${queryString}`, getIsTabValue(isNewTab));
+      window.open(`${LINK_KIT_DOMAINS[mode]}?${getQueryValue()}`, getIsTabValue(isNewTab));
       break;
 
     default:
