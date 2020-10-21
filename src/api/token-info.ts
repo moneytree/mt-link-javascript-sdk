@@ -1,3 +1,5 @@
+import { stringify } from 'qs';
+import { generateConfigs } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, TokenInfo } from '../typings';
 
@@ -11,12 +13,17 @@ export default async function tokenInfo(
     throw new Error('[mt-link-sdk] Missing parameter `token` in `tokenInfo`.');
   }
 
+  const queryString = stringify({
+    client_id: clientId,
+    configs: generateConfigs()
+  })
+
   try {
-    const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/oauth/token/info.json`, {
+    const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/oauth/token/info.json?${queryString}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
-        'x-api-key': clientId as string,
+        'API-Version': '1604911588',
       },
     });
 
@@ -26,18 +33,7 @@ export default async function tokenInfo(
       throw new Error(result.error_description);
     }
 
-    return {
-      guestUid: result.uid,
-      resourceServer: result.resource_server,
-      country: result.country,
-      currency: result.currency,
-      language: result.locale,
-      clientId: result.aud.uid,
-      clientName: result.aud.name,
-      expTimestamp: result.exp,
-      scopes: result.scopes,
-      isMtClient: result.is_mt_client,
-    };
+    return result;
   } catch (error) {
     throw new Error(`[mt-link-sdk] \`tokenInfo\` execution failed. ${error}`);
   }

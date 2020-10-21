@@ -72,7 +72,7 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
   ];
 
   for (const key in configs) {
-    if (configKeys.includes(key)) {
+    if (configKeys.indexOf(key) !== -1) {
       snakeCaseConfigs[snakeCase(key)] = configs[key as keyof ConfigsOptions];
     }
   }

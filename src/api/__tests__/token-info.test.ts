@@ -20,7 +20,7 @@ describe('api', () => {
         name: 'aud-name',
       },
       exp: 'exp',
-      scopes: 'scopes',
+      scopes: ['scopes'],
     };
 
     const mtLinkSdk = new MtLinkSdk();
