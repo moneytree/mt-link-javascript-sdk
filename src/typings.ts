@@ -111,14 +111,21 @@ export interface RequestMagicLinkOptions extends ConfigsOptions {
 }
 
 export interface TokenInfo {
-  guestUid: string;
-  resourceServer: string;
-  country: string;
-  currency: string;
-  language: string;
-  clientName: string;
-  clientId: string;
-  expTimestamp: number;
-  scopes: Scopes;
-  isMtClient: boolean;
+  iss: string;
+  iat: number;
+  exp: number;
+  aud: string[];
+  sub: null | string;
+  scope: string;
+  client_id: null | string;
+  app: null | {
+    name: string;
+    is_mt: boolean;
+  };
+  guest: null | {
+    email: string;
+    country: string;
+    currency: string;
+    lang: string;
+  };
 }

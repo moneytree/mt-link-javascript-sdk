@@ -154,16 +154,19 @@ You can validate a token or get guest or resource server information related to 
 
 ```javascript
 const tokenInfo = await mtLinkSdk.tokenInfo(token, options);
-tokenInfo.guestUid // guest's uid
-tokenInfo.country // guest's country
-tokenInfo.currency // guest's currency
-tokenInfo.language // guest's language
-tokenInfo.resourceServer // resource server domain
-tokenInfo.clientId // app client id
-tokenInfo.clientName // app name
-tokenInfo.expTimestamp // token expiration timestamp
-tokenInfo.scopes // token access scopes
-tokenInfo.isMtClient // for internal use
+tokenInfo.iat // token creation timestamp,
+tokenInfo.exp // token expiration timestamp,
+tokenInfo.sub // guest uid or null,
+tokenInfo.scope // string with space separated scopes
+tokenInfo.client_id // application client id or null
+tokenInfo.app // application related information or null
+tokenInfo.app.name // application name
+tokenInfo.app.is_mt // is moneytree client (internal usage)
+tokenInfo.guest // guest related information or null
+tokenInfo.guest.email // guest email if available
+tokenInfo.guest.country // guest country
+tokenInfo.guest.currency // guest currency,
+tokenInfo.guest.lang // guest language
 ```
 
 | Parameter | Type | Required | Default Value | Description |
