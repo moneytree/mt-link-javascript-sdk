@@ -26,7 +26,15 @@ export function set(key: string, value: string): void {
   sessionStorage.setItem(STORE_KEY, JSON.stringify(data));
 }
 
+export function del(key: string): void {
+  const data = getStorageObject();
+  delete data[key];
+
+  sessionStorage.setItem(STORE_KEY, JSON.stringify(data));
+}
+
 export default {
   set,
   get,
+  del,
 };
