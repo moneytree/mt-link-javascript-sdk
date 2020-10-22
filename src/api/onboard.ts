@@ -19,7 +19,6 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     locale,
     scopes: defaultScopes,
     redirectUri: defaultRedirectUri,
-    state: defaultState,
     codeVerifier: defaultCodeVerifier,
     country: defaultCountry,
   } = storedOptions;
@@ -31,10 +30,10 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
   const {
     scopes = defaultScopes,
     redirectUri = defaultRedirectUri,
-    state = defaultState,
     codeVerifier = defaultCodeVerifier,
     country = defaultCountry,
     isNewTab,
+    state,
     ...rest
   } = options;
   const configs = mergeConfigs(storedOptions, rest, [
@@ -45,11 +44,6 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
   ]);
 
   const { email } = configs;
-
-  // update state
-  if (state !== defaultState) {
-    storage.set('state', state);
-  }
 
   // update codeVerifier
   if (codeVerifier !== defaultCodeVerifier) {

@@ -44,12 +44,6 @@ describe('api', () => {
       );
     });
 
-    test('state have to match if passed via options or extracted from url', async () => {
-      await expect(exchangeToken(mtLinkSdk.storedOptions, { code, state: 'test' })).rejects.toThrow(
-        '[mt-link-sdk] `state` does not matched, make sure to pass in the correct state used during `authorize` or `onboard` call'
-      );
-    });
-
     test('make request', async () => {
       fetch.mockClear();
 
