@@ -68,7 +68,6 @@ describe('api', () => {
       open.mockClear();
 
       const codeVerifier = 'codeVerifier';
-      const state = 'state';
       const country = 'JP';
       const scopes = 'points_read';
       const cobrandClientId = 'cobrandClientId';
@@ -77,7 +76,6 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
         redirectUri,
-        state,
         codeVerifier,
         country,
         scopes,
@@ -98,7 +96,6 @@ describe('api', () => {
         redirect_uri: redirectUri,
         code_challenge: 'N1E4yRMD7xixn_oFyO_W3htYN3rY7-HMDKJe6z6r928',
         code_challenge_method: 'S256',
-        state,
         country,
         locale,
         configs: generateConfigs({ email }),
@@ -106,8 +103,7 @@ describe('api', () => {
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
       expect(open).toBeCalledWith(url, '_self');
 
-      expect(mockedStorage.set).toBeCalledTimes(2);
-      expect(mockedStorage.set).toBeCalledWith('state', state);
+      expect(mockedStorage.set).toBeCalledTimes(1);
       expect(mockedStorage.set).toBeCalledWith('codeVerifier', codeVerifier);
     });
 
@@ -148,8 +144,7 @@ describe('api', () => {
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
       expect(open).toBeCalledWith(url, '_self');
 
-      expect(mockedStorage.set).toBeCalledTimes(4);
-      expect(mockedStorage.set).toBeCalledWith('state', state);
+      expect(mockedStorage.set).toBeCalledTimes(2);
       expect(mockedStorage.set).toBeCalledWith('codeVerifier', codeVerifier);
     });
 

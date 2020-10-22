@@ -3,20 +3,17 @@ import qs from 'qs';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, ExchangeTokenOptions } from '../typings';
 
-function getCodeAndState(): { code?: string; state?: string } {
+function getCode(): string | undefined {
   // not available in node environment
   if (!window) {
-    return {};
+    return;
   }
 
-  const { code, state } = qs.parse(window.location.search, {
+  const { code } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   });
 
-  return {
-    code: (Array.isArray(code) ? code[code.length - 1] : code) as string,
-    state: (Array.isArray(state) ? state[state.length - 1] : state) as string,
-  };
+  return (Array.isArray(code) ? code[code.length - 1] : code) as string | undefined;
 }
 
 export default async function exchangeToken(
@@ -26,7 +23,6 @@ export default async function exchangeToken(
   const {
     clientId,
     redirectUri: defaultRedirectUri,
-    state: defaultState,
     mode,
     codeVerifier: defaultCodeVerifier,
   } = storedOptions;
@@ -35,24 +31,15 @@ export default async function exchangeToken(
     throw new Error('[mt-link-sdk] Make sure to call `init` before calling `exchangeToken`.');
   }
 
-  const { code: extractedCode, state: extractedState } = getCodeAndState();
-
   const {
     redirectUri = defaultRedirectUri,
-    state = extractedState,
     codeVerifier = defaultCodeVerifier,
-    code = extractedCode,
+    code = getCode(),
   } = options;
 
   if (!code) {
     throw new Error(
       '[mt-link-sdk] Missing option `code` in `exchangeToken`, or failed to get `code` from query/hash value from the URL.'
-    );
-  }
-
-  if (state && defaultState !== state) {
-    throw new Error(
-      '[mt-link-sdk] `state` does not matched, make sure to pass in the correct state used during `authorize` or `onboard` call'
     );
   }
 

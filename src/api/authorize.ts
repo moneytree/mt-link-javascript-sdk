@@ -22,7 +22,6 @@ export default function authorize(
     locale,
     scopes: defaultScopes,
     redirectUri: defaultRedirectUri,
-    state: defaultState,
     codeVerifier: defaultCodeVerifier,
     country: defaultCountry,
   } = storedOptions;
@@ -34,17 +33,12 @@ export default function authorize(
   const {
     scopes = defaultScopes,
     redirectUri = defaultRedirectUri,
-    state = defaultState,
     codeVerifier = defaultCodeVerifier,
     country = defaultCountry,
     isNewTab,
+    state,
     ...rest
   } = options;
-
-  // update state
-  if (state !== defaultState) {
-    storage.set('state', state);
-  }
 
   // update codeVerifier
   if (codeVerifier !== defaultCodeVerifier) {

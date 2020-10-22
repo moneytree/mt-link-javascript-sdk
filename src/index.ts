@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid';
-
 import authorize from './api/authorize';
 import onboard from './api/onboard';
 import logout from './api/logout';
@@ -28,7 +26,6 @@ const validModes: Mode[] = ['production', 'staging', 'develop', 'local'];
 export class MtLinkSdk {
   public storedOptions: StoredOptions = {
     mode: 'production',
-    state: storage.get('state') || uuid(),
     codeVerifier: storage.get('codeVerifier') || '',
   };
 
@@ -47,7 +44,6 @@ export class MtLinkSdk {
       mode: validModes.indexOf(mode) === -1 ? 'production' : mode,
     };
 
-    storage.set('state', this.storedOptions.state);
     storage.set('codeVerifier', this.storedOptions.codeVerifier);
   }
 

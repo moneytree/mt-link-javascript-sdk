@@ -80,7 +80,6 @@ export interface StoredOptions extends InitOptions {
   clientId?: string;
   mode: Mode;
   codeVerifier: string;
-  state: string;
 }
 
 export interface ExchangeTokenOptions extends OAuthSharedParams {
