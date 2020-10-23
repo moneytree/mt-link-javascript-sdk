@@ -1,8 +1,12 @@
 import { stringify } from 'qs';
-import { createHash } from 'crypto';
-import { encode } from 'url-safe-base64';
 
-import { constructScopes, generateConfigs, mergeConfigs, getIsTabValue } from '../helper';
+import {
+  constructScopes,
+  generateConfigs,
+  mergeConfigs,
+  getIsTabValue,
+  generateCodeChallenge,
+} from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, OnboardOptions } from '../typings';
 import storage from '../storage';
@@ -19,7 +23,6 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     locale,
     scopes: defaultScopes,
     redirectUri: defaultRedirectUri,
-    codeVerifier: defaultCodeVerifier,
     country: defaultCountry,
   } = storedOptions;
 
@@ -30,12 +33,14 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
   const {
     scopes = defaultScopes,
     redirectUri = defaultRedirectUri,
-    codeVerifier = defaultCodeVerifier,
     country = defaultCountry,
+    pkce = false,
+    codeChallenge,
     isNewTab,
     state,
     ...rest
   } = options;
+
   const configs = mergeConfigs(storedOptions, rest, [
     'authAction',
     'showAuthToggle',
@@ -43,18 +48,13 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     'forceLogout',
   ]);
 
-  const { email } = configs;
-
-  // update codeVerifier
-  if (codeVerifier !== defaultCodeVerifier) {
-    storage.set('codeVerifier', codeVerifier);
-  }
-
   if (!redirectUri) {
     throw new Error(
       '[mt-link-sdk] Missing option `redirectUri` in `onboard`, make sure to pass one via `onboard` options or `init` options.'
     );
   }
+
+  const { email } = configs;
 
   if (!email) {
     throw new Error(
@@ -68,9 +68,9 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     );
   }
 
-  const codeChallenge =
-    codeVerifier &&
-    encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
+  storage.del('cv');
+
+  const cc = codeChallenge || (pkce && generateCodeChallenge());
 
   const queryString = stringify({
     client_id: clientId,
@@ -78,8 +78,8 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     response_type: 'code',
     scope: constructScopes(scopes),
     redirect_uri: redirectUri,
-    code_challenge: codeChallenge || undefined,
-    code_challenge_method: codeVerifier ? 'S256' : undefined,
+    code_challenge: cc || undefined,
+    code_challenge_method: cc ? 'S256' : undefined,
     state,
     country,
     locale,

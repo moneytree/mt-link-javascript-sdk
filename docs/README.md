@@ -84,8 +84,9 @@ mtLinkSdk.authorize(options);
 | <span id="api-authorize_options">options</span> | object | false | Value set during `init`. | Optional parameters as described in [common options](#common-api-options). |
 | options.scopes | string <p><strong>OR</strong></p> string[] | false | Value set during `init`.<p><strong>OR</strong></p>`guest_read` | Access scopes you're requesting. This can be a single scope, or an array of scopes.<br /><br />Currently supported scopes are:<br />`guest_read`, `accounts_read`, `points_read`, `point_transactions_read`, `transactions_read`, `transactions_write`, `expense_claims_read`, `categories_read`, `investment_accounts_read`, `investment_transactions_read`, `notifications_read`, `request_refresh`, `life_insurance_read`. |
 | options.redirectUri | string | false | Value set during `init`. | OAuth redirection URI, refer [here](https://www.oauth.com/oauth2-servers/redirect-uris/) for more details.<br /><br /><strong>NOTE:</strong> This function will throw an error if this value is undefined <strong>and</strong> no default value was provided in the [init options](?id=api-init_options). |
-| options.state | string | false | You can pass in an optional value here during OAuth authorization request and validate the value is still same after an OAuth redirection. [Click here](https://tools.ietf.org/html/rfc6749#section-4.1.1)|
-| options.codeVerifier | string | false | Value set during `init`. | We only support SHA256, therefore this `codeVerifier` will be used to generate the `code_challenge` using the SHA256 hash algorithm. [Click here](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce) for more details.</p><strong>NOTE:</strong> Make sure to set this value explicitly if your server generates an identifier for the OAuth authorization request so that you can use to acquire the access token after the OAuth redirect occurs. |
+| options.state | string | false | Value set during `init`.<p><strong>OR</strong></p>Randomly generated [uuid](<https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)>). | Refer [here](https://auth0.com/docs/protocols/oauth2/oauth-state) for more details.<br /><br /><strong>NOTE:</strong> Make sure to set this value explicitly if your server generates an identifier for the OAuth authorization request so that you can use to acquire the access token after the OAuth redirect occurs. |
+| options.codeChallenge | string | false | | We only support SHA256 as code challenge method, therefore please ensure the `code_challenge` was generated using the SHA256 hash algorithm. [Click here](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce) for more details.</p><strong>NOTE:</strong> Set this value only if your server wish to use PKCE flow. |
+| options.pkce | boolean | false | false | Set to `true` if you wish to use PKCE flow on the client side, SDK will automatically generate the code challenge from a locally generated code verifier and use the code verifier in [exchangeToken](#exchangetoken).  |
 | <span id="authorize_option_force_logout">options.forceLogout</span> | boolean | false | `false` | Force existing guest session to logout and call authorize with a clean state. |
 | options.country | `AU`, ` JP` | false | Value set during `init`. | Server location for the guest to login or sign up. If you wish to restrict your guest to only one country, make sure to set this value.<br /><br /><strong>NOTE:</strong> For apps created after 2020-07-08, the sign up form will display a country selection dropdown for the guest to select a country when this value is undefined or invalid. |
 
@@ -117,8 +118,6 @@ mtLinkSdk.onboard(options)
 
 Since we are using PKCE/Code grant, we will have to exchange the `code` for a token. You can optionally pass `code` via options parameter or it will fallback to automatically extract it from the browser URL.
 
-Options for the, `codeVerifier` and `onboard` calls will use the default value from `init`, however if you explicitly pass a new value when calling `authorize` or `onboard` via the options parameter, make sure to reuse the same value when calling this API, otherwise the authentication server will throw an error due to a value mismatch.
-
 `code` will be invalidated (can be used only once) after exchanged for a token, it is your responsibility to store the token yourself as the SDK does not store it internally.
 
 Refer [here](https://www.oauth.com/oauth2-servers/pkce/authorization-code-exchange/) for more details.
@@ -138,7 +137,7 @@ const token = await mtLinkSdk.exchangeToken(options);
 | - | - | - | - | - |
 | options | object | false | Value set during `init`. | Optional parameters. |
 | options.code | string | false | Value from browser URL | Code from OAuth redirection used to exchange for a token, SDK will try to extract it from the browser URL if none is provided.<br /><br /><strong>NOTE:</strong> SDK will throw an error if no value is provided here and the client library failed to extract it from browser URL. |
-| options.codeVerifier | string | false | Value set during `init`. | Make sure the value of `codeVerifier` here is the same codeVerifier value used during the `authorize` or `onboard` call. |
+| options.codeVerifier | string | false | | If you pass a `codeChallenge` option during the `authorize` or `onboard` call and wish to exchange the token on the client side application, make sure to set the code verifier used to generate the said `codeChallenge` here. |
 | options.redirectUri | string | false | Value set during `init`. | Make sure the value of `redirectUri` here is the same redirectUri value used during the `authorize` or `onboard` call.<br /><br /><strong>NOTE:</strong> The SDK will throw an error if both this parameter and the default value from the [init options](?id=api-init_options) are undefined. |
 
 ### tokenInfo

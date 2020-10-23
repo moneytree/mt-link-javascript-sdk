@@ -12,12 +12,12 @@ import {
   LogoutOptions,
   InitOptions,
   AuthorizeOptions,
+  OnboardOptions,
   ExchangeTokenOptions,
   RequestMagicLinkOptions,
   TokenInfo,
   Mode,
 } from './typings';
-import storage from './storage';
 
 export * from './typings';
 
@@ -26,7 +26,6 @@ const validModes: Mode[] = ['production', 'staging', 'develop', 'local'];
 export class MtLinkSdk {
   public storedOptions: StoredOptions = {
     mode: 'production',
-    codeVerifier: storage.get('codeVerifier') || '',
   };
 
   public init(clientId: string, options: InitOptions = {}): void {
@@ -43,15 +42,13 @@ export class MtLinkSdk {
       clientId,
       mode: validModes.indexOf(mode) === -1 ? 'production' : mode,
     };
-
-    storage.set('codeVerifier', this.storedOptions.codeVerifier);
   }
 
   public authorize(options?: AuthorizeOptions): void {
     authorize(this.storedOptions, options);
   }
 
-  public onboard(options?: AuthorizeOptions): void {
+  public onboard(options?: OnboardOptions): void {
     onboard(this.storedOptions, options);
   }
 

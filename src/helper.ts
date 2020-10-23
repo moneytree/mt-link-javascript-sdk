@@ -2,6 +2,10 @@ declare const __VERSION__: string;
 
 import { stringify } from 'qs';
 import { snakeCase } from 'snake-case';
+import { createHash } from 'crypto';
+import { encode } from 'url-safe-base64';
+import { v4 as uuid } from 'uuid';
+import storage from './storage';
 
 import { Scopes, InitOptions, ConfigsOptions, AuthAction } from './typings';
 
@@ -82,4 +86,12 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     sdk_version: __VERSION__,
     ...snakeCaseConfigs,
   });
+}
+
+export function generateCodeChallenge(): string {
+  const codeVerifier = uuid();
+
+  storage.set('cv', codeVerifier);
+
+  return encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
 }
