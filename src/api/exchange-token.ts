@@ -2,6 +2,7 @@ import qs from 'qs';
 
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, ExchangeTokenOptions } from '../typings';
+import storage from '../storage';
 
 function getCode(): string | undefined {
   // not available in node environment
@@ -23,8 +24,7 @@ export default async function exchangeToken(
   const {
     clientId,
     redirectUri: defaultRedirectUri,
-    mode,
-    codeVerifier: defaultCodeVerifier,
+    mode
   } = storedOptions;
 
   if (!clientId) {
@@ -33,8 +33,8 @@ export default async function exchangeToken(
 
   const {
     redirectUri = defaultRedirectUri,
-    codeVerifier = defaultCodeVerifier,
     code = getCode(),
+    codeVerifier,
   } = options;
 
   if (!code) {
@@ -60,8 +60,7 @@ export default async function exchangeToken(
         client_id: clientId,
         grant_type: 'authorization_code',
         redirect_uri: redirectUri,
-        code_verifier: codeVerifier || undefined,
-        code_challenge_method: codeVerifier ? 'S256' : undefined,
+        code_verifier: codeVerifier || (code ? storage.get('cv') : undefined),
       }),
     });
 

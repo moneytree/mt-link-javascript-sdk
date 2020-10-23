@@ -59,7 +59,6 @@ interface AuthorizeConfigsOptions {
 interface OAuthSharedParams {
   state?: string;
   redirectUri?: string;
-  codeVerifier?: string;
 }
 
 export interface AuthorizeOptions
@@ -68,10 +67,15 @@ export interface AuthorizeOptions
     AuthorizeConfigsOptions {
   country?: string;
   scopes?: Scopes;
+  codeChallenge?: string;
+  pkce?: boolean;
 }
 
 export type Mode = 'production' | 'staging' | 'develop' | 'local';
-export type InitOptions = Omit<AuthorizeOptions, 'forceLogout'> &
+export type InitOptions = Omit<
+  Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'>,
+  'pkce'
+> &
   PrivateParams & {
     mode?: Mode;
     locale?: string;
@@ -79,11 +83,11 @@ export type InitOptions = Omit<AuthorizeOptions, 'forceLogout'> &
 export interface StoredOptions extends InitOptions {
   clientId?: string;
   mode: Mode;
-  codeVerifier: string;
 }
 
 export interface ExchangeTokenOptions extends OAuthSharedParams {
   code?: string;
+  codeVerifier?: string;
 }
 
 export type LogoutOptions = ConfigsOptions;

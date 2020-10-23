@@ -1,16 +1,17 @@
 import { stringify } from 'qs';
-import { createHash } from 'crypto';
-import { encode } from 'url-safe-base64';
 
-import { constructScopes, generateConfigs, mergeConfigs, getIsTabValue } from '../helper';
+import {
+  constructScopes,
+  generateConfigs,
+  mergeConfigs,
+  getIsTabValue,
+  generateCodeChallenge,
+} from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, AuthorizeOptions } from '../typings';
 import storage from '../storage';
 
-export default function authorize(
-  storedOptions: StoredOptions,
-  options: AuthorizeOptions = {}
-): void {
+export default function authorize(storedOptions: StoredOptions, options: AuthorizeOptions = {}): void {
   if (!window) {
     throw new Error('[mt-link-sdk] `authorize` only works in the browser.');
   }
@@ -22,7 +23,6 @@ export default function authorize(
     locale,
     scopes: defaultScopes,
     redirectUri: defaultRedirectUri,
-    codeVerifier: defaultCodeVerifier,
     country: defaultCountry,
   } = storedOptions;
 
@@ -33,17 +33,13 @@ export default function authorize(
   const {
     scopes = defaultScopes,
     redirectUri = defaultRedirectUri,
-    codeVerifier = defaultCodeVerifier,
     country = defaultCountry,
+    pkce = false,
+    codeChallenge,
     isNewTab,
     state,
     ...rest
   } = options;
-
-  // update codeVerifier
-  if (codeVerifier !== defaultCodeVerifier) {
-    storage.set('codeVerifier', codeVerifier);
-  }
 
   if (!redirectUri) {
     throw new Error(
@@ -51,9 +47,9 @@ export default function authorize(
     );
   }
 
-  const codeChallenge =
-    codeVerifier &&
-    encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
+  storage.del('cv');
+
+  const cc = codeChallenge || (pkce && generateCodeChallenge());
 
   const queryString = stringify({
     client_id: clientId,
@@ -61,8 +57,8 @@ export default function authorize(
     response_type: 'code',
     scope: constructScopes(scopes),
     redirect_uri: redirectUri,
-    code_challenge: codeChallenge || undefined,
-    code_challenge_method: codeVerifier ? 'S256' : undefined,
+    code_challenge: cc || undefined,
+    code_challenge_method: cc ? 'S256' : undefined,
     state,
     country,
     locale,
