@@ -1,0 +1,70 @@
+version: 2.1
+
+docker_defaults: &docker_defaults
+  docker:
+    - image: circleci/node:12-stretch-browsers
+  working_directory: ~/mt-link-javascript-sdk
+
+attach_workspace: &attach_workspace
+  attach_workspace:
+    at: ~/mt-link-javascript-sdk
+
+jobs:
+  dependencies:
+    <<: *docker_defaults
+    steps:
+      - checkout
+      - *attach_workspace
+      - restore_cache:
+          name: Restore node_modules cache
+          key: dependency-cache-v2-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --no-progress
+      - save_cache:
+          name: Save node_modules cache
+          key: dependency-cache-v2-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/
+      - persist_to_workspace:
+          root: ~/mt-link-javascript-sdk
+          paths:
+            - ./
+
+  lint:
+    <<: *docker_defaults
+    steps:
+      - *attach_workspace
+      - run:
+          name: Linting JavaScript
+          command: yarn lint
+
+  unit_test:
+    <<: *docker_defaults
+    steps:
+      - *attach_workspace
+      - run:
+          name: Running tests
+          command: yarn test
+
+  done:
+    <<: *docker_defaults
+    steps:
+      - run:
+          command: echo done
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - dependencies
+      - lint:
+          requires:
+            - dependencies
+      - unit_test:
+          requires:
+            - dependencies
+      - done:
+          requires:
+            - lint
+            - unit_test
