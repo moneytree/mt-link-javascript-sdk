@@ -62,8 +62,19 @@ export function mergeConfigs(
 export function generateConfigs(configs: ConfigsOptions = {}): string {
   const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | undefined } = {};
 
+  const configKeys = [
+    'email',
+    'backTo',
+    'authAction',
+    'showAuthToggle',
+    'showRememberMe',
+    'isNewTab',
+  ];
+
   for (const key in configs) {
-    snakeCaseConfigs[snakeCase(key)] = configs[key as keyof ConfigsOptions];
+    if (configKeys.includes(key)) {
+      snakeCaseConfigs[snakeCase(key)] = configs[key as keyof ConfigsOptions];
+    }
   }
 
   return stringify({
