@@ -67,7 +67,6 @@ describe('api', () => {
       mockedStorage.set.mockClear();
       open.mockClear();
 
-      const codeVerifier = 'codeVerifier';
       const country = 'JP';
       const scopes = 'points_read';
       const cobrandClientId = 'cobrandClientId';
@@ -76,7 +75,6 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
         redirectUri,
-        codeVerifier,
         country,
         scopes,
         email,
@@ -94,24 +92,18 @@ describe('api', () => {
         response_type: 'code',
         scope: scopes,
         redirect_uri: redirectUri,
-        code_challenge: 'N1E4yRMD7xixn_oFyO_W3htYN3rY7-HMDKJe6z6r928',
-        code_challenge_method: 'S256',
         country,
         locale,
         configs: generateConfigs({ email }),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
       expect(open).toBeCalledWith(url, '_self');
-
-      expect(mockedStorage.set).toBeCalledTimes(1);
-      expect(mockedStorage.set).toBeCalledWith('codeVerifier', codeVerifier);
     });
 
     test('with options', () => {
       mockedStorage.set.mockClear();
       open.mockClear();
 
-      const codeVerifier = 'codeVerifier';
       const state = 'state';
       const country = 'JP';
       const scopes = 'points_read';
@@ -121,7 +113,6 @@ describe('api', () => {
 
       onboard(mtLinkSdk.storedOptions, {
         state,
-        codeVerifier,
         redirectUri,
         country,
         scopes,
@@ -135,17 +126,12 @@ describe('api', () => {
         response_type: 'code',
         scope: scopes,
         redirect_uri: redirectUri,
-        code_challenge: 'N1E4yRMD7xixn_oFyO_W3htYN3rY7-HMDKJe6z6r928',
-        code_challenge_method: 'S256',
         state,
         country,
         configs: generateConfigs({ email }),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
       expect(open).toBeCalledWith(url, '_self');
-
-      expect(mockedStorage.set).toBeCalledTimes(2);
-      expect(mockedStorage.set).toBeCalledWith('codeVerifier', codeVerifier);
     });
 
     test('without window', () => {

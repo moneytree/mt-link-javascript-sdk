@@ -28,7 +28,6 @@ describe('index', () => {
     const options = instance.storedOptions;
     const storedOptions = {
       clientId: options.clientId,
-      codeVerifier: options.codeVerifier,
       mode: options.mode,
       redirectUri: options.redirectUri,
       state: options.state,
@@ -81,12 +80,10 @@ describe('index', () => {
     mtLinkSdk.init('clientId', {
       mode: 'local',
       state: 'state',
-      codeVerifier: 'codeVerifier',
     });
 
     expect(mtLinkSdk.storedOptions.mode).toBe('local');
     expect(mtLinkSdk.storedOptions.state).toBe('state');
-    expect(mtLinkSdk.storedOptions.codeVerifier).toBe('codeVerifier');
   });
 
   test('invalid mode default to production', () => {

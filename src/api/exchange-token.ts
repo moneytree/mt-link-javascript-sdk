@@ -21,21 +21,13 @@ export default async function exchangeToken(
   storedOptions: StoredOptions,
   options: ExchangeTokenOptions = {}
 ): Promise<string> {
-  const {
-    clientId,
-    redirectUri: defaultRedirectUri,
-    mode
-  } = storedOptions;
+  const { clientId, redirectUri: defaultRedirectUri, mode } = storedOptions;
 
   if (!clientId) {
     throw new Error('[mt-link-sdk] Make sure to call `init` before calling `exchangeToken`.');
   }
 
-  const {
-    redirectUri = defaultRedirectUri,
-    code = getCode(),
-    codeVerifier,
-  } = options;
+  const { redirectUri = defaultRedirectUri, code = getCode(), codeVerifier } = options;
 
   if (!code) {
     throw new Error(

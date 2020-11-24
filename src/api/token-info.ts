@@ -15,17 +15,20 @@ export default async function tokenInfo(
 
   const queryString = stringify({
     client_id: clientId,
-    configs: generateConfigs()
-  })
+    configs: generateConfigs(),
+  });
 
   try {
-    const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/oauth/token/info.json?${queryString}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'API-Version': '1604911588',
-      },
-    });
+    const response = await fetch(
+      `${MY_ACCOUNT_DOMAINS[mode]}/oauth/token/info.json?${queryString}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'API-Version': '1604911588',
+        },
+      }
+    );
 
     const result = await response.json();
 
