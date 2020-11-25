@@ -1,7 +1,9 @@
 import fetch from 'jest-fetch-mock';
+import qs from 'qs';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
+import { generateConfigs } from '../../helper';
 import tokenInfo from '../token-info';
 
 describe('api', () => {
@@ -39,15 +41,19 @@ describe('api', () => {
       fetch.mockResponseOnce(JSON.stringify(response));
 
       await tokenInfo(mtLinkSdk.storedOptions, token);
+      const query = qs.stringify({
+        client_id: clientId,
+        configs: generateConfigs(),
+      });
 
-      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json`;
+      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;
 
       expect(fetch).toBeCalledTimes(1);
       expect(fetch).toBeCalledWith(url, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
-          'x-api-key': clientId,
+          'API-Version': '1604911588',
         },
       });
     });
