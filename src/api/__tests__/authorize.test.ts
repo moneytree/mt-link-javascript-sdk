@@ -68,7 +68,7 @@ describe('api', () => {
         configs: generateConfigs(),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('with options', () => {
@@ -101,7 +101,7 @@ describe('api', () => {
         configs: generateConfigs(),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('without window', () => {
