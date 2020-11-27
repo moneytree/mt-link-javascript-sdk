@@ -70,6 +70,7 @@ export default function authorize(
 
   window.open(
     `${MY_ACCOUNT_DOMAINS[mode]}/oauth/authorize?${queryString}`,
-    getIsTabValue(isNewTab)
+    getIsTabValue(isNewTab),
+    'noreferrer'
   );
 }
