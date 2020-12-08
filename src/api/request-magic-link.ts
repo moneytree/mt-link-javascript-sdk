@@ -1,6 +1,6 @@
 import { stringify } from 'qs';
 
-import { generateConfigs, mergeConfigs } from '../helper';
+import { generateConfigs, mergeConfigs, generateSdkHeaderInfo } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, RequestMagicLinkOptions } from '../typings';
 
@@ -38,6 +38,7 @@ export default async function requestMagicLink(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...generateSdkHeaderInfo(),
       },
       body: JSON.stringify({
         email,
