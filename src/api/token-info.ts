@@ -1,5 +1,5 @@
 import { stringify } from 'qs';
-import { generateConfigs } from '../helper';
+import { generateConfigs, generateSdkHeaderInfo } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, TokenInfo } from '../typings';
 
@@ -26,6 +26,7 @@ export default async function tokenInfo(
         headers: {
           Authorization: `Bearer ${token}`,
           'API-Version': '1604911588',
+          ...generateSdkHeaderInfo(),
         },
       }
     );

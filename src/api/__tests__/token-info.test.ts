@@ -1,3 +1,5 @@
+declare const __VERSION__: string;
+
 import fetch from 'jest-fetch-mock';
 import qs from 'qs';
 
@@ -54,6 +56,8 @@ describe('api', () => {
         headers: {
           Authorization: `Bearer ${token}`,
           'API-Version': '1604911588',
+          'mt-sdk-platform': 'js',
+          'mt-sdk-version': __VERSION__,
         },
       });
     });

@@ -1,3 +1,5 @@
+declare const __VERSION__: string;
+
 import fetch from 'jest-fetch-mock';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
@@ -58,6 +60,8 @@ describe('api', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'mt-sdk-platform': 'js',
+          'mt-sdk-version': __VERSION__,
         },
         body: JSON.stringify({
           code,

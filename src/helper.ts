@@ -95,3 +95,13 @@ export function generateCodeChallenge(): string {
 
   return encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
 }
+
+export function generateSdkHeaderInfo(): {
+  'mt-sdk-platform': string;
+  'mt-sdk-version': string;
+} {
+  return {
+    'mt-sdk-platform': 'js',
+    'mt-sdk-version': __VERSION__,
+  };
+}

@@ -1,5 +1,6 @@
 import qs from 'qs';
 
+import { generateSdkHeaderInfo } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, ExchangeTokenOptions } from '../typings';
 import storage from '../storage';
@@ -46,6 +47,7 @@ export default async function exchangeToken(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...generateSdkHeaderInfo(),
       },
       body: JSON.stringify({
         code,
