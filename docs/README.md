@@ -149,7 +149,7 @@ You can validate a token or get guest or resource server information related to 
 <h6>Usage:</h6>
 
 ```javascript
-const tokenInfo = await mtLinkSdk.tokenInfo(token, options);
+const tokenInfo = await mtLinkSdk.tokenInfo(token);
 tokenInfo.iat // token creation timestamp,
 tokenInfo.exp // token expiration timestamp,
 tokenInfo.sub // guest uid or null,
