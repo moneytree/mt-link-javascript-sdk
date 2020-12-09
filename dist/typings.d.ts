@@ -14,6 +14,24 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
     showRememberMe?: boolean;
     isNewTab?: boolean;
 }
+export declare type ServicesListType = {
+    view?: 'services-list';
+    group?: 'grouping_bank' | 'grouping_bank_credit_card' | 'grouping_bank_dc_card' | 'grouping_corporate_credit_card' | 'grouping_credit_card' | 'grouping_credit_coop' | 'grouping_credit_union' | 'grouping_dc_pension_plan' | 'grouping_debit_card' | 'grouping_digital_money' | 'grouping_ja_bank' | 'grouping_life_insurance' | 'grouping_point' | 'grouping_regional_bank' | 'grouping_stock' | 'grouping_testing';
+    type?: 'bank' | 'credit_card' | 'stored_value' | 'point' | 'corporate';
+    search?: string;
+};
+export declare type ServiceConnectionType = {
+    view?: 'service-connection';
+    entityKey: string;
+};
+export declare type ConnectionSettingType = {
+    view?: 'connection-setting';
+    credentialId: string;
+};
+export declare type CustomerSupportType = {
+    view?: 'customer-support';
+};
+export declare type OpenServicesConfigsOptions = ConfigsOptions & (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
 export declare type Scopes = string | string[];
 interface AuthorizeConfigsOptions {
     forceLogout?: boolean;
@@ -21,25 +39,25 @@ interface AuthorizeConfigsOptions {
 interface OAuthSharedParams {
     state?: string;
     redirectUri?: string;
-    codeVerifier?: string;
 }
 export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions {
     country?: string;
     scopes?: Scopes;
+    codeChallenge?: string;
+    pkce?: boolean;
 }
 export declare type Mode = 'production' | 'staging' | 'develop' | 'local';
-export declare type InitOptions = Omit<AuthorizeOptions, 'forceLogout'> & PrivateParams & {
+export declare type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'>, 'pkce'> & PrivateParams & {
     mode?: Mode;
     locale?: string;
 };
 export interface StoredOptions extends InitOptions {
     clientId?: string;
     mode: Mode;
-    codeVerifier: string;
-    state: string;
 }
 export interface ExchangeTokenOptions extends OAuthSharedParams {
     code?: string;
+    codeVerifier?: string;
 }
 export declare type LogoutOptions = ConfigsOptions;
 export declare type OnboardOptions = Omit<Omit<Omit<Omit<AuthorizeOptions, 'showAuthToggle'>, 'forceLogout'>, 'showRememberMe'>, 'authAction'>;
@@ -48,17 +66,23 @@ export declare type MagicLinkTo = string | 'settings' | 'settings/authorized-app
 export interface RequestMagicLinkOptions extends ConfigsOptions {
     magicLinkTo?: MagicLinkTo;
 }
-export declare type TokenInfoOptions = Omit<Omit<OAuthSharedParams, 'state'>, 'codeVerifier'>;
 export interface TokenInfo {
-    guestUid: string;
-    resourceServer: string;
-    country: string;
-    currency: string;
-    language: string;
-    clientName: string;
-    clientId: string;
-    expTimestamp: number;
-    scopes: Scopes;
-    isMtClient: boolean;
+    iss: string;
+    iat: number;
+    exp: number;
+    aud: string[];
+    sub: null | string;
+    scope: string;
+    client_id: null | string;
+    app: null | {
+        name: string;
+        is_mt: boolean;
+    };
+    guest: null | {
+        email: string;
+        country: string;
+        currency: string;
+        lang: string;
+    };
 }
 export {};

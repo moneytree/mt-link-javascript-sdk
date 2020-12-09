@@ -1,3 +1,33 @@
+# [2.1.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.0.0...2.1.0) (2020-12-09)
+
+### Bug Fixes
+
+* **authorize-api:** fix for Safari 14 issue ([9fb69d0](https://github.com/moneytree/mt-link-javascript-sdk/commit/9fb69d014752698df1897527ff27d60ffd116843))
+* update for lint error and test failed ([362f0b7](https://github.com/moneytree/mt-link-javascript-sdk/commit/362f0b749797a438ac8c0024616e7072dbc641ee))
+
+
+### Features
+
+* **headers:** set sdk info as additional headers parameter ([1a55579](https://github.com/moneytree/mt-link-javascript-sdk/commit/1a5557919ee9844409848154ba22ec863c4d1a58))
+* **sample-app:** add example ([89edfcf](https://github.com/moneytree/mt-link-javascript-sdk/commit/89edfcf2e6bc961842f9721345a074779e0549be))
+* add del to storage ([c5f2bda](https://github.com/moneytree/mt-link-javascript-sdk/commit/c5f2bdaf597909f71a3ee551966daa0e47367baf))
+* authorize & onboard accepts `pkce` & `codeChallenge` options ([bc6bfe5](https://github.com/moneytree/mt-link-javascript-sdk/commit/bc6bfe5da725493fb3046dabab57824fe09fa501))
+* **open-services:** deeplink support ([c179072](https://github.com/moneytree/mt-link-javascript-sdk/commit/c179072ba008e8f6be3f94bf4ced88e314485544))
+
+
+* refactor!: remove auto generate state logic ([c68d223](https://github.com/moneytree/mt-link-javascript-sdk/commit/c68d22331c1783a3c859af0b4cb3ddecfcfbf8b4))
+* refactor!: standardize tokenInfo response ([491dda8](https://github.com/moneytree/mt-link-javascript-sdk/commit/491dda82dc1c2982f5ea5d95d4a8ff4fb121d91d))
+* refactor!: remove options from tokenInfo ([c918b9d](https://github.com/moneytree/mt-link-javascript-sdk/commit/c918b9d584e412616d02996516b2bfad8b28c74b))
+
+
+### BREAKING CHANGES
+
+* No more auto generate state on init to be used in `authorize`
+and `onboard` API. There will be no default `state` and you will have to pass
+one via the APIs' options parameter if you need one.
+* change `tokenInfo` API response to standard format.
+* `tokenInfo` API no longer accept options parameter as it provide no benefit.
+
 # [2.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.4.0...2.0.0) (2020-10-19)
 
 
@@ -99,6 +129,3 @@
 ### Features
 
 * creating a JS SDK ([333cf8c](https://github.com/moneytree/mt-link-javascript-sdk/commit/333cf8c36f7a8299c2bccf441454b04d31e7d907))
-
-
-
