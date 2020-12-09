@@ -1,2 +1,2 @@
-import { StoredOptions, TokenInfoOptions, TokenInfo } from '../typings';
-export default function tokenInfo(storedOptions: StoredOptions, token: string, options?: TokenInfoOptions): Promise<TokenInfo>;
+import { StoredOptions, TokenInfo } from '../typings';
+export default function tokenInfo(storedOptions: StoredOptions, token: string): Promise<TokenInfo>;
