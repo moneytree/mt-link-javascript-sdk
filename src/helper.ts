@@ -73,6 +73,7 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'showAuthToggle',
     'showRememberMe',
     'isNewTab',
+    'forceLogout',
   ];
 
   for (const key in configs) {

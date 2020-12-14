@@ -16,6 +16,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
   showAuthToggle?: boolean;
   showRememberMe?: boolean;
   isNewTab?: boolean;
+  forceLogout?: boolean;
 }
 
 export type ServicesListType = {
