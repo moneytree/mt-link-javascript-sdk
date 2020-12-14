@@ -22,7 +22,7 @@ describe('api', () => {
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/settings?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault', () => {
@@ -41,7 +41,7 @@ describe('api', () => {
       });
       const url = `${VAULT_DOMAINS.production}?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/services-list', () => {
@@ -67,7 +67,7 @@ describe('api', () => {
       });
       const url = `${VAULT_DOMAINS.production}/services?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/service-connection', () => {
@@ -88,7 +88,7 @@ describe('api', () => {
       });
       const url = `${VAULT_DOMAINS.production}/service/fauxbank_test_bank?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/connection-setting', () => {
@@ -109,7 +109,7 @@ describe('api', () => {
       });
       const url = `${VAULT_DOMAINS.production}/connection/123?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/customer-support', () => {
@@ -129,7 +129,7 @@ describe('api', () => {
       });
       const url = `${VAULT_DOMAINS.production}/customer-support?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('link-kit', () => {
@@ -146,7 +146,7 @@ describe('api', () => {
       });
       const url = `${LINK_KIT_DOMAINS.production}?${query}`;
 
-      expect(open).toBeCalledWith(url, '');
+      expect(open).toBeCalledWith(url, '', 'noreferrer');
     });
 
     test('calling after init will includes client id', () => {
@@ -173,7 +173,7 @@ describe('api', () => {
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/settings?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('invalid service id', () => {

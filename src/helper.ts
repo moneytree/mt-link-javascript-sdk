@@ -106,3 +106,7 @@ export function generateSdkHeaderInfo(): {
     'mt-sdk-version': __VERSION__,
   };
 }
+
+export function openWindow(url: string, windowName: string) {
+  return window.open(url, windowName, 'noreferrer');
+}

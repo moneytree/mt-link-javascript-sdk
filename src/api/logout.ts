@@ -1,6 +1,6 @@
 import { stringify } from 'qs';
 
-import { generateConfigs, mergeConfigs, getIsTabValue } from '../helper';
+import { generateConfigs, mergeConfigs, getIsTabValue, openWindow } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, LogoutOptions } from '../typings';
 
@@ -19,5 +19,5 @@ export default function logout(storedOptions: StoredOptions, options: LogoutOpti
     configs: generateConfigs(mergeConfigs(storedOptions, rest)),
   });
 
-  window.open(`${MY_ACCOUNT_DOMAINS[mode]}/guests/logout?${queryString}`, getIsTabValue(isNewTab));
+  openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/guests/logout?${queryString}`, getIsTabValue(isNewTab));
 }

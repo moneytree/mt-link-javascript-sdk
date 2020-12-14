@@ -1,6 +1,6 @@
 import { stringify } from 'qs';
 
-import { generateConfigs, mergeConfigs, getIsTabValue } from '../helper';
+import { generateConfigs, mergeConfigs, getIsTabValue, openWindow } from '../helper';
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../server-paths';
 import {
   StoredOptions,
@@ -48,7 +48,7 @@ export default function openService(
   switch (serviceId) {
     case 'vault':
       if (!view) {
-        window.open(`${VAULT_DOMAINS[mode]}?${getQueryValue()}`, getIsTabValue(isNewTab));
+        openWindow(`${VAULT_DOMAINS[mode]}?${getQueryValue()}`, getIsTabValue(isNewTab));
         break;
       }
 
@@ -57,7 +57,7 @@ export default function openService(
           // eslint-disable-next-line no-case-declarations
           const { group, type, search } = options as ServicesListType;
 
-          window.open(
+          openWindow(
             `${VAULT_DOMAINS[mode]}/services?${stringify({
               ...(getQueryValue(false) as QueryData),
               group,
@@ -72,7 +72,7 @@ export default function openService(
           // eslint-disable-next-line no-case-declarations
           const { entityKey } = options as ServiceConnectionType;
 
-          window.open(
+          openWindow(
             `${VAULT_DOMAINS[mode]}/service/${entityKey}?${getQueryValue()}`,
             getIsTabValue(isNewTab)
           );
@@ -82,7 +82,7 @@ export default function openService(
           // eslint-disable-next-line no-case-declarations
           const { credentialId } = options as ConnectionSettingType;
 
-          window.open(
+          openWindow(
             `${VAULT_DOMAINS[mode]}/connection/${credentialId}?${getQueryValue()}`,
             getIsTabValue(isNewTab)
           );
@@ -90,7 +90,7 @@ export default function openService(
 
         case 'customer-support':
         default:
-          window.open(
+          openWindow(
             `${VAULT_DOMAINS[mode]}/customer-support?${getQueryValue()}`,
             getIsTabValue(isNewTab)
           );
@@ -100,14 +100,14 @@ export default function openService(
       break;
 
     case 'myaccount-settings':
-      window.open(
+      openWindow(
         `${MY_ACCOUNT_DOMAINS[mode]}/settings?${getQueryValue()}`,
         getIsTabValue(isNewTab)
       );
       break;
 
     case 'link-kit':
-      window.open(`${LINK_KIT_DOMAINS[mode]}?${getQueryValue()}`, getIsTabValue(isNewTab));
+      openWindow(`${LINK_KIT_DOMAINS[mode]}?${getQueryValue()}`, getIsTabValue(isNewTab));
       break;
 
     default:

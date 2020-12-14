@@ -18,7 +18,7 @@ describe('api', () => {
         configs: generateConfigs(),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
-      expect(window.open).toBeCalledWith(url, '_self');
+      expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('after calling init', () => {
@@ -44,7 +44,7 @@ describe('api', () => {
         configs: generateConfigs(),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
-      expect(window.open).toBeCalledWith(url, '_self');
+      expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('with options', () => {
@@ -64,7 +64,7 @@ describe('api', () => {
         }),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
-      expect(window.open).toBeCalledWith(url, '_self');
+      expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('without window', () => {
