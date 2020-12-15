@@ -8,3 +8,4 @@ export declare function generateSdkHeaderInfo(): {
     'mt-sdk-platform': string;
     'mt-sdk-version': string;
 };
+export declare function openWindow(url: string, windowName: string): Window | null;

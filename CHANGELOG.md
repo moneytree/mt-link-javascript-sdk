@@ -1,3 +1,9 @@
+## [2.1.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.0...2.1.1) (2020-12-15)
+
+### Bug Fixes
+* fix window.open didn't work on Safari 14 ([882c23c](https://github.com/moneytree/mt-link-javascript-sdk/commit/882c23c1abdc467a964b918ea7502f4f70e7da8d))
+* fix forceLogout didn't work ([fa3055a](https://github.com/moneytree/mt-link-javascript-sdk/commit/fa3055a100f2bd4b7c5a4660b9dfeba45c601078))
+
 # [2.1.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.0.0...2.1.0) (2020-12-09)
 
 ### Bug Fixes
