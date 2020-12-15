@@ -6,6 +6,7 @@ import {
   mergeConfigs,
   getIsTabValue,
   generateCodeChallenge,
+  openWindow,
 } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, OnboardOptions } from '../typings';
@@ -86,5 +87,5 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     configs: generateConfigs(configs),
   });
 
-  window.open(`${MY_ACCOUNT_DOMAINS[mode]}/onboard?${queryString}`, getIsTabValue(isNewTab));
+  openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/onboard?${queryString}`, getIsTabValue(isNewTab));
 }

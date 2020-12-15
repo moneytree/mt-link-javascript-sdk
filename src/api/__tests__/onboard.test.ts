@@ -97,7 +97,7 @@ describe('api', () => {
         configs: generateConfigs({ email }),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('with options', () => {
@@ -131,7 +131,7 @@ describe('api', () => {
         configs: generateConfigs({ email }),
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
-      expect(open).toBeCalledWith(url, '_self');
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
     test('without window', () => {

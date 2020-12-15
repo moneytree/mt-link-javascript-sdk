@@ -6,6 +6,7 @@ import {
   mergeConfigs,
   getIsTabValue,
   generateCodeChallenge,
+  openWindow,
 } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, AuthorizeOptions } from '../typings';
@@ -68,9 +69,5 @@ export default function authorize(
     configs: generateConfigs(mergeConfigs(storedOptions, rest)),
   });
 
-  window.open(
-    `${MY_ACCOUNT_DOMAINS[mode]}/oauth/authorize?${queryString}`,
-    getIsTabValue(isNewTab),
-    'noreferrer'
-  );
+  openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/oauth/authorize?${queryString}`, getIsTabValue(isNewTab));
 }
