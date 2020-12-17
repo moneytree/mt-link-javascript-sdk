@@ -74,6 +74,8 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'showRememberMe',
     'isNewTab',
     'forceLogout',
+    'sdkPlatform',
+    'sdkVersion',
   ];
 
   for (const key in configs) {
