@@ -1,3 +1,7 @@
+## [2.1.2](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.1...2.1.2) (2020-12-18)
+
+* fix add two private config value ([cd64d6a](https://github.com/moneytree/mt-link-javascript-sdk/commit/cd64d6a281fbe773dfea8bd236e2c8e74cda3563))
+
 ## [2.1.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.0...2.1.1) (2020-12-15)
 
 ### Bug Fixes
