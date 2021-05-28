@@ -23,7 +23,7 @@ describe('helper', () => {
             backTo: 'backTo',
             authAction: 'signup',
             showAuthToggle: true,
-            showRememberMe: true,
+            showRememberMe: true
           },
           {}
         )
@@ -32,7 +32,7 @@ describe('helper', () => {
         backTo: 'backTo',
         authAction: 'signup',
         showAuthToggle: true,
-        showRememberMe: true,
+        showRememberMe: true
       });
     });
 
@@ -44,14 +44,14 @@ describe('helper', () => {
             backTo: 'backTo',
             authAction: 'signup',
             showAuthToggle: true,
-            showRememberMe: true,
+            showRememberMe: true
           },
           {
             email: 'newEmail',
             backTo: 'newBackTo',
             authAction: 'login',
             showAuthToggle: false,
-            showRememberMe: false,
+            showRememberMe: false
           }
         )
       ).toMatchObject({
@@ -59,7 +59,7 @@ describe('helper', () => {
         backTo: 'newBackTo',
         authAction: 'login',
         showAuthToggle: false,
-        showRememberMe: false,
+        showRememberMe: false
       });
     });
 
@@ -73,10 +73,10 @@ describe('helper', () => {
             showAuthToggle: true,
             showRememberMe: true,
             // @ts-ignore: set unsupported key
-            whatIsThis: false,
+            whatIsThis: false
           },
           {
-            whatIsThis2: false,
+            whatIsThis2: false
           }
         )
       ).toMatchObject({
@@ -84,7 +84,7 @@ describe('helper', () => {
         backTo: 'backTo',
         authAction: 'signup',
         showAuthToggle: true,
-        showRememberMe: true,
+        showRememberMe: true
       });
     });
 
@@ -96,20 +96,20 @@ describe('helper', () => {
             backTo: 'backTo',
             authAction: 'signup',
             showAuthToggle: true,
-            showRememberMe: true,
+            showRememberMe: true
           },
           {
             email: 'newEmail',
             backTo: 'newBackTo',
             authAction: 'login',
-            showAuthToggle: false,
+            showAuthToggle: false
           },
           ['email', 'backTo']
         )
       ).toMatchObject({
         authAction: 'login',
         showAuthToggle: false,
-        showRememberMe: true,
+        showRememberMe: true
       });
     });
   });
@@ -122,7 +122,7 @@ describe('helper', () => {
           backTo: 'backTo',
           authAction: 'signup',
           showAuthToggle: true,
-          showRememberMe: true,
+          showRememberMe: true
         })
       ).toBe(
         `sdk_platform=js&sdk_version=${packageJson.version}&email=email&back_to=backTo&auth_action=signup&show_auth_toggle=true` +

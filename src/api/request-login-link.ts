@@ -22,7 +22,7 @@ export default async function requestLoginLink(
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
     locale,
-    configs: generateConfigs(configs),
+    configs: generateConfigs(configs)
   });
 
   const url = `${MY_ACCOUNT_DOMAINS[mode]}/magic-link.json?${queryString}`;
@@ -38,12 +38,12 @@ export default async function requestLoginLink(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...generateSdkHeaderInfo(),
+        ...generateSdkHeaderInfo()
       },
       body: JSON.stringify({
         email,
-        magic_link_to: loginLinkToValue,
-      }),
+        magic_link_to: loginLinkToValue
+      })
     });
 
     if (response.status < 200 || response.status >= 300) {

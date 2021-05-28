@@ -8,7 +8,7 @@ import {
   OpenServicesConfigsOptions,
   ConnectionSettingType,
   ServiceConnectionType,
-  ServicesListType,
+  ServicesListType
 } from '../typings';
 
 interface QueryData {
@@ -35,7 +35,7 @@ export default function openService(
       client_id: clientId,
       cobrand_client_id: cobrandClientId,
       locale,
-      configs: generateConfigs(mergeConfigs(storedOptions, rest)),
+      configs: generateConfigs(mergeConfigs(storedOptions, rest))
     };
 
     if (!needStringify) {
@@ -62,7 +62,7 @@ export default function openService(
               ...(getQueryValue(false) as QueryData),
               group,
               type,
-              search,
+              search
             })}`,
             getIsTabValue(isNewTab)
           );
@@ -72,38 +72,26 @@ export default function openService(
           // eslint-disable-next-line no-case-declarations
           const { entityKey } = options as ServiceConnectionType;
 
-          openWindow(
-            `${VAULT_DOMAINS[mode]}/service/${entityKey}?${getQueryValue()}`,
-            getIsTabValue(isNewTab)
-          );
+          openWindow(`${VAULT_DOMAINS[mode]}/service/${entityKey}?${getQueryValue()}`, getIsTabValue(isNewTab));
           break;
 
         case 'connection-setting':
           // eslint-disable-next-line no-case-declarations
           const { credentialId } = options as ConnectionSettingType;
 
-          openWindow(
-            `${VAULT_DOMAINS[mode]}/connection/${credentialId}?${getQueryValue()}`,
-            getIsTabValue(isNewTab)
-          );
+          openWindow(`${VAULT_DOMAINS[mode]}/connection/${credentialId}?${getQueryValue()}`, getIsTabValue(isNewTab));
           break;
 
         case 'customer-support':
         default:
-          openWindow(
-            `${VAULT_DOMAINS[mode]}/customer-support?${getQueryValue()}`,
-            getIsTabValue(isNewTab)
-          );
+          openWindow(`${VAULT_DOMAINS[mode]}/customer-support?${getQueryValue()}`, getIsTabValue(isNewTab));
           break;
       }
 
       break;
 
     case 'myaccount-settings':
-      openWindow(
-        `${MY_ACCOUNT_DOMAINS[mode]}/settings/${view || ''}?${getQueryValue()}`,
-        getIsTabValue(isNewTab)
-      );
+      openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/settings/${view || ''}?${getQueryValue()}`, getIsTabValue(isNewTab));
       break;
 
     case 'link-kit':

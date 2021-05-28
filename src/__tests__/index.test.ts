@@ -22,7 +22,7 @@ describe('index', () => {
     const instance = new MtLinkSdk();
 
     instance.init('clientId', {
-      redirectUri: 'redirectUri',
+      redirectUri: 'redirectUri'
     });
 
     const options = instance.storedOptions;
@@ -30,7 +30,7 @@ describe('index', () => {
       clientId: options.clientId,
       mode: options.mode,
       redirectUri: options.redirectUri,
-      state: options.state,
+      state: options.state
     };
 
     const result1 = instance.authorize({ scopes: 'scopes' });
@@ -79,7 +79,7 @@ describe('index', () => {
   test('init options', () => {
     mtLinkSdk.init('clientId', {
       mode: 'local',
-      state: 'state',
+      state: 'state'
     });
 
     expect(mtLinkSdk.storedOptions.mode).toBe('local');
@@ -89,7 +89,7 @@ describe('index', () => {
   test('invalid mode default to production', () => {
     mtLinkSdk.init('clientId', {
       // @ts-ignore: set mode to unsupported value
-      mode: 'invalid',
+      mode: 'invalid'
     });
 
     expect(mtLinkSdk.storedOptions.mode).toBe('production');

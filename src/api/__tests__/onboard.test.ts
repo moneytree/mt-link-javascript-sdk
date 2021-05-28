@@ -39,7 +39,7 @@ describe('api', () => {
     test('email is required', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
-        redirectUri,
+        redirectUri
       });
 
       expect(() => {
@@ -64,7 +64,7 @@ describe('api', () => {
         scopes,
         email,
         locale,
-        cobrandClientId,
+        cobrandClientId
       });
 
       onboard(mtLinkSdk.storedOptions);
@@ -79,7 +79,7 @@ describe('api', () => {
         redirect_uri: redirectUri,
         country,
         locale,
-        configs: generateConfigs({ email }),
+        configs: generateConfigs({ email })
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
@@ -100,7 +100,7 @@ describe('api', () => {
         state,
         redirectUri,
         scopes,
-        email,
+        email
       });
 
       expect(open).toBeCalledTimes(1);
@@ -112,7 +112,7 @@ describe('api', () => {
         redirect_uri: redirectUri,
         state,
         country,
-        configs: generateConfigs({ email }),
+        configs: generateConfigs({ email })
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');

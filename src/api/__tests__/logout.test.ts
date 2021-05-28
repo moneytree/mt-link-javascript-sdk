@@ -15,7 +15,7 @@ describe('api', () => {
       expect(window.open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
       expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
@@ -31,7 +31,7 @@ describe('api', () => {
       const mtLinkSkd = new MtLinkSdk();
       mtLinkSkd.init(clientId, {
         locale,
-        cobrandClientId,
+        cobrandClientId
       });
       logout(mtLinkSkd.storedOptions);
 
@@ -41,7 +41,7 @@ describe('api', () => {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
       expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
@@ -53,15 +53,15 @@ describe('api', () => {
       const backTo = 'backTo';
 
       logout(new MtLinkSdk().storedOptions, {
-        backTo,
+        backTo
       });
 
       expect(window.open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         configs: generateConfigs({
-          backTo,
-        }),
+          backTo
+        })
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
       expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');

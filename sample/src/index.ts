@@ -6,7 +6,7 @@ import mtLinkSdk, {
   OpenServicesConfigsOptions,
   ServiceId,
   LoginLinkTo,
-  ServicesListType,
+  ServicesListType
 } from '@moneytree/mt-link-javascript-sdk';
 
 import elements from './elements';
@@ -35,8 +35,7 @@ elements.initializeBtn.onclick = () => {
   }
 
   commonOptions.authAction =
-    (commonOptionsElms.authAction.options[commonOptionsElms.authAction.selectedIndex]
-      .value as AuthAction) || 'login';
+    (commonOptionsElms.authAction.options[commonOptionsElms.authAction.selectedIndex].value as AuthAction) || 'login';
   commonOptions.showAuthToggle = commonOptionsElms.showAuthToggle.checked;
   commonOptions.showRememberMe = commonOptionsElms.showRememberMe.checked;
   commonOptions.isNewTab = commonOptionsElms.isNewTab.checked;
@@ -49,9 +48,7 @@ elements.authorizeBtn.onclick = () => {
   const authorizeOptions: AuthorizeOptions = {};
   const { authorizeOptionsElms } = elements;
 
-  const scopesSelectedOptions = Array.from(authorizeOptionsElms.scopes.options).filter(
-    (x) => x.selected
-  );
+  const scopesSelectedOptions = Array.from(authorizeOptionsElms.scopes.options).filter((x) => x.selected);
   if (scopesSelectedOptions.length) {
     authorizeOptions.scopes = scopesSelectedOptions.map((x) => x.value);
   }
@@ -70,9 +67,7 @@ elements.doOnboardBtn.onclick = async () => {
 
     const onBoardOptions: OnboardOptions = {};
 
-    const scopesSelectedOptions = Array.from(onboardOptionsElms.scopes.options).filter(
-      (x) => x.selected
-    );
+    const scopesSelectedOptions = Array.from(onboardOptionsElms.scopes.options).filter((x) => x.selected);
     if (scopesSelectedOptions.length) {
       onBoardOptions.scopes = scopesSelectedOptions.map((x) => x.value);
     }
@@ -123,37 +118,43 @@ elements.logoutBtn.onclick = () => {
 elements.openServiceBtn.onclick = () => {
   const { openServiceOptionsElms } = elements;
   let OpenServicesConfigsOptions: OpenServicesConfigsOptions = {};
-  const serviceId = openServiceOptionsElms.serviceId.options[
-    openServiceOptionsElms.serviceId.selectedIndex
-  ].value as ServiceId;
+  const serviceId = openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex]
+    .value as ServiceId;
 
   if (serviceId === 'vault') {
-    const view = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex]
-      .value as 'services-list' | 'service-connection' | 'connection-setting' | 'customer-support';
+    const view = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex].value as
+      | 'services-list'
+      | 'service-connection'
+      | 'connection-setting'
+      | 'customer-support';
 
     switch (view) {
       case 'services-list':
         OpenServicesConfigsOptions = {
           view: 'services-list',
           type:
-            (openServiceOptionsElms.type.options[openServiceOptionsElms.type.selectedIndex]
-              .value as Pick<ServicesListType, 'type'>['type']) || undefined,
+            (openServiceOptionsElms.type.options[openServiceOptionsElms.type.selectedIndex].value as Pick<
+              ServicesListType,
+              'type'
+            >['type']) || undefined,
           group:
-            (openServiceOptionsElms.group.options[openServiceOptionsElms.group.selectedIndex]
-              .value as Pick<ServicesListType, 'group'>['group']) || undefined,
-          search: openServiceOptionsElms.search.value || undefined,
+            (openServiceOptionsElms.group.options[openServiceOptionsElms.group.selectedIndex].value as Pick<
+              ServicesListType,
+              'group'
+            >['group']) || undefined,
+          search: openServiceOptionsElms.search.value || undefined
         };
         break;
       case 'service-connection':
         OpenServicesConfigsOptions = {
           view: 'service-connection',
-          entityKey: openServiceOptionsElms.entityKey.value,
+          entityKey: openServiceOptionsElms.entityKey.value
         };
         break;
       case 'connection-setting':
         OpenServicesConfigsOptions = {
           view: 'connection-setting',
-          credentialId: openServiceOptionsElms.credentialId.value,
+          credentialId: openServiceOptionsElms.credentialId.value
         };
         break;
       case 'customer-support':
@@ -163,8 +164,7 @@ elements.openServiceBtn.onclick = () => {
   }
 
   if (serviceId === 'myaccount-settings') {
-    const view = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex]
-      .value as
+    const view = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex].value as
       | 'authorized-applications'
       | 'change-language'
       | 'email-preferences'
@@ -187,7 +187,7 @@ elements.sendLoginLinkBtn.onclick = async () => {
 
     await mtLinkSdk.requestLoginLink({
       loginLinkTo: loginLinkToElm.options[loginLinkToElm.selectedIndex].value as LoginLinkTo,
-      email: loginLinkEmailElm.value,
+      email: loginLinkEmailElm.value
     });
     window.alert('Success, loginLink sent out.');
   } catch (error) {
@@ -200,8 +200,7 @@ elements.sendLoginLinkBtn.onclick = async () => {
 // Helper, to switch the vault options, depends on openService's serviceId value
 elements.openServiceOptionsElms.serviceId.onchange = () => {
   const { openServiceOptionsElms, vaultOptions } = elements;
-  const selectedValue =
-    openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex].value;
+  const selectedValue = openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex].value;
 
   if (selectedValue === 'vault' || selectedValue === 'myaccount-settings') {
     vaultOptions.style.display = 'block';
@@ -214,8 +213,7 @@ elements.openServiceOptionsElms.serviceId.onchange = () => {
 // Helper, To switch the options, depends on openService's view value for vault
 elements.openServiceOptionsElms.view.onchange = () => {
   const { openServiceOptionsElms } = elements;
-  const selectedValue =
-    openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex].value;
+  const selectedValue = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex].value;
 
   const vaultServicesElms = document.getElementsByClassName('vault-services');
   for (let indx = 0; indx < vaultServicesElms.length; indx++) {
@@ -234,7 +232,7 @@ const initializeLinkSDK = (options: InitOptions = {}) => {
     redirectUri: 'https://localhost:9000',
     locale: 'en',
     mode: 'develop',
-    ...options,
+    ...options
   });
 };
 
@@ -256,14 +254,11 @@ const validateToken = async () => {
     elements.accessTokenLabel.innerText = `Your access token is ${accessToken}.`;
     const authHeaders = new Headers({
       method: 'GET',
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`
     });
-    const response = await fetch(
-      'https://myaccount-staging.getmoneytree.com/oauth/token/info.json',
-      {
-        headers: authHeaders,
-      }
-    );
+    const response = await fetch('https://myaccount-staging.getmoneytree.com/oauth/token/info.json', {
+      headers: authHeaders
+    });
     const data: ITokenInfo = await response.json();
     elements.accessTokenLabel.innerText = `Your access token is ${accessToken}
       It was generated for the app: ${data.aud.name}.

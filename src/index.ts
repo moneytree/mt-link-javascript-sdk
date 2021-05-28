@@ -16,7 +16,7 @@ import {
   ExchangeTokenOptions,
   RequestLoginLinkOptions,
   TokenInfo,
-  Mode,
+  Mode
 } from './typings';
 
 export * from './typings';
@@ -25,7 +25,7 @@ const validModes: Mode[] = ['production', 'staging', 'develop', 'local'];
 
 export class MtLinkSdk {
   public storedOptions: StoredOptions = {
-    mode: 'production',
+    mode: 'production'
   };
 
   public init(clientId: string, options: InitOptions = {}): void {
@@ -40,7 +40,7 @@ export class MtLinkSdk {
       ...this.storedOptions,
       ...rest,
       clientId,
-      mode: validModes.indexOf(mode) === -1 ? 'production' : mode,
+      mode: validModes.indexOf(mode) === -1 ? 'production' : mode
     };
   }
 

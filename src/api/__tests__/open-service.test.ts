@@ -18,7 +18,7 @@ describe('api', () => {
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/settings/?${query}`;
 
@@ -29,15 +29,15 @@ describe('api', () => {
       open.mockClear();
 
       openService(new MtLinkSdk().storedOptions, 'vault', {
-        showRememberMe: false,
+        showRememberMe: false
       });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         configs: generateConfigs({
-          showRememberMe: false,
-        }),
+          showRememberMe: false
+        })
       });
       const url = `${VAULT_DOMAINS.production}?${query}`;
 
@@ -52,18 +52,18 @@ describe('api', () => {
         type: 'bank',
         group: 'grouping_testing',
         search: 'vault',
-        showRememberMe: false,
+        showRememberMe: false
       });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         configs: generateConfigs({
-          showRememberMe: false,
+          showRememberMe: false
         }),
         group: 'grouping_testing',
         type: 'bank',
-        search: 'vault',
+        search: 'vault'
       });
       const url = `${VAULT_DOMAINS.production}/services?${query}`;
 
@@ -76,15 +76,15 @@ describe('api', () => {
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'service-connection',
         entityKey: 'fauxbank_test_bank',
-        showRememberMe: false,
+        showRememberMe: false
       });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         configs: generateConfigs({
-          showRememberMe: false,
-        }),
+          showRememberMe: false
+        })
       });
       const url = `${VAULT_DOMAINS.production}/service/fauxbank_test_bank?${query}`;
 
@@ -97,15 +97,15 @@ describe('api', () => {
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-setting',
         credentialId: '123',
-        showRememberMe: false,
+        showRememberMe: false
       });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         configs: generateConfigs({
-          showRememberMe: false,
-        }),
+          showRememberMe: false
+        })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123?${query}`;
 
@@ -117,15 +117,15 @@ describe('api', () => {
 
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'customer-support',
-        showRememberMe: false,
+        showRememberMe: false
       });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         configs: generateConfigs({
-          showRememberMe: false,
-        }),
+          showRememberMe: false
+        })
       });
       const url = `${VAULT_DOMAINS.production}/customer-support?${query}`;
 
@@ -136,13 +136,13 @@ describe('api', () => {
       open.mockClear();
 
       openService(new MtLinkSdk().storedOptions, 'link-kit', {
-        isNewTab: true,
+        isNewTab: true
       });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
       const url = `${LINK_KIT_DOMAINS.production}?${query}`;
 
@@ -158,7 +158,7 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
         locale,
-        cobrandClientId,
+        cobrandClientId
       });
 
       openService(mtLinkSdk.storedOptions, 'myaccount-settings');
@@ -169,7 +169,7 @@ describe('api', () => {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/settings/?${query}`;
 

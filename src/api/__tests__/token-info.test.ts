@@ -21,15 +21,15 @@ describe('api', () => {
       locale: 'locale',
       aud: {
         uid: 'aud-uid',
-        name: 'aud-name',
+        name: 'aud-name'
       },
       exp: 'exp',
-      scopes: ['scopes'],
+      scopes: ['scopes']
     };
 
     const mtLinkSdk = new MtLinkSdk();
     mtLinkSdk.init(clientId, {
-      redirectUri,
+      redirectUri
     });
 
     test('token is required', async () => {
@@ -45,7 +45,7 @@ describe('api', () => {
       await tokenInfo(mtLinkSdk.storedOptions, token);
       const query = qs.stringify({
         client_id: clientId,
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;
@@ -57,8 +57,8 @@ describe('api', () => {
           Authorization: `Bearer ${token}`,
           'API-Version': '1604911588',
           'mt-sdk-platform': 'js',
-          'mt-sdk-version': __VERSION__,
-        },
+          'mt-sdk-version': __VERSION__
+        }
       });
     });
 

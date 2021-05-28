@@ -5,14 +5,14 @@ export default {
     authAction: document.getElementById('common-options-authAction') as HTMLSelectElement,
     showAuthToggle: document.getElementById('common-options-showAuthToggle') as HTMLInputElement,
     showRememberMe: document.getElementById('common-options-showRememberMe') as HTMLInputElement,
-    isNewTab: document.getElementById('common-options-isNewTab') as HTMLInputElement,
+    isNewTab: document.getElementById('common-options-isNewTab') as HTMLInputElement
   },
   authorizeOptionsElms: {
-    scopes: document.getElementById('authorize-options-scopes') as HTMLSelectElement,
+    scopes: document.getElementById('authorize-options-scopes') as HTMLSelectElement
   },
   onboardOptionsElms: {
     email: document.getElementById('onboard-options-email') as HTMLSelectElement,
-    scopes: document.getElementById('onboard-options-scopes') as HTMLSelectElement,
+    scopes: document.getElementById('onboard-options-scopes') as HTMLSelectElement
   },
   openServiceOptionsElms: {
     serviceId: document.getElementById('open-service-options-serviceId') as HTMLSelectElement,
@@ -21,7 +21,7 @@ export default {
     group: document.getElementById('open-service-options-group') as HTMLSelectElement,
     search: document.getElementById('open-service-options-search') as HTMLInputElement,
     entityKey: document.getElementById('open-service-options-entityKey') as HTMLInputElement,
-    credentialId: document.getElementById('open-service-options-credentialId') as HTMLInputElement,
+    credentialId: document.getElementById('open-service-options-credentialId') as HTMLInputElement
   },
   initializeBtn: document.getElementById('initialize-btn') as HTMLButtonElement,
   authorizeBtn: document.getElementById('authorize-btn') as HTMLButtonElement,
@@ -41,5 +41,5 @@ export default {
   openServiceSection: document.getElementById('open-service-section') as HTMLDivElement,
   logoutSection: document.getElementById('logout-section') as HTMLDivElement,
   tokenInfoSection: document.getElementById('token-info-section') as HTMLDivElement,
-  vaultOptions: document.getElementById('vault-options') as HTMLDivElement,
+  vaultOptions: document.getElementById('vault-options') as HTMLDivElement
 };

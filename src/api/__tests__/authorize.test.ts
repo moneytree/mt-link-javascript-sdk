@@ -49,7 +49,7 @@ describe('api', () => {
         redirectUri,
         scopes,
         locale,
-        cobrandClientId,
+        cobrandClientId
       });
 
       authorize(mtLinkSdk.storedOptions);
@@ -64,7 +64,7 @@ describe('api', () => {
         redirect_uri: redirectUri,
         country,
         locale,
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
@@ -84,7 +84,7 @@ describe('api', () => {
       authorize(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
-        scopes,
+        scopes
       });
 
       expect(open).toBeCalledTimes(1);
@@ -96,7 +96,7 @@ describe('api', () => {
         redirect_uri: redirectUri,
         state,
         country,
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');

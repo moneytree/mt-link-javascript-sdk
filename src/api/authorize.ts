@@ -6,16 +6,13 @@ import {
   mergeConfigs,
   getIsTabValue,
   generateCodeChallenge,
-  openWindow,
+  openWindow
 } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, AuthorizeOptions } from '../typings';
 import storage from '../storage';
 
-export default function authorize(
-  storedOptions: StoredOptions,
-  options: AuthorizeOptions = {}
-): void {
+export default function authorize(storedOptions: StoredOptions, options: AuthorizeOptions = {}): void {
   if (!window) {
     throw new Error('[mt-link-sdk] `authorize` only works in the browser.');
   }
@@ -64,7 +61,7 @@ export default function authorize(
     state,
     country: 'JP',
     locale,
-    configs: generateConfigs(mergeConfigs(storedOptions, rest)),
+    configs: generateConfigs(mergeConfigs(storedOptions, rest))
   });
 
   openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/oauth/authorize?${queryString}`, getIsTabValue(isNewTab));

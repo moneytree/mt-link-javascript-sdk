@@ -16,7 +16,7 @@ export default function logout(storedOptions: StoredOptions, options: LogoutOpti
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
     locale,
-    configs: generateConfigs(mergeConfigs(storedOptions, rest)),
+    configs: generateConfigs(mergeConfigs(storedOptions, rest))
   });
 
   openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/guests/logout?${queryString}`, getIsTabValue(isNewTab));

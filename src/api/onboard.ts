@@ -6,7 +6,7 @@ import {
   mergeConfigs,
   getIsTabValue,
   generateCodeChallenge,
-  openWindow,
+  openWindow
 } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, OnboardOptions } from '../typings';
@@ -40,12 +40,7 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     ...rest
   } = options;
 
-  const configs = mergeConfigs(storedOptions, rest, [
-    'authAction',
-    'showAuthToggle',
-    'showRememberMe',
-    'forceLogout',
-  ]);
+  const configs = mergeConfigs(storedOptions, rest, ['authAction', 'showAuthToggle', 'showRememberMe', 'forceLogout']);
 
   if (!redirectUri) {
     throw new Error(
@@ -76,7 +71,7 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     state,
     country: 'JP',
     locale,
-    configs: generateConfigs(configs),
+    configs: generateConfigs(configs)
   });
 
   openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/onboard?${queryString}`, getIsTabValue(isNewTab));
