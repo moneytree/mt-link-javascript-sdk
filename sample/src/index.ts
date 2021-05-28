@@ -165,6 +165,19 @@ elements.openServiceBtn.onclick = () => {
     }
   }
 
+  if (serviceId === 'myaccount-settings') {
+    const view = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex]
+      .value as
+      | 'authorized-applications'
+      | 'change-language'
+      | 'email-preferences'
+      | 'delete-account'
+      | 'update-email'
+      | 'update-password';
+
+    OpenServicesConfigsOptions = { view };
+  }
+
   mtLinkSdk.openService(serviceId, OpenServicesConfigsOptions);
 };
 
@@ -193,7 +206,7 @@ elements.openServiceOptionsElms.serviceId.onchange = () => {
   const selectedValue =
     openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex].value;
 
-  if (selectedValue === 'vault') {
+  if (selectedValue === 'vault' || selectedValue === 'myaccount-settings') {
     vaultOptions.style.display = 'block';
     return;
   }
@@ -203,7 +216,7 @@ elements.openServiceOptionsElms.serviceId.onchange = () => {
 
 // Helper, To switch the options, depends on openService's view value for vault
 elements.openServiceOptionsElms.view.onchange = () => {
-  const { openServiceOptionsElms, vaultOptions } = elements;
+  const { openServiceOptionsElms } = elements;
   const selectedValue =
     openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex].value;
 

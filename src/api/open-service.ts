@@ -101,7 +101,7 @@ export default function openService(
 
     case 'myaccount-settings':
       openWindow(
-        `${MY_ACCOUNT_DOMAINS[mode]}/settings?${getQueryValue()}`,
+        `${MY_ACCOUNT_DOMAINS[mode]}/settings/${view || ''}?${getQueryValue()}`,
         getIsTabValue(isNewTab)
       );
       break;

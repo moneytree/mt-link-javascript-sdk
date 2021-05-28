@@ -48,8 +48,24 @@ export type ConnectionSettingType = { view?: 'connection-setting'; credentialId:
 
 export type CustomerSupportType = { view?: 'customer-support' };
 
+export type MyAccountPageType = {
+  view?:
+    | 'authorized-applications'
+    | 'change-language'
+    | 'email-preferences'
+    | 'delete-account'
+    | 'update-email'
+    | 'update-password';
+};
+
 export type OpenServicesConfigsOptions = ConfigsOptions &
-  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
+  (
+    | ServicesListType
+    | ServiceConnectionType
+    | ConnectionSettingType
+    | CustomerSupportType
+    | MyAccountPageType
+  );
 
 export type Scopes = string | string[];
 

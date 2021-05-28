@@ -35,6 +35,7 @@ const newInstance = new window.MtLinkSdk();
 The source also includes Typescript definitions out of the box.
 
 ### Polyfills
+
 We use [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) internally, if you wish to support old browsers (e.g: IE11), make sure to add the necessary polyfills.
 
 ## API
@@ -45,6 +46,7 @@ The Moneytree LINK Javascript SDK exposes APIs to get guest consent to access fi
 
 The `init` call is used to initialize the SDK and set default options for API calls. Some LINK APIs can be used without calling `init`.<br /><br />
 Calls related to OAuth require a client id which can only be set via the `init` function. These APIs include:
+
 - authorize
 - onboard
 - exchangeToken
@@ -60,7 +62,7 @@ mtLinkSdk.init(clientId, options);
 | - | - | - | - | - |
 | clientId | string | true | | <p>OAuth `clientId` of the app (please request this from your Moneytree representative if you need one).<p><p><strong>NOTE:</strong> This function will throw an error if this parameter isn't provided.</p> |
 | <span id="api-init_options">options</span> | object | false | | <p>These options include all of the values below and also all `options` parameters of the other APIs. Options values passed here during initialization will be used by default if no options are passed when calling a specific API.</p><p>Available options are documented under [authorize options](#api-authorize_options) and [common options](#common-api-options); refer to each individual link for more details.</p> |
-| options.mode | `production`, ` staging`, ` develop`, ` local` | false | `production` | <p>Environment for the SDK to connect to, the SDK will connect to the Moneytree production server by default.<ul><li>Moneytree clients should use `staging` for development as `develop` may contain unstable features.</li><li>`local` should only be used for SDK development as it has local dependencies.</li></ul></p> |
+| options.mode | `production`, `staging`, `develop`, `local` | false | `production` | <p>Environment for the SDK to connect to, the SDK will connect to the Moneytree production server by default.<ul><li>Moneytree clients should use `staging` for development as `develop` may contain unstable features.</li><li>`local` should only be used for SDK development as it has local dependencies.</li></ul></p> |
 | options.locale | string | false | Auto detect. | Force Moneytree to load content in this specific locale. A default value will be auto detected based on guest langauges configurations and location if available. Check this [spec](https://www.w3.org/TR/html401/struct/dirlang.html#h-8.1.1) for more information.<br /><br />Currently supported values are:<br />`en`, `en-AU`, `ja`. |
 | options.cobrandClientId (private) | string | false | | <strong>NOTE: This is an internal attribute. Please do not use it unless instructed by your integration representative.</strong><br /><br />Brand Moneytree apps with client's branding. E.g: logo or theme.
 
@@ -88,7 +90,7 @@ mtLinkSdk.authorize(options);
 | options.codeChallenge | string | false | | We only support SHA256 as code challenge method, therefore please ensure the `code_challenge` was generated using the SHA256 hash algorithm. [Click here](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce) for more details.</p><strong>NOTE:</strong> Set this value only if your server wish to use PKCE flow. |
 | options.pkce | boolean | false | false | Set to `true` if you wish to use PKCE flow on the client side, SDK will automatically generate the code challenge from a locally generated code verifier and use the code verifier in [exchangeToken](#exchangetoken).  |
 | <span id="authorize_option_force_logout">options.forceLogout</span> | boolean | false | `false` | Force existing guest session to logout and call authorize with a clean state. |
-| options.country | `AU`, ` JP` | false | Value set during `init`. | Server location for the guest to login or sign up. If you wish to restrict your guest to only one country, make sure to set this value.<br /><br /><strong>NOTE:</strong> For apps created after 2020-07-08, the sign up form will display a country selection dropdown for the guest to select a country when this value is undefined or invalid. |
+| options.country | `AU`, `JP` | false | Value set during `init`. | Server location for the guest to login or sign up. If you wish to restrict your guest to only one country, make sure to set this value.<br /><br /><strong>NOTE:</strong> For apps created after 2020-07-08, the sign up form will display a country selection dropdown for the guest to select a country when this value is undefined or invalid. |
 
 ### onboard
 
@@ -111,7 +113,7 @@ mtLinkSdk.onboard(options)
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
 | options | object | false | Value set during `init`. | Optional parameters.<br /><br />Most options are the same as the [authorize method](#authorize) options and [common options](#common-api-options) with a few exceptions.<br /><br />Unsupported options from [authorize](#authorize) and [common options](#common-api-options) are:<li>forceLogout</li><li>authAction</li><li>showAuthToggle</li><li>showRememberMe</li> |
-| options.country | `AU`, ` JP` | true | Value set during `init`. | Server location for the guest to login or sign up.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
+| options.country | `AU`, `JP` | true | Value set during `init`. | Server location for the guest to login or sign up.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
 | options.email | string | true | Value set during `init`. | A new Moneytree account will be created with this email address. If an existing account with this email exists, the guest will be redirected to the login screen.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
 
 ### exchangeToken
@@ -127,7 +129,6 @@ Refer [here](https://www.oauth.com/oauth2-servers/pkce/authorization-code-exchan
 One way to use this API is by calling it in the script on your redirection page. For example, if `authorize` redirects to `https://yourapp.com/callback?code=somecode`, you can call this function in the script loaded on that redirection page and the client library will automatically extract the code to exchange for a token.
 
 Alternatively, you can extract the `code` manually from the redirect URL and pass it to this function via the options object yourself.
-
 
 ```javascript
 const token = await mtLinkSdk.exchangeToken(options);
@@ -199,7 +200,8 @@ mtLinkSdk.openService(serviceId, options);
 | - | - | - | - | - |
 | serviceId | `vault`, `myaccount-settings`, `link-kit` | true | | Open a service by Id, current supported services are:<br /><li>`vault` - Manage your financial institution credentials.</li><li>`myaccount-settings` - Manage your Moneytree account settings.</li><li>`link-kit` - View all your financial data.<br /><br /><strong>NOTE:</strong> This function will throw an error if you do not specify a valid service ID. |
 | options | object | false | Value set during `init`. | Optional parameters. Includes all options in [common options](#common-api-options). |
-| options.view | `services-list`, `service-connection`, `connection-setting`, `customer-support` | false | | We provide the way to open the Vault's specific pages.  Please check the following sessions:<br /> <li>[Open Vault Services Page](#open-vault-services-page)</li><li>[Open Vault Service Connection Page](#open-vault-service-connection-page)</li><li>[Open Vault Service Setting Page](#open-vault-service-setting-page)</li><li>[Open Vault Customer Support Page](#open-vault-customer-support-page)</li> <br /><br /><strong>NOTE:</strong> The serviceId must be `vault` to enable this option.|
+| options.view for Vault | `services-list`, `service-connection`, `connection-setting`, `customer-support` | false | | We provide options for opening a specific page on Vault and MyAccount.  Please check the following sessions:<br /> <li>[Open Vault Services Page](#open-vault-services-page)</li><li>[Open Vault Service Connection Page](#open-vault-service-connection-page)</li><li>[Open Vault Service Setting Page](#open-vault-service-setting-page)</li><li>[Open Vault Customer Support Page](#open-vault-customer-support-page)</li><br /><br /><strong>NOTE:</strong> The serviceId must be `vault` to enable this option.|
+| options.view for MyAccount | `authorized-applications`, `change-language`, `email-preferences`, `delete-account`, `update-email`, `update-password` | false | | We provide options for opening a specific page on MyAccount.  Please check the following sessions:<br /> <li>[Open MyAccount Page](#open-myaccount-page)</li> <br /><br /><strong>NOTE:</strong> The serviceId must be `myaccount-settings` to enable this option.|
 
 #### Open Vault Services Page
 
@@ -274,6 +276,23 @@ mtLinkSdk.openService('vault', { view: 'customer-support' });
 | serviceId | `vault` | true | | Open a Vault service|
 | options.view | `customer-support` | true | | Assign to open customer support page|
 
+#### Open MyAccount Page
+
+It has to include these properties of `options` below when calling [openService](#openservice) API.
+
+<strong>NOTE:</strong> This scenario only works when serviceId is `myaccount-settings`.
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.openService('myaccount-settings', { view: 'update-email' });
+```
+
+| Parameter | Type | Required | Default Value | Description |
+| - | - | - | - | - |
+| serviceId | `myaccount-settings` | true | | Open MyAccount |
+| options.view | `authorized-applications`, `change-language`, `email-preferences`, `delete-account`, `update-email`, `update-password` | false | | Directly go to the chosen page. If no view is provided, it goes to the top page of MyAccount. |
+
 ### requestMagicLink
 
 Request for a magic link (password-less login link) to be sent to the guest's email address. Clicking on the link in the email will log a guest in directly to the screen specified by the `magicLinkTo` parameter.
@@ -300,7 +319,7 @@ These common options are used in multiple APIs. Instead of repeating the same op
 | - | - | - | - | - |
 | options.email | string | false | Value set during `init`. | Email used to pre-fill the email field in login or sign up or form. |
 | options.backTo | string | false | Value set during `init`. | A redirection URL for redirecting a guest back to in the following condition: <li>Guest clicks on `Back to [App Name]` button in any Moneytree screen.</li><li>Guest refuses to give consent to access permission in the consent screen.</li><li>Guest logs out from Moneytree via an app with this client id</li><li>Revoke an app's consent from settings screen opened via an app with this client id</li><br /><br /><strong>NOTE:</strong> No `Back to [App Name]` button will be shown if this value is not set, and any of the actions mentioned above will redirect the guest back to login screen by default. |
-| <span id="authorize_option_auth_action">options.authAction</span> | `login`, ` signup` | false | Value set during `init`.<p><strong>OR</strong></p>`login` | Show login or sign up screen when a session does not exist during an `authorize` call. |
+| <span id="authorize_option_auth_action">options.authAction</span> | `login`, `signup` | false | Value set during `init`.<p><strong>OR</strong></p>`login` | Show login or sign up screen when a session does not exist during an `authorize` call. |
 | options.showAuthToggle | boolean | false | Value set during `init`.<p><strong>OR</strong></p>`true` | If you wish to disable the login to sign up form toggle button and vice-versa in the auth screen, set this to `false`.
 | options.showRememberMe | boolean | false | Value set during `init`.<p><strong>OR</strong></p>`true` | If you wish to disable the `Stay logged in for 30 days` checkbox in the login screen, set this to `false`.
 | options.isNewTab | boolean | false | Value set during `init`.<p><strong>OR</strong></p>`false` | Call method and open/render in a new browser tab, by default all views open in the same tab.
@@ -312,6 +331,7 @@ These common options are used in multiple APIs. Instead of repeating the same op
 We support gray labelling some of the services offered by Moneytree, please contact your Moneytree representative for more information.
 
 Currently supported services:
+
 - onboard API
 - Vault service
 - Link-Kit service
