@@ -20,7 +20,7 @@ describe('api', () => {
       const query = qs.stringify({
         configs: generateConfigs(),
       });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/settings?${query}`;
+      const url = `${MY_ACCOUNT_DOMAINS.production}/settings/?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
@@ -171,7 +171,7 @@ describe('api', () => {
         locale,
         configs: generateConfigs(),
       });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/settings?${query}`;
+      const url = `${MY_ACCOUNT_DOMAINS.production}/settings/?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });

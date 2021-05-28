@@ -109,6 +109,6 @@ export function generateSdkHeaderInfo(): {
   };
 }
 
-export function openWindow(url: string, windowName: string) {
+export function openWindow(url: string, windowName: string): Window | null {
   return window.open(url, windowName, 'noreferrer');
 }

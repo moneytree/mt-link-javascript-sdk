@@ -8,7 +8,7 @@ import tokenInfo from './api/token-info';
 import {
   StoredOptions,
   ServiceId,
-  ConfigsOptions,
+  OpenServicesConfigsOptions,
   LogoutOptions,
   InitOptions,
   AuthorizeOptions,
@@ -56,7 +56,7 @@ export class MtLinkSdk {
     logout(this.storedOptions, options);
   }
 
-  public openService(serviceId: ServiceId, options?: ConfigsOptions): void {
+  public openService(serviceId: ServiceId, options?: OpenServicesConfigsOptions): void {
     openService(this.storedOptions, serviceId, options);
   }
 
