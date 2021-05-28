@@ -2,7 +2,7 @@ import authorize from './api/authorize';
 import onboard from './api/onboard';
 import logout from './api/logout';
 import openService from './api/open-service';
-import requestMagicLink from './api/request-magic-link';
+import requestLoginLink from './api/request-login-link';
 import exchangeToken from './api/exchange-token';
 import tokenInfo from './api/token-info';
 import {
@@ -14,7 +14,7 @@ import {
   AuthorizeOptions,
   OnboardOptions,
   ExchangeTokenOptions,
-  RequestMagicLinkOptions,
+  RequestLoginLinkOptions,
   TokenInfo,
   Mode,
 } from './typings';
@@ -60,8 +60,8 @@ export class MtLinkSdk {
     openService(this.storedOptions, serviceId, options);
   }
 
-  public requestMagicLink(options?: RequestMagicLinkOptions): Promise<void> {
-    return requestMagicLink(this.storedOptions, options);
+  public requestLoginLink(options?: RequestLoginLinkOptions): Promise<void> {
+    return requestLoginLink(this.storedOptions, options);
   }
 
   public exchangeToken(options?: ExchangeTokenOptions): Promise<string> {

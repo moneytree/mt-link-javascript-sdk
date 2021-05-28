@@ -115,7 +115,7 @@ export type OnboardOptions = Omit<
 
 export type ServiceId = string | 'vault' | 'myaccount-settings' | 'linkkit';
 
-export type MagicLinkTo =
+export type LoginLinkTo =
   | string
   | 'settings'
   | 'settings/authorized-applications'
@@ -125,8 +125,8 @@ export type MagicLinkTo =
   | 'settings/update-email'
   | 'settings/update-password';
 
-export interface RequestMagicLinkOptions extends ConfigsOptions {
-  magicLinkTo?: MagicLinkTo;
+export interface RequestLoginLinkOptions extends ConfigsOptions {
+  loginLinkTo?: LoginLinkTo;
 }
 
 export interface TokenInfo {

@@ -4,7 +4,7 @@ import authorize from '../api/authorize';
 import onboard from '../api/onboard';
 import logout from '../api/logout';
 import openService from '../api/open-service';
-import requestMagicLink from '../api/request-magic-link';
+import requestLoginLink from '../api/request-login-link';
 import exchangeToken from '../api/exchange-token';
 import tokenInfo from '../api/token-info';
 import mtLinkSdk, { MtLinkSdk } from '..';
@@ -13,7 +13,7 @@ jest.mock('../api/authorize');
 jest.mock('../api/onboard');
 jest.mock('../api/logout');
 jest.mock('../api/open-service');
-jest.mock('../api/request-magic-link');
+jest.mock('../api/request-login-link');
 jest.mock('../api/exchange-token');
 jest.mock('../api/token-info');
 
@@ -49,9 +49,9 @@ describe('index', () => {
     expect(result4).toBeUndefined();
     expect(openService).toBeCalledWith(storedOptions, 'test', undefined);
 
-    const result5 = await instance.requestMagicLink({ magicLinkTo: 'magicLinkTo' });
+    const result5 = await instance.requestLoginLink({ loginLinkTo: 'loginLinkTo' });
     expect(result5).toBeUndefined();
-    expect(requestMagicLink).toBeCalledWith(storedOptions, { magicLinkTo: 'magicLinkTo' });
+    expect(requestLoginLink).toBeCalledWith(storedOptions, { loginLinkTo: 'loginLinkTo' });
 
     mocked(exchangeToken).mockResolvedValueOnce('test');
     const result6 = await instance.exchangeToken({ code: 'code' });

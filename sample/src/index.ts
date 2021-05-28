@@ -5,7 +5,7 @@ import mtLinkSdk, {
   OnboardOptions,
   OpenServicesConfigsOptions,
   ServiceId,
-  MagicLinkTo,
+  LoginLinkTo,
   ServicesListType,
 } from '@moneytree/mt-link-javascript-sdk';
 
@@ -178,23 +178,23 @@ elements.openServiceBtn.onclick = () => {
   mtLinkSdk.openService(serviceId, OpenServicesConfigsOptions);
 };
 
-// Launch open magic link
-elements.sendMagicLinkBtn.onclick = async () => {
-  const { sendMagicLinkBtn, magicLinkToElm, magicLinkEmailElm } = elements;
+// Launch open login link
+elements.sendLoginLinkBtn.onclick = async () => {
+  const { sendLoginLinkBtn, loginLinkToElm, loginLinkEmailElm } = elements;
 
   try {
-    sendMagicLinkBtn.disabled = true;
+    sendLoginLinkBtn.disabled = true;
 
-    await mtLinkSdk.requestMagicLink({
-      magicLinkTo: magicLinkToElm.options[magicLinkToElm.selectedIndex].value as MagicLinkTo,
-      email: magicLinkEmailElm.value,
+    await mtLinkSdk.requestLoginLink({
+      loginLinkTo: loginLinkToElm.options[loginLinkToElm.selectedIndex].value as LoginLinkTo,
+      email: loginLinkEmailElm.value,
     });
-    window.alert('Success, magicLink sent out.');
+    window.alert('Success, loginLink sent out.');
   } catch (error) {
     console.log(error);
   }
 
-  sendMagicLinkBtn.disabled = false;
+  sendLoginLinkBtn.disabled = false;
 };
 
 // Helper, to switch the vault options, depends on openService's serviceId value
@@ -241,7 +241,7 @@ const initializeLinkSDK = (options: InitOptions = {}) => {
 const switchAuthorizeFunctions = (value: string) => {
   elements.authorizationSection.style.display = value;
   elements.onBoardSection.style.display = value;
-  elements.magicLinkSection.style.display = value;
+  elements.loginLinkSection.style.display = value;
 };
 
 const disabledFunctions = () => {

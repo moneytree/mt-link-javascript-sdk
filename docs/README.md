@@ -291,21 +291,21 @@ mtLinkSdk.openService('myaccount-settings', { view: 'update-email' });
 | serviceId | `myaccount-settings` | true | | Open MyAccount |
 | options.view | `authorized-applications`, `change-language`, `email-preferences`, `delete-account`, `update-email`, `update-password` | false | | Directly go to the chosen page. If no view is provided, it goes to the top page of MyAccount. |
 
-### requestMagicLink
+### requestLoginLink
 
-Request for a magic link (password-less login link) to be sent to the guest's email address. Clicking on the link in the email will log a guest in directly to the screen specified by the `magicLinkTo` parameter.
+Request for a password-less login link to be sent to the guest's email address. Clicking on the link in the email will log a guest in directly to the screen specified by the `loginLinkTo` parameter.
 
 <h6>Usage:</h6>
 
 ```javascript
-mtLinkSdk.requestMagicLink(options);
+mtLinkSdk.requestLoginLink(options);
 ```
 
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
 | options | object | false | Value set during `init`. | Optional parameters. Includes all options in [common options](#common-api-options). |
-| options.magicLinkTo | string | true | `settings` (for mobile view)<p><strong>OR</strong></p>`settings/update-email` (for desktop view) | Redirection to location after login, currently supported locations include:<li>`settings` - Main Moneytree account settings screen.</li><li>`settings/authorized-applications` - List of apps currently connected to Moneytree.</li><li>`settings/change-language` - Change Moneytree account language screen.<li>`settings/email-preferences` - Change Moneytree email preferences screen</li><li>`settings/delete-account` - Delete Moneytree account screen.</li><li>`settings/update-email` - Change Moneytree account email screen.</li><li>`settings/update-password` - Change Moneytree account password screen.</li> |
-| options.email | string | true | Value set during `init`. | Magic link will be sent to this email.<br /><br /><strong>NOTE:</strong> This function will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
+| options.loginLinkTo | string | true | `settings` (for mobile view)<p><strong>OR</strong></p>`settings/update-email` (for desktop view) | Redirection to location after login, currently supported locations include:<li>`settings` - Main Moneytree account settings screen.</li><li>`settings/authorized-applications` - List of apps currently connected to Moneytree.</li><li>`settings/change-language` - Change Moneytree account language screen.<li>`settings/email-preferences` - Change Moneytree email preferences screen</li><li>`settings/delete-account` - Delete Moneytree account screen.</li><li>`settings/update-email` - Change Moneytree account email screen.</li><li>`settings/update-password` - Change Moneytree account password screen.</li> |
+| options.email | string | true | Value set during `init`. | Login Link will be sent to this email.<br /><br /><strong>NOTE:</strong> This function will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
 
 ## Common API options
 

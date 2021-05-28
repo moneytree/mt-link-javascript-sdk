@@ -5,17 +5,17 @@ import qs from 'qs';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import requestMagicLink from '../request-magic-link';
+import requestLoginLink from '../request-login-link';
 import { generateConfigs } from '../../helper';
 
 describe('api', () => {
-  describe('request-magic-link', () => {
+  describe('request-login-link', () => {
     const clientId = 'clientId';
     const email = 'email';
 
     test('email is required', async () => {
-      await expect(requestMagicLink(new MtLinkSdk().storedOptions)).rejects.toThrow(
-        '[mt-link-sdk] Missing option `email` in `requestMagicLink`, make sure to pass one via `requestMagicLink` options or `init` options.'
+      await expect(requestLoginLink(new MtLinkSdk().storedOptions)).rejects.toThrow(
+        '[mt-link-sdk] Missing option `email` in `requestLoginLink`, make sure to pass one via `requestLoginLink` options or `init` options.'
       );
     });
 
@@ -25,15 +25,15 @@ describe('api', () => {
       fetch.mockClear();
       fetch.mockRejectedValueOnce(error);
 
-      await expect(requestMagicLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(
-        `[mt-link-sdk] \`requestMagicLink\` execution failed. ${error}`
+      await expect(requestLoginLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(
+        `[mt-link-sdk] \`requestLoginLink\` execution failed. ${error}`
       );
     });
 
-    test('default magicLinkTo to /settings', async () => {
+    test('default loginLinkTo to /settings', async () => {
       fetch.mockClear();
 
-      await requestMagicLink(new MtLinkSdk().storedOptions, { email });
+      await requestLoginLink(new MtLinkSdk().storedOptions, { email });
 
       const query = qs.stringify({
         configs: generateConfigs(),
@@ -56,12 +56,12 @@ describe('api', () => {
       });
     });
 
-    test('prefix magicLinkTo with "/" if provided value do not have one', async () => {
+    test('prefix loginLinkTo with "/" if provided value do not have one', async () => {
       fetch.mockClear();
 
-      await requestMagicLink(new MtLinkSdk().storedOptions, {
+      await requestLoginLink(new MtLinkSdk().storedOptions, {
         email,
-        magicLinkTo: 'settings/delete-account',
+        loginLinkTo: 'settings/delete-account',
       });
 
       const query = qs.stringify({
@@ -91,7 +91,7 @@ describe('api', () => {
       fetch.mockClear();
       fetch.mockResolvedValueOnce({ status: 400, statusText } as Response);
 
-      await expect(requestMagicLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(
+      await expect(requestLoginLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(
         statusText
       );
     });
@@ -109,7 +109,7 @@ describe('api', () => {
         cobrandClientId,
       });
 
-      await requestMagicLink(mtLinkSdk.storedOptions);
+      await requestLoginLink(mtLinkSdk.storedOptions);
 
       const query = qs.stringify({
         client_id: clientId,

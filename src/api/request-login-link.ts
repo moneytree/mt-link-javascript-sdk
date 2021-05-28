@@ -2,19 +2,19 @@ import { stringify } from 'qs';
 
 import { generateConfigs, mergeConfigs, generateSdkHeaderInfo } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
-import { StoredOptions, RequestMagicLinkOptions } from '../typings';
+import { StoredOptions, RequestLoginLinkOptions } from '../typings';
 
-export default async function requestMagicLink(
+export default async function requestLoginLink(
   storedOptions: StoredOptions,
-  options: RequestMagicLinkOptions = {}
+  options: RequestLoginLinkOptions = {}
 ): Promise<void> {
   const { clientId, mode, email: defaultEmail, cobrandClientId, locale } = storedOptions;
-  const { email = defaultEmail, magicLinkTo, ...rest } = options;
+  const { email = defaultEmail, loginLinkTo, ...rest } = options;
   const configs = mergeConfigs(storedOptions, rest, ['email']);
 
   if (!email) {
     throw new Error(
-      '[mt-link-sdk] Missing option `email` in `requestMagicLink`, make sure to pass one via `requestMagicLink` options or `init` options.'
+      '[mt-link-sdk] Missing option `email` in `requestLoginLink`, make sure to pass one via `requestLoginLink` options or `init` options.'
     );
   }
 
@@ -27,10 +27,10 @@ export default async function requestMagicLink(
 
   const url = `${MY_ACCOUNT_DOMAINS[mode]}/magic-link.json?${queryString}`;
 
-  let magicLinkToValue = magicLinkTo || '/settings';
+  let loginLinkToValue = loginLinkTo || '/settings';
 
-  if (magicLinkToValue[0] !== '/') {
-    magicLinkToValue = `/${magicLinkToValue}`;
+  if (loginLinkToValue[0] !== '/') {
+    loginLinkToValue = `/${loginLinkToValue}`;
   }
 
   try {
@@ -42,7 +42,7 @@ export default async function requestMagicLink(
       },
       body: JSON.stringify({
         email,
-        magic_link_to: magicLinkToValue,
+        magic_link_to: loginLinkToValue,
       }),
     });
 
@@ -50,6 +50,6 @@ export default async function requestMagicLink(
       throw new Error(response.statusText);
     }
   } catch (error) {
-    throw new Error(`[mt-link-sdk] \`requestMagicLink\` execution failed. ${error}`);
+    throw new Error(`[mt-link-sdk] \`requestLoginLink\` execution failed. ${error}`);
   }
 }
