@@ -27,7 +27,7 @@ export function mergeConfigs(
     backTo: defaultBackTo,
     authAction: defaultAuthAction,
     showAuthToggle: defaultShowAuthToggle,
-    showRememberMe: defaultShowRememberMe,
+    showRememberMe: defaultShowRememberMe
   } = initValues;
 
   const {
@@ -45,7 +45,7 @@ export function mergeConfigs(
     backTo,
     authAction,
     showAuthToggle,
-    showRememberMe,
+    showRememberMe
   };
 
   if (ignoreKeys.length) {
@@ -75,7 +75,7 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'isNewTab',
     'forceLogout',
     'sdkPlatform',
-    'sdkVersion',
+    'sdkVersion'
   ];
 
   for (const key in configs) {
@@ -87,7 +87,7 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
   return stringify({
     sdk_platform: 'js',
     sdk_version: __VERSION__,
-    ...snakeCaseConfigs,
+    ...snakeCaseConfigs
   });
 }
 
@@ -105,7 +105,7 @@ export function generateSdkHeaderInfo(): {
 } {
   return {
     'mt-sdk-platform': 'js',
-    'mt-sdk-version': __VERSION__,
+    'mt-sdk-version': __VERSION__
   };
 }
 

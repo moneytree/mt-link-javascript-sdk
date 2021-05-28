@@ -3,19 +3,16 @@ module.exports = {
     browser: true,
     commonjs: true,
     es6: true,
-    node: true,
+    node: true
   },
   extends: ['eslint:recommended', 'prettier'],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+    SharedArrayBuffer: 'readonly'
   },
   parserOptions: {
-    ecmaVersion: 11,
+    ecmaVersion: 11
   },
   plugins: ['prettier'],
-  ignorePatterns: ['dist'],
-  rules: {
-    'prettier/prettier': 'error',
-  },
+  ignorePatterns: ['dist']
 };

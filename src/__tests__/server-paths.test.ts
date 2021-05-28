@@ -2,12 +2,7 @@ import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../server-p
 
 describe('server_paths', () => {
   test('MY_ACCOUNT_DOMAINS', () => {
-    expect(Object.keys(MY_ACCOUNT_DOMAINS)).toMatchObject([
-      'production',
-      'staging',
-      'develop',
-      'local',
-    ]);
+    expect(Object.keys(MY_ACCOUNT_DOMAINS)).toMatchObject(['production', 'staging', 'develop', 'local']);
 
     expect(MY_ACCOUNT_DOMAINS.production).toContain('myaccount');
     expect(MY_ACCOUNT_DOMAINS.staging).toContain('myaccount');
@@ -29,12 +24,7 @@ describe('server_paths', () => {
   });
 
   test('LINK_KIT_DOMAINS', () => {
-    expect(Object.keys(LINK_KIT_DOMAINS)).toMatchObject([
-      'production',
-      'staging',
-      'develop',
-      'local',
-    ]);
+    expect(Object.keys(LINK_KIT_DOMAINS)).toMatchObject(['production', 'staging', 'develop', 'local']);
 
     expect(LINK_KIT_DOMAINS.production).toContain('linkkit');
     expect(LINK_KIT_DOMAINS.staging).toContain('linkkit');

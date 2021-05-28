@@ -13,25 +13,25 @@ module.exports = {
     https: true,
     historyApiFallback: true,
     stats: 'minimal',
-    hot: true,
+    hot: true
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/index.html'
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ],
 
   module: {
     rules: [
       {
         test: /\.ts?$/,
-        loader: 'ts-loader',
-      },
-    ],
+        loader: 'ts-loader'
+      }
+    ]
   },
   resolve: {
-    extensions: ['.ts', '.js'],
-  },
+    extensions: ['.ts', '.js']
+  }
 };

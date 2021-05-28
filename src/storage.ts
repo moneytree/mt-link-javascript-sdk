@@ -36,5 +36,5 @@ export function del(key: string): void {
 export default {
   set,
   get,
-  del,
+  del
 };

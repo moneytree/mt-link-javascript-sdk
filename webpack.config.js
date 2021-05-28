@@ -9,22 +9,22 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js']
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
-      },
-    ],
+        loader: 'ts-loader'
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      __VERSION__: JSON.stringify(packageJSON.version),
-    }),
-  ],
+      __VERSION__: JSON.stringify(packageJSON.version)
+    })
+  ]
 };

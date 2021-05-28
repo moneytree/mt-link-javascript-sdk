@@ -36,7 +36,7 @@ describe('api', () => {
       await requestLoginLink(new MtLinkSdk().storedOptions, { email });
 
       const query = qs.stringify({
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
@@ -47,12 +47,12 @@ describe('api', () => {
         headers: {
           'Content-Type': 'application/json',
           'mt-sdk-platform': 'js',
-          'mt-sdk-version': __VERSION__,
+          'mt-sdk-version': __VERSION__
         },
         body: JSON.stringify({
           email,
-          magic_link_to: '/settings',
-        }),
+          magic_link_to: '/settings'
+        })
       });
     });
 
@@ -61,11 +61,11 @@ describe('api', () => {
 
       await requestLoginLink(new MtLinkSdk().storedOptions, {
         email,
-        loginLinkTo: 'settings/delete-account',
+        loginLinkTo: 'settings/delete-account'
       });
 
       const query = qs.stringify({
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
@@ -76,12 +76,12 @@ describe('api', () => {
         headers: {
           'Content-Type': 'application/json',
           'mt-sdk-platform': 'js',
-          'mt-sdk-version': __VERSION__,
+          'mt-sdk-version': __VERSION__
         },
         body: JSON.stringify({
           email,
-          magic_link_to: '/settings/delete-account',
-        }),
+          magic_link_to: '/settings/delete-account'
+        })
       });
     });
 
@@ -91,9 +91,7 @@ describe('api', () => {
       fetch.mockClear();
       fetch.mockResolvedValueOnce({ status: 400, statusText } as Response);
 
-      await expect(requestLoginLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(
-        statusText
-      );
+      await expect(requestLoginLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(statusText);
     });
 
     test('calling after init will includes client id', async () => {
@@ -106,7 +104,7 @@ describe('api', () => {
       mtLinkSdk.init(clientId, {
         email,
         locale,
-        cobrandClientId,
+        cobrandClientId
       });
 
       await requestLoginLink(mtLinkSdk.storedOptions);
@@ -115,7 +113,7 @@ describe('api', () => {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs(),
+        configs: generateConfigs()
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
@@ -126,12 +124,12 @@ describe('api', () => {
         headers: {
           'Content-Type': 'application/json',
           'mt-sdk-platform': 'js',
-          'mt-sdk-version': __VERSION__,
+          'mt-sdk-version': __VERSION__
         },
         body: JSON.stringify({
           email,
-          magic_link_to: '/settings',
-        }),
+          magic_link_to: '/settings'
+        })
       });
     });
   });

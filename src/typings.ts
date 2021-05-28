@@ -59,13 +59,7 @@ export type MyAccountPageType = {
 };
 
 export type OpenServicesConfigsOptions = ConfigsOptions &
-  (
-    | ServicesListType
-    | ServiceConnectionType
-    | ConnectionSettingType
-    | CustomerSupportType
-    | MyAccountPageType
-  );
+  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
 
 export type Scopes = string | string[];
 
@@ -78,20 +72,14 @@ interface OAuthSharedParams {
   redirectUri?: string;
 }
 
-export interface AuthorizeOptions
-  extends OAuthSharedParams,
-    ConfigsOptions,
-    AuthorizeConfigsOptions {
+export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions {
   scopes?: Scopes;
   codeChallenge?: string;
   pkce?: boolean;
 }
 
 export type Mode = 'production' | 'staging' | 'develop' | 'local';
-export type InitOptions = Omit<
-  Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'>,
-  'pkce'
-> &
+export type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'>, 'pkce'> &
   PrivateParams & {
     mode?: Mode;
     locale?: string;

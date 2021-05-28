@@ -12,7 +12,7 @@ function getCode(): string | undefined {
   }
 
   const { code } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true,
+    ignoreQueryPrefix: true
   });
 
   return (Array.isArray(code) ? code[code.length - 1] : code) as string | undefined;
@@ -47,15 +47,15 @@ export default async function exchangeToken(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...generateSdkHeaderInfo(),
+        ...generateSdkHeaderInfo()
       },
       body: JSON.stringify({
         code,
         client_id: clientId,
         grant_type: 'authorization_code',
         redirect_uri: redirectUri,
-        code_verifier: codeVerifier || (code ? storage.get('cv') : undefined),
-      }),
+        code_verifier: codeVerifier || (code ? storage.get('cv') : undefined)
+      })
     });
 
     const result = await response.json();
