@@ -23,8 +23,7 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     cobrandClientId,
     locale,
     scopes: defaultScopes,
-    redirectUri: defaultRedirectUri,
-    country: defaultCountry,
+    redirectUri: defaultRedirectUri
   } = storedOptions;
 
   if (!clientId) {
@@ -34,7 +33,6 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
   const {
     scopes = defaultScopes,
     redirectUri = defaultRedirectUri,
-    country = defaultCountry,
     pkce = false,
     codeChallenge,
     isNewTab,
@@ -63,12 +61,6 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     );
   }
 
-  if (!country) {
-    throw new Error(
-      '[mt-link-sdk] Missing option `country` in `onboard`, make sure to pass one via `onboard` options or `init` options.'
-    );
-  }
-
   storage.del('cv');
 
   const cc = codeChallenge || (pkce && generateCodeChallenge());
@@ -82,7 +74,7 @@ export default function onboard(storedOptions: StoredOptions, options: OnboardOp
     code_challenge: cc || undefined,
     code_challenge_method: cc ? 'S256' : undefined,
     state,
-    country,
+    country: 'JP',
     locale,
     configs: generateConfigs(configs),
   });

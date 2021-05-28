@@ -82,7 +82,6 @@ export interface AuthorizeOptions
   extends OAuthSharedParams,
     ConfigsOptions,
     AuthorizeConfigsOptions {
-  country?: string;
   scopes?: Scopes;
   codeChallenge?: string;
   pkce?: boolean;
