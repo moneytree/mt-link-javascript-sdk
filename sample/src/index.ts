@@ -78,9 +78,6 @@ elements.doOnboardBtn.onclick = async () => {
     }
 
     onBoardOptions.email = onboardOptionsElms.email.value;
-    onBoardOptions.country =
-      onboardOptionsElms.country.options[onboardOptionsElms.country.selectedIndex].value;
-
     onBoardOptions.pkce = true;
 
     await mtLinkSdk.onboard(onBoardOptions);

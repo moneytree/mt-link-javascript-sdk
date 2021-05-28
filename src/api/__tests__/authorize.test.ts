@@ -47,7 +47,6 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
         redirectUri,
-        country,
         scopes,
         locale,
         cobrandClientId,
@@ -85,7 +84,6 @@ describe('api', () => {
       authorize(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
-        country,
         scopes,
       });
 

@@ -13,7 +13,6 @@ export default {
   onboardOptionsElms: {
     email: document.getElementById('onboard-options-email') as HTMLSelectElement,
     scopes: document.getElementById('onboard-options-scopes') as HTMLSelectElement,
-    country: document.getElementById('onboard-options-country') as HTMLSelectElement,
   },
   openServiceOptionsElms: {
     serviceId: document.getElementById('open-service-options-serviceId') as HTMLSelectElement,

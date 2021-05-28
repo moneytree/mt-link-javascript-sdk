@@ -49,20 +49,6 @@ describe('api', () => {
       );
     });
 
-    test('country is required', () => {
-      const mtLinkSdk = new MtLinkSdk();
-      mtLinkSdk.init(clientId, {
-        redirectUri,
-        email,
-      });
-
-      expect(() => {
-        onboard(mtLinkSdk.storedOptions);
-      }).toThrow(
-        '[mt-link-sdk] Missing option `country` in `onboard`, make sure to pass one via `onboard` options or `init` options.'
-      );
-    });
-
     test('method call without options use default init value', () => {
       mockedStorage.set.mockClear();
       open.mockClear();
@@ -75,7 +61,6 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
         redirectUri,
-        country,
         scopes,
         email,
         locale,
@@ -114,7 +99,6 @@ describe('api', () => {
       onboard(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
-        country,
         scopes,
         email,
       });

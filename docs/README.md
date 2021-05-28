@@ -90,7 +90,6 @@ mtLinkSdk.authorize(options);
 | options.codeChallenge | string | false | | We only support SHA256 as code challenge method, therefore please ensure the `code_challenge` was generated using the SHA256 hash algorithm. [Click here](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce) for more details.</p><strong>NOTE:</strong> Set this value only if your server wish to use PKCE flow. |
 | options.pkce | boolean | false | false | Set to `true` if you wish to use PKCE flow on the client side, SDK will automatically generate the code challenge from a locally generated code verifier and use the code verifier in [exchangeToken](#exchangetoken).  |
 | <span id="authorize_option_force_logout">options.forceLogout</span> | boolean | false | `false` | Force existing guest session to logout and call authorize with a clean state. |
-| options.country | `AU`, `JP` | false | Value set during `init`. | Server location for the guest to login or sign up. If you wish to restrict your guest to only one country, make sure to set this value.<br /><br /><strong>NOTE:</strong> For apps created after 2020-07-08, the sign up form will display a country selection dropdown for the guest to select a country when this value is undefined or invalid. |
 
 ### onboard
 
@@ -113,7 +112,6 @@ mtLinkSdk.onboard(options)
 | Parameter | Type | Required | Default Value | Description |
 | - | - | - | - | - |
 | options | object | false | Value set during `init`. | Optional parameters.<br /><br />Most options are the same as the [authorize method](#authorize) options and [common options](#common-api-options) with a few exceptions.<br /><br />Unsupported options from [authorize](#authorize) and [common options](#common-api-options) are:<li>forceLogout</li><li>authAction</li><li>showAuthToggle</li><li>showRememberMe</li> |
-| options.country | `AU`, `JP` | true | Value set during `init`. | Server location for the guest to login or sign up.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
 | options.email | string | true | Value set during `init`. | A new Moneytree account will be created with this email address. If an existing account with this email exists, the guest will be redirected to the login screen.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined. |
 
 ### exchangeToken
