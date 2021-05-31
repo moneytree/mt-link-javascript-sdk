@@ -1,3 +1,19 @@
+## [3.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.2...3.0.0) (2021-05-31)
+
+### BREAKING CHANGES
+
+* chore(magic-link): rename api to login-link ([2a4773d](https://github.com/moneytree/mt-link-javascript-sdk/commit/2a4773db317e669ba8c2485977adbb4a1c037cd3))
+* chore(country): support only jp ([08ff6c3](https://github.com/moneytree/mt-link-javascript-sdk/commit/08ff6c3f3de70e8f433b64557997224cea419593))
+* feat(open-service): rename myaccount-settings to myaccount ([69fedb4](https://github.com/moneytree/mt-link-javascript-sdk/commit/69fedb48931e3bebfc7aaddad33ff46d5967069d))
+
+### Features
+
+* feat(myaccount): able to open each page ([2a92055](https://github.com/moneytree/mt-link-javascript-sdk/commit/2a920556840fc28a4b7d99d264708ab3d861e40e))
+
+### Chore
+
+* chore(config): format with updated prettier settings ([066b0f2](https://github.com/moneytree/mt-link-javascript-sdk/commit/066b0f2688cd44bab571ac40bbf2a6edb32ec10a))
+
 ## [2.1.2](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.1...2.1.2) (2020-12-18)
 
 * fix add two private config value ([cd64d6a](https://github.com/moneytree/mt-link-javascript-sdk/commit/cd64d6a281fbe773dfea8bd236e2c8e74cda3563))

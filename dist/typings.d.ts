@@ -32,7 +32,10 @@ export declare type ConnectionSettingType = {
 export declare type CustomerSupportType = {
     view?: 'customer-support';
 };
-export declare type OpenServicesConfigsOptions = ConfigsOptions & (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
+export declare type MyAccountPageType = {
+    view?: LoginLinkTo;
+};
+export declare type OpenServicesConfigsOptions = ConfigsOptions & (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
 export declare type Scopes = string | string[];
 interface AuthorizeConfigsOptions {
     forceLogout?: boolean;
@@ -42,7 +45,6 @@ interface OAuthSharedParams {
     redirectUri?: string;
 }
 export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions {
-    country?: string;
     scopes?: Scopes;
     codeChallenge?: string;
     pkce?: boolean;
@@ -62,10 +64,10 @@ export interface ExchangeTokenOptions extends OAuthSharedParams {
 }
 export declare type LogoutOptions = ConfigsOptions;
 export declare type OnboardOptions = Omit<Omit<Omit<Omit<AuthorizeOptions, 'showAuthToggle'>, 'forceLogout'>, 'showRememberMe'>, 'authAction'>;
-export declare type ServiceId = string | 'vault' | 'myaccount-settings' | 'linkkit';
-export declare type MagicLinkTo = string | 'settings' | 'settings/authorized-applications' | 'settings/change-language' | 'settings/email-preferences' | 'settings/delete-account' | 'settings/update-email' | 'settings/update-password';
-export interface RequestMagicLinkOptions extends ConfigsOptions {
-    magicLinkTo?: MagicLinkTo;
+export declare type ServiceId = string | 'vault' | 'myaccount' | 'linkkit';
+export declare type LoginLinkTo = string | 'settings' | 'settings/authorized-applications' | 'settings/change-language' | 'settings/email-preferences' | 'settings/delete-account' | 'settings/update-email' | 'settings/update-password';
+export interface RequestLoginLinkOptions extends ConfigsOptions {
+    loginLinkTo?: LoginLinkTo;
 }
 export interface TokenInfo {
     iss: string;
