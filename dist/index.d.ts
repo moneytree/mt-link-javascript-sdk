@@ -1,4 +1,4 @@
-import { StoredOptions, ServiceId, ConfigsOptions, LogoutOptions, InitOptions, AuthorizeOptions, OnboardOptions, ExchangeTokenOptions, RequestMagicLinkOptions, TokenInfo } from './typings';
+import { StoredOptions, ServiceId, OpenServicesConfigsOptions, LogoutOptions, InitOptions, AuthorizeOptions, OnboardOptions, ExchangeTokenOptions, RequestLoginLinkOptions, TokenInfo } from './typings';
 export * from './typings';
 export declare class MtLinkSdk {
     storedOptions: StoredOptions;
@@ -6,8 +6,8 @@ export declare class MtLinkSdk {
     authorize(options?: AuthorizeOptions): void;
     onboard(options?: OnboardOptions): void;
     logout(options?: LogoutOptions): void;
-    openService(serviceId: ServiceId, options?: ConfigsOptions): void;
-    requestMagicLink(options?: RequestMagicLinkOptions): Promise<void>;
+    openService(serviceId: ServiceId, options?: OpenServicesConfigsOptions): void;
+    requestLoginLink(options?: RequestLoginLinkOptions): Promise<void>;
     exchangeToken(options?: ExchangeTokenOptions): Promise<string>;
     tokenInfo(token: string): Promise<TokenInfo>;
 }
