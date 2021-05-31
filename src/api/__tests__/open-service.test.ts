@@ -10,17 +10,32 @@ describe('api', () => {
     const open = (window.open = jest.fn());
     const clientId = 'clientId';
 
-    test('myaccount-settings', () => {
+    test('myaccount', () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'myaccount-settings');
+      openService(new MtLinkSdk().storedOptions, 'myaccount');
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         configs: generateConfigs()
       });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/settings/?${query}`;
+      const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+    });
+
+    test('myaccount/change-language', () => {
+      open.mockClear();
+
+      openService(new MtLinkSdk().storedOptions, 'myaccount', { view: 'settings/change-language' });
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        configs: generateConfigs()
+      });
+      const url = `${MY_ACCOUNT_DOMAINS.production}/settings/change-language?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
@@ -161,7 +176,7 @@ describe('api', () => {
         cobrandClientId
       });
 
-      openService(mtLinkSdk.storedOptions, 'myaccount-settings');
+      openService(mtLinkSdk.storedOptions, 'myaccount');
 
       expect(open).toBeCalledTimes(1);
 
@@ -171,7 +186,7 @@ describe('api', () => {
         locale,
         configs: generateConfigs()
       });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/settings/?${query}`;
+      const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });

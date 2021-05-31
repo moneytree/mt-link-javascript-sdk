@@ -28,7 +28,7 @@ export default function openService(
   }
 
   const { clientId, mode, cobrandClientId, locale } = storedOptions;
-  const { isNewTab, view, ...rest } = options;
+  const { isNewTab, view = '', ...rest } = options;
 
   const getQueryValue = (needStringify = true): string | QueryData => {
     const query: QueryData = {
@@ -90,8 +90,8 @@ export default function openService(
 
       break;
 
-    case 'myaccount-settings':
-      openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/settings/${view || ''}?${getQueryValue()}`, getIsTabValue(isNewTab));
+    case 'myaccount':
+      openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/${view}?${getQueryValue()}`, getIsTabValue(isNewTab));
       break;
 
     case 'link-kit':

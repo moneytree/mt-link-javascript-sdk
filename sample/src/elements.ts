@@ -16,7 +16,8 @@ export default {
   },
   openServiceOptionsElms: {
     serviceId: document.getElementById('open-service-options-serviceId') as HTMLSelectElement,
-    view: document.getElementById('open-service-options-view') as HTMLSelectElement,
+    vaultView: document.getElementById('open-service-options-vault-view') as HTMLSelectElement,
+    myAccountView: document.getElementById('open-service-options-myaccount-view') as HTMLSelectElement,
     type: document.getElementById('open-service-options-type') as HTMLSelectElement,
     group: document.getElementById('open-service-options-group') as HTMLSelectElement,
     search: document.getElementById('open-service-options-search') as HTMLInputElement,
@@ -41,5 +42,6 @@ export default {
   openServiceSection: document.getElementById('open-service-section') as HTMLDivElement,
   logoutSection: document.getElementById('logout-section') as HTMLDivElement,
   tokenInfoSection: document.getElementById('token-info-section') as HTMLDivElement,
-  vaultOptions: document.getElementById('vault-options') as HTMLDivElement
+  pageVaultOptions: document.getElementById('page-vault-options') as HTMLDivElement,
+  pageMyAccountOptions: document.getElementById('page-myaccount-options') as HTMLDivElement
 };

@@ -48,15 +48,7 @@ export type ConnectionSettingType = { view?: 'connection-setting'; credentialId:
 
 export type CustomerSupportType = { view?: 'customer-support' };
 
-export type MyAccountPageType = {
-  view?:
-    | 'authorized-applications'
-    | 'change-language'
-    | 'email-preferences'
-    | 'delete-account'
-    | 'update-email'
-    | 'update-password';
-};
+export type MyAccountPageType = { view?: LoginLinkTo };
 
 export type OpenServicesConfigsOptions = ConfigsOptions &
   (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
@@ -101,7 +93,7 @@ export type OnboardOptions = Omit<
   'authAction'
 >;
 
-export type ServiceId = string | 'vault' | 'myaccount-settings' | 'linkkit';
+export type ServiceId = string | 'vault' | 'myaccount' | 'linkkit';
 
 export type LoginLinkTo =
   | string

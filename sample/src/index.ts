@@ -122,7 +122,7 @@ elements.openServiceBtn.onclick = () => {
     .value as ServiceId;
 
   if (serviceId === 'vault') {
-    const view = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex].value as
+    const view = openServiceOptionsElms.vaultView.options[openServiceOptionsElms.vaultView.selectedIndex].value as
       | 'services-list'
       | 'service-connection'
       | 'connection-setting'
@@ -163,14 +163,16 @@ elements.openServiceBtn.onclick = () => {
     }
   }
 
-  if (serviceId === 'myaccount-settings') {
-    const view = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex].value as
-      | 'authorized-applications'
-      | 'change-language'
-      | 'email-preferences'
-      | 'delete-account'
-      | 'update-email'
-      | 'update-password';
+  if (serviceId === 'myaccount') {
+    const view = openServiceOptionsElms.myAccountView.options[openServiceOptionsElms.myAccountView.selectedIndex]
+      .value as
+      | 'settings'
+      | 'settings/authorized-applications'
+      | 'settings/change-language'
+      | 'settings/email-preferences'
+      | 'settings/delete-account'
+      | 'settings/update-email'
+      | 'settings/update-password';
 
     OpenServicesConfigsOptions = { view };
   }
@@ -197,23 +199,28 @@ elements.sendLoginLinkBtn.onclick = async () => {
   sendLoginLinkBtn.disabled = false;
 };
 
-// Helper, to switch the vault options, depends on openService's serviceId value
+// Helper, to switch the options, depends on openService's serviceId value
 elements.openServiceOptionsElms.serviceId.onchange = () => {
-  const { openServiceOptionsElms, vaultOptions } = elements;
+  const { openServiceOptionsElms, pageVaultOptions, pageMyAccountOptions } = elements;
   const selectedValue = openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex].value;
 
-  if (selectedValue === 'vault' || selectedValue === 'myaccount-settings') {
-    vaultOptions.style.display = 'block';
+  pageVaultOptions.style.display = 'none';
+  pageMyAccountOptions.style.display = 'none';
+
+  if (selectedValue === 'vault') {
+    pageVaultOptions.style.display = 'block';
     return;
   }
-
-  vaultOptions.style.display = 'none';
+  if (selectedValue === 'myaccount') {
+    pageMyAccountOptions.style.display = 'block';
+    return;
+  }
 };
 
 // Helper, To switch the options, depends on openService's view value for vault
-elements.openServiceOptionsElms.view.onchange = () => {
+elements.openServiceOptionsElms.vaultView.onchange = () => {
   const { openServiceOptionsElms } = elements;
-  const selectedValue = openServiceOptionsElms.view.options[openServiceOptionsElms.view.selectedIndex].value;
+  const selectedValue = openServiceOptionsElms.vaultView.options[openServiceOptionsElms.vaultView.selectedIndex].value;
 
   const vaultServicesElms = document.getElementsByClassName('vault-services');
   for (let indx = 0; indx < vaultServicesElms.length; indx++) {
