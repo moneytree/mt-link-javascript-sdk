@@ -163,7 +163,7 @@
               <option value="settings/email-preferences">settings/email-preferences</option>
               <option value="settings/delete-account">settings/delete-account</option>
               <option value="settings/update-email">settings/update-email</option>
-              <option value="settings/update-email">settings/update-password</option>
+              <option value="settings/update-password">settings/update-password</option>
             </select>
           </div>
         </p>
@@ -197,30 +197,39 @@
       <section id="open-service-section">
         <h3>Open Service</h3>
         <p>
-          <span style="color: red;">*</span>ServiceId, <small>Open a service by Id, current supported services are vault, my-account, link-kit </small>
+          <span style="color: red;">*</span>ServiceId, <small>Open a service by Id, current supported services are vault, myaccount, link-kit </small>
           <div>
             <select id="open-service-options-serviceId">
               <option value="vault" default>vault</option>
-              <option value="myaccount-settings">myaccount</option>
+              <option value="myaccount">myaccount</option>
               <option value="link-kit">link-kit</option>
             </select>
           </div>
         </p>
 
-        <div id="vault-options">
-          <span style="color: red;">*</span>View, <small>We provide a way to open the Vault's specific pages. </small>
+        <div id="page-myaccount-options" style="display: none">
+          <span style="color: red;">*</span>View, <small>We provide a way to open specific pages. </small>
           <div>
-            <select id="open-service-options-view">
+            <select id="open-service-options-myaccount-view">
+              <option value="settings" default>settings</option>
+              <option value="settings/authorized-applications">settings/authorized-applications</option>
+              <option value="settings/change-language">settings/change-language</option>
+              <option value="settings/email-preferences">settings/email-preferences</option>
+              <option value="settings/delete-account">settings/delete-account</option>
+              <option value="settings/update-email">settings/update-email</option>
+              <option value="settings/update-password">settings/update-password</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="page-vault-options">
+          <span style="color: red;">*</span>View, <small>We provide a way to open specific pages. </small>
+          <div>
+            <select id="open-service-options-vault-view">
               <option value="services-list" default>services-list</option>
               <option value="service-connection">service-connection</option>
               <option value="connection-setting">connection-setting</option>
               <option value="customer-support">customer-support</option>
-              <option value="authorized-applications">authorized-applications</option>
-              <option value="change-language">change-language</option>
-              <option value="email-preferences">email-preferences</option>
-              <option value="delete-account">delete-account</option>
-              <option value="update-email">update-email</option>
-              <option value="update-password">update-password</option>
             </select>
           </div>
 
