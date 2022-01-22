@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "crypto-browserify": "^3.12.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "qs": "^6.10.1",
     "snake-case": "^3.0.4",
     "url-safe-base64": "^1.1.1"
