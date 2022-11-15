@@ -22,7 +22,8 @@ describe('index', () => {
     const instance = new MtLinkSdk();
 
     instance.init('clientId', {
-      redirectUri: 'redirectUri'
+      redirectUri: 'redirectUri',
+      authnMethod: 'sso'
     });
 
     const options = instance.storedOptions;
@@ -30,7 +31,8 @@ describe('index', () => {
       clientId: options.clientId,
       mode: options.mode,
       redirectUri: options.redirectUri,
-      state: options.state
+      state: options.state,
+      authnMethod: options.authnMethod
     };
 
     const result1 = instance.authorize({ scopes: 'scopes' });

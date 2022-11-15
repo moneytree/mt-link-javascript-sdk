@@ -9,6 +9,7 @@ export interface PrivateConfigsOptions {
   sdkVersion?: string; // semver
 }
 
+export type AuthNMethod = 'passwordless' | 'sso' | 'credentials';
 export interface ConfigsOptions extends PrivateConfigsOptions {
   email?: string;
   backTo?: string;
@@ -17,6 +18,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
   showRememberMe?: boolean;
   isNewTab?: boolean;
   forceLogout?: boolean;
+  authnMethod?: AuthNMethod | AuthNMethod[];
 }
 
 export type ServicesListType = {
