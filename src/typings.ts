@@ -2,6 +2,7 @@ export type AuthAction = 'login' | 'signup';
 
 export interface PrivateParams {
   cobrandClientId?: string;
+  samlSubjectId?: string;
 }
 
 export interface PrivateConfigsOptions {
@@ -9,7 +10,7 @@ export interface PrivateConfigsOptions {
   sdkVersion?: string; // semver
 }
 
-export type AuthNMethod = 'passwordless' | 'sso' | 'credentials';
+export type AuthnMethod = 'passwordless' | 'sso' | 'credentials';
 export interface ConfigsOptions extends PrivateConfigsOptions {
   email?: string;
   backTo?: string;
@@ -18,7 +19,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
   showRememberMe?: boolean;
   isNewTab?: boolean;
   forceLogout?: boolean;
-  authnMethod?: AuthNMethod | AuthNMethod[];
+  authnMethod?: AuthnMethod | AuthnMethod[];
 }
 
 export type ServicesListType = {
@@ -78,11 +79,11 @@ export type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'code
     mode?: Mode;
     locale?: string;
   };
+
 export interface StoredOptions extends InitOptions {
   clientId?: string;
   mode: Mode;
 }
-
 export interface ExchangeTokenOptions extends OAuthSharedParams {
   code?: string;
   codeVerifier?: string;

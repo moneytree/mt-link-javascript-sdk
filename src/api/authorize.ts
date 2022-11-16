@@ -23,7 +23,8 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
     cobrandClientId,
     locale,
     scopes: defaultScopes,
-    redirectUri: defaultRedirectUri
+    redirectUri: defaultRedirectUri,
+    samlSubjectId
   } = storedOptions;
 
   if (!clientId) {
@@ -61,6 +62,7 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
     state,
     country: 'JP',
     locale,
+    saml_subject_id: samlSubjectId,
     configs: generateConfigs(mergeConfigs(storedOptions, rest))
   });
 

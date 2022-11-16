@@ -16,6 +16,7 @@ interface QueryData {
   cobrand_client_id?: string;
   locale?: string;
   configs: string;
+  saml_subject_id?: string;
 }
 
 export default function openService(
@@ -27,7 +28,7 @@ export default function openService(
     throw new Error('[mt-link-sdk] `openService` only works in the browser.');
   }
 
-  const { clientId, mode, cobrandClientId, locale } = storedOptions;
+  const { clientId, mode, cobrandClientId, locale, samlSubjectId } = storedOptions;
   const { isNewTab, view = '', ...rest } = options;
 
   const getQueryValue = (needStringify = true): string | QueryData => {
@@ -35,6 +36,7 @@ export default function openService(
       client_id: clientId,
       cobrand_client_id: cobrandClientId,
       locale,
+      saml_subject_id: samlSubjectId,
       configs: generateConfigs(mergeConfigs(storedOptions, rest))
     };
 

@@ -44,6 +44,10 @@ export class MtLinkSdk {
     };
   }
 
+  public setSamlSubjectId(value: string): void {
+    this.storedOptions.samlSubjectId = value;
+  }
+
   public authorize(options?: AuthorizeOptions): void {
     authorize(this.storedOptions, options);
   }

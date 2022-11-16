@@ -7,7 +7,7 @@ import { encode } from 'url-safe-base64';
 import { v4 as uuid } from 'uuid';
 import storage from './storage';
 
-import { Scopes, InitOptions, ConfigsOptions, AuthAction, AuthNMethod } from './typings';
+import { Scopes, InitOptions, ConfigsOptions, AuthAction, AuthnMethod } from './typings';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
@@ -64,7 +64,7 @@ export function mergeConfigs(
 }
 
 export function generateConfigs(configs: ConfigsOptions = {}): string {
-  const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | AuthNMethod[] | undefined } = {};
+  const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | AuthnMethod[] | undefined } = {};
 
   const configKeys = [
     'email',
@@ -76,7 +76,7 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'forceLogout',
     'sdkPlatform',
     'sdkVersion',
-    'authnMethod',
+    'authnMethod'
   ];
 
   for (const key in configs) {
@@ -84,12 +84,15 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
       snakeCaseConfigs[snakeCase(key)] = configs[key as keyof ConfigsOptions];
     }
   }
-  
-  return stringify({
-    sdk_platform: 'js',
-    sdk_version: __VERSION__,
-    ...snakeCaseConfigs
-  }, { indices: false, arrayFormat: 'brackets', encode: false });
+
+  return stringify(
+    {
+      sdk_platform: 'js',
+      sdk_version: __VERSION__,
+      ...snakeCaseConfigs
+    },
+    { indices: false, arrayFormat: 'brackets' }
+  );
 }
 
 export function generateCodeChallenge(): string {

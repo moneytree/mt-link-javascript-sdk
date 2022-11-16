@@ -9,13 +9,14 @@ export default function logout(storedOptions: StoredOptions, options: LogoutOpti
     throw new Error(`[mt-link-sdk] \`logout\` only works in the browser.`);
   }
 
-  const { clientId, mode, cobrandClientId, locale } = storedOptions;
+  const { clientId, mode, cobrandClientId, locale, samlSubjectId } = storedOptions;
   const { isNewTab, ...rest } = options;
 
   const queryString = stringify({
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
     locale,
+    saml_subject_id: samlSubjectId,
     configs: generateConfigs(mergeConfigs(storedOptions, rest))
   });
 

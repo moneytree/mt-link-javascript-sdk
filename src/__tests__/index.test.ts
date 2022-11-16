@@ -23,7 +23,8 @@ describe('index', () => {
 
     instance.init('clientId', {
       redirectUri: 'redirectUri',
-      authnMethod: 'sso'
+      authnMethod: 'sso',
+      samlSubjectId: 'samlSubjectId'
     });
 
     const options = instance.storedOptions;
@@ -32,7 +33,8 @@ describe('index', () => {
       mode: options.mode,
       redirectUri: options.redirectUri,
       state: options.state,
-      authnMethod: options.authnMethod
+      authnMethod: options.authnMethod,
+      samlSubjectId: options.samlSubjectId
     };
 
     const result1 = instance.authorize({ scopes: 'scopes' });
@@ -95,5 +97,20 @@ describe('index', () => {
     });
 
     expect(mtLinkSdk.storedOptions.mode).toBe('production');
+  });
+
+  test('sets the samlSubjectId when calling setSamlSubjectId', () => {
+    const samlSubjectId = 'samlSubjectId';
+    mtLinkSdk.init('clientId', {
+      samlSubjectId
+    });
+
+    expect(mtLinkSdk.storedOptions.samlSubjectId).toBe(samlSubjectId);
+
+    const newSamlSubjectId = 'newSamlSubjectId';
+
+    mtLinkSdk.setSamlSubjectId(newSamlSubjectId);
+
+    expect(mtLinkSdk.storedOptions.samlSubjectId).toBe(newSamlSubjectId);
   });
 });
