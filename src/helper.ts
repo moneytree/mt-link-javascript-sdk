@@ -7,7 +7,7 @@ import { encode } from 'url-safe-base64';
 import { v4 as uuid } from 'uuid';
 import storage from './storage';
 
-import { Scopes, InitOptions, ConfigsOptions, AuthAction } from './typings';
+import { Scopes, InitOptions, ConfigsOptions, AuthAction, AuthN } from './typings';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
@@ -64,7 +64,7 @@ export function mergeConfigs(
 }
 
 export function generateConfigs(configs: ConfigsOptions = {}): string {
-  const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | undefined } = {};
+  const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | AuthN[] | undefined } = {};
 
   const configKeys = [
     'email',
@@ -75,7 +75,9 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'isNewTab',
     'forceLogout',
     'sdkPlatform',
-    'sdkVersion'
+    'sdkVersion',
+    'authnMethod',
+    'samlSubjectId'
   ];
 
   for (const key in configs) {
@@ -84,11 +86,14 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     }
   }
 
-  return stringify({
-    sdk_platform: 'js',
-    sdk_version: __VERSION__,
-    ...snakeCaseConfigs
-  });
+  return stringify(
+    {
+      sdk_platform: 'js',
+      sdk_version: __VERSION__,
+      ...snakeCaseConfigs
+    },
+    { indices: false, arrayFormat: 'brackets', encode: false }
+  );
 }
 
 export function generateCodeChallenge(): string {

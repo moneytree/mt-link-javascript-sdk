@@ -1,5 +1,6 @@
 import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs } from '../helper';
 import packageJson from '../../package.json';
+import { ConfigsOptions } from '../typings';
 
 describe('helper', () => {
   test('constuctScopes', () => {
@@ -116,17 +117,29 @@ describe('helper', () => {
 
   describe('generateConfigs', () => {
     test('with parameter', () => {
-      expect(
-        generateConfigs({
-          email: 'email',
-          backTo: 'backTo',
-          authAction: 'signup',
-          showAuthToggle: true,
-          showRememberMe: true
-        })
-      ).toBe(
+      const configPayload: ConfigsOptions = {
+        email: 'email',
+        backTo: 'backTo',
+        authAction: 'signup',
+        showAuthToggle: true,
+        showRememberMe: true,
+        authnMethod: 'sso',
+        samlSubjectId: 'MeTesting'
+      };
+
+      expect(generateConfigs(configPayload)).toBe(
         `sdk_platform=js&sdk_version=${packageJson.version}&email=email&back_to=backTo&auth_action=signup&show_auth_toggle=true` +
-          `&show_remember_me=true`
+          `&show_remember_me=true&authn_method=sso&saml_subject_id=MeTesting`
+      );
+    });
+
+    test('with authnMethod parameter as an array', () => {
+      const configPayload: ConfigsOptions = {
+        authnMethod: ['sso', 'passwordless']
+      };
+
+      expect(generateConfigs(configPayload)).toBe(
+        `sdk_platform=js&sdk_version=${packageJson.version}&authn_method[]=sso&authn_method[]=passwordless`
       );
     });
 
