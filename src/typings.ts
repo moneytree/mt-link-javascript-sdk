@@ -1,4 +1,5 @@
-export type AuthAction = 'login' | 'signup';
+export const supportedAuthAction = ['login', 'signup'] as const;
+export type AuthAction = typeof supportedAuthAction[number];
 
 export interface PrivateParams {
   cobrandClientId?: string;
@@ -10,7 +11,9 @@ export interface PrivateConfigsOptions {
   sdkVersion?: string; // semver
 }
 
-export type AuthnMethod = 'passwordless' | 'sso' | 'credentials';
+export const supportedAuthnMethod = ['passwordless', 'sso', 'credentials'] as const;
+export type AuthnMethod = typeof supportedAuthnMethod[number];
+
 export interface ConfigsOptions extends PrivateConfigsOptions {
   email?: string;
   backTo?: string;

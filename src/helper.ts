@@ -7,7 +7,15 @@ import { encode } from 'url-safe-base64';
 import { v4 as uuid } from 'uuid';
 import storage from './storage';
 
-import { Scopes, InitOptions, ConfigsOptions, AuthAction, AuthnMethod } from './typings';
+import {
+  Scopes,
+  InitOptions,
+  ConfigsOptions,
+  AuthAction,
+  AuthnMethod,
+  supportedAuthnMethod,
+  supportedAuthAction
+} from './typings';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
@@ -79,6 +87,14 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'authnMethod'
   ];
 
+  if (configs.authnMethod) {
+    configs.authnMethod = parseAuthnMethod(configs.authnMethod);
+  }
+
+  if (configs.authAction) {
+    configs.authAction = parseAuthAction(configs.authAction);
+  }
+
   for (const key in configs) {
     if (configKeys.indexOf(key) !== -1) {
       snakeCaseConfigs[snakeCase(key)] = configs[key as keyof ConfigsOptions];
@@ -93,6 +109,37 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     },
     { indices: false, arrayFormat: 'brackets' }
   );
+}
+
+function isAuthnMethod(x: unknown): x is AuthnMethod | AuthnMethod[] {
+  if (Array.isArray(x)) {
+    return (
+      x.length > 0 &&
+      x.every((el: AuthnMethod) => {
+        return supportedAuthnMethod.includes(el);
+      })
+    );
+  }
+
+  return supportedAuthnMethod.includes(x as AuthnMethod);
+}
+
+function parseAuthnMethod(x: unknown): AuthnMethod[] | AuthnMethod | undefined {
+  if (Array.isArray(x)) {
+    let filtered_x = x.filter((el: AuthnMethod) => supportedAuthnMethod.includes(el));
+
+    filtered_x.length == 1 ? (x = filtered_x.toString()) : (x = filtered_x);
+  }
+
+  return isAuthnMethod(x) ? x : undefined;
+}
+
+function isAuthAction(x: unknown): x is AuthAction {
+  return supportedAuthAction.includes(x as AuthAction);
+}
+
+function parseAuthAction(x: unknown): AuthAction | undefined {
+  return isAuthAction(x) ? x : undefined;
 }
 
 export function generateCodeChallenge(): string {

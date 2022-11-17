@@ -1,6 +1,6 @@
 import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs } from '../helper';
 import packageJson from '../../package.json';
-import { ConfigsOptions } from '../typings';
+import { AuthAction, AuthnMethod, ConfigsOptions } from '../typings';
 import { stringify } from 'qs';
 
 describe('helper', () => {
@@ -155,6 +155,38 @@ describe('helper', () => {
 
       expect(generateConfigs(configPayload)).toBe(
         `sdk_platform=js&sdk_version=${packageJson.version}&email=email%26%21%40%23%28%2A%29-304should%20be_encoded&back_to=backTo%20%23%21%40with%20%5B%5Dspecial%3D%20chars&auth_action=signup&show_auth_toggle=true&show_remember_me=true&authn_method%5B%5D=sso&authn_method%5B%5D=passwordless`
+      );
+    });
+
+    test('Should filter out invalid authnMethod from array and authAction values', () => {
+      const configPayload: ConfigsOptions = {
+        email: 'email',
+        backTo: 'backTo',
+        authAction: 'invalid-value' as AuthAction,
+        showAuthToggle: true,
+        showRememberMe: true,
+        authnMethod: ['oh-not-valid', 'sso'] as AuthnMethod[]
+      };
+
+      expect(generateConfigs(configPayload)).toBe(
+        `sdk_platform=js&sdk_version=${packageJson.version}&email=email&back_to=backTo&show_auth_toggle=true` +
+          `&show_remember_me=true&authn_method=sso`
+      );
+    });
+
+    test('Should reject invalid authnMethod from config', () => {
+      const configPayload: ConfigsOptions = {
+        email: 'email',
+        backTo: 'backTo',
+        authAction: 'signup',
+        showAuthToggle: true,
+        showRememberMe: true,
+        authnMethod: 'oh-not-valid' as AuthnMethod
+      };
+
+      expect(generateConfigs(configPayload)).toBe(
+        `sdk_platform=js&sdk_version=${packageJson.version}&email=email&back_to=backTo&auth_action=signup&show_auth_toggle=true` +
+          `&show_remember_me=true`
       );
     });
 
