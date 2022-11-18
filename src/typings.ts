@@ -14,6 +14,17 @@ export interface PrivateConfigsOptions {
 export const supportedAuthnMethod = ['passwordless', 'sso', 'credentials'] as const;
 export type AuthnMethod = typeof supportedAuthnMethod[number];
 
+export const supportedConfigsOptions = [
+  'email',
+  'backTo',
+  'authAction',
+  'showAuthToggle',
+  'showRememberMe',
+  'isNewTab',
+  'forceLogout',
+  'authnMethod'
+] as const;
+export type SupportedConfigsOptions = typeof supportedConfigsOptions[number];
 export interface ConfigsOptions extends PrivateConfigsOptions {
   email?: string;
   backTo?: string;

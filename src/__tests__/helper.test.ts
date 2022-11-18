@@ -24,16 +24,18 @@ describe('helper', () => {
             backTo: 'backTo',
             authAction: 'signup',
             showAuthToggle: true,
-            showRememberMe: true
+            showRememberMe: true,
+            authnMethod: 'sso'
           },
           {}
         )
-      ).toMatchObject({
+      ).toEqual({
+        authAction: 'signup',
         email: 'email',
         backTo: 'backTo',
-        authAction: 'signup',
+        showRememberMe: true,
         showAuthToggle: true,
-        showRememberMe: true
+        authnMethod: 'sso'
       });
     });
 
@@ -74,13 +76,14 @@ describe('helper', () => {
             showAuthToggle: true,
             showRememberMe: true,
             // @ts-ignore: set unsupported key
-            whatIsThis: false
+            whatIsThis: false,
+            authnMethod: 'not really valid' as AuthnMethod
           },
           {
             whatIsThis2: false
           }
         )
-      ).toMatchObject({
+      ).toEqual({
         email: 'email',
         backTo: 'backTo',
         authAction: 'signup',

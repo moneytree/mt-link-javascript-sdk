@@ -14,7 +14,9 @@ import {
   AuthAction,
   AuthnMethod,
   supportedAuthnMethod,
-  supportedAuthAction
+  supportedAuthAction,
+  supportedConfigsOptions,
+  SupportedConfigsOptions
 } from './typings';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
@@ -35,7 +37,8 @@ export function mergeConfigs(
     backTo: defaultBackTo,
     authAction: defaultAuthAction,
     showAuthToggle: defaultShowAuthToggle,
-    showRememberMe: defaultShowRememberMe
+    showRememberMe: defaultShowRememberMe,
+    authnMethod: defaultAuthnMethod
   } = initValues;
 
   const {
@@ -44,8 +47,11 @@ export function mergeConfigs(
     authAction = defaultAuthAction,
     showAuthToggle = defaultShowAuthToggle,
     showRememberMe = defaultShowRememberMe,
+    authnMethod: rawAuthnMethod = defaultAuthnMethod,
     ...rest
   } = newValues;
+
+  const authnMethod = parseAuthnMethod(rawAuthnMethod);
 
   const configs: ConfigsOptions = {
     ...rest,
@@ -53,18 +59,17 @@ export function mergeConfigs(
     backTo,
     authAction,
     showAuthToggle,
-    showRememberMe
+    showRememberMe,
+    authnMethod
   };
 
-  if (ignoreKeys.length) {
-    const keys = Object.keys(configs) as Array<keyof ConfigsOptions>;
+  const keys = Object.keys(configs) as Array<SupportedConfigsOptions>;
 
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
 
-      if (ignoreKeys.indexOf(key) !== -1) {
-        configs[key] = undefined;
-      }
+    if (ignoreKeys.indexOf(key) !== -1 || !supportedConfigsOptions.includes(key)) {
+      configs[key] = undefined;
     }
   }
 
