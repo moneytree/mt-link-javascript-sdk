@@ -72,7 +72,7 @@ export function mergeConfigs(
 }
 
 export function generateConfigs(configs: ConfigsOptions = {}): string {
-  const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | AuthnMethod[] | undefined } = {};
+  const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | undefined } = {};
 
   const configKeys = [
     'email',
@@ -101,34 +101,20 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     }
   }
 
-  return stringify(
-    {
-      sdk_platform: 'js',
-      sdk_version: __VERSION__,
-      ...snakeCaseConfigs
-    },
-    { indices: false, arrayFormat: 'brackets' }
-  );
+  return stringify({
+    sdk_platform: 'js',
+    sdk_version: __VERSION__,
+    ...snakeCaseConfigs
+  });
 }
 
-function isAuthnMethod(x: unknown): x is AuthnMethod | AuthnMethod[] {
-  if (Array.isArray(x)) {
-    return (
-      x.length > 0 &&
-      x.every((el: AuthnMethod) => {
-        return supportedAuthnMethod.includes(el);
-      })
-    );
-  }
-
+function isAuthnMethod(x: unknown): x is AuthnMethod {
   return supportedAuthnMethod.includes(x as AuthnMethod);
 }
 
-function parseAuthnMethod(x: unknown): AuthnMethod[] | AuthnMethod | undefined {
+function parseAuthnMethod(x: unknown): AuthnMethod | undefined {
   if (Array.isArray(x)) {
-    let filtered_x = x.filter((el: AuthnMethod) => supportedAuthnMethod.includes(el));
-
-    filtered_x.length == 1 ? (x = filtered_x.toString()) : (x = filtered_x);
+    throw new TypeError('Array is not allowed for authnMethod');
   }
 
   return isAuthnMethod(x) ? x : undefined;

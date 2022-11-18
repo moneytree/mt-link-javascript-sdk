@@ -22,7 +22,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
   showRememberMe?: boolean;
   isNewTab?: boolean;
   forceLogout?: boolean;
-  authnMethod?: AuthnMethod | AuthnMethod[];
+  authnMethod?: AuthnMethod;
 }
 
 export type ServicesListType = {
