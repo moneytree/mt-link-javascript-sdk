@@ -43,13 +43,15 @@ describe('api', () => {
       const scopes = 'points_read';
       const cobrandClientId = 'cobrandClientId';
       const locale = 'locale';
+      const samlSubjectId = 'mySubject';
 
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, {
         redirectUri,
         scopes,
         locale,
-        cobrandClientId
+        cobrandClientId,
+        samlSubjectId
       });
 
       authorize(mtLinkSdk.storedOptions);
@@ -64,6 +66,7 @@ describe('api', () => {
         redirect_uri: redirectUri,
         country,
         locale,
+        saml_subject_id: samlSubjectId,
         configs: generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
@@ -77,9 +80,10 @@ describe('api', () => {
       const state = 'state';
       const country = 'JP';
       const scopes = 'points_read';
+      const samlSubjectId = 'mySubject';
 
       const mtLinkSdk = new MtLinkSdk();
-      mtLinkSdk.init(clientId);
+      mtLinkSdk.init(clientId, { samlSubjectId });
 
       authorize(mtLinkSdk.storedOptions, {
         state,
@@ -96,6 +100,7 @@ describe('api', () => {
         redirect_uri: redirectUri,
         state,
         country,
+        saml_subject_id: samlSubjectId,
         configs: generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;

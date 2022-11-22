@@ -197,6 +197,45 @@ describe('api', () => {
       }).toThrow('[mt-link-sdk] Invalid `serviceId` in `openService`, got: invalid');
     });
 
+    test('saml_subject_id is passed when initialized', () => {
+      open.mockClear();
+
+      const instance = new MtLinkSdk();
+      instance.init('clientId', { samlSubjectId: 'samlSubjectId' });
+
+      openService(instance.storedOptions, 'myaccount');
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        client_id: 'clientId',
+        saml_subject_id: 'samlSubjectId',
+        configs: generateConfigs()
+      });
+      const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+    });
+
+    test('undefined saml_subject_id should not be passed down', () => {
+      open.mockClear();
+
+      const instance = new MtLinkSdk();
+      instance.init('clientId', { samlSubjectId: undefined });
+
+      openService(instance.storedOptions, 'myaccount');
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        client_id: 'clientId',
+        configs: generateConfigs()
+      });
+      const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+    });
+
     test('without window', () => {
       const windowSpy = jest.spyOn(global, 'window', 'get');
       // @ts-ignore: mocking window object to undefined

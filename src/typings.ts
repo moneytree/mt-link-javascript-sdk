@@ -1,7 +1,9 @@
-export type AuthAction = 'login' | 'signup';
+export const supportedAuthAction = ['login', 'signup'] as const;
+export type AuthAction = typeof supportedAuthAction[number];
 
 export interface PrivateParams {
   cobrandClientId?: string;
+  samlSubjectId?: string;
 }
 
 export interface PrivateConfigsOptions {
@@ -9,6 +11,20 @@ export interface PrivateConfigsOptions {
   sdkVersion?: string; // semver
 }
 
+export const supportedAuthnMethod = ['passwordless', 'sso', 'credentials'] as const;
+export type AuthnMethod = typeof supportedAuthnMethod[number];
+
+export const supportedConfigsOptions = [
+  'email',
+  'backTo',
+  'authAction',
+  'showAuthToggle',
+  'showRememberMe',
+  'isNewTab',
+  'forceLogout',
+  'authnMethod'
+] as const;
+export type SupportedConfigsOptions = typeof supportedConfigsOptions[number];
 export interface ConfigsOptions extends PrivateConfigsOptions {
   email?: string;
   backTo?: string;
@@ -17,6 +33,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
   showRememberMe?: boolean;
   isNewTab?: boolean;
   forceLogout?: boolean;
+  authnMethod?: AuthnMethod;
 }
 
 export type ServicesListType = {
@@ -76,11 +93,11 @@ export type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'code
     mode?: Mode;
     locale?: string;
   };
+
 export interface StoredOptions extends InitOptions {
   clientId?: string;
   mode: Mode;
 }
-
 export interface ExchangeTokenOptions extends OAuthSharedParams {
   code?: string;
   codeVerifier?: string;
