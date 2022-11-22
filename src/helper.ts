@@ -113,26 +113,6 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
   });
 }
 
-function isAuthnMethod(x: unknown): x is AuthnMethod {
-  return supportedAuthnMethod.includes(x as AuthnMethod);
-}
-
-function parseAuthnMethod(x: unknown): AuthnMethod | undefined {
-  if (Array.isArray(x)) {
-    throw new TypeError('Array is not allowed for authnMethod');
-  }
-
-  return isAuthnMethod(x) ? x : undefined;
-}
-
-function isAuthAction(x: unknown): x is AuthAction {
-  return supportedAuthAction.includes(x as AuthAction);
-}
-
-function parseAuthAction(x: unknown): AuthAction | undefined {
-  return isAuthAction(x) ? x : undefined;
-}
-
 export function generateCodeChallenge(): string {
   const codeVerifier = uuid();
 
@@ -153,4 +133,25 @@ export function generateSdkHeaderInfo(): {
 
 export function openWindow(url: string, windowName: string): Window | null {
   return window.open(url, windowName, 'noreferrer');
+}
+
+// Validators
+function isAuthnMethod(x: unknown): x is AuthnMethod {
+  return supportedAuthnMethod.includes(x as AuthnMethod);
+}
+
+function parseAuthnMethod(x: unknown): AuthnMethod | undefined {
+  if (Array.isArray(x)) {
+    throw new TypeError('Array is not allowed for authnMethod');
+  }
+
+  return isAuthnMethod(x) ? x : undefined;
+}
+
+function isAuthAction(x: unknown): x is AuthAction {
+  return supportedAuthAction.includes(x as AuthAction);
+}
+
+function parseAuthAction(x: unknown): AuthAction | undefined {
+  return isAuthAction(x) ? x : undefined;
 }

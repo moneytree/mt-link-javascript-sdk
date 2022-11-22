@@ -1,44 +1,35 @@
-## [3.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.2...3.0.0) (2021-05-31)
+# [3.1.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.0.0...3.1.0) (2022-11-22)
 
-### BREAKING CHANGES
-
-* chore(magic-link): rename api to login-link ([2a4773d](https://github.com/moneytree/mt-link-javascript-sdk/commit/2a4773db317e669ba8c2485977adbb4a1c037cd3))
-* chore(country): support only jp ([08ff6c3](https://github.com/moneytree/mt-link-javascript-sdk/commit/08ff6c3f3de70e8f433b64557997224cea419593))
-* feat(open-service): rename myaccount-settings to myaccount ([69fedb4](https://github.com/moneytree/mt-link-javascript-sdk/commit/69fedb48931e3bebfc7aaddad33ff46d5967069d))
 
 ### Features
 
-* feat(myaccount): able to open each page ([2a92055](https://github.com/moneytree/mt-link-javascript-sdk/commit/2a920556840fc28a4b7d99d264708ab3d861e40e))
+* **MyAccount:** Add support for authn_method ([b94ea4b](https://github.com/moneytree/mt-link-javascript-sdk/commit/b94ea4b186699d8af21885eb4150c2e96b605916))
+* **MyAccount:** Add support for saml_subject_id ([de9af0f](https://github.com/moneytree/mt-link-javascript-sdk/commit/de9af0f4d20acc90c3a7fa59e1e571a656287975))
 
-### Chore
 
-* chore(config): format with updated prettier settings ([066b0f2](https://github.com/moneytree/mt-link-javascript-sdk/commit/066b0f2688cd44bab571ac40bbf2a6edb32ec10a))
 
-## [2.1.2](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.1...2.1.2) (2020-12-18)
+# [3.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.2...3.0.0) (2021-06-01)
 
-* fix add two private config value ([cd64d6a](https://github.com/moneytree/mt-link-javascript-sdk/commit/cd64d6a281fbe773dfea8bd236e2c8e74cda3563))
-
-## [2.1.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.1.0...2.1.1) (2020-12-15)
-
-### Bug Fixes
-* fix window.open didn't work on Safari 14 ([882c23c](https://github.com/moneytree/mt-link-javascript-sdk/commit/882c23c1abdc467a964b918ea7502f4f70e7da8d))
-* fix forceLogout didn't work ([fa3055a](https://github.com/moneytree/mt-link-javascript-sdk/commit/fa3055a100f2bd4b7c5a4660b9dfeba45c601078))
-
-# [2.1.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/2.0.0...2.1.0) (2020-12-09)
 
 ### Bug Fixes
 
+* add two private config value ([cd64d6a](https://github.com/moneytree/mt-link-javascript-sdk/commit/cd64d6a281fbe773dfea8bd236e2c8e74cda3563))
 * **authorize-api:** fix for Safari 14 issue ([9fb69d0](https://github.com/moneytree/mt-link-javascript-sdk/commit/9fb69d014752698df1897527ff27d60ffd116843))
 * update for lint error and test failed ([362f0b7](https://github.com/moneytree/mt-link-javascript-sdk/commit/362f0b749797a438ac8c0024616e7072dbc641ee))
+* **logout:** add optional backTo parameter ([9b9da89](https://github.com/moneytree/mt-link-javascript-sdk/commit/9b9da8941ff58049ed200d6dd6324bc5918adca0))
 
 
 ### Features
 
 * **headers:** set sdk info as additional headers parameter ([1a55579](https://github.com/moneytree/mt-link-javascript-sdk/commit/1a5557919ee9844409848154ba22ec863c4d1a58))
+* **index:** new logout endpoint ([64156ca](https://github.com/moneytree/mt-link-javascript-sdk/commit/64156caba35f251f6a501edba60f736ab13da57c))
+* **myaccount:** able to open each page ([72c1e71](https://github.com/moneytree/mt-link-javascript-sdk/commit/72c1e715f2028e8d9d95b8e109e763d776c87e57))
+* **open-service:** rename myaccount-settings to myaccount ([71cdd6c](https://github.com/moneytree/mt-link-javascript-sdk/commit/71cdd6cd373d6564e47f971b95f3bd0c222715c0))
+* **open-services:** deeplink support ([c179072](https://github.com/moneytree/mt-link-javascript-sdk/commit/c179072ba008e8f6be3f94bf4ced88e314485544))
 * **sample-app:** add example ([89edfcf](https://github.com/moneytree/mt-link-javascript-sdk/commit/89edfcf2e6bc961842f9721345a074779e0549be))
 * add del to storage ([c5f2bda](https://github.com/moneytree/mt-link-javascript-sdk/commit/c5f2bdaf597909f71a3ee551966daa0e47367baf))
 * authorize & onboard accepts `pkce` & `codeChallenge` options ([bc6bfe5](https://github.com/moneytree/mt-link-javascript-sdk/commit/bc6bfe5da725493fb3046dabab57824fe09fa501))
-* **open-services:** deeplink support ([c179072](https://github.com/moneytree/mt-link-javascript-sdk/commit/c179072ba008e8f6be3f94bf4ced88e314485544))
+* **sample_app:** add a very basic sample app to test the SDK ([84a4d18](https://github.com/moneytree/mt-link-javascript-sdk/commit/84a4d187506960f44dffd102b62ce4732bec3301))
 
 
 * refactor!: remove auto generate state logic ([c68d223](https://github.com/moneytree/mt-link-javascript-sdk/commit/c68d22331c1783a3c859af0b4cb3ddecfcfbf8b4))
@@ -53,35 +44,6 @@ and `onboard` API. There will be no default `state` and you will have to pass
 one via the APIs' options parameter if you need one.
 * change `tokenInfo` API response to standard format.
 * `tokenInfo` API no longer accept options parameter as it provide no benefit.
-
-# [2.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.4.0...2.0.0) (2020-10-19)
-
-
-### Features
-
-- Support OAuth 2.0 Authorization Code with PKCE Flow.
-- Enable to onboard a guest faster.
-- Support Magic link(password-less login link).
-
-
-# [1.4.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.3.1...1.4.0) (2020-01-17)
-
-
-# [1.3.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.3.0...1.3.1) (2020-01-17)
-
-
-### Bug Fixes
-
-* **logout:** add optional backTo parameter ([9b9da89](https://github.com/moneytree/mt-link-javascript-sdk/commit/9b9da8941ff58049ed200d6dd6324bc5918adca0))
-
-
-# [1.3.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/1.2.3...1.3.0) (2019-12-11)
-
-
-### Features
-
-* **index:** new logout endpoint ([64156ca](https://github.com/moneytree/mt-link-javascript-sdk/commit/64156caba35f251f6a501edba60f736ab13da57c))
-* **sample_app:** add a very basic sample app to test the SDK ([84a4d18](https://github.com/moneytree/mt-link-javascript-sdk/commit/84a4d187506960f44dffd102b62ce4732bec3301))
 
 
 
@@ -155,3 +117,6 @@ one via the APIs' options parameter if you need one.
 ### Features
 
 * creating a JS SDK ([333cf8c](https://github.com/moneytree/mt-link-javascript-sdk/commit/333cf8c36f7a8299c2bccf441454b04d31e7d907))
+
+
+
