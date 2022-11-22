@@ -3,6 +3,7 @@ export * from './typings';
 export declare class MtLinkSdk {
     storedOptions: StoredOptions;
     init(clientId: string, options?: InitOptions): void;
+    setSamlSubjectId(value: string): void;
     authorize(options?: AuthorizeOptions): void;
     onboard(options?: OnboardOptions): void;
     logout(options?: LogoutOptions): void;

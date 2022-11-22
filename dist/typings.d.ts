@@ -1,11 +1,17 @@
-export declare type AuthAction = 'login' | 'signup';
+export declare const supportedAuthAction: readonly ["login", "signup"];
+export declare type AuthAction = typeof supportedAuthAction[number];
 export interface PrivateParams {
     cobrandClientId?: string;
+    samlSubjectId?: string;
 }
 export interface PrivateConfigsOptions {
     sdkPlatform?: 'ios' | 'android' | 'js';
     sdkVersion?: string;
 }
+export declare const supportedAuthnMethod: readonly ["passwordless", "sso", "credentials"];
+export declare type AuthnMethod = typeof supportedAuthnMethod[number];
+export declare const supportedConfigsOptions: readonly ["email", "backTo", "authAction", "showAuthToggle", "showRememberMe", "isNewTab", "forceLogout", "authnMethod"];
+export declare type SupportedConfigsOptions = typeof supportedConfigsOptions[number];
 export interface ConfigsOptions extends PrivateConfigsOptions {
     email?: string;
     backTo?: string;
@@ -14,6 +20,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
     showRememberMe?: boolean;
     isNewTab?: boolean;
     forceLogout?: boolean;
+    authnMethod?: AuthnMethod;
 }
 export declare type ServicesListType = {
     view?: 'services-list';
