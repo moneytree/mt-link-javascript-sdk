@@ -69,7 +69,7 @@ mtLinkSdk.init(clientId, options);
 
 ### setSamlSubjectId
 
-The `setSamlSubjectId` method is used to set the value of the `saml_subject_id` parameter.
+The `setSamlSubjectId` method is used to set the value of the `saml_subject_id` parameter. This parameter can be set during `init` or changed by this method. It can not be overriden.
 The `setSamlSubjectId` parameter allows the client to pass a guest identifier to Moneytree so that Moneytree can forward it to the Identity Provider (IdP) via the SAMLRequest.
 The `saml_subject_id` parameter will be forwarded to the `authorize`, `logout` and `open-service` methods when defined.
 
