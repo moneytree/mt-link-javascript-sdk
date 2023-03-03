@@ -4,7 +4,7 @@ import { stringify } from 'qs';
 import { snakeCase } from 'snake-case';
 import { createHash } from 'crypto';
 import { encode } from 'url-safe-base64';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid, version } from 'uuid';
 import storage from './storage';
 
 import {
@@ -14,9 +14,7 @@ import {
   AuthAction,
   AuthnMethod,
   supportedAuthnMethod,
-  supportedAuthAction,
-  supportedConfigsOptions,
-  SupportedConfigsOptions
+  supportedAuthAction
 } from './typings';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
@@ -27,51 +25,41 @@ export function getIsTabValue(isNewTab = false): '' | '_self' {
   return isNewTab ? '' : '_self';
 }
 
+function fallbackOnUndefined<T>(value: T, fallbackValue: T): T {
+  return value === undefined ? fallbackValue : value;
+}
+
 export function mergeConfigs(
   initValues: InitOptions,
   newValues: ConfigsOptions,
   ignoreKeys: string[] = []
 ): ConfigsOptions {
-  const {
-    email: defaultEmail,
-    backTo: defaultBackTo,
-    authAction: defaultAuthAction,
-    showAuthToggle: defaultShowAuthToggle,
-    showRememberMe: defaultShowRememberMe,
-    authnMethod: defaultAuthnMethod
-  } = initValues;
-
-  const {
-    email = defaultEmail,
-    backTo = defaultBackTo,
-    authAction = defaultAuthAction,
-    showAuthToggle = defaultShowAuthToggle,
-    showRememberMe = defaultShowRememberMe,
-    authnMethod: rawAuthnMethod = defaultAuthnMethod,
-    ...rest
-  } = newValues;
-
-  const authnMethod = parseAuthnMethod(rawAuthnMethod);
-
   const configs: ConfigsOptions = {
-    ...rest,
-    email,
-    backTo,
-    authAction,
-    showAuthToggle,
-    showRememberMe,
-    authnMethod
+    email: fallbackOnUndefined<ConfigsOptions['email']>(newValues.email, initValues.email),
+    backTo: fallbackOnUndefined<ConfigsOptions['backTo']>(newValues.backTo, initValues.backTo),
+    authAction: fallbackOnUndefined<ConfigsOptions['authAction']>(newValues.authAction, initValues.authAction),
+    showAuthToggle: fallbackOnUndefined<ConfigsOptions['showAuthToggle']>(
+      newValues.showAuthToggle,
+      initValues.showAuthToggle
+    ),
+    showRememberMe: fallbackOnUndefined<ConfigsOptions['showRememberMe']>(
+      newValues.showRememberMe,
+      initValues.showRememberMe
+    ),
+    isNewTab: fallbackOnUndefined<ConfigsOptions['isNewTab']>(newValues.isNewTab, initValues.isNewTab),
+    forceLogout: newValues.forceLogout,
+    authnMethod: parseAuthnMethod(
+      fallbackOnUndefined<ConfigsOptions['authnMethod']>(newValues.authnMethod, initValues.authnMethod)
+    ),
+    sdkPlatform: fallbackOnUndefined<ConfigsOptions['sdkPlatform']>(newValues.sdkPlatform, initValues.sdkPlatform),
+    sdkVersion: fallbackOnUndefined<ConfigsOptions['sdkVersion']>(newValues.sdkVersion, initValues.sdkVersion)
   };
 
-  const keys = Object.keys(configs) as Array<SupportedConfigsOptions>;
-
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-
-    if (ignoreKeys.indexOf(key) !== -1 || !supportedConfigsOptions.includes(key)) {
-      configs[key] = undefined;
+  Object.keys(configs).forEach((key) => {
+    if (configs[key as keyof ConfigsOptions] === undefined || ignoreKeys.indexOf(key) !== -1) {
+      delete configs[key as keyof ConfigsOptions];
     }
-  }
+  });
 
   return configs;
 }
@@ -87,9 +75,9 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'showRememberMe',
     'isNewTab',
     'forceLogout',
+    'authnMethod',
     'sdkPlatform',
-    'sdkVersion',
-    'authnMethod'
+    'sdkVersion'
   ];
 
   if (configs.authnMethod) {
@@ -100,17 +88,19 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     configs.authAction = parseAuthAction(configs.authAction);
   }
 
+  // fallback to current SDK value when both sdk platform and version doesn't or partially exists
+  if (!configs.sdkPlatform || !configs.sdkVersion) {
+    configs.sdkPlatform = 'js';
+    configs.sdkVersion = __VERSION__;
+  }
+
   for (const key in configs) {
     if (configKeys.indexOf(key) !== -1) {
       snakeCaseConfigs[snakeCase(key)] = configs[key as keyof ConfigsOptions];
     }
   }
 
-  return stringify({
-    sdk_platform: 'js',
-    sdk_version: __VERSION__,
-    ...snakeCaseConfigs
-  });
+  return stringify(snakeCaseConfigs);
 }
 
 export function generateCodeChallenge(): string {
