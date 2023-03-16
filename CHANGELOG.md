@@ -1,4 +1,9 @@
-# [3.1.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.0.0...3.1.0) (2022-11-22)
+## [3.1.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.1.0...3.1.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **configs:** default sdk info always overwrite options values ([6d2734e](https://github.com/moneytree/mt-link-javascript-sdk/commit/6d2734e0d2748ca4ffa39c80eea3788323fbad1f))
 
 
 ### Features
