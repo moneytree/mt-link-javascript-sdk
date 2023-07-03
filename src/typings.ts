@@ -59,7 +59,9 @@ export type MyAccountPageType = { view?: LoginLinkTo };
 export type OpenServicesConfigsOptions = ConfigsOptions &
   (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
 
-export type OpenServicesUrlConfigsOptions = Omit<ConfigsOptions, 'isNewTab'> &
+type ConfigsOptionsWithoutIsNewTab = Omit<ConfigsOptions, 'isNewTab'>;
+
+export type OpenServicesUrlConfigsOptions = ConfigsOptionsWithoutIsNewTab &
   (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
 
 export type Scopes = string | string[];
@@ -78,6 +80,8 @@ export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, Aut
   codeChallenge?: string;
   pkce?: boolean;
 }
+
+export type AuthorizeUrlOptions = Omit<AuthorizeOptions, 'isNewTab'>;
 
 export type Mode = 'production' | 'staging' | 'develop' | 'local';
 export type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'>, 'pkce'> &
