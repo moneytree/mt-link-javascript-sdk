@@ -59,6 +59,9 @@ export type MyAccountPageType = { view?: LoginLinkTo };
 export type OpenServicesConfigsOptions = ConfigsOptions &
   (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
 
+export type OpenServicesUrlConfigsOptions = Omit<ConfigsOptions, 'isNewTab'> &
+  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
+
 export type Scopes = string | string[];
 
 interface AuthorizeConfigsOptions {

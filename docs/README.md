@@ -309,6 +309,20 @@ mtLinkSdk.openService('myaccount', { view: 'settings/update-email' });
 | serviceId    | `myaccount` | true     |                                                                                                  | Open MyAccount                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | options.view | string      | false    | `settings` (for mobile view)<p><strong>OR</strong></p>`settings/update-email` (for desktop view) | Directly go to the chosen page. Currently supported locations include:<li>`settings` - Main Moneytree account settings screen.</li><li>`settings/authorized-applications` - List of apps currently connected to Moneytree.</li><li>`settings/change-language` - Change Moneytree account language screen.<li>`settings/email-preferences` - Change Moneytree email preferences screen</li><li>`settings/delete-account` - Delete Moneytree account screen.</li><li>`settings/update-email` - Change Moneytree account email screen.</li><li>`settings/update-password` - Change Moneytree account password screen.</li><br> If no value is provided, it goes to the top page of MyAccount. |
 
+### openServiceUrl
+
+This method generates URLs to open various services provided by Moneytree, such as Moneytree Account Settings and Vault, etc. If you want to use the URLs for other purposes or load them in a different way, use this API instead of `openService`.
+
+<strong>NOTE:</strong> calling this API before calling `init` will open the services view without branding (company logo etc.)
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.openServiceUrl(serviceId, options);
+```
+
+This API has exactly the same parameters as `openService`, the only difference being that it returns an URL instead of opening immediately with `window.open`.
+
 ### requestLoginLink
 
 Request for a password-less login link to be sent to the guest's email address. Clicking on the link in the email will log a guest in directly to the screen specified by the `loginLinkTo` parameter.
