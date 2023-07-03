@@ -3,14 +3,14 @@ import { mocked } from 'ts-jest/utils';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import authorize from '../authorize';
+import authorizeUrl from '../authorize-url';
 import { generateConfigs } from '../../helper';
 import storage from '../../storage';
 
 jest.mock('../../storage');
 
 describe('api', () => {
-  describe('authorize', () => {
+  describe('authorize-url', () => {
     const open = (window.open = jest.fn());
 
     const mockedStorage = mocked(storage);
@@ -20,7 +20,7 @@ describe('api', () => {
 
     test('without calling init', () => {
       expect(() => {
-        authorize(new MtLinkSdk().storedOptions);
+        authorizeUrl(new MtLinkSdk().storedOptions);
       }).toThrow('[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.');
     });
 
@@ -29,7 +29,7 @@ describe('api', () => {
       mtLinkSdk.init(clientId);
 
       expect(() => {
-        authorize(mtLinkSdk.storedOptions);
+        authorizeUrl(mtLinkSdk.storedOptions);
       }).toThrow(
         '[mt-link-sdk] Missing option `redirectUri` in `authorizeUrl/authorize`, make sure to pass one via `authorizeUrl/authorize` options or `init` options.'
       );
@@ -37,7 +37,6 @@ describe('api', () => {
 
     test('method call without options use default init value', () => {
       mockedStorage.set.mockClear();
-      open.mockClear();
 
       const country = 'JP';
       const scopes = 'points_read';
@@ -54,9 +53,7 @@ describe('api', () => {
         samlSubjectId
       });
 
-      authorize(mtLinkSdk.storedOptions);
-
-      expect(open).toBeCalledTimes(1);
+      const url = authorizeUrl(mtLinkSdk.storedOptions);
 
       const query = qs.stringify({
         client_id: clientId,
@@ -69,13 +66,12 @@ describe('api', () => {
         saml_subject_id: samlSubjectId,
         configs: generateConfigs()
       });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+
+      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`);
     });
 
     test('with options', () => {
       mockedStorage.set.mockClear();
-      open.mockClear();
 
       const state = 'state';
       const country = 'JP';
@@ -85,13 +81,11 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { samlSubjectId });
 
-      authorize(mtLinkSdk.storedOptions, {
+      const url = authorizeUrl(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes
       });
-
-      expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         client_id: clientId,
@@ -103,18 +97,7 @@ describe('api', () => {
         saml_subject_id: samlSubjectId,
         configs: generateConfigs()
       });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
-    });
-
-    test('without window', () => {
-      const windowSpy = jest.spyOn(global, 'window', 'get');
-      // @ts-ignore: mocking window object to undefined
-      windowSpy.mockImplementation(() => undefined);
-
-      expect(() => {
-        authorize(new MtLinkSdk().storedOptions);
-      }).toThrow('[mt-link-sdk] `authorize` only works in the browser.');
+      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`);
     });
   });
 });

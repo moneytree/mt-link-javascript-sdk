@@ -1,4 +1,5 @@
 import authorize from './api/authorize';
+import authorizeUrl from './api/authorize-url';
 import onboard from './api/onboard';
 import logout from './api/logout';
 import openService from './api/open-service';
@@ -18,7 +19,8 @@ import {
   RequestLoginLinkOptions,
   TokenInfo,
   Mode,
-  OpenServicesUrlConfigsOptions
+  OpenServicesUrlConfigsOptions,
+  AuthorizeUrlOptions
 } from './typings';
 
 export * from './typings';
@@ -52,6 +54,10 @@ export class MtLinkSdk {
 
   public authorize(options?: AuthorizeOptions): void {
     authorize(this.storedOptions, options);
+  }
+
+  public authorizeUrl(options?: AuthorizeUrlOptions): string {
+    return authorizeUrl(this.storedOptions, options);
   }
 
   public onboard(options?: OnboardOptions): void {
