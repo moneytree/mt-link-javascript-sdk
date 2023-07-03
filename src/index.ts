@@ -2,6 +2,7 @@ import authorize from './api/authorize';
 import onboard from './api/onboard';
 import logout from './api/logout';
 import openService from './api/open-service';
+import openServiceUrl from './api/open-service-url';
 import requestLoginLink from './api/request-login-link';
 import exchangeToken from './api/exchange-token';
 import tokenInfo from './api/token-info';
@@ -16,7 +17,8 @@ import {
   ExchangeTokenOptions,
   RequestLoginLinkOptions,
   TokenInfo,
-  Mode
+  Mode,
+  OpenServicesUrlConfigsOptions
 } from './typings';
 
 export * from './typings';
@@ -62,6 +64,10 @@ export class MtLinkSdk {
 
   public openService(serviceId: ServiceId, options?: OpenServicesConfigsOptions): void {
     openService(this.storedOptions, serviceId, options);
+  }
+
+  public openServiceUrl(serviceId: ServiceId, options?: OpenServicesUrlConfigsOptions): string {
+    return openServiceUrl(this.storedOptions, serviceId, options);
   }
 
   public requestLoginLink(options?: RequestLoginLinkOptions): Promise<void> {

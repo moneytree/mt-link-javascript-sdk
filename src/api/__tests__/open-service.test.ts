@@ -194,7 +194,7 @@ describe('api', () => {
     test('invalid service id', () => {
       expect(() => {
         openService(new MtLinkSdk().storedOptions, 'invalid');
-      }).toThrow('[mt-link-sdk] Invalid `serviceId` in `openService`, got: invalid');
+      }).toThrow('[mt-link-sdk] Invalid `serviceId` in `openServiceUrl/openService`, got: invalid');
     });
 
     test('saml_subject_id is passed when initialized', () => {
