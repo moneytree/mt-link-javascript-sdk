@@ -100,6 +100,7 @@ export interface ExchangeTokenOptions extends OAuthSharedParams {
 }
 
 export type LogoutOptions = ConfigsOptions;
+export type LogoutUrlOptions = Omit<ConfigsOptions, 'isNewTab'>;
 
 export type OnboardOptions = Omit<
   Omit<Omit<Omit<AuthorizeOptions, 'showAuthToggle'>, 'forceLogout'>, 'showRememberMe'>,

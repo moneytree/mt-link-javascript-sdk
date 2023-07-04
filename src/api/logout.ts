@@ -1,24 +1,13 @@
-import { stringify } from 'qs';
-
-import { generateConfigs, mergeConfigs, getIsTabValue, openWindow } from '../helper';
-import { MY_ACCOUNT_DOMAINS } from '../server-paths';
+import { getIsTabValue, openWindow } from '../helper';
 import { StoredOptions, LogoutOptions } from '../typings';
+import logoutUrl from './logout-url';
 
 export default function logout(storedOptions: StoredOptions, options: LogoutOptions = {}): void {
   if (!window) {
     throw new Error(`[mt-link-sdk] \`logout\` only works in the browser.`);
   }
 
-  const { clientId, mode, cobrandClientId, locale, samlSubjectId } = storedOptions;
-  const { isNewTab, ...rest } = options;
+  const { isNewTab, ...restOptions } = options;
 
-  const queryString = stringify({
-    client_id: clientId,
-    cobrand_client_id: cobrandClientId,
-    locale,
-    saml_subject_id: samlSubjectId,
-    configs: generateConfigs(mergeConfigs(storedOptions, rest))
-  });
-
-  openWindow(`${MY_ACCOUNT_DOMAINS[mode]}/guests/logout?${queryString}`, getIsTabValue(isNewTab));
+  openWindow(logoutUrl(storedOptions, restOptions), getIsTabValue(isNewTab));
 }
