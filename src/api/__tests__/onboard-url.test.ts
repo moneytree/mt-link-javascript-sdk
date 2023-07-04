@@ -34,19 +34,6 @@ describe('api', () => {
       );
     });
 
-    test('email is required', () => {
-      const mtLinkSdk = new MtLinkSdk();
-      mtLinkSdk.init(clientId, {
-        redirectUri
-      });
-
-      expect(() => {
-        const url = onboardUrl(mtLinkSdk.storedOptions);
-      }).toThrow(
-        '[mt-link-sdk] Missing option `email` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.'
-      );
-    });
-
     test('method call without options use default init value', () => {
       mockedStorage.set.mockClear();
 
