@@ -26,7 +26,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
 }
 
 export type ServicesListType = {
-  view?: 'services-list';
+  view: 'services-list';
   group?:
     | 'grouping_bank'
     | 'grouping_bank_credit_card'
@@ -48,21 +48,27 @@ export type ServicesListType = {
   search?: string;
 };
 
-export type ServiceConnectionType = { view?: 'service-connection'; entityKey: string };
+export type ServiceConnectionType = { view: 'service-connection'; entityKey: string };
 
-export type ConnectionSettingType = { view?: 'connection-setting'; credentialId: string };
+export type ConnectionSettingType = { view: 'connection-setting'; credentialId: string };
 
-export type CustomerSupportType = { view?: 'customer-support' };
+export type CustomerSupportType = { view: 'customer-support' };
 
-export type MyAccountPageType = { view?: LoginLinkTo };
-
-export type OpenServicesConfigsOptions = ConfigsOptions &
-  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
+export type VaultOpenServiceOptions = ConfigsOptions &
+  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
+export type MyAccountOpenServiceOptions = ConfigsOptions & { view: LoginLinkTo };
+export type LinkKitOpenServiceOptions = ConfigsOptions;
+export type OpenServiceOptions = VaultOpenServiceOptions | MyAccountOpenServiceOptions | LinkKitOpenServiceOptions;
 
 type ConfigsOptionsWithoutIsNewTab = Omit<ConfigsOptions, 'isNewTab'>;
-
-export type OpenServicesUrlConfigsOptions = ConfigsOptionsWithoutIsNewTab &
-  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType | MyAccountPageType);
+export type VaultOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab &
+  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
+export type MyAccountOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab & { view: LoginLinkTo };
+export type LinkKitOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab;
+export type OpenServiceUrlOptions =
+  | VaultOpenServiceUrlOptions
+  | MyAccountOpenServiceUrlOptions
+  | LinkKitOpenServiceUrlOptions;
 
 export type Scopes = string | string[];
 
@@ -109,10 +115,9 @@ export type OnboardOptions = Omit<
 
 export type OnboardUrlOptions = Omit<OnboardOptions, 'isNewTab'>;
 
-export type ServiceId = string | 'vault' | 'myaccount' | 'linkkit';
+export type ServiceId = 'vault' | 'myaccount' | 'link-kit';
 
 export type LoginLinkTo =
-  | string
   | 'settings'
   | 'settings/authorized-applications'
   | 'settings/change-language'
