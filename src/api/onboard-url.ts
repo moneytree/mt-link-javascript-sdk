@@ -36,14 +36,6 @@ export default function onboardUrl(storedOptions: StoredOptions, options: Onboar
     );
   }
 
-  const { email } = configs;
-
-  if (!email) {
-    throw new Error(
-      '[mt-link-sdk] Missing option `email` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.'
-    );
-  }
-
   storage.del('cv');
 
   const cc = codeChallenge || (pkce && generateCodeChallenge());
