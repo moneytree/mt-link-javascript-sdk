@@ -85,7 +85,7 @@ mtLinkSdk.setSamlSubjectId(samlSubjectId);
 
 ### authorize
 
-OAuth authorization method to request guest consent to access data via the [Link API](https://getmoneytree.com/au/link/about).<br /><br />
+OAuth authorization method to request guest consent to access data via the [Link API](https://getmoneytree.com/jp/link/about).<br /><br />
 For [security reasons](https://developer.okta.com/blog/2019/08/22/okta-authjs-pkce#why-you-should-never-use-the-implicit-flow-again) we removed support for implicit flow. We have opted for the [PKCE](https://auth0.com/docs/flows/concepts/auth-code-pkce)/[code grant](https://www.oauth.com/oauth2-servers/access-tokens/authorization-code-request/) flow.<br /><br />
 Guest login is required for this SDK to work, by default we will show the login screen and redirect the guest to the consent screen after they log in (Redirection happens immediately if they are currently logged in; you may pass the [forceLogout option](#authorize_option_force_logout) to force the guest to log in, even if they have an active session.)<br /><br />
 You may also choose to display the sign up form by default by passing the [authAction option](#authorize_option_auth_action).
@@ -107,6 +107,18 @@ mtLinkSdk.authorize(options);
 | options.codeChallenge                                               | string                                     | false    |                                                                                                                                                                | We only support SHA256 as code challenge method, therefore please ensure the `code_challenge` was generated using the SHA256 hash algorithm. [Click here](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce) for more details.</p><strong>NOTE:</strong> Set this value only if your server wish to use PKCE flow.                                                                                      |
 | options.pkce                                                        | boolean                                    | false    | false                                                                                                                                                          | Set to `true` if you wish to use PKCE flow on the client side, SDK will automatically generate the code challenge from a locally generated code verifier and use the code verifier in [exchangeToken](#exchangetoken).                                                                                                                                                                                                        |
 | <span id="authorize_option_force_logout">options.forceLogout</span> | boolean                                    | false    | `false`                                                                                                                                                        | Force existing guest session to logout and call authorize with a clean state.                                                                                                                                                                                                                                                                                                                                                 |
+
+### authorizeUrl
+
+This method generates an URL for OAuth authorization that requires guest consent to access data via [Link API](https://getmoneytree.com/jp/link/about). See `authorize` API for authorization details.
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.authorizeUrl(options);
+```
+
+This API has exactly the same parameters as `authorize`, the only difference being that it returns an URL instead of opening immediately with `window.open`.
 
 ### onboard
 
@@ -131,6 +143,18 @@ mtLinkSdk.onboard(options);
 | ------------- | ------ | -------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | options       | object | false    | Value set during `init`. | Optional parameters.<br /><br />Most options are the same as the [authorize method](#authorize) options and [common options](#common-api-options) with a few exceptions.<br /><br />Unsupported options from [authorize](#authorize) and [common options](#common-api-options) are:<li>forceLogout</li><li>authAction</li><li>showAuthToggle</li><li>showRememberMe</li> |
 | options.email | string | true     | Value set during `init`. | A new Moneytree account will be created with this email address. If an existing account with this email exists, the guest will be redirected to the login screen.<br /><br /><strong>NOTE:</strong> SDK will throw an error if both values here and from the [init options](?id=api-init_options) are undefined.                                                         |
+
+### onboardUrl
+
+This method generates a URL for guest onboarding. See the `onboard` API for more information on onboarding.
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.onboardUrl(options);
+```
+
+This API has exactly the same parameters as `onboard`, the only difference being that it returns an URL instead of opening immediately with `window.open`.
 
 ### exchangeToken
 
@@ -218,6 +242,18 @@ mtLinkSdk.openService(serviceId, options);
 | options                    | object                                                                                                                 | false    | Value set during `init`. | Optional parameters. Includes all options in [common options](#common-api-options).                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | options.view for Vault     | `services-list`, `service-connection`, `connection-setting`, `customer-support`                                        | false    |                          | We provide options for opening a specific page on Vault and MyAccount. Please check the following sessions:<br /> <li>[Open Vault Services Page](#open-vault-services-page)</li><li>[Open Vault Service Connection Page](#open-vault-service-connection-page)</li><li>[Open Vault Service Setting Page](#open-vault-service-setting-page)</li><li>[Open Vault Customer Support Page](#open-vault-customer-support-page)</li><br /><br /><strong>NOTE:</strong> The serviceId must be `vault` to enable this option. |
 | options.view for MyAccount | `authorized-applications`, `change-language`, `email-preferences`, `delete-account`, `update-email`, `update-password` | false    |                          | We provide options for opening a specific page on MyAccount. Please check the following sessions:<br /> <li>[Open MyAccount Page](#open-myaccount-page)</li> <br /><br /><strong>NOTE:</strong> The serviceId must be `myaccount` to enable this option.                                                                                                                                                                                                                                                            |
+
+### logoutUrl
+
+This method generates a URL to log out the guest. See the `logout` API for details on logout.
+
+<h6>Usage:</h6>
+
+```javascript
+mtLinkSdk.logoutUrl(options);
+```
+
+This API has exactly the same parameters as `logout`, the only difference being that it returns an URL instead of opening immediately with `window.open`.   
 
 #### Open Vault Services Page
 
@@ -311,9 +347,7 @@ mtLinkSdk.openService('myaccount', { view: 'settings/update-email' });
 
 ### openServiceUrl
 
-This method generates URLs to open various services provided by Moneytree, such as Moneytree Account Settings and Vault, etc. If you want to use the URLs for other purposes or load them in a different way, use this API instead of `openService`.
-
-<strong>NOTE:</strong> calling this API before calling `init` will open the services view without branding (company logo etc.)
+This method can generate URLs for various services provided by Moneytree, such as Moneytree Account Settings and Vault. See the `openService` API for details on combining the various options.
 
 <h6>Usage:</h6>
 
@@ -321,7 +355,7 @@ This method generates URLs to open various services provided by Moneytree, such 
 mtLinkSdk.openServiceUrl(serviceId, options);
 ```
 
-This API has exactly the same parameters as `openService`, the only difference being that it returns an URL instead of opening immediately with `window.open`.
+This API has exactly the same parameters as `openService`, the only difference being that it returns an URL instead of opening immediately with `window.open`.  
 
 ### requestLoginLink
 
