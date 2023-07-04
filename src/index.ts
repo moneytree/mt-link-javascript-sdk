@@ -1,6 +1,7 @@
 import authorize from './api/authorize';
 import authorizeUrl from './api/authorize-url';
 import onboard from './api/onboard';
+import onboardUrl from './api/onboard-url';
 import logout from './api/logout';
 import logoutUrl from './api/logout-url';
 import openService from './api/open-service';
@@ -22,7 +23,8 @@ import {
   Mode,
   OpenServicesUrlConfigsOptions,
   AuthorizeUrlOptions,
-  LogoutUrlOptions
+  LogoutUrlOptions,
+  OnboardUrlOptions
 } from './typings';
 
 export * from './typings';
@@ -64,6 +66,10 @@ export class MtLinkSdk {
 
   public onboard(options?: OnboardOptions): void {
     onboard(this.storedOptions, options);
+  }
+
+  public onboardUrl(options?: OnboardUrlOptions): string {
+    return onboardUrl(this.storedOptions, options);
   }
 
   public logout(options?: LogoutOptions): void {
