@@ -2,6 +2,7 @@ import authorize from './api/authorize';
 import authorizeUrl from './api/authorize-url';
 import onboard from './api/onboard';
 import logout from './api/logout';
+import logoutUrl from './api/logout-url';
 import openService from './api/open-service';
 import openServiceUrl from './api/open-service-url';
 import requestLoginLink from './api/request-login-link';
@@ -20,7 +21,8 @@ import {
   TokenInfo,
   Mode,
   OpenServicesUrlConfigsOptions,
-  AuthorizeUrlOptions
+  AuthorizeUrlOptions,
+  LogoutUrlOptions
 } from './typings';
 
 export * from './typings';
@@ -66,6 +68,10 @@ export class MtLinkSdk {
 
   public logout(options?: LogoutOptions): void {
     logout(this.storedOptions, options);
+  }
+
+  public logoutUrl(options?: LogoutUrlOptions): string {
+    return logoutUrl(this.storedOptions, options);
   }
 
   public openService(serviceId: ServiceId, options?: OpenServicesConfigsOptions): void {
