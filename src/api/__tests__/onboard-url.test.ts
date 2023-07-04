@@ -3,16 +3,14 @@ import { mocked } from 'ts-jest/utils';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import onboard from '../onboard';
+import onboardUrl from '../onboard-url';
 import { generateConfigs } from '../../helper';
 import storage from '../../storage';
 
 jest.mock('../../storage');
 
 describe('api', () => {
-  describe('onboard', () => {
-    const open = (window.open = jest.fn());
-
+  describe('onboard-url', () => {
     const mockedStorage = mocked(storage);
 
     const clientId = 'clientId';
@@ -21,7 +19,7 @@ describe('api', () => {
 
     test('without calling init', () => {
       expect(() => {
-        onboard(new MtLinkSdk().storedOptions);
+        const url = onboardUrl(new MtLinkSdk().storedOptions);
       }).toThrow('[mt-link-sdk] Make sure to call `init` before calling `onboardUrl/onboard`.');
     });
 
@@ -30,7 +28,7 @@ describe('api', () => {
       mtLinkSdk.init(clientId);
 
       expect(() => {
-        onboard(mtLinkSdk.storedOptions);
+        const url = onboardUrl(mtLinkSdk.storedOptions);
       }).toThrow(
         '[mt-link-sdk] Missing option `redirectUri` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.'
       );
@@ -43,7 +41,7 @@ describe('api', () => {
       });
 
       expect(() => {
-        onboard(mtLinkSdk.storedOptions);
+        const url = onboardUrl(mtLinkSdk.storedOptions);
       }).toThrow(
         '[mt-link-sdk] Missing option `email` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.'
       );
@@ -51,7 +49,6 @@ describe('api', () => {
 
     test('method call without options use default init value', () => {
       mockedStorage.set.mockClear();
-      open.mockClear();
 
       const country = 'JP';
       const scopes = 'points_read';
@@ -67,9 +64,7 @@ describe('api', () => {
         cobrandClientId
       });
 
-      onboard(mtLinkSdk.storedOptions);
-
-      expect(open).toBeCalledTimes(1);
+      const url = onboardUrl(mtLinkSdk.storedOptions);
 
       const query = qs.stringify({
         client_id: clientId,
@@ -81,13 +76,12 @@ describe('api', () => {
         locale,
         configs: generateConfigs({ email })
       });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+
+      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`);
     });
 
     test('with options', () => {
       mockedStorage.set.mockClear();
-      open.mockClear();
 
       const state = 'state';
       const country = 'JP';
@@ -96,14 +90,12 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId);
 
-      onboard(mtLinkSdk.storedOptions, {
+      const url = onboardUrl(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes,
         email
       });
-
-      expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         client_id: clientId,
@@ -114,18 +106,8 @@ describe('api', () => {
         country,
         configs: generateConfigs({ email })
       });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`;
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
-    });
 
-    test('without window', () => {
-      const windowSpy = jest.spyOn(global, 'window', 'get');
-      // @ts-ignore: mocking window object to undefined
-      windowSpy.mockImplementation(() => undefined);
-
-      expect(() => {
-        onboard(new MtLinkSdk().storedOptions);
-      }).toThrow('[mt-link-sdk] `onboard` only works in the browser.');
+      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`);
     });
   });
 });

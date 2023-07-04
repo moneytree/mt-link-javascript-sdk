@@ -107,6 +107,8 @@ export type OnboardOptions = Omit<
   'authAction'
 >;
 
+export type OnboardUrlOptions = Omit<OnboardOptions, 'isNewTab'>;
+
 export type ServiceId = string | 'vault' | 'myaccount' | 'linkkit';
 
 export type LoginLinkTo =
