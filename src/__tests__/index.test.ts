@@ -7,7 +7,7 @@ import openService from '../api/open-service';
 import requestLoginLink from '../api/request-login-link';
 import exchangeToken from '../api/exchange-token';
 import tokenInfo from '../api/token-info';
-import mtLinkSdk, { MtLinkSdk } from '..';
+import mtLinkSdk, { Mode, MtLinkSdk } from '..';
 
 import packageJson from '../../package.json';
 
@@ -51,13 +51,13 @@ describe('index', () => {
     expect(result3).toBeUndefined();
     expect(logout).toBeCalledWith(storedOptions, { backTo: 'backTo' });
 
-    const result4 = instance.openService('test');
+    const result4 = instance.openService('myaccount');
     expect(result4).toBeUndefined();
-    expect(openService).toBeCalledWith(storedOptions, 'test', undefined);
+    expect(openService).toBeCalledWith(storedOptions, 'myaccount', undefined);
 
-    const result5 = await instance.requestLoginLink({ loginLinkTo: 'loginLinkTo' });
+    const result5 = await instance.requestLoginLink({ loginLinkTo: 'settings' });
     expect(result5).toBeUndefined();
-    expect(requestLoginLink).toBeCalledWith(storedOptions, { loginLinkTo: 'loginLinkTo' });
+    expect(requestLoginLink).toBeCalledWith(storedOptions, { loginLinkTo: 'settings' });
 
     mocked(exchangeToken).mockResolvedValueOnce('test');
     const result6 = await instance.exchangeToken({ code: 'code' });
@@ -96,6 +96,8 @@ describe('index', () => {
       'https://vault.getmoneytree.com?client_id=clientId&saml_subject_id=samlSubjectId&' +
         `configs=authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`
     );
+
+    instance.openServiceUrl('myaccount');
   });
 
   test('mtLinkSdk', () => {
@@ -122,8 +124,8 @@ describe('index', () => {
 
   test('invalid mode default to production', () => {
     mtLinkSdk.init('clientId', {
-      // @ts-ignore: set mode to unsupported value
-      mode: 'invalid'
+      // force cast invalid value so that we can use it for testing
+      mode: 'invalid' as Mode
     });
 
     expect(mtLinkSdk.storedOptions.mode).toBe('production');

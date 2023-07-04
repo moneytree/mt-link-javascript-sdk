@@ -5,14 +5,13 @@ import onboardUrl from './api/onboard-url';
 import logout from './api/logout';
 import logoutUrl from './api/logout-url';
 import openService from './api/open-service';
-import openServiceUrl from './api/open-service-url';
+import openServiceUrlApi from './api/open-service-url';
 import requestLoginLink from './api/request-login-link';
 import exchangeToken from './api/exchange-token';
 import tokenInfo from './api/token-info';
 import {
   StoredOptions,
   ServiceId,
-  OpenServicesConfigsOptions,
   LogoutOptions,
   InitOptions,
   AuthorizeOptions,
@@ -21,10 +20,17 @@ import {
   RequestLoginLinkOptions,
   TokenInfo,
   Mode,
-  OpenServicesUrlConfigsOptions,
   AuthorizeUrlOptions,
   LogoutUrlOptions,
-  OnboardUrlOptions
+  OnboardUrlOptions,
+  OpenServiceUrlOptions,
+  LinkKitOpenServiceUrlOptions,
+  MyAccountOpenServiceUrlOptions,
+  VaultOpenServiceUrlOptions,
+  VaultOpenServiceOptions,
+  LinkKitOpenServiceOptions,
+  MyAccountOpenServiceOptions,
+  OpenServiceOptions
 } from './typings';
 
 export * from './typings';
@@ -80,12 +86,18 @@ export class MtLinkSdk {
     return logoutUrl(this.storedOptions, options);
   }
 
-  public openService(serviceId: ServiceId, options?: OpenServicesConfigsOptions): void {
+  public openService(serviceId: 'link-kit', options?: LinkKitOpenServiceOptions): void;
+  public openService(serviceId: 'myaccount', options?: MyAccountOpenServiceOptions): void;
+  public openService(serviceId: 'vault', options?: VaultOpenServiceOptions): void;
+  public openService(serviceId: ServiceId, options?: OpenServiceOptions): void {
     openService(this.storedOptions, serviceId, options);
   }
 
-  public openServiceUrl(serviceId: ServiceId, options?: OpenServicesUrlConfigsOptions): string {
-    return openServiceUrl(this.storedOptions, serviceId, options);
+  public openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): string;
+  public openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): string;
+  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): string;
+  public openServiceUrl(serviceId: ServiceId, options?: OpenServiceUrlOptions): string {
+    return openServiceUrlApi(this.storedOptions, serviceId, options);
   }
 
   public requestLoginLink(options?: RequestLoginLinkOptions): Promise<void> {

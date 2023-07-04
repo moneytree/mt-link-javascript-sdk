@@ -1,11 +1,11 @@
 import { getIsTabValue, openWindow } from '../helper';
-import { StoredOptions, ServiceId, OpenServicesConfigsOptions } from '../typings';
+import { StoredOptions, ServiceId, OpenServiceOptions } from '../typings';
 import openServiceUrl from './open-service-url';
 
 export default function openService(
   storedOptions: StoredOptions,
   serviceId: ServiceId,
-  options: OpenServicesConfigsOptions = {}
+  options: OpenServiceOptions = {}
 ): void {
   if (!window) {
     throw new Error('[mt-link-sdk] `openService` only works in the browser.');

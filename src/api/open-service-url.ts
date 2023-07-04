@@ -5,10 +5,12 @@ import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../server-p
 import {
   StoredOptions,
   ServiceId,
-  OpenServicesUrlConfigsOptions,
   ConnectionSettingType,
   ServiceConnectionType,
-  ServicesListType
+  ServicesListType,
+  OpenServiceUrlOptions,
+  VaultOpenServiceOptions,
+  MyAccountOpenServiceOptions
 } from '../typings';
 
 interface QueryData {
@@ -22,10 +24,10 @@ interface QueryData {
 export default function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: ServiceId,
-  options: OpenServicesUrlConfigsOptions = {}
+  options: OpenServiceUrlOptions = {}
 ): string {
   const { clientId, mode, cobrandClientId, locale, samlSubjectId } = storedOptions;
-  const { view = '', ...rest } = options;
+  const { view = '', ...rest } = options as VaultOpenServiceOptions | MyAccountOpenServiceOptions;
 
   const getQueryValue = (needStringify = true): string | QueryData => {
     const query: QueryData = {
