@@ -9,6 +9,8 @@ import exchangeToken from '../api/exchange-token';
 import tokenInfo from '../api/token-info';
 import mtLinkSdk, { MtLinkSdk } from '..';
 
+import packageJson from '../../package.json';
+
 jest.mock('../api/authorize');
 jest.mock('../api/onboard');
 jest.mock('../api/logout');
@@ -66,6 +68,34 @@ describe('index', () => {
     mocked(tokenInfo).mockResolvedValueOnce('test');
     const result7 = await instance.tokenInfo('test');
     expect(result7).toBe('test');
+
+    const sdkVersion = packageJson.version;
+
+    const result8 = instance.authorizeUrl({ scopes: 'scopes' });
+    expect(result8).toBe(
+      'https://myaccount.getmoneytree.com/oauth/authorize?client_id=clientId&response_type=code&' +
+        'scope=scopes&redirect_uri=redirectUri&country=JP&saml_subject_id=samlSubjectId&' +
+        `configs=authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`
+    );
+
+    const result9 = instance.onboardUrl({ scopes: 'scopes' });
+    expect(result9).toBe(
+      'https://myaccount.getmoneytree.com/onboard?client_id=clientId&response_type=code&' +
+        'scope=scopes&redirect_uri=redirectUri&country=JP&' +
+        `configs=authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`
+    );
+
+    const result10 = instance.logoutUrl({ backTo: 'backTo' });
+    expect(result10).toBe(
+      'https://myaccount.getmoneytree.com/guests/logout?client_id=clientId&saml_subject_id=samlSubjectId&' +
+        `configs=back_to%3DbackTo%26authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`
+    );
+
+    const result11 = instance.openServiceUrl('vault');
+    expect(result11).toBe(
+      'https://vault.getmoneytree.com?client_id=clientId&saml_subject_id=samlSubjectId&' +
+        `configs=authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`
+    );
   });
 
   test('mtLinkSdk', () => {
