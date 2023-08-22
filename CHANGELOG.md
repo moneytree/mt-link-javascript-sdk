@@ -1,3 +1,15 @@
+# [3.2.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.1.1...3.2.0) (2023-08-22)
+
+
+### Features
+
+* **api:** Add authorizeUrl API ([43dd559](https://github.com/moneytree/mt-link-javascript-sdk/commit/43dd55963caf5b4b099a3269e9d9d30d415c5ca7))
+* **api:** Add logoutUrl API ([7b15f1b](https://github.com/moneytree/mt-link-javascript-sdk/commit/7b15f1b5b00692a0e936f973b0a4db7be2445328))
+* **api:** Add onboardUrl API ([32820fb](https://github.com/moneytree/mt-link-javascript-sdk/commit/32820fb04c4899d1aa3ec28f0f9d08178d815500))
+* **api:** Add openServiceUrl API ([eeafa30](https://github.com/moneytree/mt-link-javascript-sdk/commit/eeafa302a6631f386c5dbc9987cee5855c77d6d3))
+
+
+
 ## [3.1.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.1.0...3.1.1) (2023-03-16)
 
 
