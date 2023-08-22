@@ -1,7 +1,7 @@
 import qs from 'qs';
 
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../server-paths';
-import { MtLinkSdk, ServiceId } from '../..';
+import { MtLinkSdk } from '../..';
 import openServiceUrl from '../open-service-url';
 import { generateConfigs } from '../../helper';
 
@@ -148,8 +148,8 @@ describe('api', () => {
     test('invalid service id', () => {
       expect(() => {
         // force cast invalid value so that we can use it for testing
-        openServiceUrl(new MtLinkSdk().storedOptions, 'invalid' as ServiceId);
-      }).toThrow('[mt-link-sdk] Invalid `serviceId` in `openServiceUrl/openService`, got: invalid');
+        openServiceUrl(new MtLinkSdk().storedOptions, 'invalid' as 'vault');
+      }).toThrow('[mt-link-sdk] Invalid `serviceId` in `openServiceUrl`, got: invalid');
     });
 
     test('saml_subject_id is passed when initialized', () => {

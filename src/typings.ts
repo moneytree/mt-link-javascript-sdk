@@ -24,8 +24,9 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
   forceLogout?: boolean;
   authnMethod?: AuthnMethod;
 }
+export type ConfigsOptionsWithoutIsNewTab = Omit<ConfigsOptions, 'isNewTab'>;
 
-export type ServicesListType = {
+export type VaultViewServiceList = {
   view: 'services-list';
   group?:
     | 'grouping_bank'
@@ -47,27 +48,47 @@ export type ServicesListType = {
   type?: 'bank' | 'credit_card' | 'stored_value' | 'point' | 'corporate';
   search?: string;
 };
+export type VaultViewServiceConnection = { view: 'service-connection'; entityKey: string };
+export type VaultViewConnectionSetting = { view: 'connection-setting'; credentialId: string };
+export type VaultViewCustomerSupport = { view: 'customer-support' };
+export type VaultServiceTypes =
+  | VaultViewServiceList
+  | VaultViewServiceConnection
+  | VaultViewConnectionSetting
+  | VaultViewCustomerSupport;
 
-export type ServiceConnectionType = { view: 'service-connection'; entityKey: string };
+export type MyAccountServiceTypes = { view: LoginLinkTo };
 
-export type ConnectionSettingType = { view: 'connection-setting'; credentialId: string };
+export type MyAccountOpenServiceOptions = ConfigsOptions | (ConfigsOptions & MyAccountServiceTypes);
+export type MyAccountOpenServiceUrlOptions =
+  | ConfigsOptionsWithoutIsNewTab
+  | (ConfigsOptionsWithoutIsNewTab & MyAccountServiceTypes);
 
-export type CustomerSupportType = { view: 'customer-support' };
+export type VaultOpenServiceViewServiceList = ConfigsOptions & VaultViewServiceList;
+export type VaultOpenServiceViewServiceConnection = ConfigsOptions & VaultViewServiceConnection;
+export type VaultOpenServiceViewConnectionSetting = ConfigsOptions & VaultViewConnectionSetting;
+export type VaultOpenServiceViewCustomerSupport = ConfigsOptions & VaultViewCustomerSupport;
+export type VaultOpenServiceUrlViewServiceList = ConfigsOptionsWithoutIsNewTab & VaultViewServiceList;
+export type VaultOpenServiceUrlViewServiceConnection = ConfigsOptionsWithoutIsNewTab & VaultViewServiceConnection;
+export type VaultOpenServiceUrlViewConnectionSetting = ConfigsOptionsWithoutIsNewTab & VaultViewConnectionSetting;
+export type VaultOpenServiceUrlViewCustomerSupport = ConfigsOptionsWithoutIsNewTab & VaultViewCustomerSupport;
 
-export type VaultOpenServiceOptions = ConfigsOptions &
-  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
-export type MyAccountOpenServiceOptions = ConfigsOptions & { view: LoginLinkTo };
 export type LinkKitOpenServiceOptions = ConfigsOptions;
-export type OpenServiceOptions = VaultOpenServiceOptions | MyAccountOpenServiceOptions | LinkKitOpenServiceOptions;
-
-type ConfigsOptionsWithoutIsNewTab = Omit<ConfigsOptions, 'isNewTab'>;
-export type VaultOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab &
-  (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
-export type MyAccountOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab & { view: LoginLinkTo };
 export type LinkKitOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab;
+
+export type OpenServiceOptions =
+  | MyAccountOpenServiceOptions
+  | ConfigsOptions
+  | VaultOpenServiceViewServiceList
+  | VaultOpenServiceViewConnectionSetting
+  | VaultOpenServiceViewCustomerSupport
+  | LinkKitOpenServiceOptions;
 export type OpenServiceUrlOptions =
-  | VaultOpenServiceUrlOptions
   | MyAccountOpenServiceUrlOptions
+  | ConfigsOptionsWithoutIsNewTab
+  | VaultOpenServiceUrlViewServiceList
+  | VaultOpenServiceUrlViewConnectionSetting
+  | VaultOpenServiceUrlViewCustomerSupport
   | LinkKitOpenServiceUrlOptions;
 
 export type Scopes = string | string[];

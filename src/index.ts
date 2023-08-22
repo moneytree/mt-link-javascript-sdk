@@ -5,7 +5,7 @@ import onboardUrl from './api/onboard-url';
 import logout from './api/logout';
 import logoutUrl from './api/logout-url';
 import openService from './api/open-service';
-import openServiceUrlApi from './api/open-service-url';
+import openServiceUrl from './api/open-service-url';
 import requestLoginLink from './api/request-login-link';
 import exchangeToken from './api/exchange-token';
 import tokenInfo from './api/token-info';
@@ -26,11 +26,19 @@ import {
   OpenServiceUrlOptions,
   LinkKitOpenServiceUrlOptions,
   MyAccountOpenServiceUrlOptions,
-  VaultOpenServiceUrlOptions,
-  VaultOpenServiceOptions,
   LinkKitOpenServiceOptions,
   MyAccountOpenServiceOptions,
-  OpenServiceOptions
+  OpenServiceOptions,
+  ConfigsOptions,
+  ConfigsOptionsWithoutIsNewTab,
+  VaultOpenServiceUrlViewServiceList,
+  VaultOpenServiceUrlViewServiceConnection,
+  VaultOpenServiceUrlViewConnectionSetting,
+  VaultOpenServiceUrlViewCustomerSupport,
+  VaultOpenServiceViewServiceList,
+  VaultOpenServiceViewServiceConnection,
+  VaultOpenServiceViewConnectionSetting,
+  VaultOpenServiceViewCustomerSupport
 } from './typings';
 
 export * from './typings';
@@ -88,16 +96,45 @@ export class MtLinkSdk {
 
   public openService(serviceId: 'link-kit', options?: LinkKitOpenServiceOptions): void;
   public openService(serviceId: 'myaccount', options?: MyAccountOpenServiceOptions): void;
-  public openService(serviceId: 'vault', options?: VaultOpenServiceOptions): void;
+  public openService(serviceId: 'vault', options?: ConfigsOptions): void;
+  public openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceList): void;
+  public openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceConnection): void;
+  public openService(serviceId: 'vault', options?: VaultOpenServiceViewConnectionSetting): void;
+  public openService(serviceId: 'vault', options?: VaultOpenServiceViewCustomerSupport): void;
   public openService(serviceId: ServiceId, options?: OpenServiceOptions): void {
-    openService(this.storedOptions, serviceId, options);
+    switch (serviceId) {
+      case 'myaccount':
+        openService(this.storedOptions, 'myaccount', options);
+        break;
+      case 'vault':
+        openService(this.storedOptions, 'vault', options);
+        break;
+      case 'link-kit':
+        openService(this.storedOptions, 'link-kit', options);
+        break;
+      default:
+        throw new Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openService\`, got: ${serviceId}`);
+    }
   }
 
   public openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): string;
   public openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): string;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): string;
+  public openServiceUrl(serviceId: 'vault', options?: ConfigsOptionsWithoutIsNewTab): string;
+  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceList): string;
+  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): string;
+  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): string;
+  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): string;
   public openServiceUrl(serviceId: ServiceId, options?: OpenServiceUrlOptions): string {
-    return openServiceUrlApi(this.storedOptions, serviceId, options);
+    switch (serviceId) {
+      case 'myaccount':
+        return openServiceUrl(this.storedOptions, 'myaccount', options);
+      case 'vault':
+        return openServiceUrl(this.storedOptions, 'vault', options);
+      case 'link-kit':
+        return openServiceUrl(this.storedOptions, 'link-kit', options);
+      default:
+        throw new Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openServiceUrl\`, got: ${serviceId}`);
+    }
   }
 
   public requestLoginLink(options?: RequestLoginLinkOptions): Promise<void> {

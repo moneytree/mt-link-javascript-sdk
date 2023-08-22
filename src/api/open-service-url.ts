@@ -4,13 +4,19 @@ import { generateConfigs, mergeConfigs } from '../helper';
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../server-paths';
 import {
   StoredOptions,
-  ServiceId,
-  ConnectionSettingType,
-  ServiceConnectionType,
-  ServicesListType,
+  VaultViewConnectionSetting,
+  VaultViewServiceConnection,
+  VaultViewServiceList,
   OpenServiceUrlOptions,
-  VaultOpenServiceOptions,
-  MyAccountOpenServiceOptions
+  VaultServiceTypes,
+  MyAccountServiceTypes,
+  LinkKitOpenServiceUrlOptions,
+  MyAccountOpenServiceUrlOptions,
+  ConfigsOptionsWithoutIsNewTab,
+  VaultOpenServiceUrlViewServiceList,
+  VaultOpenServiceUrlViewServiceConnection,
+  VaultOpenServiceUrlViewConnectionSetting,
+  VaultOpenServiceUrlViewCustomerSupport
 } from '../typings';
 
 interface QueryData {
@@ -23,11 +29,45 @@ interface QueryData {
 
 export default function openServiceUrl(
   storedOptions: StoredOptions,
-  serviceId: ServiceId,
+  serviceId: 'link-kit',
+  options?: LinkKitOpenServiceUrlOptions
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'myaccount',
+  options?: MyAccountOpenServiceUrlOptions
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: ConfigsOptionsWithoutIsNewTab
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceUrlViewServiceList
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceUrlViewServiceConnection
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceUrlViewConnectionSetting
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceUrlViewCustomerSupport
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'myaccount' | 'vault' | 'link-kit',
   options: OpenServiceUrlOptions = {}
 ): string {
   const { clientId, mode, cobrandClientId, locale, samlSubjectId } = storedOptions;
-  const { view = '', ...rest } = options as VaultOpenServiceOptions | MyAccountOpenServiceOptions;
 
   const getQueryValue = (needStringify = true): string | QueryData => {
     const query: QueryData = {
@@ -35,7 +75,7 @@ export default function openServiceUrl(
       cobrand_client_id: cobrandClientId,
       locale,
       saml_subject_id: samlSubjectId,
-      configs: generateConfigs(mergeConfigs(storedOptions, rest))
+      configs: generateConfigs(mergeConfigs(storedOptions, options))
     };
 
     if (!needStringify) {
@@ -47,14 +87,16 @@ export default function openServiceUrl(
 
   switch (serviceId) {
     case 'vault':
-      if (!view) {
+      let { view: vaultView } = options as VaultServiceTypes;
+
+      if (!vaultView) {
         return `${VAULT_DOMAINS[mode]}?${getQueryValue()}`;
       }
 
-      switch (view) {
+      switch (vaultView) {
         case 'services-list':
           // eslint-disable-next-line no-case-declarations
-          const { group, type, search } = options as ServicesListType;
+          const { group, type, search } = options as VaultViewServiceList;
 
           return `${VAULT_DOMAINS[mode]}/services?${stringify({
             ...(getQueryValue(false) as QueryData),
@@ -65,13 +107,13 @@ export default function openServiceUrl(
 
         case 'service-connection':
           // eslint-disable-next-line no-case-declarations
-          const { entityKey } = options as ServiceConnectionType;
+          const { entityKey } = options as VaultViewServiceConnection;
 
           return `${VAULT_DOMAINS[mode]}/service/${entityKey}?${getQueryValue()}`;
 
         case 'connection-setting':
           // eslint-disable-next-line no-case-declarations
-          const { credentialId } = options as ConnectionSettingType;
+          const { credentialId } = options as VaultViewConnectionSetting;
 
           return `${VAULT_DOMAINS[mode]}/connection/${credentialId}?${getQueryValue()}`;
 
@@ -81,12 +123,13 @@ export default function openServiceUrl(
       }
 
     case 'myaccount':
-      return `${MY_ACCOUNT_DOMAINS[mode]}/${view}?${getQueryValue()}`;
+      let { view: myAccountView = '' } = options as MyAccountServiceTypes;
+      return `${MY_ACCOUNT_DOMAINS[mode]}/${myAccountView}?${getQueryValue()}`;
 
     case 'link-kit':
       return `${LINK_KIT_DOMAINS[mode]}?${getQueryValue()}`;
 
     default:
-      throw new Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openServiceUrl/openService\`, got: ${serviceId}`);
+      throw new Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openServiceUrl\`, got: ${serviceId}`);
   }
 }

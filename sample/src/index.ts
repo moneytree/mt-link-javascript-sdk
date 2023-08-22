@@ -6,7 +6,7 @@ import mtLinkSdk, {
   OpenServicesConfigsOptions,
   ServiceId,
   LoginLinkTo,
-  ServicesListType
+  VaultViewServiceList
 } from '@moneytree/mt-link-javascript-sdk';
 
 import elements from './elements';
@@ -134,12 +134,12 @@ elements.openServiceBtn.onclick = () => {
           view: 'services-list',
           type:
             (openServiceOptionsElms.type.options[openServiceOptionsElms.type.selectedIndex].value as Pick<
-              ServicesListType,
+              VaultViewServiceList,
               'type'
             >['type']) || undefined,
           group:
             (openServiceOptionsElms.group.options[openServiceOptionsElms.group.selectedIndex].value as Pick<
-              ServicesListType,
+              VaultViewServiceList,
               'group'
             >['group']) || undefined,
           search: openServiceOptionsElms.search.value || undefined
