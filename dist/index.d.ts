@@ -1,4 +1,4 @@
-import { StoredOptions, LogoutOptions, InitOptions, AuthorizeOptions, OnboardOptions, ExchangeTokenOptions, RequestLoginLinkOptions, TokenInfo, AuthorizeUrlOptions, LogoutUrlOptions, OnboardUrlOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, VaultOpenServiceUrlOptions, VaultOpenServiceOptions, LinkKitOpenServiceOptions, MyAccountOpenServiceOptions } from './typings';
+import { StoredOptions, LogoutOptions, InitOptions, AuthorizeOptions, OnboardOptions, ExchangeTokenOptions, RequestLoginLinkOptions, TokenInfo, AuthorizeUrlOptions, LogoutUrlOptions, OnboardUrlOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, LinkKitOpenServiceOptions, MyAccountOpenServiceOptions, ConfigsOptions, ConfigsOptionsWithoutIsNewTab, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewCustomerSupport, VaultOpenServiceViewServiceList, VaultOpenServiceViewServiceConnection, VaultOpenServiceViewConnectionSetting, VaultOpenServiceViewCustomerSupport } from './typings';
 export * from './typings';
 export declare class MtLinkSdk {
     storedOptions: StoredOptions;
@@ -12,10 +12,18 @@ export declare class MtLinkSdk {
     logoutUrl(options?: LogoutUrlOptions): string;
     openService(serviceId: 'link-kit', options?: LinkKitOpenServiceOptions): void;
     openService(serviceId: 'myaccount', options?: MyAccountOpenServiceOptions): void;
-    openService(serviceId: 'vault', options?: VaultOpenServiceOptions): void;
+    openService(serviceId: 'vault', options?: ConfigsOptions): void;
+    openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceList): void;
+    openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceConnection): void;
+    openService(serviceId: 'vault', options?: VaultOpenServiceViewConnectionSetting): void;
+    openService(serviceId: 'vault', options?: VaultOpenServiceViewCustomerSupport): void;
     openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): string;
     openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): string;
-    openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): string;
+    openServiceUrl(serviceId: 'vault', options?: ConfigsOptionsWithoutIsNewTab): string;
+    openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceList): string;
+    openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): string;
+    openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): string;
+    openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): string;
     requestLoginLink(options?: RequestLoginLinkOptions): Promise<void>;
     exchangeToken(options?: ExchangeTokenOptions): Promise<string>;
     tokenInfo(token: string): Promise<TokenInfo>;

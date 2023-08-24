@@ -20,36 +20,42 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
     forceLogout?: boolean;
     authnMethod?: AuthnMethod;
 }
-export declare type ServicesListType = {
+export declare type ConfigsOptionsWithoutIsNewTab = Omit<ConfigsOptions, 'isNewTab'>;
+export declare type VaultViewServiceList = {
     view: 'services-list';
     group?: 'grouping_bank' | 'grouping_bank_credit_card' | 'grouping_bank_dc_card' | 'grouping_corporate_credit_card' | 'grouping_credit_card' | 'grouping_credit_coop' | 'grouping_credit_union' | 'grouping_dc_pension_plan' | 'grouping_debit_card' | 'grouping_digital_money' | 'grouping_ja_bank' | 'grouping_life_insurance' | 'grouping_point' | 'grouping_regional_bank' | 'grouping_stock' | 'grouping_testing';
     type?: 'bank' | 'credit_card' | 'stored_value' | 'point' | 'corporate';
     search?: string;
 };
-export declare type ServiceConnectionType = {
+export declare type VaultViewServiceConnection = {
     view: 'service-connection';
     entityKey: string;
 };
-export declare type ConnectionSettingType = {
+export declare type VaultViewConnectionSetting = {
     view: 'connection-setting';
     credentialId: string;
 };
-export declare type CustomerSupportType = {
+export declare type VaultViewCustomerSupport = {
     view: 'customer-support';
 };
-export declare type VaultOpenServiceOptions = ConfigsOptions & (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
-export declare type MyAccountOpenServiceOptions = ConfigsOptions & {
+export declare type VaultServiceTypes = VaultViewServiceList | VaultViewServiceConnection | VaultViewConnectionSetting | VaultViewCustomerSupport;
+export declare type MyAccountServiceTypes = {
     view: LoginLinkTo;
 };
+export declare type MyAccountOpenServiceOptions = ConfigsOptions | (ConfigsOptions & MyAccountServiceTypes);
+export declare type MyAccountOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab | (ConfigsOptionsWithoutIsNewTab & MyAccountServiceTypes);
+export declare type VaultOpenServiceViewServiceList = ConfigsOptions & VaultViewServiceList;
+export declare type VaultOpenServiceViewServiceConnection = ConfigsOptions & VaultViewServiceConnection;
+export declare type VaultOpenServiceViewConnectionSetting = ConfigsOptions & VaultViewConnectionSetting;
+export declare type VaultOpenServiceViewCustomerSupport = ConfigsOptions & VaultViewCustomerSupport;
+export declare type VaultOpenServiceUrlViewServiceList = ConfigsOptionsWithoutIsNewTab & VaultViewServiceList;
+export declare type VaultOpenServiceUrlViewServiceConnection = ConfigsOptionsWithoutIsNewTab & VaultViewServiceConnection;
+export declare type VaultOpenServiceUrlViewConnectionSetting = ConfigsOptionsWithoutIsNewTab & VaultViewConnectionSetting;
+export declare type VaultOpenServiceUrlViewCustomerSupport = ConfigsOptionsWithoutIsNewTab & VaultViewCustomerSupport;
 export declare type LinkKitOpenServiceOptions = ConfigsOptions;
-export declare type OpenServiceOptions = VaultOpenServiceOptions | MyAccountOpenServiceOptions | LinkKitOpenServiceOptions;
-declare type ConfigsOptionsWithoutIsNewTab = Omit<ConfigsOptions, 'isNewTab'>;
-export declare type VaultOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab & (ServicesListType | ServiceConnectionType | ConnectionSettingType | CustomerSupportType);
-export declare type MyAccountOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab & {
-    view: LoginLinkTo;
-};
 export declare type LinkKitOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab;
-export declare type OpenServiceUrlOptions = VaultOpenServiceUrlOptions | MyAccountOpenServiceUrlOptions | LinkKitOpenServiceUrlOptions;
+export declare type OpenServiceOptions = MyAccountOpenServiceOptions | ConfigsOptions | VaultOpenServiceViewServiceList | VaultOpenServiceViewConnectionSetting | VaultOpenServiceViewCustomerSupport | LinkKitOpenServiceOptions;
+export declare type OpenServiceUrlOptions = MyAccountOpenServiceUrlOptions | ConfigsOptionsWithoutIsNewTab | VaultOpenServiceUrlViewServiceList | VaultOpenServiceUrlViewConnectionSetting | VaultOpenServiceUrlViewCustomerSupport | LinkKitOpenServiceUrlOptions;
 export declare type Scopes = string | string[];
 interface AuthorizeConfigsOptions {
     forceLogout?: boolean;

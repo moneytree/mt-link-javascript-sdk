@@ -1,3 +1,13 @@
+## [3.2.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.2.0...3.2.1) (2023-08-24)
+
+
+### Bug Fixes
+
+* **lint:** Fix lint issues ([0479643](https://github.com/moneytree/mt-link-javascript-sdk/commit/0479643d59c02a7851151a9cf6a027c460814570))
+* **typing:** Fix openService/openServiceUrl option parameter typing ([e48b16e](https://github.com/moneytree/mt-link-javascript-sdk/commit/e48b16e1941528680bf63ad4135e5b96668b8cc1))
+
+
+
 # [3.2.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.1.1...3.2.0) (2023-08-22)
 
 
