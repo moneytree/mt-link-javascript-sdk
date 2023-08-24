@@ -11,8 +11,6 @@ jest.mock('../../storage');
 
 describe('api', () => {
   describe('authorize-url', () => {
-    const open = (window.open = jest.fn());
-
     const mockedStorage = mocked(storage);
 
     const clientId = 'clientId';
