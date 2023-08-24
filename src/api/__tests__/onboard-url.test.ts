@@ -19,7 +19,7 @@ describe('api', () => {
 
     test('without calling init', () => {
       expect(() => {
-        const url = onboardUrl(new MtLinkSdk().storedOptions);
+        onboardUrl(new MtLinkSdk().storedOptions);
       }).toThrow('[mt-link-sdk] Make sure to call `init` before calling `onboardUrl/onboard`.');
     });
 
@@ -28,7 +28,7 @@ describe('api', () => {
       mtLinkSdk.init(clientId);
 
       expect(() => {
-        const url = onboardUrl(mtLinkSdk.storedOptions);
+        onboardUrl(mtLinkSdk.storedOptions);
       }).toThrow(
         '[mt-link-sdk] Missing option `redirectUri` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.'
       );

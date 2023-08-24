@@ -4,7 +4,7 @@ import { stringify } from 'qs';
 import { snakeCase } from 'snake-case';
 import { createHash } from 'crypto';
 import { encode } from 'url-safe-base64';
-import { v4 as uuid, version } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import storage from './storage';
 
 import {

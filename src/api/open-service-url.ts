@@ -85,10 +85,10 @@ export default function openServiceUrl(
     return stringify(query);
   };
 
+  const { view: vaultView } = options as VaultServiceTypes;
+
   switch (serviceId) {
     case 'vault':
-      let { view: vaultView } = options as VaultServiceTypes;
-
       if (!vaultView) {
         return `${VAULT_DOMAINS[mode]}?${getQueryValue()}`;
       }
@@ -123,8 +123,7 @@ export default function openServiceUrl(
       }
 
     case 'myaccount':
-      let { view: myAccountView = '' } = options as MyAccountServiceTypes;
-      return `${MY_ACCOUNT_DOMAINS[mode]}/${myAccountView}?${getQueryValue()}`;
+      return `${MY_ACCOUNT_DOMAINS[mode]}/${(options as MyAccountServiceTypes).view || ''}?${getQueryValue()}`;
 
     case 'link-kit':
       return `${LINK_KIT_DOMAINS[mode]}?${getQueryValue()}`;
