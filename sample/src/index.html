@@ -11,7 +11,7 @@
       }
 
       section button:not(.functional-btn) {
-         /* Green */
+        /* Green */
         background-color: #20bf51;
         border-radius: 100px;
         min-width: 200px;
@@ -26,10 +26,11 @@
       }
 
       section button:not(.functional-btn):hover {
-        background-color: #4CAF50;
+        background-color: #4caf50;
       }
 
-      #access-token-text, #token-info-text  {
+      #access-token-text,
+      #token-info-text {
         background-color: #777777;
         color: white;
         padding: 15px 5px;
@@ -45,48 +46,39 @@
     <div id="root">
       <h3>Welcome to the Moneytree Link Web SDK Sample App - PKCE</h3>
 
-
       <section id="common-options">
         <h3>Common API options</h3>
-        <p>
-          Email, <small>used to pre-fill the email field in login or sign up or form.</small>
-          <div>
-            <input id="common-options-email" type="email" placeholder="Optional email"/>
-          </div>
-        </p>
-        <p>
-          backTo, <small>a button for redirecting a guest back to the APP.</small>
-          <div>
-            <input id="common-options-backTo" type="url" placeholder="Optional backTo URL"/>
-          </div>
-        </p>
+        <p>Email, <small>used to pre-fill the email field in login or sign up or form.</small></p>
+        <div>
+          <input id="common-options-email" type="email" placeholder="Optional email" />
+        </div>
+        <p>backTo, <small>a button for redirecting a guest back to the APP.</small></p>
+        <div>
+          <input id="common-options-backTo" type="url" placeholder="Optional backTo URL" />
+        </div>
         <p>
           authAction, <small>Show login or sign up screen when a session does not exist during an authorize call</small>
-          <div>
-            <select id="common-options-authAction">
-              <option value="login" default>login</option>
-              <option value="signup">signup</option>
-            </select>
-          </div>
         </p>
+        <div>
+          <select id="common-options-authAction">
+            <option value="login" default>login</option>
+            <option value="signup">signup</option>
+          </select>
+        </div>
         <p>
           showAuthToggle, <small>Show the login to sign up form toggle button and vice-versa in the auth screen</small>
-          <div>
-            <input type="checkbox" id="common-options-showAuthToggle" value="true">
-          </div>
         </p>
-        <p>
-          showRememberMe, <small>Show the Stay logged in for 30 days checkbox in the login screen</small>
-          <div>
-            <input type="checkbox" id="common-options-showRememberMe" value="true">
-          </div>
-        </p>
-        <p>
-          isNewTab, <small>Call method and open/render in a new browser tab</small>
-          <div>
-            <input type="checkbox" id="common-options-isNewTab" value="true">
-          </div>
-        </p>
+        <div>
+          <input type="checkbox" id="common-options-showAuthToggle" value="true" />
+        </div>
+        <p>showRememberMe, <small>Show the Stay logged in for 30 days checkbox in the login screen</small></p>
+        <div>
+          <input type="checkbox" id="common-options-showRememberMe" value="true" />
+        </div>
+        <p>isNewTab, <small>Call method and open/render in a new browser tab</small></p>
+        <div>
+          <input type="checkbox" id="common-options-isNewTab" value="true" />
+        </div>
         <button id="initialize-btn">Initialize</button>
       </section>
 
@@ -94,25 +86,23 @@
 
       <section id="authorization-section">
         <h3>Authorization</h3>
-        <p>
-          Access scopes you're requesting. This can be a single scope, or an array of scopes.</small>
-          <div>
-            <select id="authorize-options-scopes" multiple>
-              <option value="guest_read">guest_read</option>
-              <option value="accounts_read">accounts_read</option>
-              <option value="points_read">points_read</option>
-              <option value="point_transactions_read">point_transactions_read</option>
-              <option value="transactions_write">transactions_write</option>
-              <option value="expense_claims_read">expense_claims_read</option>
-              <option value="categories_read">categories_read</option>
-              <option value="investment_accounts_read">investment_accounts_read</option>
-              <option value="investment_transactions_read">investment_transactions_read</option>
-              <option value="notifications_read">notifications_read</option>
-              <option value="request_refresh">request_refresh</option>
-              <option value="life_insurance_read">life_insurance_read</option>
-            </select>
-          </div>
-        </p>
+        <p>Access scopes you're requesting. This can be a single scope, or an array of scopes.</p>
+        <div>
+          <select id="authorize-options-scopes" multiple>
+            <option value="guest_read">guest_read</option>
+            <option value="accounts_read">accounts_read</option>
+            <option value="points_read">points_read</option>
+            <option value="point_transactions_read">point_transactions_read</option>
+            <option value="transactions_write">transactions_write</option>
+            <option value="expense_claims_read">expense_claims_read</option>
+            <option value="categories_read">categories_read</option>
+            <option value="investment_accounts_read">investment_accounts_read</option>
+            <option value="investment_transactions_read">investment_transactions_read</option>
+            <option value="notifications_read">notifications_read</option>
+            <option value="request_refresh">request_refresh</option>
+            <option value="life_insurance_read">life_insurance_read</option>
+          </select>
+        </div>
 
         <a href="#common-options"><h4>Common API options(optionals)</h4></a>
 
@@ -122,30 +112,32 @@
       <section id="onboard-section">
         <h3>Onboard</h3>
         <p>
-          <span style="color: red;">*</span>Email, <small>A new Moneytree account will be created with this email address. If an existing account with this email exists, the guest will be redirected to the login screen.</small>
-          <div>
-            <input id="onboard-options-email" type="email"/>
-          </div>
+          <span style="color: red">*</span>Email,
+          <small
+            >A new Moneytree account will be created with this email address. If an existing account with this email
+            exists, the guest will be redirected to the login screen.</small
+          >
         </p>
-        <p>
-          Access scopes you're requesting. This can be a single scope, or an array of scopes.</small>
-          <div>
-            <select id="onboard-options-scopes" multiple>
-              <option value="guest_read">guest_read</option>
-              <option value="accounts_read">accounts_read</option>
-              <option value="points_read">points_read</option>
-              <option value="point_transactions_read">point_transactions_read</option>
-              <option value="transactions_write">transactions_write</option>
-              <option value="expense_claims_read">expense_claims_read</option>
-              <option value="categories_read">categories_read</option>
-              <option value="investment_accounts_read">investment_accounts_read</option>
-              <option value="investment_transactions_read">investment_transactions_read</option>
-              <option value="notifications_read">notifications_read</option>
-              <option value="request_refresh">request_refresh</option>
-              <option value="life_insurance_read">life_insurance_read</option>
-            </select>
-          </div>
-        </p>
+        <div>
+          <input id="onboard-options-email" type="email" />
+        </div>
+        <p>Access scopes you're requesting. This can be a single scope, or an array of scopes.</p>
+        <div>
+          <select id="onboard-options-scopes" multiple>
+            <option value="guest_read">guest_read</option>
+            <option value="accounts_read">accounts_read</option>
+            <option value="points_read">points_read</option>
+            <option value="point_transactions_read">point_transactions_read</option>
+            <option value="transactions_write">transactions_write</option>
+            <option value="expense_claims_read">expense_claims_read</option>
+            <option value="categories_read">categories_read</option>
+            <option value="investment_accounts_read">investment_accounts_read</option>
+            <option value="investment_transactions_read">investment_transactions_read</option>
+            <option value="notifications_read">notifications_read</option>
+            <option value="request_refresh">request_refresh</option>
+            <option value="life_insurance_read">life_insurance_read</option>
+          </select>
+        </div>
 
         <a href="#common-options"><h4>Common API options(optionals)</h4></a>
         <button id="do-onboard">Do Onboard</button>
@@ -153,62 +145,55 @@
 
       <section id="login-link-section">
         <h3>Login Link</h3>
-        <p>
-          <span style="color: red;">*</span>LoginLinkTo, <small>Redirection to location after login </small>
-          <div>
-            <select id="loginLinkTo">
-              <option value="settings" default>settings</option>
-              <option value="settings/authorized-applications">settings/authorized-applications</option>
-              <option value="settings/change-language">settings/change-language</option>
-              <option value="settings/email-preferences">settings/email-preferences</option>
-              <option value="settings/delete-account">settings/delete-account</option>
-              <option value="settings/update-email">settings/update-email</option>
-              <option value="settings/update-password">settings/update-password</option>
-            </select>
-          </div>
-        </p>
-        <p>
-          <span style="color: red;">*</span>Email, <small>Login Link will be sent to this email.</small>
-          <div>
-            <input id="loginLink-email" type="email"/>
-          </div>
-        </p>
+        <p><span style="color: red">*</span>LoginLinkTo, <small>Redirection to location after login </small></p>
+        <div>
+          <select id="loginLinkTo">
+            <option value="settings" default>settings</option>
+            <option value="settings/authorized-applications">settings/authorized-applications</option>
+            <option value="settings/change-language">settings/change-language</option>
+            <option value="settings/email-preferences">settings/email-preferences</option>
+            <option value="settings/delete-account">settings/delete-account</option>
+            <option value="settings/update-email">settings/update-email</option>
+            <option value="settings/update-password">settings/update-password</option>
+          </select>
+        </div>
+        <p><span style="color: red">*</span>Email, <small>Login Link will be sent to this email.</small></p>
+        <div>
+          <input id="loginLink-email" type="email" />
+        </div>
 
         <a href="#common-options"><h4>Common API options(optionals)</h4></a>
         <button id="send-login-link">Send Login Link</button>
       </section>
 
-
       <section id="token-info-section">
         <h3>Token Information</h3>
         <p id="token-info-text"></p>
-        <p>
-          <span style="color: red;">*</span>Token, <small>which you wish to get info for. </small>
-          <div>
-            <textarea id="token" rows="5" cols="33" ></textarea>
-          </div>
-        </p>
+        <p><span style="color: red">*</span>Token, <small>which you wish to get info for. </small></p>
+        <div>
+          <textarea id="token" rows="5" cols="33"></textarea>
+        </div>
 
         <a href="#common-options"><h4>Common API options(optionals)</h4></a>
         <button id="token-info-btn">Token Information</button>
       </section>
 
-
       <section id="open-service-section">
         <h3>Open Service</h3>
         <p>
-          <span style="color: red;">*</span>ServiceId, <small>Open a service by Id, current supported services are vault, myaccount, link-kit </small>
-          <div>
-            <select id="open-service-options-serviceId">
-              <option value="vault" default>vault</option>
-              <option value="myaccount">myaccount</option>
-              <option value="link-kit">link-kit</option>
-            </select>
-          </div>
+          <span style="color: red">*</span>ServiceId,
+          <small>Open a service by Id, current supported services are vault, myaccount, link-kit </small>
         </p>
+        <div>
+          <select id="open-service-options-serviceId">
+            <option value="vault" default>vault</option>
+            <option value="myaccount">myaccount</option>
+            <option value="link-kit">link-kit</option>
+          </select>
+        </div>
 
         <div id="page-myaccount-options" style="display: none">
-          <span style="color: red;">*</span>View, <small>We provide a way to open specific pages. </small>
+          <span style="color: red">*</span>View, <small>We provide a way to open specific pages. </small>
           <div>
             <select id="open-service-options-myaccount-view">
               <option value="settings" default>settings</option>
@@ -223,7 +208,7 @@
         </div>
 
         <div id="page-vault-options">
-          <span style="color: red;">*</span>View, <small>We provide a way to open specific pages. </small>
+          <span style="color: red">*</span>View, <small>We provide a way to open specific pages. </small>
           <div>
             <select id="open-service-options-vault-view">
               <option value="services-list" default>services-list</option>
@@ -233,74 +218,62 @@
             </select>
           </div>
 
-
           <div id="services-list-options" class="vault-services">
-            <p>
-              Type, <small>Filter the services by type. </small>
-              <div>
-                <select id="open-service-options-type">
-                  <option default value="">Select type</option>
-                  <option value="bank">personal bank</option>
-                  <option value="credit_card">personal credit card</option>
-                  <option value="stored_value">electronic money</option>
-                  <option value="point">loyalty point</option>
-                  <option value="corporate">corporate bank or card</option>
-                </select>
-              </div>
-            </p>
+            <p>Type, <small>Filter the services by type. </small></p>
+            <div>
+              <select id="open-service-options-type">
+                <option default value="">Select type</option>
+                <option value="bank">personal bank</option>
+                <option value="credit_card">personal credit card</option>
+                <option value="stored_value">electronic money</option>
+                <option value="point">loyalty point</option>
+                <option value="corporate">corporate bank or card</option>
+              </select>
+            </div>
 
-            <p>
-              Group, <small>Filter the services by group. </small>
-              <div>
-                <select id="open-service-options-group">
-                  <option default value="">Select group</option>
-                  <option value="grouping_bank">grouping_bank</option>
-                  <option value="grouping_bank_credit_card">grouping_bank_credit_card</option>
-                  <option value="grouping_bank_dc_card">grouping_bank_dc_card</option>
-                  <option value="grouping_corporate_credit_card">grouping_corporate_credit_card</option>
-                  <option value="grouping_credit_card">grouping_credit_card</option>
-                  <option value="grouping_credit_coop">grouping_credit_coop</option>
-                  <option value="grouping_credit_union">grouping_credit_union</option>
-                  <option value="grouping_dc_pension_plan">grouping_dc_pension_plan</option>
-                  <option value="grouping_debit_card">grouping_debit_card</option>
-                  <option value="grouping_digital_money">grouping_digital_money</option>
-                  <option value="grouping_ja_bank">grouping_ja_bank</option>
-                  <option value="grouping_life_insurance">grouping_life_insurance</option>
-                  <option value="grouping_point">grouping_point</option>
-                  <option value="grouping_regional_bank">grouping_regional_bank</option>
-                  <option value="grouping_stock">grouping_stock</option>
-                  <option value="grouping_testing">grouping_testing</option>
-                </select>
-              </div>
-            </p>
+            <p>Group, <small>Filter the services by group. </small></p>
+            <div>
+              <select id="open-service-options-group">
+                <option default value="">Select group</option>
+                <option value="grouping_bank">grouping_bank</option>
+                <option value="grouping_bank_credit_card">grouping_bank_credit_card</option>
+                <option value="grouping_bank_dc_card">grouping_bank_dc_card</option>
+                <option value="grouping_corporate_credit_card">grouping_corporate_credit_card</option>
+                <option value="grouping_credit_card">grouping_credit_card</option>
+                <option value="grouping_credit_coop">grouping_credit_coop</option>
+                <option value="grouping_credit_union">grouping_credit_union</option>
+                <option value="grouping_dc_pension_plan">grouping_dc_pension_plan</option>
+                <option value="grouping_debit_card">grouping_debit_card</option>
+                <option value="grouping_digital_money">grouping_digital_money</option>
+                <option value="grouping_ja_bank">grouping_ja_bank</option>
+                <option value="grouping_life_insurance">grouping_life_insurance</option>
+                <option value="grouping_point">grouping_point</option>
+                <option value="grouping_regional_bank">grouping_regional_bank</option>
+                <option value="grouping_stock">grouping_stock</option>
+                <option value="grouping_testing">grouping_testing</option>
+              </select>
+            </div>
 
-            <p>
-              search, <small>Filter the services by the search term.</small>
-              <div>
-                <input id="open-service-options-search" type="text" placeholder="Search Term"/>
-              </div>
-            </p>
+            <p>search, <small>Filter the services by the search term.</small></p>
+            <div>
+              <input id="open-service-options-search" type="text" placeholder="Search Term" />
+            </div>
           </div>
 
           <div id="service-connection-options" class="vault-services" style="display: none">
-            <p>
-              entityKey, <small>Service entity key.</small>
-              <div>
-                <input id="open-service-options-entityKey" type="text" placeholder="entityKey"/>
-              </div>
-            </p>
+            <p>entityKey, <small>Service entity key.</small></p>
+            <div>
+              <input id="open-service-options-entityKey" type="text" placeholder="entityKey" />
+            </div>
           </div>
 
           <div id="connection-setting-options" class="vault-services" style="display: none">
-            <p>
-              credentialId, <small>Service credential Id.</small>
-              <div>
-                <input id="open-service-options-credentialId" type="text" placeholder="credentialId"/>
-              </div>
-            </p>
+            <p>credentialId, <small>Service credential Id.</small></p>
+            <div>
+              <input id="open-service-options-credentialId" type="text" placeholder="credentialId" />
+            </div>
           </div>
         </div>
-
 
         <a href="#common-options"><h4>Common API options(optionals)</h4></a>
         <button id="open-service-btn">Open Service</button>
@@ -312,7 +285,6 @@
         <a href="#common-options"><h4>Common API options(optionals)</h4></a>
         <button id="logout-btn">Logout</button>
       </section>
-
     </div>
   </body>
 </html>
