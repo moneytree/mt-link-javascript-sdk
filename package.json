@@ -18,6 +18,7 @@
     "lint:js": "eslint '**/*.js'",
     "lint:ts": "eslint  -c './.eslintrc-ts.js' '**/*.ts'",
     "lint": "yarn lint:js; yarn lint:ts",
+    "format": "prettier scripts src sample/src --write",
     "lint:fix": "yarn lint:js --fix; yarn lint:ts --fix",
     "start:docs": "docsify serve docs",
     "prepare": "husky install"
