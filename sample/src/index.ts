@@ -23,8 +23,6 @@ interface ITokenInfo {
   scopes: string[];
 }
 
-const AWESOME_APP_ID = 'af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290';
-
 // Re-initialize when clicked
 elements.initializeBtn.onclick = () => {
   const commonOptions: InitOptions = {};
@@ -79,7 +77,7 @@ elements.doOnboardBtn.onclick = async () => {
     onBoardOptions.email = onboardOptionsElms.email.value;
     onBoardOptions.pkce = true;
 
-    await mtLinkSdk.onboard(onBoardOptions);
+    mtLinkSdk.onboard(onBoardOptions);
   } catch (error) {
     console.log(error);
   }
@@ -242,11 +240,11 @@ elements.openServiceOptionsElms.vaultView.onchange = () => {
 };
 
 const initializeLinkSDK = (options: InitOptions = {}) => {
-  mtLinkSdk.init(AWESOME_APP_ID, {
+  mtLinkSdk.init('af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290', {
     sdkPlatform: 'js',
     redirectUri: 'https://localhost:9000',
     locale: 'en',
-    mode: 'develop',
+    mode: 'staging',
     ...options
   });
 };
