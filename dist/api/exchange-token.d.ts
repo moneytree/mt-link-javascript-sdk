@@ -1,2 +1,2 @@
-import { StoredOptions, ExchangeTokenOptions } from '../typings';
-export default function exchangeToken(storedOptions: StoredOptions, options?: ExchangeTokenOptions): Promise<string>;
+import { StoredOptions, ExchangeTokenOptions, Token } from '../typings';
+export default function exchangeToken(storedOptions: StoredOptions, options?: ExchangeTokenOptions): Promise<Token>;

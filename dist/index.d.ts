@@ -1,4 +1,4 @@
-import { StoredOptions, LogoutOptions, InitOptions, AuthorizeOptions, OnboardOptions, ExchangeTokenOptions, RequestLoginLinkOptions, TokenInfo, AuthorizeUrlOptions, LogoutUrlOptions, OnboardUrlOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, LinkKitOpenServiceOptions, MyAccountOpenServiceOptions, ConfigsOptions, ConfigsOptionsWithoutIsNewTab, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewCustomerSupport, VaultOpenServiceViewServiceList, VaultOpenServiceViewServiceConnection, VaultOpenServiceViewConnectionSetting, VaultOpenServiceViewCustomerSupport } from './typings';
+import { Token, StoredOptions, LogoutOptions, InitOptions, AuthorizeOptions, OnboardOptions, ExchangeTokenOptions, RequestLoginLinkOptions, TokenInfo, AuthorizeUrlOptions, LogoutUrlOptions, OnboardUrlOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, LinkKitOpenServiceOptions, MyAccountOpenServiceOptions, ConfigsOptions, ConfigsOptionsWithoutIsNewTab, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewCustomerSupport, VaultOpenServiceViewServiceList, VaultOpenServiceViewServiceConnection, VaultOpenServiceViewConnectionSetting, VaultOpenServiceViewCustomerSupport } from './typings';
 export * from './typings';
 export declare class MtLinkSdk {
     storedOptions: StoredOptions;
@@ -25,7 +25,7 @@ export declare class MtLinkSdk {
     openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): string;
     openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): string;
     requestLoginLink(options?: RequestLoginLinkOptions): Promise<void>;
-    exchangeToken(options?: ExchangeTokenOptions): Promise<string>;
+    exchangeToken(options?: ExchangeTokenOptions): Promise<Token>;
     tokenInfo(token: string): Promise<TokenInfo>;
 }
 declare const mtLinkSdk: MtLinkSdk;
