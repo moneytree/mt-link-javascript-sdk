@@ -158,20 +158,26 @@ This API has exactly the same parameters as `onboard`, the only difference being
 
 ### exchangeToken
 
-Since we are using PKCE/Code grant, we will have to exchange the `code` for a token. You can optionally pass `code` via options parameter or it will fallback to automatically extract it from the browser URL.
+Use this function to exchange an authorization `code` for a token. You can optionally pass `code` via options parameter, otherwise it will automatically extract the `code` URL parameter of the current URL.
 
-`code` will be invalidated (can be used only once) after exchanged for a token, it is your responsibility to store the token yourself as the SDK does not store it internally.
+The `code` can be used only once. The SDK does not store it internally, you have to store it in your application.
 
 Refer [here](https://www.oauth.com/oauth2-servers/pkce/authorization-code-exchange/) for more details.
 
 <h6>Usage:</h6>
 
-One way to use this API is by calling it in the script on your redirection page. For example, if `authorize` redirects to `https://yourapp.com/callback?code=somecode`, you can call this function in the script loaded on that redirection page and the client library will automatically extract the code to exchange for a token.
+One way to use this API is by calling it on your redirection page. For example, if `authorize` redirects to `https://yourapp.com/callback?code=somecode`, you can call this function in the script loaded on that redirection page and the client library will automatically extract the code to exchange for a token.
 
 Alternatively, you can extract the `code` manually from the redirect URL and pass it to this function via the options object yourself.
 
 ```javascript
 const token = await mtLinkSdk.exchangeToken(options);
+token.access_token;   // access token
+token.refresh_token;  // refresh token
+token.token_type;     // token type
+token.created_at:     // created at in seconds
+token.expires_in;     // expiry in seconds
+token.scope;          // scope of the token
 ```
 
 | Parameter            | Type   | Required | Default Value            | Description                                                                                                                                                                                                                                                                                    |
@@ -253,7 +259,7 @@ This method generates a URL to log out the guest. See the `logout` API for detai
 mtLinkSdk.logoutUrl(options);
 ```
 
-This API has exactly the same parameters as `logout`, the only difference being that it returns an URL instead of opening immediately with `window.open`.   
+This API has exactly the same parameters as `logout`, the only difference being that it returns an URL instead of opening immediately with `window.open`.
 
 #### Open Vault Services Page
 
@@ -355,7 +361,7 @@ This method can generate URLs for various services provided by Moneytree, such a
 mtLinkSdk.openServiceUrl(serviceId, options);
 ```
 
-This API has exactly the same parameters as `openService`, the only difference being that it returns an URL instead of opening immediately with `window.open`.  
+This API has exactly the same parameters as `openService`, the only difference being that it returns an URL instead of opening immediately with `window.open`.
 
 ### requestLoginLink
 
