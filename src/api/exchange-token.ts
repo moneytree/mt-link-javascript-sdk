@@ -2,7 +2,7 @@ import qs from 'qs';
 
 import { generateSdkHeaderInfo } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
-import { StoredOptions, ExchangeTokenOptions } from '../typings';
+import { StoredOptions, ExchangeTokenOptions, Token } from '../typings';
 import storage from '../storage';
 
 function getCode(): string | undefined {
@@ -21,7 +21,7 @@ function getCode(): string | undefined {
 export default async function exchangeToken(
   storedOptions: StoredOptions,
   options: ExchangeTokenOptions = {}
-): Promise<string> {
+): Promise<Token> {
   const { clientId, redirectUri: defaultRedirectUri, mode } = storedOptions;
 
   if (!clientId) {
@@ -64,7 +64,7 @@ export default async function exchangeToken(
       throw new Error(result.error_description);
     }
 
-    return result.access_token;
+    return result as Token;
   } catch (error) {
     throw new Error(`[mt-link-sdk] \`exchangeToken\` execution failed. ${error}`);
   }

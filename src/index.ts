@@ -10,6 +10,7 @@ import requestLoginLink from './api/request-login-link';
 import exchangeToken from './api/exchange-token';
 import tokenInfo from './api/token-info';
 import {
+  Token,
   StoredOptions,
   ServiceId,
   LogoutOptions,
@@ -141,7 +142,7 @@ export class MtLinkSdk {
     return requestLoginLink(this.storedOptions, options);
   }
 
-  public exchangeToken(options?: ExchangeTokenOptions): Promise<string> {
+  public exchangeToken(options?: ExchangeTokenOptions): Promise<Token> {
     return exchangeToken(this.storedOptions, options);
   }
 

@@ -11,7 +11,15 @@ describe('api', () => {
     const clientId = 'clientId';
     const code = 'code';
     const redirectUri = 'redirectUri';
-    const token = 'token';
+    const token = {
+      access_token: 'access_token',
+      refresh_token: 'refresh_token',
+      expires_in: 3600,
+      token_type: 'bearer',
+      scope: 'guest_read',
+      created_at: Date.now(),
+      resource_server: 'jp-api'
+    };
     const state = 'state';
 
     const mtLinkSdk = new MtLinkSdk();
@@ -48,8 +56,7 @@ describe('api', () => {
 
     test('make request', async () => {
       fetch.mockClear();
-
-      fetch.mockResponseOnce(JSON.stringify({ access_token: token }));
+      fetch.mockResponseOnce(JSON.stringify(token));
 
       await exchangeToken(mtLinkSdk.storedOptions, { code, codeVerifier: '' });
 
@@ -94,14 +101,12 @@ describe('api', () => {
 
     test('auto extract code from url query if no code was passed', async () => {
       fetch.mockClear();
+      fetch.mockResponseOnce(JSON.stringify(token));
 
-      const code1 = 'code1';
-      const code2 = 'code2';
-
-      fetch.mockResponseOnce(JSON.stringify({ access_token: token }));
+      const code = 'realCode';
 
       jest.spyOn(window, 'location', 'get').mockReturnValueOnce({
-        search: `?code=${code1}&code=${code2}`
+        search: `?code=otherCode&code=${code}`
       } as typeof window.location);
 
       await exchangeToken(mtLinkSdk.storedOptions, { state });
@@ -109,21 +114,20 @@ describe('api', () => {
       const result = fetch.mock.calls[0][1] || {};
       const data = JSON.parse(result.body as string);
 
-      expect(data.code).toBe(code2);
+      expect(data.code).toBe(code);
     });
 
     test('auto extract state from url query if no state was passed or set during init', async () => {
       fetch.mockClear();
-
-      const state1 = 'state1';
-
-      fetch.mockResponseOnce(JSON.stringify({ access_token: token }));
+      fetch.mockResponseOnce(JSON.stringify(token));
 
       jest.spyOn(window, 'location', 'get').mockReturnValueOnce({
-        search: `?state=${state1}&state=${state}`
+        search: `?state=otherState&state=${state}`
       } as typeof window.location);
 
-      await expect(exchangeToken(mtLinkSdk.storedOptions, { code, redirectUri })).resolves.toBe(token);
+      const actual = await exchangeToken(mtLinkSdk.storedOptions, { code, redirectUri });
+
+      expect(actual).toEqual(token);
     });
 
     test('non browser environment will not auto extract code from url', async () => {
