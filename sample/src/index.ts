@@ -3,7 +3,11 @@ import mtLinkSdk, {
   AuthAction,
   AuthorizeOptions,
   OnboardOptions,
-  OpenServicesConfigsOptions,
+  VaultOpenServiceViewServiceList,
+  VaultOpenServiceViewServiceConnection,
+  VaultOpenServiceViewConnectionSetting,
+  MyAccountOpenServiceOptions,
+  VaultOpenServiceViewCustomerSupport,
   ServiceId,
   LoginLinkTo,
   VaultViewServiceList
@@ -18,8 +22,6 @@ interface ITokenInfo {
   exp: number;
   scopes: string[];
 }
-
-const AWESOME_APP_ID = 'af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290';
 
 // Re-initialize when clicked
 elements.initializeBtn.onclick = () => {
@@ -75,7 +77,7 @@ elements.doOnboardBtn.onclick = async () => {
     onBoardOptions.email = onboardOptionsElms.email.value;
     onBoardOptions.pkce = true;
 
-    await mtLinkSdk.onboard(onBoardOptions);
+    mtLinkSdk.onboard(onBoardOptions);
   } catch (error) {
     console.log(error);
   }
@@ -117,11 +119,16 @@ elements.logoutBtn.onclick = () => {
 // Launch open service
 elements.openServiceBtn.onclick = () => {
   const { openServiceOptionsElms } = elements;
-  let OpenServicesConfigsOptions: OpenServicesConfigsOptions = {};
-  const serviceId = openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex]
+  const serviceId: ServiceId = openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex]
     .value as ServiceId;
 
   if (serviceId === 'vault') {
+    type VaultOptions =
+      | VaultOpenServiceViewServiceConnection
+      | VaultOpenServiceViewConnectionSetting
+      | VaultOpenServiceViewServiceList
+      | VaultOpenServiceViewCustomerSupport;
+    let openServicesOptions: VaultOptions = {} as VaultOptions;
     const view = openServiceOptionsElms.vaultView.options[openServiceOptionsElms.vaultView.selectedIndex].value as
       | 'services-list'
       | 'service-connection'
@@ -130,7 +137,7 @@ elements.openServiceBtn.onclick = () => {
 
     switch (view) {
       case 'services-list':
-        OpenServicesConfigsOptions = {
+        openServicesOptions = {
           view: 'services-list',
           type:
             (openServiceOptionsElms.type.options[openServiceOptionsElms.type.selectedIndex].value as Pick<
@@ -146,21 +153,22 @@ elements.openServiceBtn.onclick = () => {
         };
         break;
       case 'service-connection':
-        OpenServicesConfigsOptions = {
+        openServicesOptions = {
           view: 'service-connection',
           entityKey: openServiceOptionsElms.entityKey.value
         };
         break;
       case 'connection-setting':
-        OpenServicesConfigsOptions = {
+        openServicesOptions = {
           view: 'connection-setting',
           credentialId: openServiceOptionsElms.credentialId.value
         };
         break;
       case 'customer-support':
       default:
-        OpenServicesConfigsOptions = { view };
+        openServicesOptions = { view };
     }
+    mtLinkSdk.openService(serviceId, openServicesOptions);
   }
 
   if (serviceId === 'myaccount') {
@@ -174,10 +182,8 @@ elements.openServiceBtn.onclick = () => {
       | 'settings/update-email'
       | 'settings/update-password';
 
-    OpenServicesConfigsOptions = { view };
+    mtLinkSdk.openService(serviceId, { view });
   }
-
-  mtLinkSdk.openService(serviceId, OpenServicesConfigsOptions);
 };
 
 // Launch open login link
@@ -234,11 +240,11 @@ elements.openServiceOptionsElms.vaultView.onchange = () => {
 };
 
 const initializeLinkSDK = (options: InitOptions = {}) => {
-  mtLinkSdk.init(AWESOME_APP_ID, {
+  mtLinkSdk.init('af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290', {
     sdkPlatform: 'js',
     redirectUri: 'https://localhost:9000',
     locale: 'en',
-    mode: 'develop',
+    mode: 'staging',
     ...options
   });
 };
