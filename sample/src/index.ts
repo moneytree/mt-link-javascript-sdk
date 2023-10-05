@@ -263,17 +263,17 @@ const disabledFunctions = () => {
 
 const validateToken = async () => {
   try {
-    const accessToken = await mtLinkSdk.exchangeToken();
-    elements.accessTokenLabel.innerText = `Your access token is ${accessToken}.`;
+    const token = await mtLinkSdk.exchangeToken();
+    elements.accessTokenLabel.innerText = `Your access token is ${token.access_token}.`;
     const authHeaders = new Headers({
       method: 'GET',
-      Authorization: `Bearer ${accessToken}`
+      Authorization: `Bearer ${token.access_token}`
     });
     const response = await fetch('https://myaccount-staging.getmoneytree.com/oauth/token/info.json', {
       headers: authHeaders
     });
     const data: ITokenInfo = await response.json();
-    elements.accessTokenLabel.innerText = `Your access token is ${accessToken}
+    elements.accessTokenLabel.innerText = `Your access token is ${token.access_token}
       It was generated for the app: ${data.aud.name}.
       It will expire on ${new Date(data.exp * 1000)}.
       It allows you to: ${data.scopes.join(', ')}

@@ -59,9 +59,18 @@ describe('index', () => {
     expect(result5).toBeUndefined();
     expect(requestLoginLink).toBeCalledWith(storedOptions, { loginLinkTo: 'settings' });
 
-    mocked(exchangeToken).mockResolvedValueOnce('test');
+    const token = {
+      access_token: 'access_token',
+      refresh_token: 'refresh_token',
+      expires_in: 3600,
+      token_type: 'bearer',
+      scope: 'guest_read',
+      created_at: Date.now(),
+      resource_server: 'jp-api'
+    };
+    mocked(exchangeToken).mockResolvedValueOnce(token);
     const result6 = await instance.exchangeToken({ code: 'code' });
-    expect(result6).toBe('test');
+    expect(result6).toEqual(token);
     expect(exchangeToken).toBeCalledWith(storedOptions, { code: 'code' });
 
     // @ts-ignore: set tokenInfo with invalid type value
