@@ -11,6 +11,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && NODE_OPTIONS=--openssl-legacy-provider webpack",
+    "build:docs": "rm -rf docs/types && typedoc --out docs/types src",
     "prepareRelease": "npm run build && git add dist",
     "createChangelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "version": "npm run prepareRelease && npm run createChangelog",
@@ -28,6 +29,7 @@
     "node-fetch": "^2.6.1",
     "qs": "^6.10.1",
     "snake-case": "^3.0.4",
+    "typedoc": "^0.25.1",
     "url-safe-base64": "^1.1.1"
   },
   "devDependencies": {
