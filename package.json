@@ -10,7 +10,7 @@
   "author": "Moneytree",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && webpack",
+    "build": "rm -rf dist && NODE_OPTIONS=--openssl-legacy-provider webpack",
     "prepareRelease": "npm run build && git add dist",
     "createChangelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "version": "npm run prepareRelease && npm run createChangelog",
