@@ -25,7 +25,7 @@
 <li><a href="AuthorizeOptions.html" class="tsd-signature-type tsd-kind-interface">AuthorizeOptions</a></li>
 <li><a href="RequestLoginLinkOptions.html" class="tsd-signature-type tsd-kind-interface">RequestLoginLinkOptions</a></li></ul></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L27">typings.ts:27</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L27">typings.ts:27</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -49,15 +49,15 @@
 <section class="tsd-panel tsd-member"><a id="authAction" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>auth<wbr/>Action</span><a href="#authAction" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">auth<wbr/>Action</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;login&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;signup&quot;</span></div>
-<div class="tsd-comment tsd-typography"><p>Show login or sign up screen when a session does not exist during an <a href="../classes/MtLinkSdk.html#authorize" class="tsd-kind-method">MtLinkSdk.authorize</a> call.</p>
+<div class="tsd-comment tsd-typography"><p>Show the login or sign up screen when a session does not exist during an <a href="../classes/MtLinkSdk.html#authorize" class="tsd-kind-method">MtLinkSdk.authorize</a> call.</p>
 <p>Set default value via <a href="../classes/MtLinkSdk.html#init" class="tsd-kind-method">MtLinkSdk.init</a></p>
 </div>
 <div class="tsd-comment tsd-typography">
-<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-3">&#39;login&#39;</span>
+<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-2">&#39;login&#39;</span>
 </code><button>Copy</button></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L53">typings.ts:53</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L53">typings.ts:53</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="authnMethod" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>authn<wbr/>Method</span><a href="#authnMethod" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">authn<wbr/>Method</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;passwordless&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;sso&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;credentials&quot;</span></div>
@@ -65,79 +65,79 @@
 </div>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L86">typings.ts:86</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L86">typings.ts:86</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="backTo" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>back<wbr/>To</span><a href="#backTo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">back<wbr/>To</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>A redirection URL for redirecting a guest back to in the following condition:</p>
+<div class="tsd-comment tsd-typography"><p>A redirection URL for redirecting a user back to in one of the following conditions:</p>
 <ul>
-<li>Guest clicks on `Back to [App Name]`` button in any Moneytree screen.</li>
-<li>Guest refuses to give consent to access permission in the consent screen.</li>
-<li>Guest logs out from Moneytree via an app with this client id</li>
-<li>Revoke an app&#39;s consent from settings screen opened via an app with this client id</li>
+<li>User clicks on <code>Back to [App Name]</code> button in any Moneytree screen.</li>
+<li>User refuses to give consent to access permission in the consent screen.</li>
+<li>User logs out from Moneytree via an app with this client ID</li>
+<li>User revokes consent from settings screen opened via an app with this client ID</li>
 </ul>
-<p>⚠️ No <code>Back to [App Name]</code> button will be shown if this value is not set, and any of the actions mentioned above will redirect the guest back to login screen by default.</p>
+<p>⚠️ No <code>Back to [App Name]</code> button will be shown if this value is not set, and any of the actions mentioned above will redirect the user back to the login screen by default.</p>
 <p>Set the default value via <a href="../classes/MtLinkSdk.html#init" class="tsd-kind-method">MtLinkSdk.init</a></p>
 </div>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L45">typings.ts:45</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L45">typings.ts:45</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="email" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>email</span><a href="#email" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">email</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>Email used to pre-fill the email field in login or sign up or form.</p>
+<div class="tsd-comment tsd-typography"><p>Email address to pre-fill the email field in login or sign up or form.</p>
 <p>Set the default value via <a href="../classes/MtLinkSdk.html#init" class="tsd-kind-method">MtLinkSdk.init</a></p>
 </div>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L33">typings.ts:33</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L33">typings.ts:33</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="forceLogout" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>force<wbr/>Logout</span><a href="#forceLogout" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">force<wbr/>Logout</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>Force existing guest session to logout and call authorize with a clean state.</p>
+<div class="tsd-comment tsd-typography"><p>Force existing user session to logout and call authorize with a clean state.</p>
 </div>
 <div class="tsd-comment tsd-typography">
-<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-4">false</span>
+<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-5">false</span>
 </code><button>Copy</button></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L82">typings.ts:82</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L82">typings.ts:82</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="isNewTab" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>is<wbr/>New<wbr/>Tab</span><a href="#isNewTab" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">is<wbr/>New<wbr/>Tab</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>Call method and open/render in a new browser tab, by default all views open in the same tab.</p>
+<div class="tsd-comment tsd-typography"><p>Call method and open/render in a new browser tab. By default all views open in the same tab.</p>
 <p>Set default value via <a href="../classes/MtLinkSdk.html#init" class="tsd-kind-method">MtLinkSdk.init</a></p>
 </div>
 <div class="tsd-comment tsd-typography">
-<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-4">false</span>
+<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-5">false</span>
 </code><button>Copy</button></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L77">typings.ts:77</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L77">typings.ts:77</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="sdkPlatform" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>sdk<wbr/>Platform</span><a href="#sdkPlatform" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sdk<wbr/>Platform</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;ios&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;android&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;js&quot;</span></div><aside class="tsd-sources">
 <p>Inherited from PrivateConfigsOptions.sdkPlatform</p>
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L20">typings.ts:20</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L20">typings.ts:20</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="sdkVersion" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>sdk<wbr/>Version</span><a href="#sdkVersion" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sdk<wbr/>Version</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <p>Inherited from PrivateConfigsOptions.sdkVersion</p>
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L21">typings.ts:21</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L21">typings.ts:21</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="showAuthToggle" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>show<wbr/>Auth<wbr/>Toggle</span><a href="#showAuthToggle" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">show<wbr/>Auth<wbr/>Toggle</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>If you wish to disable the login to sign up form toggle button and vice-versa in the auth screen, set this to <code>false</code>.</p>
+<div class="tsd-comment tsd-typography"><p>If you wish to disable the <code>Login to Sign up</code> form toggle button and vice-versa in the auth screen, set this to <code>false</code>.</p>
 <p>Set default value via <a href="../classes/MtLinkSdk.html#init" class="tsd-kind-method">MtLinkSdk.init</a></p>
 </div>
 <div class="tsd-comment tsd-typography">
-<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-4">true</span>
+<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-5">true</span>
 </code><button>Copy</button></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L61">typings.ts:61</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L61">typings.ts:61</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="showRememberMe" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>show<wbr/>Remember<wbr/>Me</span><a href="#showRememberMe" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">show<wbr/>Remember<wbr/>Me</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -145,11 +145,11 @@
 <p>Set default value via <a href="../classes/MtLinkSdk.html#init" class="tsd-kind-method">MtLinkSdk.init</a></p>
 </div>
 <div class="tsd-comment tsd-typography">
-<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-4">true</span>
+<h4>Default Value</h4><pre><code class="language-ts"><span class="hl-5">true</span>
 </code><button>Copy</button></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L69">typings.ts:69</a></li></ul></aside></section></section></div>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/typings.ts#L69">typings.ts:69</a></li></ul></aside></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

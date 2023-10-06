@@ -20,7 +20,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">MtLinkSdk</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L49">index.ts:49</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L49">index.ts:49</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -64,7 +64,7 @@
 <h3 class="tsd-anchor-link"><span>stored<wbr/>Options</span><a href="#storedOptions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">stored<wbr/>Options</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/StoredOptions.html" class="tsd-signature-type tsd-kind-interface">StoredOptions</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L50">index.ts:50</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L50">index.ts:50</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member"><a id="authorize" class="tsd-anchor"></a>
@@ -72,12 +72,12 @@
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="authorize.authorize-1"><span class="tsd-kind-call-signature">authorize</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#authorize.authorize-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>OAuth authorization method to request guest consent to access data via the <a href="https://getmoneytree.com/jp/link/about">Link API</a>.</p>
+<div class="tsd-comment tsd-typography"><p>OAuth authorization method to request user consent to access data via the <a href="https://getmoneytree.com/jp/link/about">Link API</a>.</p>
 <p>The only supported flow is authorization code grant with PKCE <a href="https://auth0.com/docs/flows/concepts/auth-code-pkce">PKCE</a>
-If the user is not logged in yet this will show the login screen and redirect the guest to the consent screen after they log in.
-After the guest consents, they will be redirected to the redirect URI with an authorization code.
-If the user is already logged and has granted consent in the redirection happens immediately.</p>
-<p>You can pass the <a href="../interfaces/ConfigsOptions.html#forceLogout" class="tsd-kind-property">AuthorizeOptions.forceLogout</a> option to force the guest to log in, even if they have an active session.</p>
+If the user is not logged in yet this will show the login screen and redirect the user to the consent screen after they log in.
+After the user consents, they will be redirected to the redirect URI with an authorization code.
+If the user is already logged in and has granted consent in the redirection happens immediately.</p>
+<p>You can pass the <a href="../interfaces/ConfigsOptions.html#forceLogout" class="tsd-kind-property">AuthorizeOptions.forceLogout</a> option to force the user to log in, even if they have an active session.</p>
 <p>You can also choose to display the sign up form when the user is not logged in yet by setting the <a href="../interfaces/ConfigsOptions.html#authAction" class="tsd-kind-property">AuthorizeOptions.authAction</a> option.</p>
 </div>
 <div class="tsd-parameters">
@@ -87,21 +87,21 @@ If the user is already logged and has granted consent in the redirection happens
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../interfaces/AuthorizeOptions.html" class="tsd-signature-type tsd-kind-interface">AuthorizeOptions</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography">
-<h4>Remark</h4><p>You must initialize the SDK via the <a href="MtLinkSdk.html#init" class="tsd-kind-method">init</a> before calling this API.</p>
+<h4>Remark</h4><p>You must initialize the SDK via <a href="MtLinkSdk.html#init" class="tsd-kind-method">init</a> before calling this API.</p>
 
-<h4>Example</h4><pre><code class="language-javascript"><span class="hl-0">mtLinkSdk</span><span class="hl-1">.</span><span class="hl-2">authorize</span><span class="hl-1">(</span><span class="hl-0">options</span><span class="hl-1">);</span>
+<h4>Example</h4><pre><code class="language-javascript"><span class="hl-4">mtLinkSdk</span><span class="hl-1">.</span><span class="hl-0">authorize</span><span class="hl-1">(</span><span class="hl-4">options</span><span class="hl-1">);</span>
 </code><button>Copy</button></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L124">index.ts:124</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L124">index.ts:124</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="authorizeUrl" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>authorize<wbr/>Url</span><a href="#authorizeUrl" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="authorizeUrl.authorizeUrl-1"><span class="tsd-kind-call-signature">authorize<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#authorizeUrl.authorizeUrl-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>This method generates an URL for OAuth authorization that requires guest consent to access data via <a href="https://getmoneytree.com/jp/link/about">Link API</a>.</p>
+<div class="tsd-comment tsd-typography"><p>This method generates a URL for OAuth authorization that requires user consent to access data via <a href="https://getmoneytree.com/jp/link/about">Link API</a>.</p>
 <p>See <a href="MtLinkSdk.html#authorize" class="tsd-kind-method">authorize</a> API for authorization details. This API has exactly the same parameters as <a href="MtLinkSdk.html#authorize" class="tsd-kind-method">authorize</a>,
-the only difference is that it returns an URL instead of opening immediately with <code>window.open</code>.</p>
+the only difference is that it returns a URL instead of opening immediately with <code>window.open</code>.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -111,7 +111,7 @@ the only difference is that it returns an URL instead of opening immediately wit
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L134">index.ts:134</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L134">index.ts:134</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="exchangeToken" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>exchange<wbr/>Token</span><a href="#exchangeToken" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -144,7 +144,7 @@ generate the said <code>codeChallenge</code> here.</p>
 <h4>Throws</h4><p>If the <a href="../interfaces/OAuthSharedParams.html#redirectUri" class="tsd-kind-property">ExchangeTokenOptions.redirectUri</a> is not set and it is not set via <a href="MtLinkSdk.html#init" class="tsd-kind-method">init</a>.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L297">index.ts:297</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L297">index.ts:297</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="init" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>init</span><a href="#init" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -152,7 +152,7 @@ generate the said <code>codeChallenge</code> here.</p>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Call <code>init</code> to initialize the SDK and set default options for API calls.</p>
 <p>Some LINK APIs can be used without calling <code>init</code>.
-Calls related to OAuth require a client id which can only be set via the <code>init</code> function.
+Calls related to OAuth require a client ID which can only be set via the <code>init</code> function.
 These APIs include:</p>
 <ul>
 <li><a href="MtLinkSdk.html#authorize" class="tsd-kind-method">authorize</a></li>
@@ -182,11 +182,11 @@ These APIs include:</p>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography">
-<h4>Example</h4><pre><code class="language-js"><span class="hl-0">mtLinkSdk</span><span class="hl-1">.</span><span class="hl-2">init</span><span class="hl-1">(</span><span class="hl-0">client_id</span><span class="hl-1">, </span><span class="hl-0">options</span><span class="hl-1">);</span>
+<h4>Example</h4><pre><code class="language-js"><span class="hl-4">mtLinkSdk</span><span class="hl-1">.</span><span class="hl-0">init</span><span class="hl-1">(</span><span class="hl-4">client_id</span><span class="hl-1">, </span><span class="hl-4">options</span><span class="hl-1">);</span>
 </code><button>Copy</button></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L78">index.ts:78</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L78">index.ts:78</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="logout" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>logout</span><a href="#logout" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -202,14 +202,14 @@ These APIs include:</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L175">index.ts:175</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L175">index.ts:175</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="logoutUrl" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>logout<wbr/>Url</span><a href="#logoutUrl" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="logoutUrl.logoutUrl-1"><span class="tsd-kind-call-signature">logout<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#logoutUrl.logoutUrl-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>This method generates a URL to log out the guest.</p>
-<p>This API has exactly the same parameters as <a href="MtLinkSdk.html#logout" class="tsd-kind-method">logout</a>, the only difference being that it returns an URL
+<div class="tsd-comment tsd-typography"><p>This method generates a URL to log out the user.</p>
+<p>This API has exactly the same parameters as <a href="MtLinkSdk.html#logout" class="tsd-kind-method">logout</a>, the only difference being that it returns a URL
 instead of opening immediately with <code>window.open</code>.</p>
 </div>
 <div class="tsd-parameters">
@@ -220,20 +220,20 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L185">index.ts:185</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L185">index.ts:185</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onboard" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>onboard</span><a href="#onboard" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="onboard.onboard-1"><span class="tsd-kind-call-signature">onboard</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#onboard.onboard-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The onboard API allows a new guest to get onboard faster without having to go through the registration process.
-All you have to do is provide an emai address and pass the same options parameter as the <a href="MtLinkSdk.html#authorize" class="tsd-kind-method">authorize</a> function.
-We will display a consent screen explaining the access requests and applicable scopes.
-Once the guest consents, a new Moneytree account will be created on their behalf and authorization is completed.
+<div class="tsd-comment tsd-typography"><p>The onboard API allows a new user to get onboard faster without having to go through the registration process.
+All you have to do is provide an email address and pass the same options parameter as the <a href="MtLinkSdk.html#authorize" class="tsd-kind-method">authorize</a> function.
+Moneytree LINK will display a consent screen explaining the access requests and applicable scopes.
+Once the user consents, a new Moneytree account will be created on their behalf and authorization is completed.
 Resulting behavior will be the same as the <a href="MtLinkSdk.html#authorize" class="tsd-kind-method">authorize</a> redirection flow.</p>
-<p>Onboard will force any current guest session to logout, hence you do not have to call <a href="MtLinkSdk.html#logout" class="tsd-kind-method">logout</a> manually to
+<p>Onboard will force any current user session to logout, hence you do not have to call <a href="MtLinkSdk.html#logout" class="tsd-kind-method">logout</a> manually to
 ensure a clean state.</p>
-<p>If an account with this email address already exists we will redirect the guest to the login screen.</p>
+<p>If an account with this email address already exists we will redirect the user to the login screen.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -249,14 +249,14 @@ Please ask your Moneytree representative for more details.</p>
 <h4>Throws</h4><p>If the <code>email</code> property is not set (via <a href="MtLinkSdk.html#init" class="tsd-kind-method">init</a> or in the <code>options</code> parameter of this function).</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L158">index.ts:158</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L158">index.ts:158</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onboardUrl" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>onboard<wbr/>Url</span><a href="#onboardUrl" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="onboardUrl.onboardUrl-1"><span class="tsd-kind-call-signature">onboard<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#onboardUrl.onboardUrl-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>This method generates a URL for guest onboarding.</p>
-<p>This API has exactly the same parameters as <a href="MtLinkSdk.html#onboard" class="tsd-kind-method">onboard</a>, the only difference being that it returns an URL
+<div class="tsd-comment tsd-typography"><p>This method generates a URL for user onboarding.</p>
+<p>This API has exactly the same parameters as <a href="MtLinkSdk.html#onboard" class="tsd-kind-method">onboard</a>, the only difference being that it returns a URL
 instead of opening immediately with <code>window.open</code>.</p>
 </div>
 <div class="tsd-parameters">
@@ -267,7 +267,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L168">index.ts:168</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L168">index.ts:168</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="openService" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>open<wbr/>Service</span><a href="#openService" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -288,7 +288,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h4>Remark</h4><p>⚠️ calling this API before calling <a href="MtLinkSdk.html#init" class="tsd-kind-method">init</a> will open the services view without branding (company logo etc.)</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L196">index.ts:196</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L196">index.ts:196</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openService.openService-2"><span class="tsd-kind-call-signature">open<wbr/>Service</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#openService.openService-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Pass <code>serviceId: &#39;myaccount&#39;</code> to open the MyAccount service.</p>
@@ -306,16 +306,16 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h4>Remark</h4><p>⚠️ calling this API before calling <a href="MtLinkSdk.html#init" class="tsd-kind-method">init</a> will open the services view without branding (company logo etc.)</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L204">index.ts:204</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L204">index.ts:204</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openService.openService-3"><span class="tsd-kind-call-signature">open<wbr/>Service</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#openService.openService-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Pass <code>serviceId: &#39;vault&#39;</code> to open the Vault service.</p>
 <p>Depending on the Vault sub-page you want to open, you can pass the following options:</p>
 <ul>
-<li><code>serviceList</code>: opens the vault service list page, pass <a href="../types/VaultOpenServiceViewServiceList.html" class="tsd-kind-type-alias">VaultOpenServiceViewServiceList</a> as options.</li>
-<li><code>serviceConnection</code>: opens the vault service connection page, pass <a href="../types/VaultOpenServiceViewServiceConnection.html" class="tsd-kind-type-alias">VaultOpenServiceViewServiceConnection</a> as options.</li>
-<li><code>connectionSetting</code>: opens the vault connection setting page, pass <a href="../types/VaultOpenServiceViewConnectionSetting.html" class="tsd-kind-type-alias">VaultOpenServiceViewConnectionSetting</a> as options.</li>
-<li><code>customerSupport</code>: opens the vault customer support page, pass <a href="../types/VaultOpenServiceViewCustomerSupport.html" class="tsd-kind-type-alias">VaultOpenServiceViewCustomerSupport</a> as options.</li>
+<li><code>serviceList</code>: opens the Vault service list page, pass <a href="../types/VaultOpenServiceViewServiceList.html" class="tsd-kind-type-alias">VaultOpenServiceViewServiceList</a> as options.</li>
+<li><code>serviceConnection</code>: opens the Vault service connection page, pass <a href="../types/VaultOpenServiceViewServiceConnection.html" class="tsd-kind-type-alias">VaultOpenServiceViewServiceConnection</a> as options.</li>
+<li><code>connectionSetting</code>: opens the Vault connection setting page, pass <a href="../types/VaultOpenServiceViewConnectionSetting.html" class="tsd-kind-type-alias">VaultOpenServiceViewConnectionSetting</a> as options.</li>
+<li><code>customerSupport</code>: opens the Vault customer support page, pass <a href="../types/VaultOpenServiceViewCustomerSupport.html" class="tsd-kind-type-alias">VaultOpenServiceViewCustomerSupport</a> as options.</li>
 </ul>
 </div>
 <div class="tsd-parameters">
@@ -330,7 +330,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h4>Remark</h4><p>⚠️ calling this API before calling <a href="MtLinkSdk.html#init" class="tsd-kind-method">init</a> will open the services view without branding (company logo etc.)</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L216">index.ts:216</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L216">index.ts:216</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openService.openService-4"><span class="tsd-kind-call-signature">open<wbr/>Service</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#openService.openService-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -342,7 +342,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/VaultOpenServiceViewServiceList.html" class="tsd-signature-type tsd-kind-type-alias">VaultOpenServiceViewServiceList</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L217">index.ts:217</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L217">index.ts:217</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openService.openService-5"><span class="tsd-kind-call-signature">open<wbr/>Service</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#openService.openService-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -354,7 +354,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/VaultOpenServiceViewServiceConnection.html" class="tsd-signature-type tsd-kind-type-alias">VaultOpenServiceViewServiceConnection</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L218">index.ts:218</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L218">index.ts:218</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openService.openService-6"><span class="tsd-kind-call-signature">open<wbr/>Service</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#openService.openService-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -366,7 +366,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/VaultOpenServiceViewConnectionSetting.html" class="tsd-signature-type tsd-kind-type-alias">VaultOpenServiceViewConnectionSetting</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L219">index.ts:219</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L219">index.ts:219</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openService.openService-7"><span class="tsd-kind-call-signature">open<wbr/>Service</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#openService.openService-7" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -378,14 +378,14 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/VaultOpenServiceViewCustomerSupport.html" class="tsd-signature-type tsd-kind-type-alias">VaultOpenServiceViewCustomerSupport</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L220">index.ts:220</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L220">index.ts:220</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="openServiceUrl" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>open<wbr/>Service<wbr/>Url</span><a href="#openServiceUrl" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="openServiceUrl.openServiceUrl-1"><span class="tsd-kind-call-signature">open<wbr/>Service<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#openServiceUrl.openServiceUrl-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>This method can generate URLs for various services provided by Moneytree, such as Moneytree Account Settings and Vault.</p>
-<p>This API has exactly the same parameters as <a href="MtLinkSdk.html#openService" class="tsd-kind-method">openService</a>, the only difference being that it returns an URL
+<p>This API has exactly the same parameters as <a href="MtLinkSdk.html#openService" class="tsd-kind-method">openService</a>, the only difference being that it returns a URL
 instead of opening immediately with <code>window.open</code>.</p>
 </div>
 <div class="tsd-parameters">
@@ -398,7 +398,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L243">index.ts:243</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L243">index.ts:243</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openServiceUrl.openServiceUrl-2"><span class="tsd-kind-call-signature">open<wbr/>Service<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#openServiceUrl.openServiceUrl-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -410,7 +410,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/MyAccountOpenServiceUrlOptions.html" class="tsd-signature-type tsd-kind-type-alias">MyAccountOpenServiceUrlOptions</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L244">index.ts:244</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L244">index.ts:244</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openServiceUrl.openServiceUrl-3"><span class="tsd-kind-call-signature">open<wbr/>Service<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#openServiceUrl.openServiceUrl-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -422,7 +422,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/ConfigsOptionsWithoutIsNewTab.html" class="tsd-signature-type tsd-kind-type-alias">ConfigsOptionsWithoutIsNewTab</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L245">index.ts:245</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L245">index.ts:245</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openServiceUrl.openServiceUrl-4"><span class="tsd-kind-call-signature">open<wbr/>Service<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#openServiceUrl.openServiceUrl-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -434,7 +434,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/VaultOpenServiceUrlViewServiceList.html" class="tsd-signature-type tsd-kind-type-alias">VaultOpenServiceUrlViewServiceList</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L246">index.ts:246</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L246">index.ts:246</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openServiceUrl.openServiceUrl-5"><span class="tsd-kind-call-signature">open<wbr/>Service<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#openServiceUrl.openServiceUrl-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -446,7 +446,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/VaultOpenServiceUrlViewServiceConnection.html" class="tsd-signature-type tsd-kind-type-alias">VaultOpenServiceUrlViewServiceConnection</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L247">index.ts:247</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L247">index.ts:247</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openServiceUrl.openServiceUrl-6"><span class="tsd-kind-call-signature">open<wbr/>Service<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#openServiceUrl.openServiceUrl-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -458,7 +458,7 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/VaultOpenServiceUrlViewConnectionSetting.html" class="tsd-signature-type tsd-kind-type-alias">VaultOpenServiceUrlViewConnectionSetting</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L248">index.ts:248</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L248">index.ts:248</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="openServiceUrl.openServiceUrl-7"><span class="tsd-kind-call-signature">open<wbr/>Service<wbr/>Url</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">serviceId</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#openServiceUrl.openServiceUrl-7" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
@@ -470,14 +470,14 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/VaultOpenServiceUrlViewCustomerSupport.html" class="tsd-signature-type tsd-kind-type-alias">VaultOpenServiceUrlViewCustomerSupport</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L249">index.ts:249</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L249">index.ts:249</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="requestLoginLink" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>request<wbr/>Login<wbr/>Link</span><a href="#requestLoginLink" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="requestLoginLink.requestLoginLink-1"><span class="tsd-kind-call-signature">request<wbr/>Login<wbr/>Link</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#requestLoginLink.requestLoginLink-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Request for a password-less login link to be sent to the guest&#39;s email address.</p>
-<p>Clicking on the link in the email will log a guest in directly to the screen specified by the
+<div class="tsd-comment tsd-typography"><p>Request for a password-less login link to be sent to the user&#39;s email address.</p>
+<p>Clicking on the link in the email will log a user in directly to the screen specified by the
 <a href="../interfaces/RequestLoginLinkOptions.html#loginLinkTo" class="tsd-kind-property">RequestLoginLinkOptions.loginLinkTo</a> parameter.</p>
 </div>
 <div class="tsd-parameters">
@@ -488,13 +488,13 @@ instead of opening immediately with <code>window.open</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L269">index.ts:269</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L269">index.ts:269</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="setSamlSubjectId" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Saml<wbr/>Subject<wbr/>Id</span><a href="#setSamlSubjectId" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="setSamlSubjectId.setSamlSubjectId-1"><span class="tsd-kind-call-signature">set<wbr/>Saml<wbr/>Subject<wbr/>Id</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setSamlSubjectId.setSamlSubjectId-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Use this method to send a guest identifier to Moneytree so that Moneytree can forward it as <code>saml_subject_id</code> parameter
+<div class="tsd-comment tsd-typography"><p>Use this method to send a user identifier to Moneytree so that Moneytree can forward it as <code>saml_subject_id</code> parameter
 to the Identity Provider (IdP) via the SAMLRequest during SAML SSO flows. See the <a href="https://docs.link.getmoneytree.com/docs/saml-introduction#saml-subject-identifier">SAML SSO documentation for details</a>.</p>
 <p>This parameter can be set during <a href="MtLinkSdk.html#init" class="tsd-kind-method">init</a> or changed on a request-by-request basis with this method.
 The <code>saml_subject_id</code> parameter will be forwarded to the <code>authorize</code>, <code>logout</code> and <code>open-service</code> methods when defined.</p>
@@ -507,7 +507,7 @@ The <code>saml_subject_id</code> parameter will be forwarded to the <code>author
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L100">index.ts:100</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L100">index.ts:100</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="tokenInfo" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>token<wbr/>Info</span><a href="#tokenInfo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -525,7 +525,7 @@ The <code>saml_subject_id</code> parameter will be forwarded to the <code>author
 <h4>Throws</h4><p>if the token is expired.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/index.ts#L306">index.ts:306</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/7c67448/src/index.ts#L306">index.ts:306</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
