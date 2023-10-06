@@ -34,25 +34,25 @@ The source also includes Typescript definitions out of the box.
 
 We use [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) internally, if you wish to support old browsers (e.g: IE11), make sure to add the necessary polyfills.
 
-## [API](/types/classes/MtLinkSdk.html)
+## [API](types/classes/MtLinkSdk.html ':ignore')
 
 The Moneytree LINK Javascript SDK exposes APIs to get guest consent to access financial data, and exchange an authorization grant for an access token.
 
 The complete list of SDK functions is:
 
-* [`init`](/types/classes/MtLinkSdk.html#init ':ignore')
-* [`setSamlSubjectId`](/types/classes/MtLinkSdk.html#setSamlSubjectId ':ignore')
-* [`authorize`](/types/classes/MtLinkSdk.html#authorize ':ignore')
-* [`authorizeUrl`](/types/classes/MtLinkSdk.html#authorizeUrl ':ignore')
-* [`onboard`](/types/classes/MtLinkSdk.html#onboard ':ignore')
-* [`onboardUrl`](/types/classes/MtLinkSdk.html#onboardUrl ':ignore')
-* [`exchangeToken`](/types/classes/MtLinkSdk.html#exchangeToken ':ignore')
-* [`tokenInfo`](/types/classes/MtLinkSdk.html#tokenInfo ':ignore')
-* [`logout`](/types/classes/MtLinkSdk.html#logout ':ignore')
-* [`logoutUrl`](/types/classes/MtLinkSdk.html#logoutUrl ':ignore')
-* [`openService`](/types/classes/MtLinkSdk.html#openService ':ignore')
-* [`openServiceUrl`](/types/classes/MtLinkSdk.html#openServiceUrl ':ignore')
-* [`requestLoginLink`](/types/classes/MtLinkSdk.html#requestLoginLink ':ignore')                                                      |
+* [`init`](types/classes/MtLinkSdk.html#init ':ignore')
+* [`setSamlSubjectId`](types/classes/MtLinkSdk.html#setSamlSubjectId ':ignore')
+* [`authorize`](types/classes/MtLinkSdk.html#authorize ':ignore')
+* [`authorizeUrl`](types/classes/MtLinkSdk.html#authorizeUrl ':ignore')
+* [`onboard`](types/classes/MtLinkSdk.html#onboard ':ignore')
+* [`onboardUrl`](types/classes/MtLinkSdk.html#onboardUrl ':ignore')
+* [`exchangeToken`](types/classes/MtLinkSdk.html#exchangeToken ':ignore')
+* [`tokenInfo`](types/classes/MtLinkSdk.html#tokenInfo ':ignore')
+* [`logout`](types/classes/MtLinkSdk.html#logout ':ignore')
+* [`logoutUrl`](types/classes/MtLinkSdk.html#logoutUrl ':ignore')
+* [`openService`](types/classes/MtLinkSdk.html#openService ':ignore')
+* [`openServiceUrl`](types/classes/MtLinkSdk.html#openServiceUrl ':ignore')
+* [`requestLoginLink`](types/classes/MtLinkSdk.html#requestLoginLink ':ignore')
 
 Below are examples of common use cases.
 
