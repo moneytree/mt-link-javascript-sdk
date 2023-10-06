@@ -242,14 +242,12 @@ export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, Aut
    * SHA256 hash algorithm.
    */
   codeChallenge?: string;
-  /** @hidden */
-  pkce?: boolean;
 }
 
 export type AuthorizeUrlOptions = Omit<AuthorizeOptions, 'isNewTab'>;
 
 export type Mode = 'production' | 'staging' | 'develop' | 'local';
-export type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'>, 'pkce'> &
+export type InitOptions = Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'> &
   PrivateParams & {
     /**
      * Environment for the SDK to connect to, the SDK will connect to the Moneytree production server by default.

@@ -1,4 +1,3 @@
-import qs from 'qs';
 import { mocked } from 'ts-jest/utils';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
@@ -6,6 +5,7 @@ import { MtLinkSdk } from '../..';
 import authorize from '../authorize';
 import { generateConfigs } from '../../helper';
 import storage from '../../storage';
+import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';
 
 jest.mock('../../storage');
 
@@ -57,8 +57,9 @@ describe('api', () => {
       authorize(mtLinkSdk.storedOptions);
 
       expect(open).toBeCalledTimes(1);
-
-      const query = qs.stringify({
+      expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
+      const url = open.mock.calls[0][0]
+      const query = {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         response_type: 'code',
@@ -68,9 +69,8 @@ describe('api', () => {
         locale,
         saml_subject_id: samlSubjectId,
         configs: generateConfigs()
-      });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      };
+      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query })
     });
 
     test('with options', () => {
@@ -92,8 +92,9 @@ describe('api', () => {
       });
 
       expect(open).toBeCalledTimes(1);
-
-      const query = qs.stringify({
+      expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
+      const url = open.mock.calls[0][0]
+      const query = {
         client_id: clientId,
         response_type: 'code',
         scope: scopes,
@@ -102,9 +103,8 @@ describe('api', () => {
         country,
         saml_subject_id: samlSubjectId,
         configs: generateConfigs()
-      });
-      const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`;
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      };
+      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query })
     });
 
     test('without window', () => {

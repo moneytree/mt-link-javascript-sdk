@@ -20,14 +20,7 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
     throw new Error('[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.');
   }
 
-  const {
-    scopes = defaultScopes,
-    redirectUri = defaultRedirectUri,
-    pkce = false,
-    codeChallenge,
-    state,
-    ...rest
-  } = options;
+  const { scopes = defaultScopes, redirectUri = defaultRedirectUri, codeChallenge, state, ...rest } = options;
 
   if (!redirectUri) {
     throw new Error(
@@ -37,7 +30,7 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
 
   storage.del('cv');
 
-  const cc = codeChallenge || (pkce && generateCodeChallenge());
+  const cc = codeChallenge || generateCodeChallenge();
 
   const queryString = stringify({
     client_id: clientId,

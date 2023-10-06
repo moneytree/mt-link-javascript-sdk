@@ -55,8 +55,6 @@ elements.authorizeBtn.onclick = () => {
     authorizeOptions.scopes = scopesSelectedOptions.map((x) => x.value);
   }
 
-  authorizeOptions.pkce = true;
-
   mtLinkSdk.authorize(authorizeOptions);
 };
 
@@ -75,7 +73,6 @@ elements.doOnboardBtn.onclick = async () => {
     }
 
     onBoardOptions.email = onboardOptionsElms.email.value;
-    onBoardOptions.pkce = true;
 
     mtLinkSdk.onboard(onBoardOptions);
   } catch (error) {

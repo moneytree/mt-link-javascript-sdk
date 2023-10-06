@@ -10,6 +10,7 @@ import tokenInfo from '../api/token-info';
 import mtLinkSdk, { Mode, MtLinkSdk } from '..';
 
 import packageJson from '../../package.json';
+import expectUrlToMatchWithPKCE from './helper/expect-url-to-match';
 
 jest.mock('../api/authorize');
 jest.mock('../api/onboard');
@@ -80,19 +81,30 @@ describe('index', () => {
 
     const sdkVersion = packageJson.version;
 
+    const authQuery = {
+      client_id: 'clientId',
+      response_type: 'code',
+      scope: 'scopes',
+      redirect_uri: 'redirectUri',
+      country: 'JP',
+      configs: `authn_method=sso&sdk_platform=js&sdk_version=${sdkVersion}`
+    }
     const result8 = instance.authorizeUrl({ scopes: 'scopes' });
-    expect(result8).toBe(
-      'https://myaccount.getmoneytree.com/oauth/authorize?client_id=clientId&response_type=code&' +
-        'scope=scopes&redirect_uri=redirectUri&country=JP&saml_subject_id=samlSubjectId&' +
-        `configs=authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`
-    );
+    expectUrlToMatchWithPKCE(result8, {
+      baseUrl: 'https://myaccount.getmoneytree.com',
+      path: '/oauth/authorize',
+      query: {
+        ...authQuery,
+        saml_subject_id: 'samlSubjectId',
+      }
+    })
 
     const result9 = instance.onboardUrl({ scopes: 'scopes' });
-    expect(result9).toBe(
-      'https://myaccount.getmoneytree.com/onboard?client_id=clientId&response_type=code&' +
-        'scope=scopes&redirect_uri=redirectUri&country=JP&' +
-        `configs=authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`
-    );
+    expectUrlToMatchWithPKCE(result9, {
+      baseUrl: 'https://myaccount.getmoneytree.com',
+      path: '/onboard',
+      query: authQuery
+    })
 
     const result10 = instance.logoutUrl({ backTo: 'backTo' });
     expect(result10).toBe(

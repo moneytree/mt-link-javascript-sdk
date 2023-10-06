@@ -19,14 +19,7 @@ export default function onboardUrl(storedOptions: StoredOptions, options: Onboar
     throw new Error('[mt-link-sdk] Make sure to call `init` before calling `onboardUrl/onboard`.');
   }
 
-  const {
-    scopes = defaultScopes,
-    redirectUri = defaultRedirectUri,
-    pkce = false,
-    codeChallenge,
-    state,
-    ...rest
-  } = options;
+  const { scopes = defaultScopes, redirectUri = defaultRedirectUri, codeChallenge, state, ...rest } = options;
 
   const configs = mergeConfigs(storedOptions, rest, ['authAction', 'showAuthToggle', 'showRememberMe', 'forceLogout']);
 
@@ -38,7 +31,7 @@ export default function onboardUrl(storedOptions: StoredOptions, options: Onboar
 
   storage.del('cv');
 
-  const cc = codeChallenge || (pkce && generateCodeChallenge());
+  const cc = codeChallenge || generateCodeChallenge();
 
   const queryString = stringify({
     client_id: clientId,
