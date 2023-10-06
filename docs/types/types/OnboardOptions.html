@@ -15,9 +15,24 @@
 <li><a href="../modules.html">@moneytree/mt-link-javascript-sdk</a></li>
 <li><a href="OnboardOptions.html">OnboardOptions</a></li></ul>
 <h1>Type alias OnboardOptions</h1></div>
-<div class="tsd-signature"><span class="tsd-kind-type-alias">Onboard<wbr/>Options</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/AuthorizeOptions.html" class="tsd-signature-type tsd-kind-interface">AuthorizeOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;showAuthToggle&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;forceLogout&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;showRememberMe&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;authAction&quot;</span><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-type-alias">Onboard<wbr/>Options</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/AuthorizeOptions.html" class="tsd-signature-type tsd-kind-interface">AuthorizeOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;showAuthToggle&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;forceLogout&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;showRememberMe&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;authAction&quot;</span><span class="tsd-signature-symbol">&gt;</span></div>
+<div class="tsd-comment tsd-typography"><p>Options for Onboarding.</p>
+<p>Most options are the same as the <a href="../interfaces/AuthorizeOptions.html" class="tsd-kind-interface">AuthorizeOptions</a> with a few exceptions.</p>
+<p>Unsupported options are:</p>
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/afe7d78/src/typings.ts#L132">typings.ts:132</a></li></ul></aside></div>
+<li><code>showAuthToggle</code>.</li>
+<li><code>forceLogout</code>.</li>
+<li><code>showRememberMe</code></li>
+<li><code>authAction</code></li>
+</ul>
+</div>
+<div class="tsd-comment tsd-typography">
+<h4>Remark</h4><p>⚠️ SDK will throw an error if both values here and from the init options are undefined.</p>
+
+<h4>See</h4><p><a href="../interfaces/AuthorizeOptions.html" class="tsd-kind-interface">AuthorizeOptions</a></p>
+</div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L304">typings.ts:304</a></li></ul></aside></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -40,8 +55,7 @@
 <li><a href="../interfaces/AuthorizeOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>AuthorizeOptions</a></li>
 <li><a href="../interfaces/ConfigsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>ConfigsOptions</a></li>
 <li><a href="../interfaces/ExchangeTokenOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>ExchangeTokenOptions</a></li>
-<li><a href="../interfaces/PrivateConfigsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>PrivateConfigsOptions</a></li>
-<li><a href="../interfaces/PrivateParams.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>PrivateParams</a></li>
+<li><a href="../interfaces/OAuthSharedParams.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>OAuthSharedParams</a></li>
 <li><a href="../interfaces/RequestLoginLinkOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>RequestLoginLinkOptions</a></li>
 <li><a href="../interfaces/StoredOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>StoredOptions</a></li>
 <li><a href="../interfaces/Token.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>Token</a></li>
@@ -57,6 +71,7 @@
 <li><a href="LogoutOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>LogoutOptions</a></li>
 <li><a href="LogoutUrlOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>LogoutUrlOptions</a></li>
 <li><a href="Mode.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>Mode</a></li>
+<li><a href="MyAccountOpenServiceOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>MyAccountOpenServiceOptions</a></li>
 <li>Loading...</li></ul></nav></div></div></div>
 <div class="tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" rel="noopener" target="_blank">TypeDoc</a></p></div>

@@ -15,16 +15,29 @@
 <li><a href="../modules.html">@moneytree/mt-link-javascript-sdk</a></li>
 <li><a href="InitOptions.html">InitOptions</a></li></ul>
 <h1>Type alias InitOptions</h1></div>
-<div class="tsd-signature"><span class="tsd-kind-type-alias">Init<wbr/>Options</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/AuthorizeOptions.html" class="tsd-signature-type tsd-kind-interface">AuthorizeOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;forceLogout&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;codeChallenge&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;pkce&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/PrivateParams.html" class="tsd-signature-type tsd-kind-interface">PrivateParams</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">locale</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">mode</span><span class="tsd-signature-symbol">?: </span><a href="Mode.html" class="tsd-signature-type tsd-kind-type-alias">Mode</a><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">Init<wbr/>Options</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/AuthorizeOptions.html" class="tsd-signature-type tsd-kind-interface">AuthorizeOptions</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;forceLogout&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;codeChallenge&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;pkce&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type ">PrivateParams</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">locale</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">mode</span><span class="tsd-signature-symbol">?: </span><a href="Mode.html" class="tsd-signature-type tsd-kind-type-alias">Mode</a><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter">
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">locale</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5></li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">locale</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>Force Moneytree to load content in this specific locale. A default value will be auto detected based on guest
+langauges configurations and location if available.
+Check this <a href="https://www.w3.org/TR/html401/struct/dirlang.html#h-8.1.1">spec</a> for more information.</p>
+<p>Currently supported values are:<code>&#39;en&#39;</code>, <code>&#39;en-AU&#39;</code>, <code>&#39;ja&#39;</code>.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
 <li class="tsd-parameter">
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">mode</span><span class="tsd-signature-symbol">?: </span><a href="Mode.html" class="tsd-signature-type tsd-kind-type-alias">Mode</a></h5></li></ul></div><aside class="tsd-sources">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">mode</span><span class="tsd-signature-symbol">?: </span><a href="Mode.html" class="tsd-signature-type tsd-kind-type-alias">Mode</a></h5>
+<div class="tsd-comment tsd-typography"><p>Environment for the SDK to connect to, the SDK will connect to the Moneytree production server by default.</p>
 <ul>
-<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/afe7d78/src/typings.ts#L114">typings.ts:114</a></li></ul></aside></div>
+<li>Moneytree clients should use <code>staging</code> for development as <code>develop</code> may contain unstable features.</li>
+<li><code>local</code> is only for SDK development as it has local dependencies.</li>
+</ul>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/moneytree/mt-link-javascript-sdk/blob/0bea1ac/src/typings.ts#L252">typings.ts:252</a></li></ul></aside></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -47,8 +60,7 @@
 <li><a href="../interfaces/AuthorizeOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>AuthorizeOptions</a></li>
 <li><a href="../interfaces/ConfigsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>ConfigsOptions</a></li>
 <li><a href="../interfaces/ExchangeTokenOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>ExchangeTokenOptions</a></li>
-<li><a href="../interfaces/PrivateConfigsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>PrivateConfigsOptions</a></li>
-<li><a href="../interfaces/PrivateParams.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>PrivateParams</a></li>
+<li><a href="../interfaces/OAuthSharedParams.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>OAuthSharedParams</a></li>
 <li><a href="../interfaces/RequestLoginLinkOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>RequestLoginLinkOptions</a></li>
 <li><a href="../interfaces/StoredOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>StoredOptions</a></li>
 <li><a href="../interfaces/Token.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg>Token</a></li>
@@ -64,6 +76,7 @@
 <li><a href="LogoutOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>LogoutOptions</a></li>
 <li><a href="LogoutUrlOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>LogoutUrlOptions</a></li>
 <li><a href="Mode.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>Mode</a></li>
+<li><a href="MyAccountOpenServiceOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>MyAccountOpenServiceOptions</a></li>
 <li>Loading...</li></ul></nav></div></div></div>
 <div class="tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" rel="noopener" target="_blank">TypeDoc</a></p></div>
