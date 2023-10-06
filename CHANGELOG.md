@@ -1,3 +1,37 @@
+## [4.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.2.1...4.0.0) (2023-10-06)
+
+### New Features
+
+* feat(sdk) remove `pkce` option becuase all OAuth flows must use PKCE ([2234e0e](https://github.com/moneytree/mt-link-javascript-sdk/commit/2234e0e))
+* feat(sdk) return the full token from `exchangeToken` ([5131f12](https://github.com/moneytree/mt-link-javascript-sdk/commit/5131f12))
+
+### Sample App improvements
+
+* fix(sample) fix formatting errors in html ([fc70d52](https://github.com/moneytree/mt-link-javascript-sdk/commit/fc70d52))
+* fix(sample) use new service options after re-write in 3.2.1 ([bf9b14a](https://github.com/moneytree/mt-link-javascript-sdk/commit/bf9b14a))
+* refactor(sample): inline variable, use staging, remove useless await ([04c119b](https://github.com/moneytree/mt-link-javascript-sdk/commit/04c119b))
+
+### Documentation improvements
+
+* doc(sample) update sample to use new exchangeToken type ([0e68876](https://github.com/moneytree/mt-link-javascript-sdk/commit/0e68876))
+* doc(sdk) add TSDoc comments to public API ([f530830](https://github.com/moneytree/mt-link-javascript-sdk/commit/f530830))
+* doc(sdk) fix typos and inconsistencies ([a926047](https://github.com/moneytree/mt-link-javascript-sdk/commit/a926047))
+* doc(sdk) replace markdown API doc with links typedoc ([b18603d](https://github.com/moneytree/mt-link-javascript-sdk/commit/b18603d))
+* doc(sdk) update documentation for exchangeCode function ([40e7cb4](https://github.com/moneytree/mt-link-javascript-sdk/commit/40e7cb4))
+* doc(sdk) update readme with badge maintainer instructions ([7fd3f27](https://github.com/moneytree/mt-link-javascript-sdk/commit/7fd3f27))
+* docs(sdk) fix typos ([89f69cd](https://github.com/moneytree/mt-link-javascript-sdk/commit/89f69cd))
+
+### Build improvements
+
+* build(all) add cspell ([a3660a8](https://github.com/moneytree/mt-link-javascript-sdk/commit/a3660a8))
+* build(all) upgrade node from 12 -> 16 ([8c62758](https://github.com/moneytree/mt-link-javascript-sdk/commit/8c62758))
+* build(all) upgrade node from 16 -> 18 ([c3b62a7](https://github.com/moneytree/mt-link-javascript-sdk/commit/c3b62a7)), closes [/nodejs.org/en/blog/release/v17.0.0#openssl-3-0](https://github.com//nodejs.org/en/blog/release/v17.0.0/issues/openssl-3-0) [/github.com/webpack/webpack/issues/14532#issuecomment-947513562](https://github.com//github.com/webpack/webpack/issues/14532/issues/issuecomment-947513562)
+* build(all) upgrade typescript to 4.9.5 ([ab74095](https://github.com/moneytree/mt-link-javascript-sdk/commit/ab74095))
+* build(all) add codeowners ([fd73d63](https://github.com/moneytree/mt-link-javascript-sdk/commit/fd73d63))
+* build(all) add codeowners (like, really) ([7fea9d9](https://github.com/moneytree/mt-link-javascript-sdk/commit/7fea9d9))
+* build(all) setup prettier formatting in pre-commit hook ([3f9ea23](https://github.com/moneytree/mt-link-javascript-sdk/commit/3f9ea23))
+* build(doc) add typedoc ([a804fef](https://github.com/moneytree/mt-link-javascript-sdk/commit/a804fef))
+
 ## [3.2.1](https://github.com/moneytree/mt-link-javascript-sdk/compare/3.2.0...3.2.1) (2023-08-24)
 
 
@@ -144,6 +178,3 @@ one via the APIs' options parameter if you need one.
 ### Features
 
 * creating a JS SDK ([333cf8c](https://github.com/moneytree/mt-link-javascript-sdk/commit/333cf8c36f7a8299c2bccf441454b04d31e7d907))
-
-
-

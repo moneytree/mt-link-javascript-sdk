@@ -60,18 +60,17 @@ export type Scopes = string | string[];
 interface AuthorizeConfigsOptions {
     forceLogout?: boolean;
 }
-interface OAuthSharedParams {
+export interface OAuthSharedParams {
     state?: string;
     redirectUri?: string;
 }
 export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions {
     scopes?: Scopes;
     codeChallenge?: string;
-    pkce?: boolean;
 }
 export type AuthorizeUrlOptions = Omit<AuthorizeOptions, 'isNewTab'>;
 export type Mode = 'production' | 'staging' | 'develop' | 'local';
-export type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'>, 'pkce'> & PrivateParams & {
+export type InitOptions = Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'codeChallenge'> & PrivateParams & {
     mode?: Mode;
     locale?: string;
 };

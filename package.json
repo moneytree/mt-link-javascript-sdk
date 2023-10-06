@@ -1,6 +1,6 @@
 {
   "name": "@moneytree/mt-link-javascript-sdk",
-  "version": "3.2.1",
+  "version": "4.0.0",
   "description": "Moneytree Link JavaScript SDK",
   "main": "dist/index.js",
   "files": [
@@ -12,8 +12,8 @@
   "scripts": {
     "build": "rm -rf dist && NODE_OPTIONS=--openssl-legacy-provider webpack",
     "build:docs": "rm -rf docs/types && typedoc --out docs/types src",
-    "prepareRelease": "npm run build && git add dist",
-    "createChangelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "prepareRelease": "npm run build && git add dist && npm run build:docs && git add docs",
+    "createChangelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "version": "npm run prepareRelease && npm run createChangelog",
     "test": "jest --no-cache",
     "lint:js": "eslint '**/*.js'",
