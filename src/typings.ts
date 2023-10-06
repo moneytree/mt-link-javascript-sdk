@@ -33,7 +33,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
   email?: string;
   /**
    * A redirection URL for redirecting a guest back to in the following condition:
-   * - Guest clicks on `Back to [App Name]`` button in any Moneytree screen.
+   * - Guest clicks on `Back to [App Name]` button in any Moneytree screen.
    * - Guest refuses to give consent to access permission in the consent screen.
    * - Guest logs out from Moneytree via an app with this client id
    * - Revoke an app's consent from settings screen opened via an app with this client id
@@ -259,7 +259,7 @@ export type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'code
     mode?: Mode;
     /**
      * Force Moneytree to load content in this specific locale. A default value will be auto detected based on guest
-     * langauges configurations and location if available.
+     * languages configurations and location if available.
      * Check this [spec](https://www.w3.org/TR/html401/struct/dirlang.html#h-8.1.1) for more information.
      *
      * Currently supported values are:`'en'`, `'en-AU'`, `'ja'`.
@@ -352,7 +352,7 @@ export interface TokenInfo {
     /** @hidden */
     is_mt: boolean;
   };
-  /** User related informatino */
+  /** User related information */
   guest: null | {
     email: string;
     country: string;
