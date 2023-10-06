@@ -1,4 +1,3 @@
-import qs from 'qs';
 import { mocked } from 'ts-jest/utils';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
@@ -6,6 +5,7 @@ import { MtLinkSdk } from '../..';
 import authorizeUrl from '../authorize-url';
 import { generateConfigs } from '../../helper';
 import storage from '../../storage';
+import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';
 
 jest.mock('../../storage');
 
@@ -53,7 +53,7 @@ describe('api', () => {
 
       const url = authorizeUrl(mtLinkSdk.storedOptions);
 
-      const query = qs.stringify({
+      const query = {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         response_type: 'code',
@@ -63,9 +63,8 @@ describe('api', () => {
         locale,
         saml_subject_id: samlSubjectId,
         configs: generateConfigs()
-      });
-
-      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`);
+      };
+      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query})
     });
 
     test('with options', () => {
@@ -85,7 +84,7 @@ describe('api', () => {
         scopes
       });
 
-      const query = qs.stringify({
+      const query = {
         client_id: clientId,
         response_type: 'code',
         scope: scopes,
@@ -94,8 +93,8 @@ describe('api', () => {
         country,
         saml_subject_id: samlSubjectId,
         configs: generateConfigs()
-      });
-      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/oauth/authorize?${query}`);
+      }
+      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query})
     });
   });
 });

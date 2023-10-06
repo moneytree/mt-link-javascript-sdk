@@ -6,6 +6,7 @@ import { MtLinkSdk } from '../..';
 import onboardUrl from '../onboard-url';
 import { generateConfigs } from '../../helper';
 import storage from '../../storage';
+import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';
 
 jest.mock('../../storage');
 
@@ -53,7 +54,7 @@ describe('api', () => {
 
       const url = onboardUrl(mtLinkSdk.storedOptions);
 
-      const query = qs.stringify({
+      const query = {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         response_type: 'code',
@@ -62,9 +63,9 @@ describe('api', () => {
         country,
         locale,
         configs: generateConfigs({ email })
-      });
+      };
 
-      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`);
+      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query: query })
     });
 
     test('with options', () => {
@@ -78,13 +79,14 @@ describe('api', () => {
       mtLinkSdk.init(clientId);
 
       const url = onboardUrl(mtLinkSdk.storedOptions, {
-        state,
-        redirectUri,
-        scopes,
-        email
-      });
+          state,
+          redirectUri,
+          scopes,
+          email
+        }
+      );
 
-      const query = qs.stringify({
+      const query = {
         client_id: clientId,
         response_type: 'code',
         scope: scopes,
@@ -92,9 +94,9 @@ describe('api', () => {
         state,
         country,
         configs: generateConfigs({ email })
-      });
+      };
 
-      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/onboard?${query}`);
+      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query})
     });
   });
 });

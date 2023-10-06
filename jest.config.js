@@ -8,6 +8,7 @@ module.exports = {
     // https://github.com/facebook/jest/issues/2070#issuecomment-431706685
     '<rootDir>/.*/__mocks__'
   ],
+  testPathIgnorePatterns: ['/__tests__/helper/'],
   globals: {
     __VERSION__: packageJSON.version
   }
