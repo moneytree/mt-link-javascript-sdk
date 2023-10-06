@@ -55,7 +55,7 @@ export class MtLinkSdk {
    * Call `init` to initialize the SDK and set default options for API calls.
    *
    * Some LINK APIs can be used without calling `init`.
-   * Calls related to OAuth require a client id which can only be set via the `init` function.
+   * Calls related to OAuth require a client ID which can only be set via the `init` function.
    * These APIs include:
    * - {@link authorize}
    * - {@link onboard}
@@ -91,7 +91,7 @@ export class MtLinkSdk {
     };
   }
   /**
-   * Use this method to send a guest identifier to Moneytree so that Moneytree can forward it as `saml_subject_id` parameter
+   * Use this method to send a user identifier to Moneytree so that Moneytree can forward it as `saml_subject_id` parameter
    * to the Identity Provider (IdP) via the SAMLRequest during SAML SSO flows. See the [SAML SSO documentation for details](https://docs.link.getmoneytree.com/docs/saml-introduction#saml-subject-identifier).
    *
    * This parameter can be set during {@link init} or changed on a request-by-request basis with this method.
@@ -102,19 +102,19 @@ export class MtLinkSdk {
   }
 
   /**
-   * OAuth authorization method to request guest consent to access data via the [Link API](https://getmoneytree.com/jp/link/about).
+   * OAuth authorization method to request user consent to access data via the [Link API](https://getmoneytree.com/jp/link/about).
    *
    * The only supported flow is authorization code grant with PKCE [PKCE](https://auth0.com/docs/flows/concepts/auth-code-pkce)
-   * If the user is not logged in yet this will show the login screen and redirect the guest to the consent screen after they log in.
-   * After the guest consents, they will be redirected to the redirect URI with an authorization code.
-   * If the user is already logged and has granted consent in the redirection happens immediately.
+   * If the user is not logged in yet this will show the login screen and redirect the user to the consent screen after they log in.
+   * After the user consents, they will be redirected to the redirect URI with an authorization code.
+   * If the user is already logged in and has granted consent in the redirection happens immediately.
    *
-   * You can pass the {@link AuthorizeOptions.forceLogout} option to force the guest to log in, even if they have an active session.
+   * You can pass the {@link AuthorizeOptions.forceLogout} option to force the user to log in, even if they have an active session.
    *
    * You can also choose to display the sign up form when the user is not logged in yet by setting the {@link AuthorizeOptions.authAction} option.
    *
    * @remark
-   * You must initialize the SDK via the {@link init} before calling this API.
+   * You must initialize the SDK via {@link init} before calling this API.
    *
    * @example
    * ```javascript
@@ -126,26 +126,26 @@ export class MtLinkSdk {
   }
 
   /**
-   * This method generates an URL for OAuth authorization that requires guest consent to access data via [Link API](https://getmoneytree.com/jp/link/about).
+   * This method generates a URL for OAuth authorization that requires user consent to access data via [Link API](https://getmoneytree.com/jp/link/about).
    *
    * See {@link authorize} API for authorization details. This API has exactly the same parameters as {@link authorize},
-   * the only difference is that it returns an URL instead of opening immediately with `window.open`.
+   * the only difference is that it returns a URL instead of opening immediately with `window.open`.
    */
   public authorizeUrl(options?: AuthorizeUrlOptions): string {
     return authorizeUrl(this.storedOptions, options);
   }
 
   /**
-   * The onboard API allows a new guest to get onboard faster without having to go through the registration process.
-   * All you have to do is provide an emai address and pass the same options parameter as the {@link authorize} function.
-   * We will display a consent screen explaining the access requests and applicable scopes.
-   * Once the guest consents, a new Moneytree account will be created on their behalf and authorization is completed.
+   * The onboard API allows a new user to get onboard faster without having to go through the registration process.
+   * All you have to do is provide an email address and pass the same options parameter as the {@link authorize} function.
+   * Moneytree LINK will display a consent screen explaining the access requests and applicable scopes.
+   * Once the user consents, a new Moneytree account will be created on their behalf and authorization is completed.
    * Resulting behavior will be the same as the {@link authorize} redirection flow.
    *
-   * Onboard will force any current guest session to logout, hence you do not have to call {@link logout} manually to
+   * Onboard will force any current user session to logout, hence you do not have to call {@link logout} manually to
    * ensure a clean state.
    *
-   * If an account with this email address already exists we will redirect the guest to the login screen.
+   * If an account with this email address already exists we will redirect the user to the login screen.
    *
    * @remark
    * ⚠️ You must initialize the SDK via the {@link init} before calling this API.
@@ -160,9 +160,9 @@ export class MtLinkSdk {
   }
 
   /**
-   * This method generates a URL for guest onboarding.
+   * This method generates a URL for user onboarding.
    *
-   * This API has exactly the same parameters as {@link onboard}, the only difference being that it returns an URL
+   * This API has exactly the same parameters as {@link onboard}, the only difference being that it returns a URL
    * instead of opening immediately with `window.open`.
    */
   public onboardUrl(options?: OnboardUrlOptions): string {
@@ -177,9 +177,9 @@ export class MtLinkSdk {
   }
 
   /**
-   * This method generates a URL to log out the guest.
+   * This method generates a URL to log out the user.
    *
-   * This API has exactly the same parameters as {@link logout}, the only difference being that it returns an URL
+   * This API has exactly the same parameters as {@link logout}, the only difference being that it returns a URL
    * instead of opening immediately with `window.open`.
    */
   public logoutUrl(options?: LogoutUrlOptions): string {
@@ -206,10 +206,10 @@ export class MtLinkSdk {
    * Pass `serviceId: 'vault'` to open the Vault service.
    *
    * Depending on the Vault sub-page you want to open, you can pass the following options:
-   * - `serviceList`: opens the vault service list page, pass {@link VaultOpenServiceViewServiceList} as options.
-   * - `serviceConnection`: opens the vault service connection page, pass {@link VaultOpenServiceViewServiceConnection} as options.
-   * - `connectionSetting`: opens the vault connection setting page, pass {@link VaultOpenServiceViewConnectionSetting} as options.
-   * - `customerSupport`: opens the vault customer support page, pass {@link VaultOpenServiceViewCustomerSupport} as options.
+   * - `serviceList`: opens the Vault service list page, pass {@link VaultOpenServiceViewServiceList} as options.
+   * - `serviceConnection`: opens the Vault service connection page, pass {@link VaultOpenServiceViewServiceConnection} as options.
+   * - `connectionSetting`: opens the Vault connection setting page, pass {@link VaultOpenServiceViewConnectionSetting} as options.
+   * - `customerSupport`: opens the Vault customer support page, pass {@link VaultOpenServiceViewCustomerSupport} as options.
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
    */
@@ -237,7 +237,7 @@ export class MtLinkSdk {
   /**
    * This method can generate URLs for various services provided by Moneytree, such as Moneytree Account Settings and Vault.
    *
-   * This API has exactly the same parameters as {@link openService}, the only difference being that it returns an URL
+   * This API has exactly the same parameters as {@link openService}, the only difference being that it returns a URL
    * instead of opening immediately with `window.open`.
    */
   public openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): string;
@@ -261,9 +261,9 @@ export class MtLinkSdk {
   }
 
   /**
-   * Request for a password-less login link to be sent to the guest's email address.
+   * Request for a password-less login link to be sent to the user's email address.
    *
-   * Clicking on the link in the email will log a guest in directly to the screen specified by the
+   * Clicking on the link in the email will log a user in directly to the screen specified by the
    * {@link RequestLoginLinkOptions.loginLinkTo} parameter.
    */
   public requestLoginLink(options?: RequestLoginLinkOptions): Promise<void> {

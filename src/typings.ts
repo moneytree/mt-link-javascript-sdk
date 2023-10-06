@@ -10,7 +10,7 @@ export interface PrivateParams {
    */
   cobrandClientId?: string;
   /**
-   * Sets subject Id for saml session version.
+   * Sets the subject ID for SAML AuthnRequest.
    */
   samlSubjectId?: string;
 }
@@ -26,25 +26,25 @@ export type AuthnMethod = typeof supportedAuthnMethod[number];
 
 export interface ConfigsOptions extends PrivateConfigsOptions {
   /**
-   * Email used to pre-fill the email field in login or sign up or form.
+   * Email address to pre-fill the email field in login or sign up or form.
    *
    * Set the default value via {@link MtLinkSdk.init}
    */
   email?: string;
   /**
-   * A redirection URL for redirecting a guest back to in the following condition:
-   * - Guest clicks on `Back to [App Name]` button in any Moneytree screen.
-   * - Guest refuses to give consent to access permission in the consent screen.
-   * - Guest logs out from Moneytree via an app with this client id
-   * - Revoke an app's consent from settings screen opened via an app with this client id
+   * A redirection URL for redirecting a user back to in one of the following conditions:
+   * - User clicks on `Back to [App Name]` button in any Moneytree screen.
+   * - User refuses to give consent to access permission in the consent screen.
+   * - User logs out from Moneytree via an app with this client ID
+   * - User revokes consent from settings screen opened via an app with this client ID
    *
-   * ⚠️ No `Back to [App Name]` button will be shown if this value is not set, and any of the actions mentioned above will redirect the guest back to login screen by default.
+   * ⚠️ No `Back to [App Name]` button will be shown if this value is not set, and any of the actions mentioned above will redirect the user back to the login screen by default.
    *
    * Set the default value via {@link MtLinkSdk.init}
    */
   backTo?: string;
   /**
-   * Show login or sign up screen when a session does not exist during an {@link MtLinkSdk.authorize} call.
+   * Show the login or sign up screen when a session does not exist during an {@link MtLinkSdk.authorize} call.
    *
    * Set default value via {@link MtLinkSdk.init}
    *
@@ -52,7 +52,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
    */
   authAction?: AuthAction;
   /**
-   * If you wish to disable the login to sign up form toggle button and vice-versa in the auth screen, set this to `false`.
+   * If you wish to disable the `Login to Sign up` form toggle button and vice-versa in the auth screen, set this to `false`.
    *
    * Set default value via {@link MtLinkSdk.init}
    *
@@ -68,7 +68,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
    */
   showRememberMe?: boolean;
   /**
-   * Call method and open/render in a new browser tab, by default all views open in the same tab.
+   * Call method and open/render in a new browser tab. By default all views open in the same tab.
    *
    * Set default value via {@link MtLinkSdk.init}
    *
@@ -76,7 +76,7 @@ export interface ConfigsOptions extends PrivateConfigsOptions {
    */
   isNewTab?: boolean;
   /**
-   * Force existing guest session to logout and call authorize with a clean state.
+   * Force existing user session to logout and call authorize with a clean state.
    * @defaultValue false
    */
   forceLogout?: boolean;
@@ -194,8 +194,8 @@ export interface OAuthSharedParams {
   /**
    * The state parameter for OAuth flows, see [here](https://auth0.com/docs/protocols/oauth2/oauth-state) for more details.
    *
-   * If you generates an identifier for the OAuth authorization on your server make sure to set this value explicitly so
-   * that you can use to acquire the access token after the OAuth redirect occurs.
+   * If you generate an identifier for the OAuth authorization on your server make sure to set this value explicitly so
+   * that you can use it to acquire the access token after the OAuth redirect occurs.
    *
    * The default value is a randomly generated [uuid](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)), or set via {@link MtLinkSdk.init}
    */
@@ -227,7 +227,7 @@ export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, Aut
    * - request_refresh
    * - life_insurance_read
    *
-   * See the [LINK Platform documenation](https://docs.link.getmoneytree.com/docs/api-scopes) for more details
+   * See the [LINK Platform documentation](https://docs.link.getmoneytree.com/docs/api-scopes) for more details
    *
    * @defaultValue `'guest_read'`, or set via {@link MtLinkSdk.init}
    */
@@ -254,12 +254,13 @@ export type InitOptions = Omit<Omit<Omit<AuthorizeOptions, 'forceLogout'>, 'code
     /**
      * Environment for the SDK to connect to, the SDK will connect to the Moneytree production server by default.
      * - Moneytree clients should use `staging` for development as `develop` may contain unstable features.
-     * - `local` is only for SDK development as it has local dependencies.
+     * - `local` is only for SDK development by Moneytree engineers.
      */
     mode?: Mode;
     /**
-     * Force Moneytree to load content in this specific locale. A default value will be auto detected based on guest
-     * languages configurations and location if available.
+     * Force Moneytree to load content in this specific locale.
+     *
+     * A default value will be auto detected based on the user's language configuration and location if available.
      * Check this [spec](https://www.w3.org/TR/html401/struct/dirlang.html#h-8.1.1) for more information.
      *
      * Currently supported values are:`'en'`, `'en-AU'`, `'ja'`.
@@ -312,9 +313,9 @@ export type ServiceId = 'vault' | 'myaccount' | 'link-kit';
 
 /**
  * - `settings` - Main Moneytree account settings screen.
- * - `settings/authorized-applications` - List of apps currently connected to Moneytree.
+ * - `settings/authorized-applications` - List of apps currently connected to the Moneytree account.
  * - `settings/change-language` - Change Moneytree account language screen.
- * - `settings/email-preferences` - Change Moneytree email preferences screen
+ * - `settings/email-preferences` - Change Moneytree account email preferences screen.
  * - `settings/delete-account` - Delete Moneytree account screen.
  * - `settings/update-email` - Change Moneytree account email screen.
  * - `settings/update-password` - Change Moneytree account password screen.
@@ -335,13 +336,13 @@ export interface RequestLoginLinkOptions extends ConfigsOptions {
 export interface TokenInfo {
   /** token issuer */
   iss: string;
-  /** token cretaion time */
+  /** token creation time */
   iat: number;
   /** token expiry */
   exp: number;
   /** token audience(s) */
   aud: string[];
-  /** token subject - the moneytree ide fo the user */
+  /** token subject - the Moneytree ID of the user */
   sub: null | string;
   scope: string;
   client_id: null | string;
@@ -361,13 +362,17 @@ export interface TokenInfo {
   };
 }
 
+/** OAuth Access Token Response described in [RFC 6749 section 5.1](https://datatracker.ietf.org/doc/html/rfc6749#section-5.1) */
 export interface Token {
   access_token: string;
   refresh_token: string;
   token_type: string;
-  /** created at in seconds */
+  /** Creation time of the token, unix timpstamp in seconds */
   created_at: number;
-  /** expiry in seconds */
+  /**
+   * The lifetime in seconds of the access token.
+   * For example, the value "3600" denotes that the access token will expire in one hour from the time the response was generated.
+   */
   expires_in: number;
   scope: string;
   resource_server: string;
