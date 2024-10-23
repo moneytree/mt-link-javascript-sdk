@@ -14,5 +14,5 @@ module.exports = {
     ecmaVersion: 11
   },
   plugins: ['prettier'],
-  ignorePatterns: ['dist']
+  ignorePatterns: ['dist', 'docs']
 };

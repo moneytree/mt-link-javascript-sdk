@@ -37,7 +37,10 @@ jobs:
       - *attach_workspace
       - run:
           name: Linting JavaScript
-          command: yarn lint
+          command: yarn lint:js
+      - run:
+          name: Linting TypeScript
+          command: yarn lint:ts
 
   unit_test:
     <<: *docker_defaults
