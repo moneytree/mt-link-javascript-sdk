@@ -127,6 +127,48 @@ describe('api', () => {
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
+    test('vault/connection-update', () => {
+      open.mockClear();
+
+      openService(new MtLinkSdk().storedOptions, 'vault', {
+        view: 'connection-update',
+        credentialId: '123',
+        showRememberMe: false
+      });
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        configs: generateConfigs({
+          showRememberMe: false
+        })
+      });
+      const url = `${VAULT_DOMAINS.production}/connection/123/update?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+    });
+
+    test('vault/connection-delete', () => {
+      open.mockClear();
+
+      openService(new MtLinkSdk().storedOptions, 'vault', {
+        view: 'connection-delete',
+        credentialId: '123',
+        showRememberMe: false
+      });
+
+      expect(open).toBeCalledTimes(1);
+
+      const query = qs.stringify({
+        configs: generateConfigs({
+          showRememberMe: false
+        })
+      });
+      const url = `${VAULT_DOMAINS.production}/connection/123/delete?${query}`;
+
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+    });
+
     test('vault/customer-support', () => {
       open.mockClear();
 
