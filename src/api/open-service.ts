@@ -8,6 +8,8 @@ import {
   VaultOpenServiceViewServiceList,
   VaultOpenServiceViewServiceConnection,
   VaultOpenServiceViewConnectionSetting,
+  VaultOpenServiceViewConnectionUpdate,
+  VaultOpenServiceViewConnectionDelete,
   VaultOpenServiceViewCustomerSupport,
   ConfigsOptions
 } from '../typings';
@@ -38,6 +40,16 @@ export default function openService(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceViewConnectionSetting
+): void;
+export default function openService(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceViewConnectionUpdate
+): void;
+export default function openService(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceViewConnectionDelete
 ): void;
 export default function openService(
   storedOptions: StoredOptions,

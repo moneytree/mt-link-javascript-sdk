@@ -98,6 +98,38 @@ describe('api', () => {
       expect(url).toBe(`${VAULT_DOMAINS.production}/connection/123?${query}`);
     });
 
+    test('vault/connection-update', () => {
+      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+        view: 'connection-update',
+        credentialId: '123',
+        showRememberMe: false
+      });
+
+      const query = qs.stringify({
+        configs: generateConfigs({
+          showRememberMe: false
+        })
+      });
+
+      expect(url).toBe(`${VAULT_DOMAINS.production}/connection/123/update?${query}`);
+    });
+
+    test('vault/connection-delete', () => {
+      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+        view: 'connection-delete',
+        credentialId: '123',
+        showRememberMe: false
+      });
+
+      const query = qs.stringify({
+        configs: generateConfigs({
+          showRememberMe: false
+        })
+      });
+
+      expect(url).toBe(`${VAULT_DOMAINS.production}/connection/123/delete?${query}`);
+    });
+
     test('vault/customer-support', () => {
       const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         view: 'customer-support',

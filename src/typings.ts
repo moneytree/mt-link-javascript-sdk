@@ -135,11 +135,29 @@ export type VaultViewConnectionSetting = {
    */
   credentialId: string;
 };
+export type VaultViewConnectionUpdate = {
+  view: 'connection-update';
+  /**
+   * Credential ID.
+   * @remark ⚠️ If credentialId is invalid the Vault top page will be shown.
+   */
+  credentialId: string;
+};
+export type VaultViewConnectionDelete = {
+  view: 'connection-delete';
+  /**
+   * Credential ID.
+   * @remark ⚠️ If credentialId is invalid the Vault top page will be shown.
+   */
+  credentialId: string;
+};
 export type VaultViewCustomerSupport = { view: 'customer-support' };
 export type VaultServiceTypes =
   | VaultViewServiceList
   | VaultViewServiceConnection
   | VaultViewConnectionSetting
+  | VaultViewConnectionUpdate
+  | VaultViewConnectionDelete
   | VaultViewCustomerSupport;
 
 export type MyAccountServiceTypes = {
@@ -160,10 +178,14 @@ export type MyAccountOpenServiceUrlOptions =
 export type VaultOpenServiceViewServiceList = ConfigsOptions & VaultViewServiceList;
 export type VaultOpenServiceViewServiceConnection = ConfigsOptions & VaultViewServiceConnection;
 export type VaultOpenServiceViewConnectionSetting = ConfigsOptions & VaultViewConnectionSetting;
+export type VaultOpenServiceViewConnectionUpdate = ConfigsOptions & VaultViewConnectionUpdate;
+export type VaultOpenServiceViewConnectionDelete = ConfigsOptions & VaultViewConnectionDelete;
 export type VaultOpenServiceViewCustomerSupport = ConfigsOptions & VaultViewCustomerSupport;
 export type VaultOpenServiceUrlViewServiceList = ConfigsOptionsWithoutIsNewTab & VaultViewServiceList;
 export type VaultOpenServiceUrlViewServiceConnection = ConfigsOptionsWithoutIsNewTab & VaultViewServiceConnection;
 export type VaultOpenServiceUrlViewConnectionSetting = ConfigsOptionsWithoutIsNewTab & VaultViewConnectionSetting;
+export type VaultOpenServiceUrlViewConnectionUpdate = ConfigsOptionsWithoutIsNewTab & VaultViewConnectionUpdate;
+export type VaultOpenServiceUrlViewConnectionDelete = ConfigsOptionsWithoutIsNewTab & VaultViewConnectionDelete;
 export type VaultOpenServiceUrlViewCustomerSupport = ConfigsOptionsWithoutIsNewTab & VaultViewCustomerSupport;
 
 export type LinkKitOpenServiceOptions = ConfigsOptions;
@@ -174,6 +196,8 @@ export type OpenServiceOptions =
   | ConfigsOptions
   | VaultOpenServiceViewServiceList
   | VaultOpenServiceViewConnectionSetting
+  | VaultOpenServiceViewConnectionUpdate
+  | VaultOpenServiceViewConnectionDelete
   | VaultOpenServiceViewCustomerSupport
   | LinkKitOpenServiceOptions;
 export type OpenServiceUrlOptions =
@@ -181,6 +205,8 @@ export type OpenServiceUrlOptions =
   | ConfigsOptionsWithoutIsNewTab
   | VaultOpenServiceUrlViewServiceList
   | VaultOpenServiceUrlViewConnectionSetting
+  | VaultOpenServiceUrlViewConnectionUpdate
+  | VaultOpenServiceUrlViewConnectionDelete
   | VaultOpenServiceUrlViewCustomerSupport
   | LinkKitOpenServiceUrlOptions;
 

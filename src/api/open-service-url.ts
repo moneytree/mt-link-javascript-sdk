@@ -16,6 +16,8 @@ import {
   VaultOpenServiceUrlViewServiceList,
   VaultOpenServiceUrlViewServiceConnection,
   VaultOpenServiceUrlViewConnectionSetting,
+  VaultOpenServiceUrlViewConnectionUpdate,
+  VaultOpenServiceUrlViewConnectionDelete,
   VaultOpenServiceUrlViewCustomerSupport
 } from '../typings';
 
@@ -56,6 +58,16 @@ export default function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlViewConnectionSetting
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceUrlViewConnectionUpdate
+): string;
+export default function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceUrlViewConnectionDelete
 ): string;
 export default function openServiceUrl(
   storedOptions: StoredOptions,
@@ -105,17 +117,29 @@ export default function openServiceUrl(
             search
           })}`;
 
-        case 'service-connection':
-          // eslint-disable-next-line no-case-declarations
+        case 'service-connection': {
           const { entityKey } = options as VaultViewServiceConnection;
 
           return `${VAULT_DOMAINS[mode]}/service/${entityKey}?${getQueryValue()}`;
+        }
 
-        case 'connection-setting':
-          // eslint-disable-next-line no-case-declarations
+        case 'connection-setting': {
           const { credentialId } = options as VaultViewConnectionSetting;
 
           return `${VAULT_DOMAINS[mode]}/connection/${credentialId}?${getQueryValue()}`;
+        }
+
+        case 'connection-update': {
+          const { credentialId } = options as VaultViewConnectionSetting;
+
+          return `${VAULT_DOMAINS[mode]}/connection/${credentialId}/update?${getQueryValue()}`;
+        }
+
+        case 'connection-delete': {
+          const { credentialId } = options as VaultViewConnectionSetting;
+
+          return `${VAULT_DOMAINS[mode]}/connection/${credentialId}/delete?${getQueryValue()}`;
+        }
 
         case 'customer-support':
         default:
