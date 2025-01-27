@@ -162,7 +162,7 @@ MyAccount has serveral different views with different options for each, view the
 mtLinkSdk.init('my-client-id', {
   redirectUri: 'https://localhost:9000',
   scopes: ['guest_read', 'accounts_read', 'transactions_read'],
-  authMethod: 'sso' // configure SDK to use SSO for login
+  authnMethod: 'sso' // configure SDK to use SSO for login
 });
 // set application specific identifier for SSO login flow
 // this identifier will be passed back to your SAML Identity Provider in the SAML AuthnRequest
