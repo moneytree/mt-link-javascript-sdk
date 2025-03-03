@@ -1,3 +1,7 @@
+## 4.1.1 (2025-03-03)
+
+* fix(sdk): `storedOptions` are now available across tabs, fixing an inability to use `exchangeToken` when continuing from an emailed magic link
+
 ## 4.1.0 (2024-10-23)
 
 * chore(ci): Fix linting job in CircleCI ([f1b4812](https://github.com/moneytree/mt-link-javascript-sdk/commit/f1b4812))
