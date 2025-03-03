@@ -1,9 +1,9 @@
 export const STORE_KEY = 'mt-link-javascript-sdk';
 
-const sessionStorage = window.sessionStorage;
+const localStorage = window.localStorage;
 
 function getStorageObject(): { [key: string]: string } {
-  const stringifiedData = sessionStorage.getItem(STORE_KEY) || '';
+  const stringifiedData = localStorage.getItem(STORE_KEY) || '';
   let data = {};
 
   try {
@@ -23,14 +23,14 @@ export function set(key: string, value: string): void {
   const data = getStorageObject();
   data[key] = value;
 
-  sessionStorage.setItem(STORE_KEY, JSON.stringify(data));
+  localStorage.setItem(STORE_KEY, JSON.stringify(data));
 }
 
 export function del(key: string): void {
   const data = getStorageObject();
   delete data[key];
 
-  sessionStorage.setItem(STORE_KEY, JSON.stringify(data));
+  localStorage.setItem(STORE_KEY, JSON.stringify(data));
 }
 
 export default {

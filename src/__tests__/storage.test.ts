@@ -10,11 +10,11 @@ describe('storage', () => {
   });
 
   test('get with invalid existing storage value', () => {
-    window.sessionStorage.setItem(STORE_KEY, '"abc"');
+    window.localStorage.setItem(STORE_KEY, '"abc"');
 
     expect(get('key1')).toBeUndefined();
 
-    window.sessionStorage.setItem(STORE_KEY, '');
+    window.localStorage.setItem(STORE_KEY, '');
 
     expect(get('key1')).toBeUndefined();
   });
