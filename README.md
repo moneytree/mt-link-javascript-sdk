@@ -31,7 +31,7 @@ We use [docsify](https://docsify.js.org/) to serve the documentation landing pag
 ### Publishing
 
 ```bash
-npm version
+npm version (patch|minor|major) # chose the right version bump based on the changes, see https://semver.org
 # after merging the new version to master
 npm login
 npm publish
