@@ -1,3 +1,23 @@
+## <small>4.1.1 (2025-03-04)</small>
+
+* Clean up `cv` in `localStorage` after `exchangeToken` succeeds ([32e8fbf](https://github.com/moneytree/mt-link-javascript-sdk/commit/32e8fbf))
+* Fix `authnMethod` typo in docs ([3287d10](https://github.com/moneytree/mt-link-javascript-sdk/commit/3287d10))
+* fix(docs) fix broken hyperlink ([471583b](https://github.com/moneytree/mt-link-javascript-sdk/commit/471583b))
+* Replace `sessionStorage` with `localStorage` ([6602ea2](https://github.com/moneytree/mt-link-javascript-sdk/commit/6602ea2))
+* chore(ci): Fix linting job in CircleCI ([f1b4812](https://github.com/moneytree/mt-link-javascript-sdk/commit/f1b4812))
+* chore(lint): Ignore auto-generated doc files when linting with eslint ([cc244c6](https://github.com/moneytree/mt-link-javascript-sdk/commit/cc244c6))
+* chore(release): bump to version 4.1.0 :tada: ([84db1ae](https://github.com/moneytree/mt-link-javascript-sdk/commit/84db1ae))
+* feat(sdk): Add option to open vault directly in the update and delete connection view ([0a5d61d](https://github.com/moneytree/mt-link-javascript-sdk/commit/0a5d61d))
+* build(deps): bump @babel/traverse from 7.10.5 to 7.23.2 ([1d08d4c](https://github.com/moneytree/mt-link-javascript-sdk/commit/1d08d4c))
+* build(deps): bump browserify-sign from 4.2.1 to 4.2.2 ([6e35321](https://github.com/moneytree/mt-link-javascript-sdk/commit/6e35321))
+* build(deps): bump browserify-sign from 4.2.1 to 4.2.2 in /sample ([ffc6d2a](https://github.com/moneytree/mt-link-javascript-sdk/commit/ffc6d2a))
+* build(deps): bump docsify from 4.12.1 to 4.13.1 ([2e2e12c](https://github.com/moneytree/mt-link-javascript-sdk/commit/2e2e12c))
+* build(deps): bump dompurify from 2.2.7 to 2.5.7 ([5c49346](https://github.com/moneytree/mt-link-javascript-sdk/commit/5c49346))
+* build(deps): bump express from 4.18.2 to 4.21.1 in /sample ([815245a](https://github.com/moneytree/mt-link-javascript-sdk/commit/815245a))
+* build(deps): bump follow-redirects from 1.14.8 to 1.15.9 in /sample ([6eedb71](https://github.com/moneytree/mt-link-javascript-sdk/commit/6eedb71))
+
+
+
 ## 4.1.0 (2024-10-23)
 
 * chore(ci): Fix linting job in CircleCI ([f1b4812](https://github.com/moneytree/mt-link-javascript-sdk/commit/f1b4812))
