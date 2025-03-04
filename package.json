@@ -6,7 +6,10 @@
   "files": [
     "dist/"
   ],
-  "repository": "https://github.com/moneytree/mt-link-javascript-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moneytree/mt-link-javascript-sdk.git"
+  },
   "author": "Moneytree",
   "license": "MIT",
   "scripts": {
