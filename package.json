@@ -1,6 +1,6 @@
 {
   "name": "@moneytree/mt-link-javascript-sdk",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Moneytree Link JavaScript SDK",
   "main": "dist/index.js",
   "files": [
