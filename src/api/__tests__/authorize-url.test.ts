@@ -96,5 +96,66 @@ describe('api', () => {
       }
       expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query})
     });
+
+    test('includes affiliate_code when provided', () => {
+      mockedStorage.set.mockClear();
+    
+      const state = 'state';
+      const scopes = 'points_read';
+      const affiliateCode = 'mtb_hoge';
+    
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId, { redirectUri });
+    
+      const url = authorizeUrl(mtLinkSdk.storedOptions, {
+        state,
+        redirectUri,
+        scopes,
+        affiliateCode
+      });
+      
+      const urlObj = new URL(url);
+      expect(urlObj.searchParams.get('affiliate_code')).toBe(affiliateCode);
+    });   
+    
+    test('does not include affiliate_code when affiliateCode is undefined', () => {
+      mockedStorage.set.mockClear();
+    
+      const state = 'state';
+      const scopes = 'points_read';
+    
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId, { redirectUri });
+    
+      const url = authorizeUrl(mtLinkSdk.storedOptions, {
+        state,
+        redirectUri,
+        scopes,
+        affiliateCode: undefined
+      });
+    
+      const urlObj = new URL(url);
+      expect(urlObj.searchParams.has('affiliate_code')).toBe(false);
+    });
+
+    test('does not include affiliate_code when affiliateCode is empty string', () => {
+      mockedStorage.set.mockClear();
+    
+      const state = 'state';
+      const scopes = 'points_read';
+    
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId, { redirectUri });
+    
+      const url = authorizeUrl(mtLinkSdk.storedOptions, {
+        state,
+        redirectUri,
+        scopes,
+        affiliateCode: null as any
+      });
+      
+      const urlObj = new URL(url);
+      expect(urlObj.searchParams.has('affiliate_code')).toBe(false);
+    });    
   });
 });
