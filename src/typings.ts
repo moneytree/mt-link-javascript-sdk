@@ -233,8 +233,15 @@ export interface OAuthSharedParams {
    */
   redirectUri?: string;
 }
-
-export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions {
+export interface AffiliateTrackingParams {
+  /**
+   * An optional affiliate code for attributing user referrals.
+   *
+   * If not provided, no affiliate attribution will be applied.
+   */
+  affiliateCode?: string;
+}
+export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions, AffiliateTrackingParams {
   /**
    * Access scopes you're requesting. This can be a single scope, or an array of scopes.
    *

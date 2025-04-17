@@ -107,6 +107,87 @@ describe('api', () => {
       expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query })
     });
 
+    test('includes affiliate_code when provided', () => {
+      mockedStorage.set.mockClear();
+      open.mockClear();
+
+      const state = 'state';
+      const scopes = 'points_read';
+      const samlSubjectId = 'mySubject';
+      const affiliateCode = 'mtb_hoge';
+
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId, { samlSubjectId });
+
+      authorize(mtLinkSdk.storedOptions, {
+        state,
+        redirectUri,
+        scopes,
+        affiliateCode
+      });
+
+      expect(open).toBeCalledTimes(1);
+      expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
+      const url = open.mock.calls[0][0]
+
+      const parsed = new URL(url);
+      expect(parsed.searchParams.has('affiliate_code')).toBe(true);
+    });
+
+    test('does not include affiliate_code when affiliateCode is undefined', () => {
+      mockedStorage.set.mockClear();
+      open.mockClear();
+
+      const state = 'state';
+      const scopes = 'points_read';
+      const samlSubjectId = 'mySubject';
+      const affiliateCode = undefined;
+
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId, { samlSubjectId });
+
+      authorize(mtLinkSdk.storedOptions, {
+        state,
+        redirectUri,
+        scopes,
+        affiliateCode
+      });
+
+      expect(open).toBeCalledTimes(1);
+      expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
+      const url = open.mock.calls[0][0]
+
+      const parsed = new URL(url);
+      expect(parsed.searchParams.has('affiliate_code')).toBe(false);
+    });
+
+    test('does not include affiliate_code when affiliateCode is null', () => {
+      mockedStorage.set.mockClear();
+      open.mockClear();
+
+      const state = 'state';
+      const scopes = 'points_read';
+      const samlSubjectId = 'mySubject';
+      const affiliateCode = null as any;
+
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId, { samlSubjectId });
+
+      authorize(mtLinkSdk.storedOptions, {
+        state,
+        redirectUri,
+        scopes,
+        affiliateCode
+      });
+
+      expect(open).toBeCalledTimes(1);
+      expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
+      const url = open.mock.calls[0][0]
+
+      const parsed = new URL(url);
+      expect(parsed.searchParams.has('affiliate_code')).toBe(false);
+    });
+
     test('without window', () => {
       const windowSpy = jest.spyOn(global, 'window', 'get');
       // @ts-ignore: mocking window object to undefined
