@@ -76,7 +76,10 @@ export interface OAuthSharedParams {
     state?: string;
     redirectUri?: string;
 }
-export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions {
+export interface AffiliateTrackingParams {
+    affiliateCode?: string;
+}
+export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions, AffiliateTrackingParams {
     scopes?: Scopes;
     codeChallenge?: string;
 }
