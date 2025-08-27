@@ -31,9 +31,9 @@ describe('storage', () => {
     window.sessionStorage = originalSessionStorage;
   });
 
-  test('getStorageObject throws if storage contains invalid JSON', () => {
+  test('returns undefined if storage contains invalid JSON', () => {
     window.localStorage.setItem(STORE_KEY, '{invalid json}');
-    expect(() => get('key1')).toThrow('Failed to retrieve mt-link-javascript-sdk data from storage');
+    expect(get('key1')).toBeUndefined();
   });
 
   test('set, get', () => {

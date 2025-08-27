@@ -4,11 +4,24 @@ interface StorageData {
   [key: string]: string;
 }
 
-function getAvailableStorage(): Storage {
-  if (typeof window.localStorage !== 'undefined' && window.localStorage !== null) return window.localStorage;
+function isStorageAvailable(storage: Storage): boolean {
+  try {
+    const test = '__storage_test__';
+    storage.setItem(test, test);
+    storage.removeItem(test);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 
-  // Fallback to sessionStorage
-  if (typeof window.sessionStorage !== 'undefined' && window.sessionStorage !== null) return window.sessionStorage;
+function getAvailableStorage(): Storage {
+  if (isStorageAvailable(window.localStorage)) return window.localStorage;
+
+  if (isStorageAvailable(window.sessionStorage)) {
+    console.error('localStorage not available, falling back to sessionStorage');
+    return window.sessionStorage;
+  }
 
   throw new Error('Neither localStorage nor sessionStorage is available');
 }
@@ -22,18 +35,14 @@ function getStorageObject(): StorageData {
 
     return JSON.parse(stringifiedData);
   } catch (error) {
-    throw new Error(`Failed to retrieve ${STORE_KEY} data from storage`);
+    console.error(`Failed to load or parse data from storage key "${STORE_KEY}":`, error);
+    return {};
   }
 }
 
 function saveStorageObject(data: StorageData): void {
   const storage = getAvailableStorage();
-
-  try {
-    storage.setItem(STORE_KEY, JSON.stringify(data));
-  } catch (error) {
-    throw new Error('Failed to save data to storage');
-  }
+  storage.setItem(STORE_KEY, JSON.stringify(data));
 }
 
 export function get(key: string): string | undefined {
