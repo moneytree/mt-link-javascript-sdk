@@ -1,18 +1,48 @@
 export const STORE_KEY = 'mt-link-javascript-sdk';
 
-const localStorage = window.localStorage;
+interface StorageData {
+  [key: string]: string;
+}
 
-function getStorageObject(): { [key: string]: string } {
-  const stringifiedData = localStorage.getItem(STORE_KEY) || '';
-  let data = {};
-
+function isStorageAvailable(storage: Storage): boolean {
   try {
-    data = JSON.parse(stringifiedData);
-  } catch (error) {
-    data = {};
+    const test = '__storage_test__';
+    storage.setItem(test, test);
+    storage.removeItem(test);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function getAvailableStorage(): Storage {
+  if (isStorageAvailable(window.localStorage)) return window.localStorage;
+
+  if (isStorageAvailable(window.sessionStorage)) {
+    console.error('localStorage not available, falling back to sessionStorage');
+    return window.sessionStorage;
   }
 
-  return data;
+  throw new Error('Neither localStorage nor sessionStorage is available');
+}
+
+function getStorageObject(): StorageData {
+  const storage = getAvailableStorage();
+
+  try {
+    const stringifiedData = storage.getItem(STORE_KEY);
+    if (!stringifiedData) return {};
+
+    return JSON.parse(stringifiedData);
+  } catch (error) {
+    console.error(`Failed to load or parse data from storage key "${STORE_KEY}":`, error);
+    return {};
+  }
+}
+
+function saveStorageObject(data: StorageData): void {
+  const storage = getAvailableStorage();
+  storage.setItem(STORE_KEY, JSON.stringify(data));
 }
 
 export function get(key: string): string | undefined {
@@ -23,14 +53,14 @@ export function set(key: string, value: string): void {
   const data = getStorageObject();
   data[key] = value;
 
-  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  saveStorageObject(data);
 }
 
 export function del(key: string): void {
   const data = getStorageObject();
   delete data[key];
 
-  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  saveStorageObject(data);
 }
 
 export default {
