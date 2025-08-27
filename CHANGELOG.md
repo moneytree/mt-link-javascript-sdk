@@ -1,3 +1,11 @@
+## <small>4.2.1 (2025-08-27)</small>
+
+* doc(readme): add localStorage section, fix typo and fix links ([1cf50ea](https://github.com/moneytree/mt-link-javascript-sdk/commit/1cf50ea))
+* chore(storage): address PR feedbacks ([fc1f2cc](https://github.com/moneytree/mt-link-javascript-sdk/commit/fc1f2cc))
+* feat(storage): use sessionStorage when localStorage is not avaliable ([abd61df](https://github.com/moneytree/mt-link-javascript-sdk/commit/abd61df))
+
+
+
 ## 4.2.0 (2025-04-18)
 
 * added affiliate_code in authorize url ([129e607](https://github.com/moneytree/mt-link-javascript-sdk/commit/129e607))
