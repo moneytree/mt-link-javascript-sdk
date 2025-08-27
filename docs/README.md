@@ -26,13 +26,18 @@ const newInstance = new window.MtLinkSdk();
 //             e.g: const newInstance = new MtLinkSdk();
 ```
 
-### Typscript
+### `localStorage`
 
-The source also includes Typescript definitions out of the box.
+Ensure your App enables access to `localStorage` otherwise magic link login will not work.
+Since `sessionStorage` is not shared between browser tabs.
 
 ### Polyfills
 
 We use [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) internally, if you wish to support old browsers (e.g: IE11), make sure to add the necessary polyfills.
+
+### Typescript
+
+The source also includes Typescript definitions out of the box.
 
 ## [API](types/classes/MtLinkSdk.html ':ignore')
 
@@ -40,19 +45,19 @@ The Moneytree LINK Javascript SDK exposes APIs to get guest consent to access fi
 
 The complete list of SDK functions is:
 
-* [`init`](types/classes/MtLinkSdk.html#init ':ignore')
-* [`setSamlSubjectId`](types/classes/MtLinkSdk.html#setSamlSubjectId ':ignore')
-* [`authorize`](types/classes/MtLinkSdk.html#authorize ':ignore')
-* [`authorizeUrl`](types/classes/MtLinkSdk.html#authorizeUrl ':ignore')
-* [`onboard`](types/classes/MtLinkSdk.html#onboard ':ignore')
-* [`onboardUrl`](types/classes/MtLinkSdk.html#onboardUrl ':ignore')
-* [`exchangeToken`](types/classes/MtLinkSdk.html#exchangeToken ':ignore')
-* [`tokenInfo`](types/classes/MtLinkSdk.html#tokenInfo ':ignore')
-* [`logout`](types/classes/MtLinkSdk.html#logout ':ignore')
-* [`logoutUrl`](types/classes/MtLinkSdk.html#logoutUrl ':ignore')
-* [`openService`](types/classes/MtLinkSdk.html#openService ':ignore')
-* [`openServiceUrl`](types/classes/MtLinkSdk.html#openServiceUrl ':ignore')
-* [`requestLoginLink`](types/classes/MtLinkSdk.html#requestLoginLink ':ignore')
+- [`init`](types/classes/MtLinkSdk.html#init ':ignore')
+- [`setSamlSubjectId`](types/classes/MtLinkSdk.html#setSamlSubjectId ':ignore')
+- [`authorize`](types/classes/MtLinkSdk.html#authorize ':ignore')
+- [`authorizeUrl`](types/classes/MtLinkSdk.html#authorizeUrl ':ignore')
+- [`onboard`](types/classes/MtLinkSdk.html#onboard ':ignore')
+- [`onboardUrl`](types/classes/MtLinkSdk.html#onboardUrl ':ignore')
+- [`exchangeToken`](types/classes/MtLinkSdk.html#exchangeToken ':ignore')
+- [`tokenInfo`](types/classes/MtLinkSdk.html#tokenInfo ':ignore')
+- [`logout`](types/classes/MtLinkSdk.html#logout ':ignore')
+- [`logoutUrl`](types/classes/MtLinkSdk.html#logoutUrl ':ignore')
+- [`openService`](types/classes/MtLinkSdk.html#openService ':ignore')
+- [`openServiceUrl`](types/classes/MtLinkSdk.html#openServiceUrl ':ignore')
+- [`requestLoginLink`](types/classes/MtLinkSdk.html#requestLoginLink ':ignore')
 
 Below are examples of common use cases.
 
@@ -73,10 +78,10 @@ mtLinkSdk.init('my-client-id', {
 mtLinkSdk.authorize();
 // after redirect from moneytree back to your app's redirectUri
 const token = mtLinkSdk.exchangeToken();
-const tokenInfo = mtLinkSdk.tokenInfo(token.access_token)
+const tokenInfo = mtLinkSdk.tokenInfo(token.access_token);
 ```
 
-You can also use the [authorizeUrl](/types/classes/MtLinkSdk.html#authorizeUrl ':ignore') method to generate the authorization url without opening it immetiately.
+You can also use the [authorizeUrl](types/classes/MtLinkSdk.html#authorizeUrl ':ignore') method to generate the authorization url without opening it immediately.
 
 ### Passwordless Onboarding
 
@@ -91,12 +96,12 @@ mtLinkSdk.init('my-client-id', {
 // Start onboarding flow for a new user
 // After the user completes onboarding this redirects with an authorization code
 // If a Monetyree user with this email already exists this prompts the user to login & grant consent (similar to authorize)
-mtLinkSdk.onboard({ email: 'user@test.com'});
+mtLinkSdk.onboard({ email: 'user@test.com' });
 // after redirect from moneytree back to your app's redirectUri
 const token = mtLinkSdk.exchangeToken();
 ```
 
-You can also use the [onboardUrl](/types/classes/MtLinkSdk.html#onboardUrl ':ignore') method to generate the onboard url without opening it immetiately.
+You can also use the [onboardUrl](types/classes/MtLinkSdk.html#onboardUrl ':ignore') method to generate the onboard url without opening it immediately.
 
 ### Logout
 
@@ -113,12 +118,12 @@ mtLinkSdk.init('my-client-id', {
 mtLinkSdk.logout();
 ```
 
-You can also use the [logoutUrl](/types/classes/MtLinkSdk.html#logoutUrl ':ignore') method to generate the logout url without redirecting the user.
+You can also use the [logoutUrl](types/classes/MtLinkSdk.html#logoutUrl ':ignore') method to generate the logout url without redirecting the user.
 
 ### Open Services
 
-With the [openService](/types/classes/MtLinkSdk.html#openService ':ignore') function you can open Moneytree services directly from your app.
-Alternatively, you can also use [openServiceUrl](/types/classes/MtLinkSdk.html#openServiceUrl ':ignore') to generate the url without opening it immetiately.
+With the [openService](types/classes/MtLinkSdk.html#openService ':ignore') function you can open Moneytree services directly from your app.
+Alternatively, you can also use [openServiceUrl](types/classes/MtLinkSdk.html#openServiceUrl ':ignore') to generate the url without opening it immediately.
 
 #### Open Vault
 
@@ -133,10 +138,10 @@ mtLinkSdk.init('my-client-id', {
 // Open Vault on the services list page
 // If the user is not logged in yet this will prompt them to login
 // If the user has not granted consent yet this will prompt them to grant consent
-mtLinkSdk.openService('vault', {view: 'services-list'});
+mtLinkSdk.openService('vault', { view: 'services-list' });
 ```
 
-Vault has serveral different views with different options for each, view the full documentation [here](/types/classes/MtLinkSdk.html#openService.openService-3 ':ignore').
+Vault has several different views with different options for each, view the full documentation [here](types/classes/MtLinkSdk.html#openService.openService-3 ':ignore').
 
 #### Open MyAccount
 
@@ -150,10 +155,10 @@ mtLinkSdk.init('my-client-id', {
 });
 // Open MyAccount on the settings page
 // If the user is not logged in yet this will prompt them to login
-mtLinkSdk.openService('myaccount', {view: 'settings'});
+mtLinkSdk.openService('myaccount', { view: 'settings' });
 ```
 
-MyAccount has serveral different views with different options for each, view the full documentation [here](/types/classes/MtLinkSdk.html#openService.openService-2 ':ignore').
+MyAccount has several different views with different options for each, view the full documentation [here](types/classes/MtLinkSdk.html#openService.openService-2 ':ignore').
 
 ### Set identifier for SSO login flow
 
@@ -168,7 +173,7 @@ mtLinkSdk.init('my-client-id', {
 // this identifier will be passed back to your SAML Identity Provider in the SAML AuthnRequest
 mtLinkSdk.setSamlSubjectId('my-saml-subject-id');
 // Opens Vault, if the user is not logged in it will trigger the SAML SSO login flow and pass the SAML subject ID to the IdP
-mtLinkSdk.openService('vault', {view: 'services-list'});
+mtLinkSdk.openService('vault', { view: 'services-list' });
 ```
 
 ## Theming
