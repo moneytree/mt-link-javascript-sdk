@@ -21,7 +21,7 @@ export interface PrivateConfigsOptions {
   sdkVersion?: string; // semver
 }
 
-export const supportedAuthnMethod = ['passwordless', 'sso', 'credentials'] as const;
+export const supportedAuthnMethod = ['passwordless', 'sso', 'credentials', 'otp'] as const;
 export type AuthnMethod = typeof supportedAuthnMethod[number];
 
 export interface ConfigsOptions extends PrivateConfigsOptions {
@@ -241,7 +241,11 @@ export interface AffiliateTrackingParams {
    */
   affiliateCode?: string;
 }
-export interface AuthorizeOptions extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions, AffiliateTrackingParams {
+export interface AuthorizeOptions
+  extends OAuthSharedParams,
+    ConfigsOptions,
+    AuthorizeConfigsOptions,
+    AffiliateTrackingParams {
   /**
    * Access scopes you're requesting. This can be a single scope, or an array of scopes.
    *
