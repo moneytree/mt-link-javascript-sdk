@@ -8,7 +8,7 @@ export interface PrivateConfigsOptions {
     sdkPlatform?: 'ios' | 'android' | 'js';
     sdkVersion?: string;
 }
-export declare const supportedAuthnMethod: readonly ["passwordless", "sso", "credentials"];
+export declare const supportedAuthnMethod: readonly ["passwordless", "sso", "credentials", "otp"];
 export type AuthnMethod = typeof supportedAuthnMethod[number];
 export interface ConfigsOptions extends PrivateConfigsOptions {
     email?: string;
