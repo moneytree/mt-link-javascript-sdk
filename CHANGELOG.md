@@ -1,3 +1,28 @@
+## 4.3.0 (2026-01-14)
+
+* Add LINK Onboarding to CODEOWNERS ([d33e53b](https://github.com/moneytree/mt-link-javascript-sdk/commit/d33e53b))
+* Run `yarn run prepareRelease` ([fc8d438](https://github.com/moneytree/mt-link-javascript-sdk/commit/fc8d438))
+* chore(docs): update for 'otp' as valid `authn_method` ([cf0508f](https://github.com/moneytree/mt-link-javascript-sdk/commit/cf0508f))
+* feat(authorize): accept 'otp' as an `authn_method` ([905d298](https://github.com/moneytree/mt-link-javascript-sdk/commit/905d298))
+* build(deps-dev): bump docsify-cli from 4.4.3 to 4.4.4 ([6342dd9](https://github.com/moneytree/mt-link-javascript-sdk/commit/6342dd9))
+* build(deps-dev): bump the eslint group with 4 updates ([0047f3e](https://github.com/moneytree/mt-link-javascript-sdk/commit/0047f3e))
+* build(deps): bump brace-expansion from 1.1.11 to 1.1.12 in /sample ([f25c542](https://github.com/moneytree/mt-link-javascript-sdk/commit/f25c542))
+* build(deps): bump cipher-base from 1.0.4 to 1.0.6 ([2faec89](https://github.com/moneytree/mt-link-javascript-sdk/commit/2faec89))
+* build(deps): bump cipher-base from 1.0.4 to 1.0.6 in /sample ([8f53a47](https://github.com/moneytree/mt-link-javascript-sdk/commit/8f53a47))
+* build(deps): bump crypto-browserify from 3.12.0 to 3.12.1 ([a1b8dde](https://github.com/moneytree/mt-link-javascript-sdk/commit/a1b8dde))
+* build(deps): bump elliptic from 6.5.4 to 6.6.1 in /sample ([56d1a0a](https://github.com/moneytree/mt-link-javascript-sdk/commit/56d1a0a))
+* build(deps): bump elliptic from 6.6.0 to 6.6.1 ([338403e](https://github.com/moneytree/mt-link-javascript-sdk/commit/338403e))
+* build(deps): bump form-data from 3.0.1 to 3.0.4 ([6cf302a](https://github.com/moneytree/mt-link-javascript-sdk/commit/6cf302a))
+* build(deps): bump pbkdf2 from 3.1.1 to 3.1.3 in /sample ([2f013ac](https://github.com/moneytree/mt-link-javascript-sdk/commit/2f013ac))
+* build(deps): bump prismjs from 1.29.0 to 1.30.0 ([4643c75](https://github.com/moneytree/mt-link-javascript-sdk/commit/4643c75))
+* build(deps): bump serialize-javascript from 6.0.1 to 6.0.2 in /sample ([7ce640a](https://github.com/moneytree/mt-link-javascript-sdk/commit/7ce640a))
+* build(deps): bump sha.js from 2.4.11 to 2.4.12 ([617928c](https://github.com/moneytree/mt-link-javascript-sdk/commit/617928c))
+* build(deps): bump sha.js from 2.4.11 to 2.4.12 in /sample ([8d653b3](https://github.com/moneytree/mt-link-javascript-sdk/commit/8d653b3))
+* build(deps): bump ws from 6.2.2 to 6.2.3 in /sample ([2d2a4a5](https://github.com/moneytree/mt-link-javascript-sdk/commit/2d2a4a5))
+* build(deps): bump ws from 7.5.8 to 7.5.10 ([5376814](https://github.com/moneytree/mt-link-javascript-sdk/commit/5376814))
+
+
+
 ## <small>4.2.1 (2025-08-27)</small>
 
 * doc(readme): add localStorage section, fix typo and fix links ([1cf50ea](https://github.com/moneytree/mt-link-javascript-sdk/commit/1cf50ea))
