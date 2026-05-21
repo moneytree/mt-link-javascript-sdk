@@ -19,7 +19,8 @@ import {
   VaultOpenServiceUrlViewConnectionSetting,
   VaultOpenServiceUrlViewConnectionUpdate,
   VaultOpenServiceUrlViewConnectionDelete,
-  VaultOpenServiceUrlViewCustomerSupport
+  VaultOpenServiceUrlViewCustomerSupport,
+  VaultOpenServiceUrlViewOnboarding
 } from '../typings';
 
 interface QueryData {
@@ -75,6 +76,11 @@ export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlViewCustomerSupport
+): Promise<string>;
+export default async function openServiceUrl(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceUrlViewOnboarding
 ): Promise<string>;
 export default async function openServiceUrl(
   storedOptions: StoredOptions,
@@ -154,6 +160,10 @@ export default async function openServiceUrl(
           const { credentialId } = options as VaultViewConnectionSetting;
 
           return `${VAULT_DOMAINS[mode]}/connection/${credentialId}/delete?${getQueryValue()}`;
+        }
+
+        case 'onboarding': {
+          return `${VAULT_DOMAINS[mode]}/onboarding?${getQueryValue()}`;
         }
 
         case 'customer-support':
