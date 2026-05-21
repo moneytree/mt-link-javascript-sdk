@@ -12,6 +12,7 @@ import {
   VaultOpenServiceViewConnectionUpdate,
   VaultOpenServiceViewConnectionDelete,
   VaultOpenServiceViewCustomerSupport,
+  VaultOpenServiceViewOnboarding
 } from '../typings';
 import openServiceUrl from './open-service-url';
 
@@ -25,7 +26,11 @@ export default async function openService(
   serviceId: 'myaccount',
   options?: MyAccountOpenServiceOptions
 ): Promise<void>;
-export default async function openService(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceOptions): Promise<void>;
+export default async function openService(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceOptions
+): Promise<void>;
 export default async function openService(
   storedOptions: StoredOptions,
   serviceId: 'vault',
@@ -55,6 +60,11 @@ export default async function openService(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceViewCustomerSupport
+): Promise<void>;
+export default async function openService(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceViewOnboarding
 ): Promise<void>;
 export default async function openService(
   storedOptions: StoredOptions,

@@ -74,8 +74,12 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
+      const configs = await generateConfigs({
+        showRememberMe: false,
+        mode: 'production'
+      });
       const query = qs.stringify({
-        configs: await generateConfigs({ showRememberMe: false, mode: 'production' }),
+        configs,
         group: 'grouping_testing',
         type: 'bank',
         search: 'vault'
@@ -176,6 +180,27 @@ describe('api', () => {
       });
       const url = `${VAULT_DOMAINS.production}/customer-support?${query}`;
 
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+    });
+
+    test('vault/onboarding', async () => {
+      const cobrandClientId = 'cobrandClientId';
+      const sdk = new MtLinkSdk();
+      const locale = 'ja';
+      sdk.init(clientId, { locale, cobrandClientId });
+
+      await openService(sdk.storedOptions, 'vault', { view: 'onboarding' });
+      const configs = await generateConfigs();
+
+      const query = qs.stringify({
+        client_id: clientId,
+        cobrand_client_id: cobrandClientId,
+        locale,
+        configs
+      });
+      const url = `${VAULT_DOMAINS.production}/onboarding?${query}`;
+
+      expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 

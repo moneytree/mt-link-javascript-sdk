@@ -131,6 +131,25 @@ describe('api', () => {
       expect(url).toBe(`${VAULT_DOMAINS.production}/customer-support?${query}`);
     });
 
+    test('vault/onboarding', async () => {
+      const cobrandClientId = 'cobrandClientId';
+      const sdk = new MtLinkSdk();
+      const locale = 'ja';
+      sdk.init(clientId, { locale, cobrandClientId });
+
+      const url = await openServiceUrl(sdk.storedOptions, 'vault', { view: 'onboarding' });
+      const configs = await generateConfigs();
+
+      const query = qs.stringify({
+        client_id: clientId,
+        cobrand_client_id: cobrandClientId,
+        locale,
+        configs
+      });
+
+      expect(url).toBe(`${VAULT_DOMAINS.production}/onboarding?${query}`);
+    });
+
     test('link-kit', async () => {
       const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'link-kit');
 
