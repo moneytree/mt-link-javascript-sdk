@@ -19,6 +19,7 @@
     "createChangelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "version": "npm run prepareRelease && npm run createChangelog",
     "test": "jest --no-cache",
+    "test:dev": "jest --watch",
     "lint:js": "eslint '**/*.js'",
     "lint:ts": "eslint  -c './.eslintrc-ts.js' '**/*.ts'",
     "lint": "yarn lint:js; yarn lint:ts",
