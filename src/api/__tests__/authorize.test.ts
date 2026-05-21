@@ -58,7 +58,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
       const query = {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
@@ -70,7 +70,7 @@ describe('api', () => {
         saml_subject_id: samlSubjectId,
         configs: generateConfigs()
       };
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query })
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query });
     });
 
     test('with options', () => {
@@ -93,7 +93,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
       const query = {
         client_id: clientId,
         response_type: 'code',
@@ -104,7 +104,7 @@ describe('api', () => {
         saml_subject_id: samlSubjectId,
         configs: generateConfigs()
       };
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query })
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query });
     });
 
     test('includes affiliate_code when provided', () => {
@@ -128,7 +128,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
 
       const parsed = new URL(url);
       expect(parsed.searchParams.has('affiliate_code')).toBe(true);
@@ -155,7 +155,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
 
       const parsed = new URL(url);
       expect(parsed.searchParams.has('affiliate_code')).toBe(false);
@@ -182,7 +182,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
 
       const parsed = new URL(url);
       expect(parsed.searchParams.has('affiliate_code')).toBe(false);

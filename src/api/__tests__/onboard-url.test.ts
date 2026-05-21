@@ -65,7 +65,7 @@ describe('api', () => {
         configs: generateConfigs({ email })
       };
 
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query: query })
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query: query });
     });
 
     test('with options', () => {
@@ -79,12 +79,11 @@ describe('api', () => {
       mtLinkSdk.init(clientId);
 
       const url = onboardUrl(mtLinkSdk.storedOptions, {
-          state,
-          redirectUri,
-          scopes,
-          email
-        }
-      );
+        state,
+        redirectUri,
+        scopes,
+        email
+      });
 
       const query = {
         client_id: clientId,
@@ -96,7 +95,7 @@ describe('api', () => {
         configs: generateConfigs({ email })
       };
 
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query})
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query });
     });
   });
 });
