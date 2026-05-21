@@ -10,6 +10,10 @@ describe('api', () => {
     const open = (window.open = jest.fn());
     const clientId = 'clientId';
 
+    beforeEach(() => {
+      open.mockClear();
+    });
+
     test('myaccount', async () => {
       open.mockClear();
 
