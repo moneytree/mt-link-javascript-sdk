@@ -15,7 +15,8 @@ import {
   AuthnMethod,
   supportedAuthnMethod,
   supportedAuthAction,
-  Mode
+  Mode,
+  StoredOptions
 } from './typings';
 import { MY_ACCOUNT_DOMAINS } from './server-paths';
 
@@ -35,8 +36,8 @@ export function mergeConfigs(
   initValues: InitOptions,
   newValues: ConfigsOptions,
   ignoreKeys: string[] = []
-): ConfigsOptions {
-  const configs: ConfigsOptions = {
+): StoredOptions & ConfigsOptions {
+  const configs: StoredOptions & ConfigsOptions = {
     email: fallbackOnUndefined<ConfigsOptions['email']>(newValues.email, initValues.email),
     backTo: fallbackOnUndefined<ConfigsOptions['backTo']>(newValues.backTo, initValues.backTo),
     authAction: fallbackOnUndefined<ConfigsOptions['authAction']>(newValues.authAction, initValues.authAction),
@@ -54,7 +55,8 @@ export function mergeConfigs(
       fallbackOnUndefined<ConfigsOptions['authnMethod']>(newValues.authnMethod, initValues.authnMethod)
     ),
     sdkPlatform: fallbackOnUndefined<ConfigsOptions['sdkPlatform']>(newValues.sdkPlatform, initValues.sdkPlatform),
-    sdkVersion: fallbackOnUndefined<ConfigsOptions['sdkVersion']>(newValues.sdkVersion, initValues.sdkVersion)
+    sdkVersion: fallbackOnUndefined<ConfigsOptions['sdkVersion']>(newValues.sdkVersion, initValues.sdkVersion),
+    mode: initValues.mode || 'production'
   };
 
   Object.keys(configs).forEach((key) => {
@@ -88,7 +90,9 @@ async function fetchEmailToken({ email, mode }: FetchEmailTokenParams): Promise<
   return data.email_token;
 }
 
-export function generateConfigs(configs: ConfigsOptions = {}): string {
+export async function generateConfigs(
+  configs: StoredOptions & ConfigsOptions = { mode: 'production' }
+): Promise<string> {
   const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | undefined } = {};
 
   const configKeys = [
@@ -103,6 +107,15 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'sdkPlatform',
     'sdkVersion'
   ];
+
+  if (configs.email) {
+    const emailToken = await fetchEmailToken({ email: configs.email, mode: configs.mode }).catch(() => undefined);
+
+    if (emailToken) {
+      configs.emailToken = emailToken;
+      delete configs.email;
+    }
+  }
 
   if (configs.authnMethod) {
     configs.authnMethod = parseAuthnMethod(configs.authnMethod);

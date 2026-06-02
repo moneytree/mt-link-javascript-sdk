@@ -5,7 +5,10 @@ import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, OnboardUrlOptions } from '../typings';
 import storage from '../storage';
 
-export default function onboardUrl(storedOptions: StoredOptions, options: OnboardUrlOptions = {}): string {
+export default async function onboardUrl(
+  storedOptions: StoredOptions,
+  options: OnboardUrlOptions = {}
+): Promise<string> {
   const {
     mode,
     clientId,
@@ -44,7 +47,7 @@ export default function onboardUrl(storedOptions: StoredOptions, options: Onboar
     state,
     country: 'JP',
     locale,
-    configs: generateConfigs(configs)
+    configs: await generateConfigs(configs)
   });
 
   return `${MY_ACCOUNT_DOMAINS[mode]}/onboard?${queryString}`;

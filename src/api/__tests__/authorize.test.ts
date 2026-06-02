@@ -18,24 +18,22 @@ describe('api', () => {
     const clientId = 'clientId';
     const redirectUri = 'redirectUri';
 
-    test('without calling init', () => {
-      expect(() => {
-        authorize(new MtLinkSdk().storedOptions);
-      }).toThrow('[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.');
+    test('without calling init', async () => {
+      await expect(authorize(new MtLinkSdk().storedOptions)).rejects.toThrow(
+        '[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.'
+      );
     });
 
-    test('redirectUri is required', () => {
+    test('redirectUri is required', async () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId);
 
-      expect(() => {
-        authorize(mtLinkSdk.storedOptions);
-      }).toThrow(
+      await expect(authorize(mtLinkSdk.storedOptions)).rejects.toThrow(
         '[mt-link-sdk] Missing option `redirectUri` in `authorizeUrl/authorize`, make sure to pass one via `authorizeUrl/authorize` options or `init` options.'
       );
     });
 
-    test('method call without options use default init value', () => {
+    test('method call without options use default init value', async () => {
       mockedStorage.set.mockClear();
       open.mockClear();
 
@@ -54,11 +52,11 @@ describe('api', () => {
         samlSubjectId
       });
 
-      authorize(mtLinkSdk.storedOptions);
+      await authorize(mtLinkSdk.storedOptions);
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
       const query = {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
@@ -68,12 +66,12 @@ describe('api', () => {
         country,
         locale,
         saml_subject_id: samlSubjectId,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       };
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query })
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query });
     });
 
-    test('with options', () => {
+    test('with options', async () => {
       mockedStorage.set.mockClear();
       open.mockClear();
 
@@ -85,7 +83,7 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { samlSubjectId });
 
-      authorize(mtLinkSdk.storedOptions, {
+      await authorize(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes
@@ -93,7 +91,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
       const query = {
         client_id: clientId,
         response_type: 'code',
@@ -102,12 +100,12 @@ describe('api', () => {
         state,
         country,
         saml_subject_id: samlSubjectId,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       };
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query })
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query });
     });
 
-    test('includes affiliate_code when provided', () => {
+    test('includes affiliate_code when provided', async () => {
       mockedStorage.set.mockClear();
       open.mockClear();
 
@@ -119,7 +117,7 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { samlSubjectId });
 
-      authorize(mtLinkSdk.storedOptions, {
+      await authorize(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes,
@@ -128,13 +126,13 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
 
       const parsed = new URL(url);
       expect(parsed.searchParams.has('affiliate_code')).toBe(true);
     });
 
-    test('does not include affiliate_code when affiliateCode is undefined', () => {
+    test('does not include affiliate_code when affiliateCode is undefined', async () => {
       mockedStorage.set.mockClear();
       open.mockClear();
 
@@ -146,7 +144,7 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { samlSubjectId });
 
-      authorize(mtLinkSdk.storedOptions, {
+      await authorize(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes,
@@ -155,13 +153,13 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
 
       const parsed = new URL(url);
       expect(parsed.searchParams.has('affiliate_code')).toBe(false);
     });
 
-    test('does not include affiliate_code when affiliateCode is null', () => {
+    test('does not include affiliate_code when affiliateCode is null', async () => {
       mockedStorage.set.mockClear();
       open.mockClear();
 
@@ -173,7 +171,7 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { samlSubjectId });
 
-      authorize(mtLinkSdk.storedOptions, {
+      await authorize(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes,
@@ -182,20 +180,20 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
 
       const parsed = new URL(url);
       expect(parsed.searchParams.has('affiliate_code')).toBe(false);
     });
 
-    test('without window', () => {
+    test('without window', async () => {
       const windowSpy = jest.spyOn(global, 'window', 'get');
       // @ts-ignore: mocking window object to undefined
       windowSpy.mockImplementation(() => undefined);
 
-      expect(() => {
-        authorize(new MtLinkSdk().storedOptions);
-      }).toThrow('[mt-link-sdk] `authorize` only works in the browser.');
+      await expect(authorize(new MtLinkSdk().storedOptions)).rejects.toThrow(
+        '[mt-link-sdk] `authorize` only works in the browser.'
+      );
     });
   });
 });

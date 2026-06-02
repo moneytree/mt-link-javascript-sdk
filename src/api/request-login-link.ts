@@ -22,7 +22,7 @@ export default async function requestLoginLink(
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
     locale,
-    configs: generateConfigs(configs)
+    configs: await generateConfigs(configs)
   });
 
   const url = `${MY_ACCOUNT_DOMAINS[mode]}/magic-link.json?${queryString}`;

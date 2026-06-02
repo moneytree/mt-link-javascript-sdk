@@ -10,59 +10,57 @@ describe('api', () => {
     const open = (window.open = jest.fn());
     const clientId = 'clientId';
 
-    test('myaccount', () => {
+    test('myaccount', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'myaccount');
+      await openService(new MtLinkSdk().storedOptions, 'myaccount');
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('myaccount/change-language', () => {
+    test('myaccount/change-language', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'myaccount', { view: 'settings/change-language' });
+      await openService(new MtLinkSdk().storedOptions, 'myaccount', { view: 'settings/change-language' });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/settings/change-language?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('vault', () => {
+    test('vault', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'vault', {
+      await openService(new MtLinkSdk().storedOptions, 'vault', {
         showRememberMe: false
       });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('vault/services-list', () => {
+    test('vault/services-list', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'vault', {
+      await openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'services-list',
         type: 'bank',
         group: 'grouping_testing',
@@ -73,9 +71,7 @@ describe('api', () => {
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        }),
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' }),
         group: 'grouping_testing',
         type: 'bank',
         search: 'vault'
@@ -85,10 +81,10 @@ describe('api', () => {
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('vault/service-connection', () => {
+    test('vault/service-connection', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'vault', {
+      await openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'service-connection',
         entityKey: 'fauxbank_test_bank',
         showRememberMe: false
@@ -97,19 +93,17 @@ describe('api', () => {
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/service/fauxbank_test_bank?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('vault/connection-setting', () => {
+    test('vault/connection-setting', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'vault', {
+      await openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-setting',
         credentialId: '123',
         showRememberMe: false
@@ -118,19 +112,17 @@ describe('api', () => {
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('vault/connection-update', () => {
+    test('vault/connection-update', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'vault', {
+      await openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-update',
         credentialId: '123',
         showRememberMe: false
@@ -139,19 +131,17 @@ describe('api', () => {
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123/update?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('vault/connection-delete', () => {
+    test('vault/connection-delete', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'vault', {
+      await openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-delete',
         credentialId: '123',
         showRememberMe: false
@@ -160,19 +150,17 @@ describe('api', () => {
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123/delete?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('vault/customer-support', () => {
+    test('vault/customer-support', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'vault', {
+      await openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'customer-support',
         showRememberMe: false
       });
@@ -180,33 +168,31 @@ describe('api', () => {
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/customer-support?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('link-kit', () => {
+    test('link-kit', async () => {
       open.mockClear();
 
-      openService(new MtLinkSdk().storedOptions, 'link-kit', {
+      await openService(new MtLinkSdk().storedOptions, 'link-kit', {
         isNewTab: true
       });
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
       const url = `${LINK_KIT_DOMAINS.production}?${query}`;
 
       expect(open).toBeCalledWith(url, '', 'noreferrer');
     });
 
-    test('calling after init will includes client id', () => {
+    test('calling after init will includes client id', async () => {
       open.mockClear();
 
       const cobrandClientId = 'cobrandClientId';
@@ -218,7 +204,7 @@ describe('api', () => {
         cobrandClientId
       });
 
-      openService(mtLinkSdk.storedOptions, 'myaccount');
+      await openService(mtLinkSdk.storedOptions, 'myaccount');
 
       expect(open).toBeCalledTimes(1);
 
@@ -226,67 +212,64 @@ describe('api', () => {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('invalid service id', () => {
-      expect(() => {
-        // force cast invalid value so that we can use it for testing
-        openService(new MtLinkSdk().storedOptions, 'invalid' as 'myaccount');
-      }).toThrow('[mt-link-sdk] Invalid `serviceId` in `openService`, got: invalid');
+    test('invalid service id', async () => {
+      await expect(openService(new MtLinkSdk().storedOptions, 'invalid' as 'myaccount')).rejects.toThrow(
+        '[mt-link-sdk] Invalid `serviceId` in `openService`, got: invalid'
+      );
     });
 
-    test('saml_subject_id is passed when initialized', () => {
+    test('saml_subject_id is passed when initialized', async () => {
       open.mockClear();
 
       const instance = new MtLinkSdk();
       instance.init('clientId', { samlSubjectId: 'samlSubjectId' });
 
-      openService(instance.storedOptions, 'myaccount');
+      await openService(instance.storedOptions, 'myaccount');
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         client_id: 'clientId',
         saml_subject_id: 'samlSubjectId',
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('undefined saml_subject_id should not be passed down', () => {
+    test('undefined saml_subject_id should not be passed down', async () => {
       open.mockClear();
 
       const instance = new MtLinkSdk();
       instance.init('clientId', { samlSubjectId: undefined });
 
-      openService(instance.storedOptions, 'myaccount');
+      await openService(instance.storedOptions, 'myaccount');
 
       expect(open).toBeCalledTimes(1);
 
       const query = qs.stringify({
         client_id: 'clientId',
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('without window', () => {
+    test('without window', async () => {
       const windowSpy = jest.spyOn(global, 'window', 'get');
       // @ts-ignore: mocking window object to undefined
       windowSpy.mockImplementation(() => undefined);
 
-      expect(() => {
-        openService(new MtLinkSdk().storedOptions, 'vault');
-      }).toThrow();
+      await expect(openService(new MtLinkSdk().storedOptions, 'vault')).rejects.toThrow();
     });
   });
 });

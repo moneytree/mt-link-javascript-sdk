@@ -7,21 +7,19 @@ import { generateConfigs } from '../../helper';
 
 describe('api', () => {
   describe('logout', () => {
-    test('without calling init', () => {
+    test('without calling init', async () => {
       window.open = jest.fn();
 
-      logout(new MtLinkSdk().storedOptions);
+      await logout(new MtLinkSdk().storedOptions);
 
       expect(window.open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
-        configs: generateConfigs()
-      });
+      const query = qs.stringify({ configs: await generateConfigs() });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
       expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('after calling init', () => {
+    test('after calling init', async () => {
       window.open = jest.fn();
 
       const clientId = 'clientId';
@@ -33,7 +31,7 @@ describe('api', () => {
         locale,
         cobrandClientId
       });
-      logout(mtLinkSkd.storedOptions);
+      await logout(mtLinkSkd.storedOptions);
 
       expect(window.open).toBeCalledTimes(1);
 
@@ -41,40 +39,34 @@ describe('api', () => {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
       expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('with options', () => {
+    test('with options', async () => {
       window.open = jest.fn();
 
       const backTo = 'backTo';
 
-      logout(new MtLinkSdk().storedOptions, {
-        backTo
-      });
+      await logout(new MtLinkSdk().storedOptions, { backTo });
 
       expect(window.open).toBeCalledTimes(1);
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          backTo
-        })
+        configs: await generateConfigs({ backTo, mode: 'production' })
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
       expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('without window', () => {
+    test('without window', async () => {
       const windowSpy = jest.spyOn(global, 'window', 'get');
       // @ts-ignore: mocking window object to undefined
       windowSpy.mockImplementation(() => undefined);
 
-      expect(() => {
-        logout(new MtLinkSdk().storedOptions);
-      }).toThrow();
+      await expect(logout(new MtLinkSdk().storedOptions)).rejects.toThrow();
     });
   });
 });

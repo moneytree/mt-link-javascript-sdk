@@ -7,17 +7,17 @@ import { generateConfigs } from '../../helper';
 
 describe('api', () => {
   describe('logout-url', () => {
-    test('without calling init', () => {
-      const url = logoutUrl(new MtLinkSdk().storedOptions);
+    test('without calling init', async () => {
+      const url = await logoutUrl(new MtLinkSdk().storedOptions);
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`);
     });
 
-    test('after calling init', () => {
+    test('after calling init', async () => {
       window.open = jest.fn();
 
       const clientId = 'clientId';
@@ -29,31 +29,29 @@ describe('api', () => {
         locale,
         cobrandClientId
       });
-      const url = logoutUrl(mtLinkSkd.storedOptions);
+      const url = await logoutUrl(mtLinkSkd.storedOptions);
 
       const query = qs.stringify({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`);
     });
 
-    test('with options', () => {
+    test('with options', async () => {
       window.open = jest.fn();
 
       const backTo = 'backTo';
 
-      const url = logoutUrl(new MtLinkSdk().storedOptions, {
+      const url = await logoutUrl(new MtLinkSdk().storedOptions, {
         backTo
       });
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          backTo
-        })
+        configs: await generateConfigs({ backTo, mode: 'production' })
       });
 
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`);
