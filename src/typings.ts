@@ -19,6 +19,7 @@ export interface PrivateParams {
 export interface PrivateConfigsOptions {
   sdkPlatform?: 'ios' | 'android' | 'js';
   sdkVersion?: string; // semver
+  emailToken?: string; // to include in the query params in place of the email
 }
 
 export const supportedAuthnMethod = ['passwordless', 'sso', 'credentials', 'otp'] as const;
