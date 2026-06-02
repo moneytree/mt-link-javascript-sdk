@@ -14,8 +14,10 @@ import {
   AuthAction,
   AuthnMethod,
   supportedAuthnMethod,
-  supportedAuthAction
+  supportedAuthAction,
+  Mode
 } from './typings';
+import { MY_ACCOUNT_DOMAINS } from './server-paths';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
@@ -62,6 +64,28 @@ export function mergeConfigs(
   });
 
   return configs;
+}
+
+interface FetchEmailTokenParams {
+  email: string;
+  mode: Mode;
+}
+
+interface FetchEmailTokenResponse {
+  email_token: string;
+}
+
+async function fetchEmailToken({ email, mode }: FetchEmailTokenParams): Promise<string | undefined> {
+  const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/email_token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  });
+  if (!response.ok) return undefined;
+
+  const data: FetchEmailTokenResponse = await response.json();
+
+  return data.email_token;
 }
 
 export function generateConfigs(configs: ConfigsOptions = {}): string {
