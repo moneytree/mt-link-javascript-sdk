@@ -119,7 +119,7 @@ export class MtLinkSdk {
    *
    * @example
    * ```javascript
-   * mtLinkSdk.authorize(options);
+   * await mtLinkSdk.authorize(options);
    * ```
    */
   public async authorize(options?: AuthorizeOptions): Promise<void> {
@@ -130,7 +130,7 @@ export class MtLinkSdk {
    * This method generates a URL for OAuth authorization that requires user consent to access data via [Link API](https://getmoneytree.com/jp/link/about).
    *
    * See {@link authorize} API for authorization details. This API has exactly the same parameters as {@link authorize},
-   * the only difference is that it returns a URL instead of opening immediately with `window.open`.
+   * the only difference is that it returns a `Promise` that resolves to a URL instead of opening immediately with `window.open`.
    */
   public async authorizeUrl(options?: AuthorizeUrlOptions): Promise<string> {
     return await authorizeUrl(this.storedOptions, options);
@@ -163,8 +163,8 @@ export class MtLinkSdk {
   /**
    * This method generates a URL for user onboarding.
    *
-   * This API has exactly the same parameters as {@link onboard}, the only difference being that it returns a URL
-   * instead of opening immediately with `window.open`.
+   * This API has exactly the same parameters as {@link onboard}, the only difference being that it returns a `Promise`
+   * that resolves to a URL instead of opening immediately with `window.open`.
    */
   public async onboardUrl(options?: OnboardUrlOptions): Promise<string> {
     return await onboardUrl(this.storedOptions, options);
@@ -172,6 +172,9 @@ export class MtLinkSdk {
 
   /**
    * Logout current user from Moneytree.
+   *
+   * Returns a `Promise` that resolves when the logout operation is complete. Use `await` to ensure logout
+   * finishes before proceeding.
    */
   public async logout(options?: LogoutOptions): Promise<void> {
     await logout(this.storedOptions, options);
@@ -180,8 +183,8 @@ export class MtLinkSdk {
   /**
    * This method generates a URL to log out the user.
    *
-   * This API has exactly the same parameters as {@link logout}, the only difference being that it returns a URL
-   * instead of opening immediately with `window.open`.
+   * This API has exactly the same parameters as {@link logout}, the only difference being that it returns a `Promise`
+   * that resolves to a URL instead of opening immediately with `window.open`.
    */
   public async logoutUrl(options?: LogoutUrlOptions): Promise<string> {
     return await logoutUrl(this.storedOptions, options);
@@ -193,6 +196,7 @@ export class MtLinkSdk {
    * Pass `serviceId: 'link-kit'` to open the LINK Kit service.
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
    */
   public async openService(serviceId: 'link-kit', options?: LinkKitOpenServiceOptions): Promise<void>;
   /**
@@ -201,6 +205,7 @@ export class MtLinkSdk {
    * Open different MyAccount sub-pages by passing the {@link MyAccountServiceTypes} for all possible options.
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
    */
   public async openService(serviceId: 'myaccount', options?: MyAccountOpenServiceOptions): Promise<void>;
   /**
@@ -213,6 +218,7 @@ export class MtLinkSdk {
    * - `customerSupport`: opens the Vault customer support page, pass {@link VaultOpenServiceViewCustomerSupport} as options.
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
    */
   public async openService(serviceId: 'vault', options?: VaultOpenServiceOptions): Promise<void>;
   public async openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceList): Promise<void>;
@@ -238,16 +244,16 @@ export class MtLinkSdk {
   /**
    * This method can generate URLs for various services provided by Moneytree, such as Moneytree Account Settings and Vault.
    *
-   * This API has exactly the same parameters as {@link openService}, the only difference being that it returns a URL
-   * instead of opening immediately with `window.open`.
+   * This API has exactly the same parameters as {@link openService}, the only difference being that it returns a `Promise`
+   * that resolves to a URL instead of opening immediately with `window.open`.
    */
-  public openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): Promise<string>;
-  public openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): Promise<string>;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): Promise<string>;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceList): Promise<string>;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): Promise<string>;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): Promise<string>;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): Promise<string>;
+  public async openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): Promise<string>;
+  public async openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceList): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): Promise<string>;
   public async openServiceUrl(serviceId: ServiceId, options?: OpenServiceUrlOptions): Promise<string> {
     switch (serviceId) {
       case 'myaccount':
@@ -301,7 +307,7 @@ export class MtLinkSdk {
 
   /**
 	 * Validate a token and get information about the user or resource server.
-  
+
 	 * @throws if the token is expired.
 	 */
   public tokenInfo(token: string): Promise<TokenInfo> {
