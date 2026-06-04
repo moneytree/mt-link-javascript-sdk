@@ -167,13 +167,12 @@ export interface VaultSpecificOptions {
    * Supported views:
    * - `{ view: 'services-list' }`
    * - `{ view: 'connection-setting', credentialId: string }`
-   * - `{ view: 'service-connection', entityKey: string }`
    *
    * @remarks
    * This option only has an effect on mobile viewport sizes.
    * On desktop, the back bar button is always visible regardless of this setting.
    */
-  showBackBarOn?: Pick<VaultViewServiceList, 'view'> | VaultViewConnectionSetting | VaultViewServiceConnection;
+  showBackBarOn?: Pick<VaultViewServiceList, 'view'> | VaultViewConnectionSetting;
 }
 
 export type MyAccountServiceTypes = {

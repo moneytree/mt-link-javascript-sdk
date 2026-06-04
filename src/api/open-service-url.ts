@@ -89,8 +89,6 @@ export default function openServiceUrl(
         return 'url=/services';
       case 'connection-setting':
         return `url=/connection/${value.credentialId}`;
-      case 'service-connection':
-        return `url=/service/${value.entityKey}`;
     }
   };
 

@@ -158,10 +158,6 @@ mtLinkSdk.openService('vault', {
   showBackBarOn: { view: 'connection-setting', credentialId: '123' }
 });
 
-// service-connection — requires entityKey
-mtLinkSdk.openService('vault', {
-  showBackBarOn: { view: 'service-connection', entityKey: 'bank_xyz' }
-});
 ```
 
 > **Note:** This option only has an effect on mobile viewport sizes. On desktop, the back bar button is always visible regardless of this setting.
