@@ -22,7 +22,9 @@ export default {
     group: document.getElementById('open-service-options-group') as HTMLSelectElement,
     search: document.getElementById('open-service-options-search') as HTMLInputElement,
     entityKey: document.getElementById('open-service-options-entityKey') as HTMLInputElement,
-    credentialId: document.getElementById('open-service-options-credentialId') as HTMLInputElement
+    credentialId: document.getElementById('open-service-options-credentialId') as HTMLInputElement,
+    showBackBarOn: document.getElementById('open-service-options-showBackBarOn') as HTMLSelectElement,
+    showBackBarOnCredentialId: document.getElementById('open-service-options-showBackBarOn-credentialId') as HTMLInputElement
   },
   initializeBtn: document.getElementById('initialize-btn') as HTMLButtonElement,
   authorizeBtn: document.getElementById('authorize-btn') as HTMLButtonElement,

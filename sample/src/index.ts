@@ -6,8 +6,8 @@ import mtLinkSdk, {
   VaultOpenServiceViewServiceList,
   VaultOpenServiceViewServiceConnection,
   VaultOpenServiceViewConnectionSetting,
-  MyAccountOpenServiceOptions,
   VaultOpenServiceViewCustomerSupport,
+  VaultSpecificOptions,
   ServiceId,
   LoginLinkTo,
   VaultViewServiceList
@@ -115,9 +115,17 @@ elements.logoutBtn.onclick = () => {
 
 // Launch open service
 elements.openServiceBtn.onclick = () => {
-  const { openServiceOptionsElms } = elements;
+  const { openServiceOptionsElms, commonOptionsElms } = elements;
   const serviceId: ServiceId = openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex]
     .value as ServiceId;
+
+  const commonOptions = {
+    ...(commonOptionsElms.backTo.value ? { backTo: commonOptionsElms.backTo.value } : {}),
+    ...(commonOptionsElms.email.value ? { email: commonOptionsElms.email.value } : {}),
+    isNewTab: commonOptionsElms.isNewTab.checked,
+    showRememberMe: commonOptionsElms.showRememberMe.checked,
+    showAuthToggle: commonOptionsElms.showAuthToggle.checked
+  };
 
   if (serviceId === 'vault') {
     type VaultOptions =
@@ -126,6 +134,22 @@ elements.openServiceBtn.onclick = () => {
       | VaultOpenServiceViewServiceList
       | VaultOpenServiceViewCustomerSupport;
     let openServicesOptions: VaultOptions = {} as VaultOptions;
+
+    const getShowBackBarOn = (): VaultSpecificOptions['showBackBarOn'] => {
+      const selectedView =
+        openServiceOptionsElms.showBackBarOn.options[openServiceOptionsElms.showBackBarOn.selectedIndex].value;
+
+      switch (selectedView) {
+        case 'services-list':
+          return { view: 'services-list' };
+        case 'connection-setting':
+          return { view: 'connection-setting', credentialId: openServiceOptionsElms.showBackBarOnCredentialId.value };
+        default:
+          return undefined;
+      }
+    };
+    const showBackBarOn = getShowBackBarOn();
+
     const view = openServiceOptionsElms.vaultView.options[openServiceOptionsElms.vaultView.selectedIndex].value as
       | 'services-list'
       | 'service-connection'
@@ -146,26 +170,30 @@ elements.openServiceBtn.onclick = () => {
               VaultViewServiceList,
               'group'
             >['group']) || undefined,
-          search: openServiceOptionsElms.search.value || undefined
+          search: openServiceOptionsElms.search.value || undefined,
+          showBackBarOn
         };
         break;
       case 'service-connection':
         openServicesOptions = {
           view: 'service-connection',
-          entityKey: openServiceOptionsElms.entityKey.value
+          entityKey: openServiceOptionsElms.entityKey.value,
+          showBackBarOn
         };
         break;
       case 'connection-setting':
         openServicesOptions = {
           view: 'connection-setting',
-          credentialId: openServiceOptionsElms.credentialId.value
+          credentialId: openServiceOptionsElms.credentialId.value,
+          showBackBarOn
         };
         break;
       case 'customer-support':
       default:
-        openServicesOptions = { view };
+        openServicesOptions = { view, showBackBarOn };
     }
-    mtLinkSdk.openService(serviceId, openServicesOptions);
+
+    mtLinkSdk.openService(serviceId, { ...commonOptions, ...openServicesOptions });
   }
 
   if (serviceId === 'myaccount') {
@@ -179,7 +207,7 @@ elements.openServiceBtn.onclick = () => {
       | 'settings/update-email'
       | 'settings/update-password';
 
-    mtLinkSdk.openService(serviceId, { view });
+    mtLinkSdk.openService(serviceId, { ...commonOptions, view });
   }
 };
 
@@ -234,6 +262,15 @@ elements.openServiceOptionsElms.vaultView.onchange = () => {
   if (optionsBlockElm) {
     optionsBlockElm.style.display = 'block';
   }
+};
+
+elements.openServiceOptionsElms.showBackBarOn.onchange = () => {
+  const { openServiceOptionsElms } = elements;
+  const selectedValue =
+    openServiceOptionsElms.showBackBarOn.options[openServiceOptionsElms.showBackBarOn.selectedIndex].value;
+
+  (document.getElementById('show-back-bar-on-connection-setting') as HTMLDivElement).style.display =
+    selectedValue === 'connection-setting' ? 'block' : 'none';
 };
 
 const initializeLinkSDK = (options: InitOptions = {}) => {
