@@ -31,7 +31,8 @@ import {
   MyAccountOpenServiceOptions,
   OpenServiceOptions,
   ConfigsOptions,
-  ConfigsOptionsWithoutIsNewTab,
+  VaultOpenServiceOptions,
+  VaultOpenServiceUrlOptions,
   VaultOpenServiceUrlViewServiceList,
   VaultOpenServiceUrlViewServiceConnection,
   VaultOpenServiceUrlViewConnectionSetting,
@@ -213,7 +214,7 @@ export class MtLinkSdk {
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
    */
-  public openService(serviceId: 'vault', options?: ConfigsOptions): void;
+  public openService(serviceId: 'vault', options?: VaultOpenServiceOptions): void;
   public openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceList): void;
   public openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceConnection): void;
   public openService(serviceId: 'vault', options?: VaultOpenServiceViewConnectionSetting): void;
@@ -242,7 +243,7 @@ export class MtLinkSdk {
    */
   public openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): string;
   public openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): string;
-  public openServiceUrl(serviceId: 'vault', options?: ConfigsOptionsWithoutIsNewTab): string;
+  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): string;
   public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceList): string;
   public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): string;
   public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): string;
