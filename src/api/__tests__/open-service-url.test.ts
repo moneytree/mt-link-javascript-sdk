@@ -177,6 +177,36 @@ describe('api', () => {
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/?${query}`);
     });
 
+    test('vault with showBackBarOn services-list', () => {
+      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+        showBackBarOn: { view: 'services-list' }
+      });
+
+      const query = qs.stringify({ configs: generateConfigs(), state: 'url=/services' });
+
+      expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
+    });
+
+    test('vault with showBackBarOn connection-setting', () => {
+      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+        showBackBarOn: { view: 'connection-setting', credentialId: '123' }
+      });
+
+      const query = qs.stringify({ configs: generateConfigs(), state: 'url=/connection/123' });
+
+      expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
+    });
+
+    test('vault with showBackBarOn service-connection', () => {
+      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+        showBackBarOn: { view: 'service-connection', entityKey: 'bank_xyz' }
+      });
+
+      const query = qs.stringify({ configs: generateConfigs(), state: 'url=/service/bank_xyz' });
+
+      expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
+    });
+
     test('invalid service id', () => {
       expect(() => {
         // force cast invalid value so that we can use it for testing

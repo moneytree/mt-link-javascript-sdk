@@ -160,6 +160,22 @@ export type VaultServiceTypes =
   | VaultViewConnectionDelete
   | VaultViewCustomerSupport;
 
+export interface VaultSpecificOptions {
+  /**
+   * Show the back bar button when the guest is on a specific Vault page.
+   *
+   * Supported views:
+   * - `{ view: 'services-list' }`
+   * - `{ view: 'connection-setting', credentialId: string }`
+   * - `{ view: 'service-connection', entityKey: string }`
+   *
+   * @remarks
+   * This option only has an effect on mobile viewport sizes.
+   * On desktop, the back bar button is always visible regardless of this setting.
+   */
+  showBackBarOn?: Pick<VaultViewServiceList, 'view'> | VaultViewConnectionSetting | VaultViewServiceConnection;
+}
+
 export type MyAccountServiceTypes = {
   /**
    * Directly go to the chosen page. Currently supported locations include:
@@ -175,25 +191,28 @@ export type MyAccountOpenServiceUrlOptions =
   | ConfigsOptionsWithoutIsNewTab
   | (ConfigsOptionsWithoutIsNewTab & MyAccountServiceTypes);
 
-export type VaultOpenServiceViewServiceList = ConfigsOptions & VaultViewServiceList;
-export type VaultOpenServiceViewServiceConnection = ConfigsOptions & VaultViewServiceConnection;
-export type VaultOpenServiceViewConnectionSetting = ConfigsOptions & VaultViewConnectionSetting;
-export type VaultOpenServiceViewConnectionUpdate = ConfigsOptions & VaultViewConnectionUpdate;
-export type VaultOpenServiceViewConnectionDelete = ConfigsOptions & VaultViewConnectionDelete;
-export type VaultOpenServiceViewCustomerSupport = ConfigsOptions & VaultViewCustomerSupport;
-export type VaultOpenServiceUrlViewServiceList = ConfigsOptionsWithoutIsNewTab & VaultViewServiceList;
-export type VaultOpenServiceUrlViewServiceConnection = ConfigsOptionsWithoutIsNewTab & VaultViewServiceConnection;
-export type VaultOpenServiceUrlViewConnectionSetting = ConfigsOptionsWithoutIsNewTab & VaultViewConnectionSetting;
-export type VaultOpenServiceUrlViewConnectionUpdate = ConfigsOptionsWithoutIsNewTab & VaultViewConnectionUpdate;
-export type VaultOpenServiceUrlViewConnectionDelete = ConfigsOptionsWithoutIsNewTab & VaultViewConnectionDelete;
-export type VaultOpenServiceUrlViewCustomerSupport = ConfigsOptionsWithoutIsNewTab & VaultViewCustomerSupport;
+export type VaultOpenServiceOptions = ConfigsOptions & VaultSpecificOptions;
+export type VaultOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab & VaultSpecificOptions;
+
+export type VaultOpenServiceViewServiceList = VaultOpenServiceOptions & VaultViewServiceList;
+export type VaultOpenServiceViewServiceConnection = VaultOpenServiceOptions & VaultViewServiceConnection;
+export type VaultOpenServiceViewConnectionSetting = VaultOpenServiceOptions & VaultViewConnectionSetting;
+export type VaultOpenServiceViewConnectionUpdate = VaultOpenServiceOptions & VaultViewConnectionUpdate;
+export type VaultOpenServiceViewConnectionDelete = VaultOpenServiceOptions & VaultViewConnectionDelete;
+export type VaultOpenServiceViewCustomerSupport = VaultOpenServiceOptions & VaultViewCustomerSupport;
+export type VaultOpenServiceUrlViewServiceList = VaultOpenServiceUrlOptions & VaultViewServiceList;
+export type VaultOpenServiceUrlViewServiceConnection = VaultOpenServiceUrlOptions & VaultViewServiceConnection;
+export type VaultOpenServiceUrlViewConnectionSetting = VaultOpenServiceUrlOptions & VaultViewConnectionSetting;
+export type VaultOpenServiceUrlViewConnectionUpdate = VaultOpenServiceUrlOptions & VaultViewConnectionUpdate;
+export type VaultOpenServiceUrlViewConnectionDelete = VaultOpenServiceUrlOptions & VaultViewConnectionDelete;
+export type VaultOpenServiceUrlViewCustomerSupport = VaultOpenServiceUrlOptions & VaultViewCustomerSupport;
 
 export type LinkKitOpenServiceOptions = ConfigsOptions;
 export type LinkKitOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab;
 
 export type OpenServiceOptions =
   | MyAccountOpenServiceOptions
-  | ConfigsOptions
+  | VaultOpenServiceOptions
   | VaultOpenServiceViewServiceList
   | VaultOpenServiceViewConnectionSetting
   | VaultOpenServiceViewConnectionUpdate
@@ -202,7 +221,7 @@ export type OpenServiceOptions =
   | LinkKitOpenServiceOptions;
 export type OpenServiceUrlOptions =
   | MyAccountOpenServiceUrlOptions
-  | ConfigsOptionsWithoutIsNewTab
+  | VaultOpenServiceUrlOptions
   | VaultOpenServiceUrlViewServiceList
   | VaultOpenServiceUrlViewConnectionSetting
   | VaultOpenServiceUrlViewConnectionUpdate

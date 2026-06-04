@@ -5,13 +5,13 @@ import {
   OpenServiceOptions,
   LinkKitOpenServiceOptions,
   MyAccountOpenServiceOptions,
+  VaultOpenServiceOptions,
   VaultOpenServiceViewServiceList,
   VaultOpenServiceViewServiceConnection,
   VaultOpenServiceViewConnectionSetting,
   VaultOpenServiceViewConnectionUpdate,
   VaultOpenServiceViewConnectionDelete,
   VaultOpenServiceViewCustomerSupport,
-  ConfigsOptions
 } from '../typings';
 import openServiceUrl from './open-service-url';
 
@@ -25,7 +25,7 @@ export default function openService(
   serviceId: 'myaccount',
   options?: MyAccountOpenServiceOptions
 ): void;
-export default function openService(storedOptions: StoredOptions, serviceId: 'vault', options?: ConfigsOptions): void;
+export default function openService(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceOptions): void;
 export default function openService(
   storedOptions: StoredOptions,
   serviceId: 'vault',
