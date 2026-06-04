@@ -48,7 +48,7 @@ jobs:
       - *attach_workspace
       - run:
           name: Running tests
-          command: yarn test
+          command: yarn test --maxWorkers=2
 
   done:
     <<: *docker_defaults
