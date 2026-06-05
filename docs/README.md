@@ -143,6 +143,25 @@ mtLinkSdk.openService('vault', { view: 'services-list' });
 
 Vault has several different views with different options for each, view the full documentation [here](types/classes/MtLinkSdk.html#openService.openService-3 ':ignore').
 
+##### `showBackBarOn` (Vault only)
+
+Use the `showBackBarOn` option to show the back bar button on specific Vault pages.
+
+```javascript
+// services-list
+mtLinkSdk.openService('vault', {
+  showBackBarOn: { view: 'services-list' }
+});
+
+// connection-setting — requires credentialId
+mtLinkSdk.openService('vault', {
+  showBackBarOn: { view: 'connection-setting', credentialId: '123' }
+});
+
+```
+
+> **Note:** This option only has an effect on mobile viewport sizes. On desktop, the back bar button is always visible regardless of this setting.
+
 #### Open MyAccount
 
 ```javascript

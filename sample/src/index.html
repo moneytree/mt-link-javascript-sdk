@@ -273,6 +273,21 @@
               <input id="open-service-options-credentialId" type="text" placeholder="credentialId" />
             </div>
           </div>
+
+          <div id="show-back-bar-on-options">
+            <p>showBackBarOn, <small>Show the back bar button on a specific Vault page (mobile only).</small></p>
+            <div>
+              <select id="open-service-options-showBackBarOn">
+                <option value="" default>select view</option>
+                <option value="services-list">services-list</option>
+                <option value="connection-setting">connection-setting</option>
+              </select>
+            </div>
+            <div id="show-back-bar-on-connection-setting" style="display: none">
+              <p>credentialId, <small>Show back bar on this connection setting page.</small></p>
+              <input id="open-service-options-showBackBarOn-credentialId" type="text" placeholder="credentialId" />
+            </div>
+          </div>
         </div>
 
         <a href="#common-options"><h4>Common API options(optionals)</h4></a>

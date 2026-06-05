@@ -12,7 +12,8 @@ import {
   MyAccountServiceTypes,
   LinkKitOpenServiceUrlOptions,
   MyAccountOpenServiceUrlOptions,
-  ConfigsOptionsWithoutIsNewTab,
+  VaultOpenServiceUrlOptions,
+  VaultSpecificOptions,
   VaultOpenServiceUrlViewServiceList,
   VaultOpenServiceUrlViewServiceConnection,
   VaultOpenServiceUrlViewConnectionSetting,
@@ -27,6 +28,7 @@ interface QueryData {
   locale?: string;
   configs: string;
   saml_subject_id?: string;
+  state?: string;
 }
 
 export default function openServiceUrl(
@@ -42,7 +44,7 @@ export default function openServiceUrl(
 export default function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
-  options?: ConfigsOptionsWithoutIsNewTab
+  options?: VaultOpenServiceUrlOptions
 ): string;
 export default function openServiceUrl(
   storedOptions: StoredOptions,
@@ -81,13 +83,25 @@ export default function openServiceUrl(
 ): string {
   const { clientId, mode, cobrandClientId, locale, samlSubjectId } = storedOptions;
 
+  const toVaultStateParam = (value: NonNullable<VaultSpecificOptions['showBackBarOn']>): string => {
+    switch (value.view) {
+      case 'services-list':
+        return 'url=/services';
+      case 'connection-setting':
+        return `url=/connection/${value.credentialId}`;
+    }
+  };
+
   const getQueryValue = (needStringify = true): string | QueryData => {
+    const vaultShowBackBarOn = serviceId === 'vault' && 'showBackBarOn' in options && options.showBackBarOn;
+
     const query: QueryData = {
       client_id: clientId,
       cobrand_client_id: cobrandClientId,
       locale,
       saml_subject_id: samlSubjectId,
-      configs: generateConfigs(mergeConfigs(storedOptions, options))
+      configs: generateConfigs(mergeConfigs(storedOptions, options)),
+      state: vaultShowBackBarOn ? toVaultStateParam(vaultShowBackBarOn) : undefined
     };
 
     if (!needStringify) {
