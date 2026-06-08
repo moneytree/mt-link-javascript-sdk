@@ -2,12 +2,17 @@ version: 2.1
 
 docker_defaults: &docker_defaults
   docker:
-    - image: cimg/node:26.0-browsers
+    - image: cimg/node:26.0
   working_directory: ~/mt-link-javascript-sdk
 
 attach_workspace: &attach_workspace
   attach_workspace:
     at: ~/mt-link-javascript-sdk
+
+install_corepack: &install_corepack
+  run:
+    name: Install Corepack
+    command: npm install -g corepack@latest --force
 
 jobs:
   dependencies:
@@ -18,9 +23,10 @@ jobs:
       - restore_cache:
           name: Restore node_modules cache
           key: dependency-cache-v2-{{ checksum "yarn.lock" }}
+      - *install_corepack
       - run:
           name: Install Dependencies
-          command: yarn install --no-progress
+          command: yarn install
       - save_cache:
           name: Save node_modules cache
           key: dependency-cache-v2-{{ checksum "yarn.lock" }}
@@ -35,6 +41,7 @@ jobs:
     <<: *docker_defaults
     steps:
       - *attach_workspace
+      - *install_corepack
       - run:
           name: Linting JavaScript
           command: yarn lint:js
@@ -46,6 +53,7 @@ jobs:
     <<: *docker_defaults
     steps:
       - *attach_workspace
+      - *install_corepack
       - run:
           name: Running tests
           command: yarn test --maxWorkers=2
