@@ -2,7 +2,7 @@ version: 2.1
 
 docker_defaults: &docker_defaults
   docker:
-    - image: cimg/node:18.14.2-browsers
+    - image: cimg/node:26.0-browsers
   working_directory: ~/mt-link-javascript-sdk
 
 attach_workspace: &attach_workspace
