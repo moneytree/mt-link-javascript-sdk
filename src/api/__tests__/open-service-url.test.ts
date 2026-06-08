@@ -168,7 +168,7 @@ describe('api', () => {
         showBackBarOn: { view: 'services-list' }
       });
 
-      const query = qs.stringify({ configs: generateConfigs(), state: 'url=/services' });
+      const query = qs.stringify({ state: 'url=/services', configs: await generateConfigs() });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
     });
@@ -178,7 +178,7 @@ describe('api', () => {
         showBackBarOn: { view: 'connection-setting', credentialId: '123' }
       });
 
-      const query = qs.stringify({ configs: generateConfigs(), state: 'url=/connection/123' });
+      const query = qs.stringify({ state: 'url=/connection/123', configs: await generateConfigs() });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
     });
