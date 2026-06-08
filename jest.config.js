@@ -2,6 +2,7 @@ const packageJSON = require('./package.json');
 
 module.exports = {
   preset: 'ts-jest',
+  testEnvironment: 'jsdom',
   collectCoverage: true,
   setupFilesAfterEnv: ['./scripts/jest/setup.ts'],
   modulePathIgnorePatterns: [
