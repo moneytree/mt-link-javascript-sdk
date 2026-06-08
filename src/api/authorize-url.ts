@@ -20,7 +20,14 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
     throw new Error('[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.');
   }
 
-  const { scopes = defaultScopes, redirectUri = defaultRedirectUri, codeChallenge, state, affiliateCode, ...rest } = options;
+  const {
+    scopes = defaultScopes,
+    redirectUri = defaultRedirectUri,
+    codeChallenge,
+    state,
+    affiliateCode,
+    ...rest
+  } = options;
 
   if (!redirectUri) {
     throw new Error(

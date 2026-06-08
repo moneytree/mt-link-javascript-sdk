@@ -1,3 +1,10 @@
+## 4.4.0 (2026-05-21)
+
+* feat(vault): add "onboarding" to view options for openServiceUrl ([a2978ac](https://github.com/moneytree/mt-link-javascript-sdk/commit/a2978ac))
+* chore(format): run yarn format ([feb243b](https://github.com/moneytree/mt-link-javascript-sdk/commit/feb243b))
+* chore(scripts): add test script for watch mode ([1cb1bd0](https://github.com/moneytree/mt-link-javascript-sdk/commit/1cb1bd0))
+* refactor(test): reset mock in `beforeEach` ([225f15e](https://github.com/moneytree/mt-link-javascript-sdk/commit/225f15e))
+
 ## 4.3.0 (2026-01-14)
 
 * Add LINK Onboarding to CODEOWNERS ([d33e53b](https://github.com/moneytree/mt-link-javascript-sdk/commit/d33e53b))

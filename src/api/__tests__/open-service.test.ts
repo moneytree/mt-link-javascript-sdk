@@ -10,9 +10,11 @@ describe('api', () => {
     const open = (window.open = jest.fn());
     const clientId = 'clientId';
 
-    test('myaccount', () => {
+    beforeEach(() => {
       open.mockClear();
+    });
 
+    test('myaccount', () => {
       openService(new MtLinkSdk().storedOptions, 'myaccount');
 
       expect(open).toBeCalledTimes(1);
@@ -26,8 +28,6 @@ describe('api', () => {
     });
 
     test('myaccount/change-language', () => {
-      open.mockClear();
-
       openService(new MtLinkSdk().storedOptions, 'myaccount', { view: 'settings/change-language' });
 
       expect(open).toBeCalledTimes(1);
@@ -41,8 +41,6 @@ describe('api', () => {
     });
 
     test('vault', () => {
-      open.mockClear();
-
       openService(new MtLinkSdk().storedOptions, 'vault', {
         showRememberMe: false
       });
@@ -60,8 +58,6 @@ describe('api', () => {
     });
 
     test('vault/services-list', () => {
-      open.mockClear();
-
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'services-list',
         type: 'bank',
@@ -86,8 +82,6 @@ describe('api', () => {
     });
 
     test('vault/service-connection', () => {
-      open.mockClear();
-
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'service-connection',
         entityKey: 'fauxbank_test_bank',
@@ -107,8 +101,6 @@ describe('api', () => {
     });
 
     test('vault/connection-setting', () => {
-      open.mockClear();
-
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-setting',
         credentialId: '123',
@@ -128,8 +120,6 @@ describe('api', () => {
     });
 
     test('vault/connection-update', () => {
-      open.mockClear();
-
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-update',
         credentialId: '123',
@@ -149,8 +139,6 @@ describe('api', () => {
     });
 
     test('vault/connection-delete', () => {
-      open.mockClear();
-
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-delete',
         credentialId: '123',
@@ -170,8 +158,6 @@ describe('api', () => {
     });
 
     test('vault/customer-support', () => {
-      open.mockClear();
-
       openService(new MtLinkSdk().storedOptions, 'vault', {
         view: 'customer-support',
         showRememberMe: false
@@ -189,9 +175,26 @@ describe('api', () => {
       expect(open).toBeCalledWith(url, '_self', 'noreferrer');
     });
 
-    test('link-kit', () => {
-      open.mockClear();
+    test('vault/onboarding', () => {
+      const cobrandClientId = 'cobrandClientId';
+      const sdk = new MtLinkSdk();
+      const locale = 'ja';
+      sdk.init(clientId, { locale, cobrandClientId });
 
+      openService(sdk.storedOptions, 'vault', { view: 'onboarding' });
+      const query = qs.stringify({
+        client_id: clientId,
+        cobrand_client_id: cobrandClientId,
+        locale,
+        configs: generateConfigs()
+      });
+      const url = `${VAULT_DOMAINS.production}/onboarding?${query}`;
+
+      expect(open).toBeCalledTimes(1);
+      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+    });
+
+    test('link-kit', () => {
       openService(new MtLinkSdk().storedOptions, 'link-kit', {
         isNewTab: true
       });
@@ -207,8 +210,6 @@ describe('api', () => {
     });
 
     test('calling after init will includes client id', () => {
-      open.mockClear();
-
       const cobrandClientId = 'cobrandClientId';
       const locale = 'locale';
 
@@ -241,8 +242,6 @@ describe('api', () => {
     });
 
     test('saml_subject_id is passed when initialized', () => {
-      open.mockClear();
-
       const instance = new MtLinkSdk();
       instance.init('clientId', { samlSubjectId: 'samlSubjectId' });
 
@@ -261,8 +260,6 @@ describe('api', () => {
     });
 
     test('undefined saml_subject_id should not be passed down', () => {
-      open.mockClear();
-
       const instance = new MtLinkSdk();
       instance.init('clientId', { samlSubjectId: undefined });
 

@@ -12,6 +12,7 @@ import {
   VaultOpenServiceViewConnectionUpdate,
   VaultOpenServiceViewConnectionDelete,
   VaultOpenServiceViewCustomerSupport,
+  VaultOpenServiceViewOnboarding
 } from '../typings';
 import openServiceUrl from './open-service-url';
 
@@ -55,6 +56,11 @@ export default function openService(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceViewCustomerSupport
+): void;
+export default function openService(
+  storedOptions: StoredOptions,
+  serviceId: 'vault',
+  options?: VaultOpenServiceViewOnboarding
 ): void;
 export default function openService(
   storedOptions: StoredOptions,

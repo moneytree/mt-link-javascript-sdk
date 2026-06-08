@@ -88,23 +88,23 @@ describe('index', () => {
       redirect_uri: 'redirectUri',
       country: 'JP',
       configs: `authn_method=sso&sdk_platform=js&sdk_version=${sdkVersion}`
-    }
+    };
     const result8 = instance.authorizeUrl({ scopes: 'scopes' });
     expectUrlToMatchWithPKCE(result8, {
       baseUrl: 'https://myaccount.getmoneytree.com',
       path: '/oauth/authorize',
       query: {
         ...authQuery,
-        saml_subject_id: 'samlSubjectId',
+        saml_subject_id: 'samlSubjectId'
       }
-    })
+    });
 
     const result9 = instance.onboardUrl({ scopes: 'scopes' });
     expectUrlToMatchWithPKCE(result9, {
       baseUrl: 'https://myaccount.getmoneytree.com',
       path: '/onboard',
       query: authQuery
-    })
+    });
 
     const result10 = instance.logoutUrl({ backTo: 'backTo' });
     expect(result10).toBe(

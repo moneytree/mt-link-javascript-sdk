@@ -58,7 +58,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
       const query = {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
@@ -69,7 +69,7 @@ describe('api', () => {
         locale,
         configs: generateConfigs({ email })
       };
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query})
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query });
     });
 
     test('with options', () => {
@@ -92,7 +92,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
       expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
-      const url = open.mock.calls[0][0]
+      const url = open.mock.calls[0][0];
       const query = {
         client_id: clientId,
         response_type: 'code',
@@ -103,7 +103,7 @@ describe('api', () => {
         configs: generateConfigs({ email })
       };
 
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query})
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query });
     });
 
     test('without window', () => {
