@@ -32,9 +32,12 @@ We use [docsify](https://docsify.js.org/) to serve the documentation landing pag
 
 ### Publishing
 
+To release a new version, run the commands below. The build and changelog are generated automatically as part of the version bump, no extra steps required.
+
 ```bash
 npm version (patch|minor|major) # chose the right version bump based on the changes, see https://semver.org
-# after merging the new version to master
+git push origin <branch> --follow-tags
+# after merging the PR to master
 npm login
 npm publish
 ```
