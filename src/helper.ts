@@ -78,7 +78,7 @@ interface FetchEmailTokenResponse {
 }
 
 async function fetchEmailToken({ email, mode }: FetchEmailTokenParams): Promise<string | undefined> {
-  const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/email_token`, {
+  const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/email-token`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email })
