@@ -10,6 +10,8 @@ Read the [documentation](https://moneytree.github.io/mt-link-javascript-sdk/) fo
 
 ## For SDK Maintainers
 
+> Requires [Yarn 4](https://yarnpkg.com/getting-started/install). Run `npm install -g corepack && corepack enable` to activate it.
+
 ```bash
 yarn install
 yarn lint       # runs eslint

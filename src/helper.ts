@@ -2,7 +2,7 @@ declare const __VERSION__: string;
 
 import { stringify } from 'qs';
 import { snakeCase } from 'snake-case';
-import { createHash } from 'crypto';
+import createHash from 'create-hash';
 import { encode } from 'url-safe-base64';
 import { v4 as uuid } from 'uuid';
 import storage from './storage';

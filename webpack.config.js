@@ -9,10 +9,16 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
-    libraryTarget: 'commonjs2'
+    library: {
+      type: 'commonjs2'
+    }
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    fallback: {
+      stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer/')
+    }
   },
   module: {
     rules: [
@@ -25,6 +31,9 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __VERSION__: JSON.stringify(packageJSON.version)
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
     })
   ]
 };
