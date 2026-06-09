@@ -1,7 +1,7 @@
-import { StoredOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, ConfigsOptionsWithoutIsNewTab, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewConnectionUpdate, VaultOpenServiceUrlViewConnectionDelete, VaultOpenServiceUrlViewCustomerSupport } from '../typings';
+import { StoredOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, VaultOpenServiceUrlOptions, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewConnectionUpdate, VaultOpenServiceUrlViewConnectionDelete, VaultOpenServiceUrlViewCustomerSupport } from '../typings';
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): string;
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): string;
-export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: ConfigsOptionsWithoutIsNewTab): string;
+export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlOptions): string;
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceList): string;
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): string;
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): string;
