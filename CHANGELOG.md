@@ -1,3 +1,19 @@
+## 4.4.0 (2026-06-09)
+
+* docs: clarify publishing steps in README ([9f12905](https://github.com/moneytree/mt-link-javascript-sdk/commit/9f12905))
+* chore: upgrade jest and ts-jest to v27 ([0b2ab48](https://github.com/moneytree/mt-link-javascript-sdk/commit/0b2ab48))
+* chore: upgrade to Yarn 4 ([ac63876](https://github.com/moneytree/mt-link-javascript-sdk/commit/ac63876))
+* ci: add --maxWorkers=2 flag to jest to stabilize CI test runner ([e6d6545](https://github.com/moneytree/mt-link-javascript-sdk/commit/e6d6545))
+* ci: enable corepack before installing dependencies ([cc026be](https://github.com/moneytree/mt-link-javascript-sdk/commit/cc026be))
+* build(all): upgrade node from 18 -> 26 ([ade5bbc](https://github.com/moneytree/mt-link-javascript-sdk/commit/ade5bbc))
+* build(all): upgrade webpack from 4 to 5 ([fb7f8c0](https://github.com/moneytree/mt-link-javascript-sdk/commit/fb7f8c0))
+* add showBackBarOn support to sample app for vault open service ([87e7734](https://github.com/moneytree/mt-link-javascript-sdk/commit/87e7734))
+* remove service-connection support from showBackBarOn ([bc0a268](https://github.com/moneytree/mt-link-javascript-sdk/commit/bc0a268))
+* use VaultOpenServiceOptions and VaultOpenServiceUrlOptions in vault overloads ([7bb5141](https://github.com/moneytree/mt-link-javascript-sdk/commit/7bb5141))
+* feat(vault): add showBackBarOn option to control the back bar button visibility ([65f62f4](https://github.com/moneytree/mt-link-javascript-sdk/commit/65f62f4))
+
+
+
 ## 4.3.0 (2026-01-14)
 
 * Add LINK Onboarding to CODEOWNERS ([d33e53b](https://github.com/moneytree/mt-link-javascript-sdk/commit/d33e53b))

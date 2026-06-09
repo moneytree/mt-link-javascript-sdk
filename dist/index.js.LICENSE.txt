@@ -1,0 +1,34 @@
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/**
+ * @module url-safe-base64
+ * @license UNLICENSE
+ * @example
+ * import {
+ *   encode, decode, trim,
+ *   isBase64, isUrlSafeBase64
+ * } from 'url-safe-base64'
+ * const safe = encode('A/B+C==')
+ * // > 'A-B_C..'
+ * trim(safe)
+ * // > 'A-B_C'
+ * const base64 = decode(safe)
+ * // > 'A/B+C=='
+ * isBase64(base64)
+ * // > true
+ * isBase64(safe)
+ * // > false
+ * isUrlSafeBase64(base64)
+ * // > false
+ * isUrlSafeBase64(safe)
+ * // > true
+ */
