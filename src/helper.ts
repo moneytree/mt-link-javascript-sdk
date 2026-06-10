@@ -96,7 +96,7 @@ export async function generateConfigs(
   const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | undefined } = {};
 
   const configKeys = [
-    'email',
+    'emailToken',
     'backTo',
     'authAction',
     'showAuthToggle',
@@ -110,20 +110,14 @@ export async function generateConfigs(
 
   if (configs.email) {
     const emailToken = await fetchEmailToken({ email: configs.email, mode: configs.mode }).catch(() => undefined);
+    delete configs.email;
 
-    if (emailToken) {
-      configs.emailToken = emailToken;
-      delete configs.email;
-    }
+    if (emailToken) configs.emailToken = emailToken;
   }
 
-  if (configs.authnMethod) {
-    configs.authnMethod = parseAuthnMethod(configs.authnMethod);
-  }
+  if (configs.authnMethod) configs.authnMethod = parseAuthnMethod(configs.authnMethod);
 
-  if (configs.authAction) {
-    configs.authAction = parseAuthAction(configs.authAction);
-  }
+  if (configs.authAction) configs.authAction = parseAuthAction(configs.authAction);
 
   // fallback to current SDK value when both sdk platform and version doesn't or partially exists
   if (!configs.sdkPlatform || !configs.sdkVersion) {
