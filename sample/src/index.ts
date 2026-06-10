@@ -74,7 +74,7 @@ elements.doOnboardBtn.onclick = async () => {
 
     onBoardOptions.email = onboardOptionsElms.email.value;
 
-    mtLinkSdk.onboard(onBoardOptions);
+    await mtLinkSdk.onboard(onBoardOptions);
   } catch (error) {
     console.log(error);
   }

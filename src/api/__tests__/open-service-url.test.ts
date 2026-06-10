@@ -9,44 +9,42 @@ describe('api', () => {
   describe('open-service-url', () => {
     const clientId = 'clientId';
 
-    test('myaccount', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'myaccount');
+    test('myaccount', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'myaccount');
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/?${query}`);
     });
 
-    test('myaccount/change-language', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'myaccount', {
+    test('myaccount/change-language', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'myaccount', {
         view: 'settings/change-language'
       });
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/settings/change-language?${query}`);
     });
 
-    test('vault', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         showRememberMe: false
       });
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
     });
 
-    test('vault/services-list', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault/services-list', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         view: 'services-list',
         type: 'bank',
         group: 'grouping_testing',
@@ -55,9 +53,7 @@ describe('api', () => {
       });
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        }),
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' }),
         group: 'grouping_testing',
         type: 'bank',
         search: 'vault'
@@ -66,96 +62,86 @@ describe('api', () => {
       expect(url).toBe(`${VAULT_DOMAINS.production}/services?${query}`);
     });
 
-    test('vault/service-connection', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault/service-connection', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         view: 'service-connection',
         entityKey: 'fauxbank_test_bank',
         showRememberMe: false
       });
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}/service/fauxbank_test_bank?${query}`);
     });
 
-    test('vault/connection-setting', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault/connection-setting', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-setting',
         credentialId: '123',
         showRememberMe: false
       });
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}/connection/123?${query}`);
     });
 
-    test('vault/connection-update', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault/connection-update', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-update',
         credentialId: '123',
         showRememberMe: false
       });
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}/connection/123/update?${query}`);
     });
 
-    test('vault/connection-delete', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault/connection-delete', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         view: 'connection-delete',
         credentialId: '123',
         showRememberMe: false
       });
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}/connection/123/delete?${query}`);
     });
 
-    test('vault/customer-support', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault/customer-support', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         view: 'customer-support',
         showRememberMe: false
       });
 
       const query = qs.stringify({
-        configs: generateConfigs({
-          showRememberMe: false
-        })
+        configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}/customer-support?${query}`);
     });
 
-    test('link-kit', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'link-kit');
+    test('link-kit', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'link-kit');
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       expect(url).toBe(`${LINK_KIT_DOMAINS.production}?${query}`);
     });
 
-    test('calling after init will includes client id', () => {
+    test('calling after init will includes client id', async () => {
       const cobrandClientId = 'cobrandClientId';
       const locale = 'locale';
 
@@ -165,69 +151,68 @@ describe('api', () => {
         cobrandClientId
       });
 
-      const url = openServiceUrl(mtLinkSdk.storedOptions, 'myaccount');
+      const url = await openServiceUrl(mtLinkSdk.storedOptions, 'myaccount');
 
       const query = qs.stringify({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/?${query}`);
     });
 
-    test('vault with showBackBarOn services-list', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault with showBackBarOn services-list', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         showBackBarOn: { view: 'services-list' }
       });
 
-      const query = qs.stringify({ configs: generateConfigs(), state: 'url=/services' });
+      const query = qs.stringify({ state: 'url=/services', configs: await generateConfigs() });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
     });
 
-    test('vault with showBackBarOn connection-setting', () => {
-      const url = openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
+    test('vault with showBackBarOn connection-setting', async () => {
+      const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'vault', {
         showBackBarOn: { view: 'connection-setting', credentialId: '123' }
       });
 
-      const query = qs.stringify({ configs: generateConfigs(), state: 'url=/connection/123' });
+      const query = qs.stringify({ state: 'url=/connection/123', configs: await generateConfigs() });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
     });
 
-    test('invalid service id', () => {
-      expect(() => {
-        // force cast invalid value so that we can use it for testing
-        openServiceUrl(new MtLinkSdk().storedOptions, 'invalid' as 'vault');
-      }).toThrow('[mt-link-sdk] Invalid `serviceId` in `openServiceUrl`, got: invalid');
+    test('invalid service id', async () => {
+      await expect(openServiceUrl(new MtLinkSdk().storedOptions, 'invalid' as 'vault')).rejects.toThrow(
+        '[mt-link-sdk] Invalid `serviceId` in `openServiceUrl`, got: invalid'
+      );
     });
 
-    test('saml_subject_id is passed when initialized', () => {
+    test('saml_subject_id is passed when initialized', async () => {
       const instance = new MtLinkSdk();
       instance.init('clientId', { samlSubjectId: 'samlSubjectId' });
 
-      const url = openServiceUrl(instance.storedOptions, 'myaccount');
+      const url = await openServiceUrl(instance.storedOptions, 'myaccount');
 
       const query = qs.stringify({
         client_id: 'clientId',
         saml_subject_id: 'samlSubjectId',
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/?${query}`);
     });
 
-    test('undefined saml_subject_id should not be passed down', () => {
+    test('undefined saml_subject_id should not be passed down', async () => {
       const instance = new MtLinkSdk();
       instance.init('clientId', { samlSubjectId: undefined });
 
-      const url = openServiceUrl(instance.storedOptions, 'myaccount');
+      const url = await openServiceUrl(instance.storedOptions, 'myaccount');
 
       const query = qs.stringify({
         client_id: 'clientId',
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/?${query}`);

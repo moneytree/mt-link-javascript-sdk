@@ -31,57 +31,58 @@ interface QueryData {
   state?: string;
 }
 
-export default function openServiceUrl(
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'link-kit',
   options?: LinkKitOpenServiceUrlOptions
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'myaccount',
   options?: MyAccountOpenServiceUrlOptions
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlOptions
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlViewServiceList
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlViewServiceConnection
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlViewConnectionSetting
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlViewConnectionUpdate
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlViewConnectionDelete
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'vault',
   options?: VaultOpenServiceUrlViewCustomerSupport
-): string;
-export default function openServiceUrl(
+): Promise<string>;
+export default async function openServiceUrl(
   storedOptions: StoredOptions,
   serviceId: 'myaccount' | 'vault' | 'link-kit',
   options: OpenServiceUrlOptions = {}
-): string {
+): Promise<string> {
   const { clientId, mode, cobrandClientId, locale, samlSubjectId } = storedOptions;
+  const configs = await generateConfigs(mergeConfigs(storedOptions, options));
 
   const toVaultStateParam = (value: NonNullable<VaultSpecificOptions['showBackBarOn']>): string => {
     switch (value.view) {
@@ -100,8 +101,8 @@ export default function openServiceUrl(
       cobrand_client_id: cobrandClientId,
       locale,
       saml_subject_id: samlSubjectId,
-      configs: generateConfigs(mergeConfigs(storedOptions, options)),
-      state: vaultShowBackBarOn ? toVaultStateParam(vaultShowBackBarOn) : undefined
+      state: vaultShowBackBarOn ? toVaultStateParam(vaultShowBackBarOn) : undefined,
+      configs
     };
 
     if (!needStringify) {
