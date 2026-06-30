@@ -1,2 +1,2 @@
 import { StoredOptions, AuthorizeUrlOptions } from '../typings';
-export default function authorize(storedOptions: StoredOptions, options?: AuthorizeUrlOptions): string;
+export default function authorize(storedOptions: StoredOptions, options?: AuthorizeUrlOptions): Promise<string>;
