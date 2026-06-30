@@ -119,21 +119,21 @@ export class MtLinkSdk {
    *
    * @example
    * ```javascript
-   * mtLinkSdk.authorize(options);
+   * await mtLinkSdk.authorize(options);
    * ```
    */
-  public authorize(options?: AuthorizeOptions): void {
-    authorize(this.storedOptions, options);
+  public async authorize(options?: AuthorizeOptions): Promise<void> {
+    await authorize(this.storedOptions, options);
   }
 
   /**
    * This method generates a URL for OAuth authorization that requires user consent to access data via [Link API](https://getmoneytree.com/jp/link/about).
    *
    * See {@link authorize} API for authorization details. This API has exactly the same parameters as {@link authorize},
-   * the only difference is that it returns a URL instead of opening immediately with `window.open`.
+   * the only difference is that it returns a `Promise` that resolves to a URL instead of opening immediately with `window.open`.
    */
-  public authorizeUrl(options?: AuthorizeUrlOptions): string {
-    return authorizeUrl(this.storedOptions, options);
+  public async authorizeUrl(options?: AuthorizeUrlOptions): Promise<string> {
+    return await authorizeUrl(this.storedOptions, options);
   }
 
   /**
@@ -156,35 +156,38 @@ export class MtLinkSdk {
    *
    * @throws If the `email` property is not set (via {@link init} or in the `options` parameter of this function).
    */
-  public onboard(options?: OnboardOptions): void {
-    onboard(this.storedOptions, options);
+  public async onboard(options?: OnboardOptions): Promise<void> {
+    await onboard(this.storedOptions, options);
   }
 
   /**
    * This method generates a URL for user onboarding.
    *
-   * This API has exactly the same parameters as {@link onboard}, the only difference being that it returns a URL
-   * instead of opening immediately with `window.open`.
+   * This API has exactly the same parameters as {@link onboard}, the only difference being that it returns a `Promise`
+   * that resolves to a URL instead of opening immediately with `window.open`.
    */
-  public onboardUrl(options?: OnboardUrlOptions): string {
-    return onboardUrl(this.storedOptions, options);
+  public async onboardUrl(options?: OnboardUrlOptions): Promise<string> {
+    return await onboardUrl(this.storedOptions, options);
   }
 
   /**
    * Logout current user from Moneytree.
+   *
+   * Returns a `Promise` that resolves when the logout operation is complete. Use `await` to ensure logout
+   * finishes before proceeding.
    */
-  public logout(options?: LogoutOptions): void {
-    logout(this.storedOptions, options);
+  public async logout(options?: LogoutOptions): Promise<void> {
+    await logout(this.storedOptions, options);
   }
 
   /**
    * This method generates a URL to log out the user.
    *
-   * This API has exactly the same parameters as {@link logout}, the only difference being that it returns a URL
-   * instead of opening immediately with `window.open`.
+   * This API has exactly the same parameters as {@link logout}, the only difference being that it returns a `Promise`
+   * that resolves to a URL instead of opening immediately with `window.open`.
    */
-  public logoutUrl(options?: LogoutUrlOptions): string {
-    return logoutUrl(this.storedOptions, options);
+  public async logoutUrl(options?: LogoutUrlOptions): Promise<string> {
+    return await logoutUrl(this.storedOptions, options);
   }
 
   /**
@@ -193,16 +196,18 @@ export class MtLinkSdk {
    * Pass `serviceId: 'link-kit'` to open the LINK Kit service.
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
    */
-  public openService(serviceId: 'link-kit', options?: LinkKitOpenServiceOptions): void;
+  public async openService(serviceId: 'link-kit', options?: LinkKitOpenServiceOptions): Promise<void>;
   /**
    * Pass `serviceId: 'myaccount'` to open the MyAccount service.
    *
    * Open different MyAccount sub-pages by passing the {@link MyAccountServiceTypes} for all possible options.
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
    */
-  public openService(serviceId: 'myaccount', options?: MyAccountOpenServiceOptions): void;
+  public async openService(serviceId: 'myaccount', options?: MyAccountOpenServiceOptions): Promise<void>;
   /**
    * Pass `serviceId: 'vault'` to open the Vault service.
    *
@@ -213,22 +218,23 @@ export class MtLinkSdk {
    * - `customerSupport`: opens the Vault customer support page, pass {@link VaultOpenServiceViewCustomerSupport} as options.
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
    */
-  public openService(serviceId: 'vault', options?: VaultOpenServiceOptions): void;
-  public openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceList): void;
-  public openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceConnection): void;
-  public openService(serviceId: 'vault', options?: VaultOpenServiceViewConnectionSetting): void;
-  public openService(serviceId: 'vault', options?: VaultOpenServiceViewCustomerSupport): void;
-  public openService(serviceId: ServiceId, options?: OpenServiceOptions): void {
+  public async openService(serviceId: 'vault', options?: VaultOpenServiceOptions): Promise<void>;
+  public async openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceList): Promise<void>;
+  public async openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceConnection): Promise<void>;
+  public async openService(serviceId: 'vault', options?: VaultOpenServiceViewConnectionSetting): Promise<void>;
+  public async openService(serviceId: 'vault', options?: VaultOpenServiceViewCustomerSupport): Promise<void>;
+  public async openService(serviceId: ServiceId, options?: OpenServiceOptions): Promise<void> {
     switch (serviceId) {
       case 'myaccount':
-        openService(this.storedOptions, 'myaccount', options);
+        await openService(this.storedOptions, 'myaccount', options);
         break;
       case 'vault':
-        openService(this.storedOptions, 'vault', options);
+        await openService(this.storedOptions, 'vault', options);
         break;
       case 'link-kit':
-        openService(this.storedOptions, 'link-kit', options);
+        await openService(this.storedOptions, 'link-kit', options);
         break;
       default:
         throw new Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openService\`, got: ${serviceId}`);
@@ -238,24 +244,24 @@ export class MtLinkSdk {
   /**
    * This method can generate URLs for various services provided by Moneytree, such as Moneytree Account Settings and Vault.
    *
-   * This API has exactly the same parameters as {@link openService}, the only difference being that it returns a URL
-   * instead of opening immediately with `window.open`.
+   * This API has exactly the same parameters as {@link openService}, the only difference being that it returns a `Promise`
+   * that resolves to a URL instead of opening immediately with `window.open`.
    */
-  public openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): string;
-  public openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): string;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): string;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceList): string;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): string;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): string;
-  public openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): string;
-  public openServiceUrl(serviceId: ServiceId, options?: OpenServiceUrlOptions): string {
+  public async openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): Promise<string>;
+  public async openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceList): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): Promise<string>;
+  public async openServiceUrl(serviceId: ServiceId, options?: OpenServiceUrlOptions): Promise<string> {
     switch (serviceId) {
       case 'myaccount':
-        return openServiceUrl(this.storedOptions, 'myaccount', options);
+        return await openServiceUrl(this.storedOptions, 'myaccount', options);
       case 'vault':
-        return openServiceUrl(this.storedOptions, 'vault', options);
+        return await openServiceUrl(this.storedOptions, 'vault', options);
       case 'link-kit':
-        return openServiceUrl(this.storedOptions, 'link-kit', options);
+        return await openServiceUrl(this.storedOptions, 'link-kit', options);
       default:
         throw new Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openServiceUrl\`, got: ${serviceId}`);
     }
@@ -300,10 +306,10 @@ export class MtLinkSdk {
   }
 
   /**
-   * Validate a token and get information about the user or resource server.
+	 * Validate a token and get information about the user or resource server.
 
-   * @throws if the token is expired.
-   */
+	 * @throws if the token is expired.
+	 */
   public tokenInfo(token: string): Promise<TokenInfo> {
     return tokenInfo(this.storedOptions, token);
   }

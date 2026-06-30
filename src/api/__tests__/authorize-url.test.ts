@@ -16,24 +16,22 @@ describe('api', () => {
     const clientId = 'clientId';
     const redirectUri = 'redirectUri';
 
-    test('without calling init', () => {
-      expect(() => {
-        authorizeUrl(new MtLinkSdk().storedOptions);
-      }).toThrow('[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.');
+    test('without calling init', async () => {
+      await expect(authorizeUrl(new MtLinkSdk().storedOptions)).rejects.toThrow(
+        '[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.'
+      );
     });
 
-    test('redirectUri is required', () => {
+    test('redirectUri is required', async () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId);
 
-      expect(() => {
-        authorizeUrl(mtLinkSdk.storedOptions);
-      }).toThrow(
+      await expect(authorizeUrl(mtLinkSdk.storedOptions)).rejects.toThrow(
         '[mt-link-sdk] Missing option `redirectUri` in `authorizeUrl/authorize`, make sure to pass one via `authorizeUrl/authorize` options or `init` options.'
       );
     });
 
-    test('method call without options use default init value', () => {
+    test('method call without options use default init value', async () => {
       mockedStorage.set.mockClear();
 
       const country = 'JP';
@@ -51,7 +49,7 @@ describe('api', () => {
         samlSubjectId
       });
 
-      const url = authorizeUrl(mtLinkSdk.storedOptions);
+      const url = await authorizeUrl(mtLinkSdk.storedOptions);
 
       const query = {
         client_id: clientId,
@@ -62,12 +60,12 @@ describe('api', () => {
         country,
         locale,
         saml_subject_id: samlSubjectId,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       };
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query})
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query });
     });
 
-    test('with options', () => {
+    test('with options', async () => {
       mockedStorage.set.mockClear();
 
       const state = 'state';
@@ -78,7 +76,7 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { samlSubjectId });
 
-      const url = authorizeUrl(mtLinkSdk.storedOptions, {
+      const url = await authorizeUrl(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes
@@ -92,70 +90,70 @@ describe('api', () => {
         state,
         country,
         saml_subject_id: samlSubjectId,
-        configs: generateConfigs()
-      }
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query})
+        configs: await generateConfigs()
+      };
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/oauth/authorize', query });
     });
 
-    test('includes affiliate_code when provided', () => {
+    test('includes affiliate_code when provided', async () => {
       mockedStorage.set.mockClear();
-    
+
       const state = 'state';
       const scopes = 'points_read';
       const affiliateCode = 'mtb_hoge';
-    
+
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { redirectUri });
-    
-      const url = authorizeUrl(mtLinkSdk.storedOptions, {
+
+      const url = await authorizeUrl(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes,
         affiliateCode
       });
-      
+
       const urlObj = new URL(url);
       expect(urlObj.searchParams.get('affiliate_code')).toBe(affiliateCode);
-    });   
-    
-    test('does not include affiliate_code when affiliateCode is undefined', () => {
+    });
+
+    test('does not include affiliate_code when affiliateCode is undefined', async () => {
       mockedStorage.set.mockClear();
-    
+
       const state = 'state';
       const scopes = 'points_read';
-    
+
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { redirectUri });
-    
-      const url = authorizeUrl(mtLinkSdk.storedOptions, {
+
+      const url = await authorizeUrl(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes,
         affiliateCode: undefined
       });
-    
+
       const urlObj = new URL(url);
       expect(urlObj.searchParams.has('affiliate_code')).toBe(false);
     });
 
-    test('does not include affiliate_code when affiliateCode is empty string', () => {
+    test('does not include affiliate_code when affiliateCode is empty string', async () => {
       mockedStorage.set.mockClear();
-    
+
       const state = 'state';
       const scopes = 'points_read';
-    
+
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { redirectUri });
-    
-      const url = authorizeUrl(mtLinkSdk.storedOptions, {
+
+      const url = await authorizeUrl(mtLinkSdk.storedOptions, {
         state,
         redirectUri,
         scopes,
         affiliateCode: null as any
       });
-      
+
       const urlObj = new URL(url);
       expect(urlObj.searchParams.has('affiliate_code')).toBe(false);
-    });    
+    });
   });
 });

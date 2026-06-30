@@ -14,8 +14,11 @@ import {
   AuthAction,
   AuthnMethod,
   supportedAuthnMethod,
-  supportedAuthAction
+  supportedAuthAction,
+  Mode,
+  StoredOptions
 } from './typings';
+import { MY_ACCOUNT_DOMAINS } from './server-paths';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
@@ -33,8 +36,8 @@ export function mergeConfigs(
   initValues: InitOptions,
   newValues: ConfigsOptions,
   ignoreKeys: string[] = []
-): ConfigsOptions {
-  const configs: ConfigsOptions = {
+): StoredOptions & ConfigsOptions {
+  const configs: StoredOptions & ConfigsOptions = {
     email: fallbackOnUndefined<ConfigsOptions['email']>(newValues.email, initValues.email),
     backTo: fallbackOnUndefined<ConfigsOptions['backTo']>(newValues.backTo, initValues.backTo),
     authAction: fallbackOnUndefined<ConfigsOptions['authAction']>(newValues.authAction, initValues.authAction),
@@ -52,7 +55,8 @@ export function mergeConfigs(
       fallbackOnUndefined<ConfigsOptions['authnMethod']>(newValues.authnMethod, initValues.authnMethod)
     ),
     sdkPlatform: fallbackOnUndefined<ConfigsOptions['sdkPlatform']>(newValues.sdkPlatform, initValues.sdkPlatform),
-    sdkVersion: fallbackOnUndefined<ConfigsOptions['sdkVersion']>(newValues.sdkVersion, initValues.sdkVersion)
+    sdkVersion: fallbackOnUndefined<ConfigsOptions['sdkVersion']>(newValues.sdkVersion, initValues.sdkVersion),
+    mode: initValues.mode || 'production'
   };
 
   Object.keys(configs).forEach((key) => {
@@ -64,11 +68,35 @@ export function mergeConfigs(
   return configs;
 }
 
-export function generateConfigs(configs: ConfigsOptions = {}): string {
+interface FetchEmailTokenParams {
+  email: string;
+  mode: Mode;
+}
+
+interface FetchEmailTokenResponse {
+  email_token: string;
+}
+
+async function fetchEmailToken({ email, mode }: FetchEmailTokenParams): Promise<string | undefined> {
+  const response = await fetch(`${MY_ACCOUNT_DOMAINS[mode]}/email-token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  });
+  if (!response.ok) return undefined;
+
+  const data: FetchEmailTokenResponse = await response.json();
+
+  return data.email_token;
+}
+
+export async function generateConfigs(
+  configs: StoredOptions & ConfigsOptions = { mode: 'production' }
+): Promise<string> {
   const snakeCaseConfigs: { [key: string]: string | AuthAction | boolean | undefined } = {};
 
   const configKeys = [
-    'email',
+    'emailToken',
     'backTo',
     'authAction',
     'showAuthToggle',
@@ -80,13 +108,16 @@ export function generateConfigs(configs: ConfigsOptions = {}): string {
     'sdkVersion'
   ];
 
-  if (configs.authnMethod) {
-    configs.authnMethod = parseAuthnMethod(configs.authnMethod);
+  if (configs.email) {
+    const emailToken = await fetchEmailToken({ email: configs.email, mode: configs.mode }).catch(() => undefined);
+    delete configs.email;
+
+    if (emailToken) configs.emailToken = emailToken;
   }
 
-  if (configs.authAction) {
-    configs.authAction = parseAuthAction(configs.authAction);
-  }
+  if (configs.authnMethod) configs.authnMethod = parseAuthnMethod(configs.authnMethod);
+
+  if (configs.authAction) configs.authAction = parseAuthAction(configs.authAction);
 
   // fallback to current SDK value when both sdk platform and version doesn't or partially exists
   if (!configs.sdkPlatform || !configs.sdkVersion) {

@@ -45,7 +45,7 @@ describe('api', () => {
       await tokenInfo(mtLinkSdk.storedOptions, token);
       const query = qs.stringify({
         client_id: clientId,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;

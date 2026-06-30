@@ -13,7 +13,7 @@ export default async function tokenInfo(storedOptions: StoredOptions, token: str
   const queryString = stringify({
     client_id: clientId,
     cobrand_client_id: storedOptions.cobrandClientId,
-    configs: generateConfigs(storedOptions)
+    configs: await generateConfigs(storedOptions)
   });
 
   try {

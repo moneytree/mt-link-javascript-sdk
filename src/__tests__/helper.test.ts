@@ -1,9 +1,15 @@
 import qs from 'qs';
 import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs } from '../helper';
 import packageJson from '../../package.json';
-import { AuthnMethod, ConfigsOptions } from '../typings';
+import { AuthnMethod, ConfigsOptions, StoredOptions } from '../typings';
+
+const mockFetch = jest.spyOn(global, 'fetch')
 
 describe('helper', () => {
+  beforeEach(() => {
+	  jest.clearAllMocks();
+  });
+
   test('constuctScopes', () => {
     expect(constructScopes()).toBeUndefined();
     expect(constructScopes('guest_read')).toBe('guest_read');
@@ -36,7 +42,8 @@ describe('helper', () => {
         backTo: 'backTo',
         showRememberMe: true,
         showAuthToggle: true,
-        authnMethod: 'sso'
+        authnMethod: 'sso',
+        mode: 'production'
       });
     });
 
@@ -89,7 +96,8 @@ describe('helper', () => {
         backTo: 'backTo',
         authAction: 'signup',
         showAuthToggle: true,
-        showRememberMe: true
+        showRememberMe: true,
+        mode: 'production'
       });
     });
 
@@ -120,18 +128,25 @@ describe('helper', () => {
   });
 
   describe('generateConfigs', () => {
-    test('with parameter', () => {
-      const configPayload: ConfigsOptions = {
+    test('with parameter', async () => {
+			const emailToken = 'email-token';
+			mockFetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({ email_token: emailToken })
+			} as Response);
+
+      const configPayload: StoredOptions & ConfigsOptions = {
         email: 'email',
         backTo: 'backTo',
         authAction: 'signup',
         showAuthToggle: true,
         showRememberMe: true,
-        authnMethod: 'sso'
+        authnMethod: 'sso',
+        mode: 'production'
       };
 
-      expect(qs.parse(generateConfigs(configPayload))).toEqual({
-        email: 'email',
+      expect(qs.parse(await generateConfigs(configPayload))).toEqual({
+        email_token: emailToken,
         back_to: 'backTo',
         auth_action: 'signup',
         show_auth_toggle: 'true',
@@ -142,41 +157,56 @@ describe('helper', () => {
       });
     });
 
-    test('query encoding should make sure config params are also encoded', () => {
-      const configPayload: ConfigsOptions = {
-        email: 'email&!@#(*)-304should be_encoded',
+    test('query encoding should make sure config params are also encoded', async () => {
+			const emailToken = 'token&!@#(*)-304should be_encoded';
+			mockFetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({ email_token: emailToken })
+			} as Response);
+
+      const configPayload: StoredOptions & ConfigsOptions = {
+        email: 'does not matter',
         backTo: 'backTo #!@with []special= chars',
         authAction: 'signup',
         showAuthToggle: true,
         showRememberMe: true,
-        authnMethod: 'sso'
+        authnMethod: 'sso',
+        mode: 'production'
       };
 
-      const result = generateConfigs(configPayload);
-      expect(result).toContain('email=email%26%21%40%23%28%2A%29-304should%20be_encoded');
+      const result = await generateConfigs(configPayload);
+      expect(result).toContain('email_token=token%26%21%40%23%28%2A%29-304should%20be_encoded');
       expect(result).toContain('back_to=backTo%20%23%21%40with%20%5B%5Dspecial%3D%20chars');
     });
 
-    test('Should raise an error when passing an array in authnMethod', () => {
-      const configPayload: ConfigsOptions = {
-        authnMethod: ['oh-not-valid', 'should raise'] as unknown as AuthnMethod
+    test('Should raise an error when passing an array in authnMethod', async () => {
+      const configPayload: StoredOptions & ConfigsOptions = {
+        authnMethod: ['oh-not-valid', 'should raise'] as unknown as AuthnMethod,
+        mode: 'production'
       };
 
-      expect(() => generateConfigs(configPayload)).toThrow(TypeError);
+      await expect(generateConfigs(configPayload)).rejects.toThrow(TypeError);
     });
 
-    test('Should reject invalid authnMethod from config', () => {
-      const configPayload: ConfigsOptions = {
+    test('Should reject invalid authnMethod from config', async () => {
+			const emailToken = 'token1234';
+			mockFetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve({ email_token: emailToken })
+			} as Response);
+
+      const configPayload: StoredOptions & ConfigsOptions = {
         email: 'email',
         backTo: 'backTo',
         authAction: 'signup',
         showAuthToggle: true,
         showRememberMe: true,
-        authnMethod: 'oh-not-valid' as AuthnMethod
+        authnMethod: 'oh-not-valid' as AuthnMethod,
+        mode: 'production'
       };
 
-      expect(qs.parse(generateConfigs(configPayload))).toEqual({
-        email: 'email',
+      expect(qs.parse(await generateConfigs(configPayload))).toEqual({
+        email_token: emailToken,
         back_to: 'backTo',
         auth_action: 'signup',
         show_auth_toggle: 'true',
@@ -186,8 +216,26 @@ describe('helper', () => {
       });
     });
 
-    test('without parameter', () => {
-      expect(generateConfigs()).toBe(`sdk_platform=js&sdk_version=${packageJson.version}`);
+		test('it returns configs without email or emailToken if POST fails', async () => {
+			mockFetch.mockResolvedValueOnce({ ok: false } as Response);
+
+      const configPayload: StoredOptions & ConfigsOptions = {
+        email: 'email',
+        backTo: 'backTo #!@with []special= chars',
+        authAction: 'signup',
+        showAuthToggle: true,
+        showRememberMe: true,
+        authnMethod: 'sso',
+        mode: 'production'
+      };
+
+			const result = await generateConfigs(configPayload);
+			expect(result).not.toContain('email_token');
+			expect(result).not.toContain('email');
+		});
+
+    test('without parameter', async () => {
+      expect(await generateConfigs()).toBe(`sdk_platform=js&sdk_version=${packageJson.version}`);
     });
   });
 });

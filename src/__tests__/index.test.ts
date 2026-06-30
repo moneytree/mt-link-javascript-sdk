@@ -40,19 +40,19 @@ describe('index', () => {
       samlSubjectId: options.samlSubjectId
     };
 
-    const result1 = instance.authorize({ scopes: 'scopes' });
+    const result1 = await instance.authorize({ scopes: 'scopes' });
     expect(result1).toBeUndefined();
     expect(authorize).toBeCalledWith(storedOptions, { scopes: 'scopes' });
 
-    const result2 = instance.onboard({ scopes: 'scopes' });
+    const result2 = await instance.onboard({ scopes: 'scopes' });
     expect(result2).toBeUndefined();
     expect(onboard).toBeCalledWith(storedOptions, { scopes: 'scopes' });
 
-    const result3 = instance.logout({ backTo: 'backTo' });
+    const result3 = await instance.logout({ backTo: 'backTo' });
     expect(result3).toBeUndefined();
     expect(logout).toBeCalledWith(storedOptions, { backTo: 'backTo' });
 
-    const result4 = instance.openService('myaccount');
+    const result4 = await instance.openService('myaccount');
     expect(result4).toBeUndefined();
     expect(openService).toBeCalledWith(storedOptions, 'myaccount', undefined);
 
@@ -88,31 +88,31 @@ describe('index', () => {
       redirect_uri: 'redirectUri',
       country: 'JP',
       configs: `authn_method=sso&sdk_platform=js&sdk_version=${sdkVersion}`
-    }
-    const result8 = instance.authorizeUrl({ scopes: 'scopes' });
+    };
+    const result8 = await instance.authorizeUrl({ scopes: 'scopes' });
     expectUrlToMatchWithPKCE(result8, {
       baseUrl: 'https://myaccount.getmoneytree.com',
       path: '/oauth/authorize',
       query: {
         ...authQuery,
-        saml_subject_id: 'samlSubjectId',
+        saml_subject_id: 'samlSubjectId'
       }
-    })
+    });
 
-    const result9 = instance.onboardUrl({ scopes: 'scopes' });
+    const result9 = await instance.onboardUrl({ scopes: 'scopes' });
     expectUrlToMatchWithPKCE(result9, {
       baseUrl: 'https://myaccount.getmoneytree.com',
       path: '/onboard',
       query: authQuery
-    })
+    });
 
-    const result10 = instance.logoutUrl({ backTo: 'backTo' });
+    const result10 = await instance.logoutUrl({ backTo: 'backTo' });
     expect(result10).toBe(
       'https://myaccount.getmoneytree.com/guests/logout?client_id=clientId&saml_subject_id=samlSubjectId&' +
         `configs=back_to%3DbackTo%26authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`
     );
 
-    const result11 = instance.openServiceUrl('vault');
+    const result11 = await instance.openServiceUrl('vault');
     expect(result11).toBe(
       'https://vault.getmoneytree.com?client_id=clientId&saml_subject_id=samlSubjectId&' +
         `configs=authn_method%3Dsso%26sdk_platform%3Djs%26sdk_version%3D${sdkVersion}`

@@ -36,7 +36,7 @@ describe('api', () => {
       await requestLoginLink(new MtLinkSdk().storedOptions, { email });
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
@@ -65,7 +65,7 @@ describe('api', () => {
       });
 
       const query = qs.stringify({
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
@@ -113,7 +113,7 @@ describe('api', () => {
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
-        configs: generateConfigs()
+        configs: await generateConfigs()
       });
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;

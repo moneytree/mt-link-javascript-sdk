@@ -1,4 +1,3 @@
-import qs from 'qs';
 import { mocked } from 'ts-jest/utils';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
@@ -18,24 +17,22 @@ describe('api', () => {
     const redirectUri = 'redirectUri';
     const email = 'email';
 
-    test('without calling init', () => {
-      expect(() => {
-        onboardUrl(new MtLinkSdk().storedOptions);
-      }).toThrow('[mt-link-sdk] Make sure to call `init` before calling `onboardUrl/onboard`.');
+    test('without calling init', async () => {
+      await expect(onboardUrl(new MtLinkSdk().storedOptions)).rejects.toThrow(
+        '[mt-link-sdk] Make sure to call `init` before calling `onboardUrl/onboard`.'
+      );
     });
 
-    test('redirectUri is required', () => {
+    test('redirectUri is required', async () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId);
 
-      expect(() => {
-        onboardUrl(mtLinkSdk.storedOptions);
-      }).toThrow(
+      await expect(onboardUrl(mtLinkSdk.storedOptions)).rejects.toThrow(
         '[mt-link-sdk] Missing option `redirectUri` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.'
       );
     });
 
-    test('method call without options use default init value', () => {
+    test('method call without options use default init value', async () => {
       mockedStorage.set.mockClear();
 
       const country = 'JP';
@@ -52,7 +49,7 @@ describe('api', () => {
         cobrandClientId
       });
 
-      const url = onboardUrl(mtLinkSdk.storedOptions);
+      const url = await onboardUrl(mtLinkSdk.storedOptions);
 
       const query = {
         client_id: clientId,
@@ -62,13 +59,13 @@ describe('api', () => {
         redirect_uri: redirectUri,
         country,
         locale,
-        configs: generateConfigs({ email })
+        configs: await generateConfigs({ email, mode: 'production' })
       };
 
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query: query })
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query: query });
     });
 
-    test('with options', () => {
+    test('with options', async () => {
       mockedStorage.set.mockClear();
 
       const state = 'state';
@@ -78,13 +75,12 @@ describe('api', () => {
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId);
 
-      const url = onboardUrl(mtLinkSdk.storedOptions, {
-          state,
-          redirectUri,
-          scopes,
-          email
-        }
-      );
+      const url = await onboardUrl(mtLinkSdk.storedOptions, {
+        state,
+        redirectUri,
+        scopes,
+        email
+      });
 
       const query = {
         client_id: clientId,
@@ -93,10 +89,10 @@ describe('api', () => {
         redirect_uri: redirectUri,
         state,
         country,
-        configs: generateConfigs({ email })
+        configs: await generateConfigs({ email, mode: 'production' })
       };
 
-      expectUrlToMatchWithPKCE(url, {baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query})
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query });
     });
   });
 });

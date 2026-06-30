@@ -8,7 +8,7 @@
     "start": "webpack serve"
   },
   "dependencies": {
-    "@moneytree/mt-link-javascript-sdk": "file:../"
+    "@moneytree/mt-link-javascript-sdk": "portal:../"
   },
   "devDependencies": {
     "html-webpack-plugin": "^4.5.0",

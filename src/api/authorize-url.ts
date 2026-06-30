@@ -5,7 +5,10 @@ import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, AuthorizeUrlOptions } from '../typings';
 import storage from '../storage';
 
-export default function authorize(storedOptions: StoredOptions, options: AuthorizeUrlOptions = {}): string {
+export default async function authorize(
+  storedOptions: StoredOptions,
+  options: AuthorizeUrlOptions = {}
+): Promise<string> {
   const {
     mode,
     clientId,
@@ -20,7 +23,14 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
     throw new Error('[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.');
   }
 
-  const { scopes = defaultScopes, redirectUri = defaultRedirectUri, codeChallenge, state, affiliateCode, ...rest } = options;
+  const {
+    scopes = defaultScopes,
+    redirectUri = defaultRedirectUri,
+    codeChallenge,
+    state,
+    affiliateCode,
+    ...rest
+  } = options;
 
   if (!redirectUri) {
     throw new Error(
@@ -32,6 +42,7 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
 
   const cc = codeChallenge || generateCodeChallenge();
 
+  const configs = await generateConfigs(mergeConfigs(storedOptions, rest));
   const queryString = stringify({
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
@@ -44,7 +55,7 @@ export default function authorize(storedOptions: StoredOptions, options: Authori
     country: 'JP',
     locale,
     saml_subject_id: samlSubjectId,
-    configs: generateConfigs(mergeConfigs(storedOptions, rest)),
+    configs,
     ...(affiliateCode ? { affiliate_code: affiliateCode } : {})
   });
 
