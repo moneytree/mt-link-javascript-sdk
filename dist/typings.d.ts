@@ -7,6 +7,7 @@ export interface PrivateParams {
 export interface PrivateConfigsOptions {
     sdkPlatform?: 'ios' | 'android' | 'js';
     sdkVersion?: string;
+    emailToken?: string;
 }
 export declare const supportedAuthnMethod: readonly ["passwordless", "sso", "credentials", "otp"];
 export type AuthnMethod = typeof supportedAuthnMethod[number];
