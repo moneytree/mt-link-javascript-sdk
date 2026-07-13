@@ -40,7 +40,9 @@ import {
   VaultOpenServiceViewServiceList,
   VaultOpenServiceViewServiceConnection,
   VaultOpenServiceViewConnectionSetting,
-  VaultOpenServiceViewCustomerSupport
+  VaultOpenServiceViewCustomerSupport,
+  VaultOpenServiceViewOnboarding,
+  VaultOpenServiceUrlViewOnboarding
 } from './typings';
 
 export * from './typings';
@@ -216,6 +218,7 @@ export class MtLinkSdk {
    * - `serviceConnection`: opens the Vault service connection page, pass {@link VaultOpenServiceViewServiceConnection} as options.
    * - `connectionSetting`: opens the Vault connection setting page, pass {@link VaultOpenServiceViewConnectionSetting} as options.
    * - `customerSupport`: opens the Vault customer support page, pass {@link VaultOpenServiceViewCustomerSupport} as options.
+   * - `onboarding`: opens the Vault custom onboarding page if configured, pass {@link VaultOpenServiceViewOnboarding} as options.
    *
    * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
    * @remark This method is async. Use `await` to ensure the service opens before proceeding.
@@ -225,6 +228,7 @@ export class MtLinkSdk {
   public async openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceConnection): Promise<void>;
   public async openService(serviceId: 'vault', options?: VaultOpenServiceViewConnectionSetting): Promise<void>;
   public async openService(serviceId: 'vault', options?: VaultOpenServiceViewCustomerSupport): Promise<void>;
+  public async openService(serviceId: 'vault', options?: VaultOpenServiceViewOnboarding): Promise<void>;
   public async openService(serviceId: ServiceId, options?: OpenServiceOptions): Promise<void> {
     switch (serviceId) {
       case 'myaccount':
@@ -254,6 +258,7 @@ export class MtLinkSdk {
   public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): Promise<string>;
   public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): Promise<string>;
   public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): Promise<string>;
+  public async openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewOnboarding): Promise<string>;
   public async openServiceUrl(serviceId: ServiceId, options?: OpenServiceUrlOptions): Promise<string> {
     switch (serviceId) {
       case 'myaccount':
