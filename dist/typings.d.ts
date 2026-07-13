@@ -47,7 +47,10 @@ export type VaultViewConnectionDelete = {
 export type VaultViewCustomerSupport = {
     view: 'customer-support';
 };
-export type VaultServiceTypes = VaultViewServiceList | VaultViewServiceConnection | VaultViewConnectionSetting | VaultViewConnectionUpdate | VaultViewConnectionDelete | VaultViewCustomerSupport;
+export type VaultViewOnboarding = {
+    view: 'onboarding';
+};
+export type VaultServiceTypes = VaultViewServiceList | VaultViewServiceConnection | VaultViewConnectionSetting | VaultViewConnectionUpdate | VaultViewConnectionDelete | VaultViewCustomerSupport | VaultViewOnboarding;
 export interface VaultSpecificOptions {
     showBackBarOn?: Pick<VaultViewServiceList, 'view'> | VaultViewConnectionSetting;
 }
@@ -64,16 +67,18 @@ export type VaultOpenServiceViewConnectionSetting = VaultOpenServiceOptions & Va
 export type VaultOpenServiceViewConnectionUpdate = VaultOpenServiceOptions & VaultViewConnectionUpdate;
 export type VaultOpenServiceViewConnectionDelete = VaultOpenServiceOptions & VaultViewConnectionDelete;
 export type VaultOpenServiceViewCustomerSupport = VaultOpenServiceOptions & VaultViewCustomerSupport;
+export type VaultOpenServiceViewOnboarding = ConfigsOptions & VaultViewOnboarding;
 export type VaultOpenServiceUrlViewServiceList = VaultOpenServiceUrlOptions & VaultViewServiceList;
 export type VaultOpenServiceUrlViewServiceConnection = VaultOpenServiceUrlOptions & VaultViewServiceConnection;
 export type VaultOpenServiceUrlViewConnectionSetting = VaultOpenServiceUrlOptions & VaultViewConnectionSetting;
 export type VaultOpenServiceUrlViewConnectionUpdate = VaultOpenServiceUrlOptions & VaultViewConnectionUpdate;
 export type VaultOpenServiceUrlViewConnectionDelete = VaultOpenServiceUrlOptions & VaultViewConnectionDelete;
 export type VaultOpenServiceUrlViewCustomerSupport = VaultOpenServiceUrlOptions & VaultViewCustomerSupport;
+export type VaultOpenServiceUrlViewOnboarding = ConfigsOptionsWithoutIsNewTab & VaultViewOnboarding;
 export type LinkKitOpenServiceOptions = ConfigsOptions;
 export type LinkKitOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab;
-export type OpenServiceOptions = MyAccountOpenServiceOptions | VaultOpenServiceOptions | VaultOpenServiceViewServiceList | VaultOpenServiceViewConnectionSetting | VaultOpenServiceViewConnectionUpdate | VaultOpenServiceViewConnectionDelete | VaultOpenServiceViewCustomerSupport | LinkKitOpenServiceOptions;
-export type OpenServiceUrlOptions = MyAccountOpenServiceUrlOptions | VaultOpenServiceUrlOptions | VaultOpenServiceUrlViewServiceList | VaultOpenServiceUrlViewConnectionSetting | VaultOpenServiceUrlViewConnectionUpdate | VaultOpenServiceUrlViewConnectionDelete | VaultOpenServiceUrlViewCustomerSupport | LinkKitOpenServiceUrlOptions;
+export type OpenServiceOptions = MyAccountOpenServiceOptions | VaultOpenServiceOptions | VaultOpenServiceViewServiceList | VaultOpenServiceViewConnectionSetting | VaultOpenServiceViewConnectionUpdate | VaultOpenServiceViewConnectionDelete | VaultOpenServiceViewCustomerSupport | VaultOpenServiceViewOnboarding | LinkKitOpenServiceOptions;
+export type OpenServiceUrlOptions = MyAccountOpenServiceUrlOptions | VaultOpenServiceUrlOptions | VaultOpenServiceUrlViewServiceList | VaultOpenServiceUrlViewConnectionSetting | VaultOpenServiceUrlViewConnectionUpdate | VaultOpenServiceUrlViewConnectionDelete | VaultOpenServiceUrlViewCustomerSupport | VaultOpenServiceUrlViewOnboarding | LinkKitOpenServiceUrlOptions;
 export type Scopes = string | string[];
 interface AuthorizeConfigsOptions {
     forceLogout?: boolean;

@@ -1,4 +1,4 @@
-import { StoredOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, VaultOpenServiceUrlOptions, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewConnectionUpdate, VaultOpenServiceUrlViewConnectionDelete, VaultOpenServiceUrlViewCustomerSupport } from '../typings';
+import { StoredOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, VaultOpenServiceUrlOptions, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewConnectionUpdate, VaultOpenServiceUrlViewConnectionDelete, VaultOpenServiceUrlViewCustomerSupport, VaultOpenServiceUrlViewOnboarding } from '../typings';
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): Promise<string>;
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): Promise<string>;
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlOptions): Promise<string>;
@@ -8,3 +8,4 @@ export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionUpdate): Promise<string>;
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionDelete): Promise<string>;
 export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): Promise<string>;
+export default function openServiceUrl(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceUrlViewOnboarding): Promise<string>;

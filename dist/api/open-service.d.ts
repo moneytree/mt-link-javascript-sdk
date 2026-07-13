@@ -1,4 +1,4 @@
-import { StoredOptions, LinkKitOpenServiceOptions, MyAccountOpenServiceOptions, VaultOpenServiceOptions, VaultOpenServiceViewServiceList, VaultOpenServiceViewServiceConnection, VaultOpenServiceViewConnectionSetting, VaultOpenServiceViewConnectionUpdate, VaultOpenServiceViewConnectionDelete, VaultOpenServiceViewCustomerSupport } from '../typings';
+import { StoredOptions, LinkKitOpenServiceOptions, MyAccountOpenServiceOptions, VaultOpenServiceOptions, VaultOpenServiceViewServiceList, VaultOpenServiceViewServiceConnection, VaultOpenServiceViewConnectionSetting, VaultOpenServiceViewConnectionUpdate, VaultOpenServiceViewConnectionDelete, VaultOpenServiceViewCustomerSupport, VaultOpenServiceViewOnboarding } from '../typings';
 export default function openService(storedOptions: StoredOptions, serviceId: 'link-kit', options?: LinkKitOpenServiceOptions): Promise<void>;
 export default function openService(storedOptions: StoredOptions, serviceId: 'myaccount', options?: MyAccountOpenServiceOptions): Promise<void>;
 export default function openService(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceOptions): Promise<void>;
@@ -8,3 +8,4 @@ export default function openService(storedOptions: StoredOptions, serviceId: 'va
 export default function openService(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceViewConnectionUpdate): Promise<void>;
 export default function openService(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceViewConnectionDelete): Promise<void>;
 export default function openService(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceViewCustomerSupport): Promise<void>;
+export default function openService(storedOptions: StoredOptions, serviceId: 'vault', options?: VaultOpenServiceViewOnboarding): Promise<void>;

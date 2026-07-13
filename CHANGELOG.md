@@ -1,3 +1,23 @@
+## 5.1.0 (2026-07-13)
+
+* feat(sample): add 'onboarding' to Vault openService options ([b1a9541](https://github.com/moneytree/mt-link-javascript-sdk/commit/b1a9541))
+* feat(types): add 'onboarding' to public openService types ([b00b902](https://github.com/moneytree/mt-link-javascript-sdk/commit/b00b902))
+* feat(vault): add "onboarding" to view options for openServiceUrl ([18a0f6f](https://github.com/moneytree/mt-link-javascript-sdk/commit/18a0f6f))
+* refactor(test): reset mock in `beforeEach` ([5a0e8ff](https://github.com/moneytree/mt-link-javascript-sdk/commit/5a0e8ff))
+* chore(scripts): add test script for watch mode ([11e8817](https://github.com/moneytree/mt-link-javascript-sdk/commit/11e8817))
+* build(deps-dev): bump webpack in the webpack group across 1 directory ([d983956](https://github.com/moneytree/mt-link-javascript-sdk/commit/d983956))
+* build(deps): bump @babel/core from 7.10.5 to 7.29.7 ([5d0d31f](https://github.com/moneytree/mt-link-javascript-sdk/commit/5d0d31f))
+* build(deps): bump cspell from 7.3.7 to 7.3.9 ([1db940e](https://github.com/moneytree/mt-link-javascript-sdk/commit/1db940e))
+* build(deps): bump dompurify from 2.5.7 to 2.5.9 ([4d2d78f](https://github.com/moneytree/mt-link-javascript-sdk/commit/4d2d78f))
+* build(deps): bump form-data from 3.0.4 to 3.0.5 ([237d76c](https://github.com/moneytree/mt-link-javascript-sdk/commit/237d76c))
+* build(deps): bump js-yaml from 3.14.0 to 3.15.0 ([51cd549](https://github.com/moneytree/mt-link-javascript-sdk/commit/51cd549))
+* build(deps): bump js-yaml from 4.1.0 to 4.3.0 in /sample ([f7ccadc](https://github.com/moneytree/mt-link-javascript-sdk/commit/f7ccadc))
+* build(deps): bump qs and @types/qs ([09e5b18](https://github.com/moneytree/mt-link-javascript-sdk/commit/09e5b18))
+* build(deps): bump undici from 6.26.0 to 6.27.0 ([254e18e](https://github.com/moneytree/mt-link-javascript-sdk/commit/254e18e))
+* build(deps): bump undici from 6.26.0 to 6.27.0 in /sample ([6ada95a](https://github.com/moneytree/mt-link-javascript-sdk/commit/6ada95a))
+
+
+
 ## 5.0.0 (2026-06-30)
 
 ### BREAKING
