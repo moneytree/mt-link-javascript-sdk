@@ -1,4 +1,4 @@
-import { Token, StoredOptions, LogoutOptions, InitOptions, AuthorizeOptions, OnboardOptions, ExchangeTokenOptions, RequestLoginLinkOptions, TokenInfo, AuthorizeUrlOptions, LogoutUrlOptions, OnboardUrlOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, LinkKitOpenServiceOptions, MyAccountOpenServiceOptions, VaultOpenServiceOptions, VaultOpenServiceUrlOptions, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewCustomerSupport, VaultOpenServiceViewServiceList, VaultOpenServiceViewServiceConnection, VaultOpenServiceViewConnectionSetting, VaultOpenServiceViewCustomerSupport } from './typings';
+import { Token, StoredOptions, LogoutOptions, InitOptions, AuthorizeOptions, OnboardOptions, ExchangeTokenOptions, RequestLoginLinkOptions, TokenInfo, AuthorizeUrlOptions, LogoutUrlOptions, OnboardUrlOptions, LinkKitOpenServiceUrlOptions, MyAccountOpenServiceUrlOptions, LinkKitOpenServiceOptions, MyAccountOpenServiceOptions, VaultOpenServiceOptions, VaultOpenServiceUrlOptions, VaultOpenServiceUrlViewServiceList, VaultOpenServiceUrlViewServiceConnection, VaultOpenServiceUrlViewConnectionSetting, VaultOpenServiceUrlViewCustomerSupport, VaultOpenServiceViewServiceList, VaultOpenServiceViewServiceConnection, VaultOpenServiceViewConnectionSetting, VaultOpenServiceViewCustomerSupport, VaultOpenServiceViewOnboarding, VaultOpenServiceUrlViewOnboarding } from './typings';
 export * from './typings';
 export declare class MtLinkSdk {
     storedOptions: StoredOptions;
@@ -17,6 +17,7 @@ export declare class MtLinkSdk {
     openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceConnection): Promise<void>;
     openService(serviceId: 'vault', options?: VaultOpenServiceViewConnectionSetting): Promise<void>;
     openService(serviceId: 'vault', options?: VaultOpenServiceViewCustomerSupport): Promise<void>;
+    openService(serviceId: 'vault', options?: VaultOpenServiceViewOnboarding): Promise<void>;
     openServiceUrl(serviceId: 'link-kit', options?: LinkKitOpenServiceUrlOptions): Promise<string>;
     openServiceUrl(serviceId: 'myaccount', options?: MyAccountOpenServiceUrlOptions): Promise<string>;
     openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlOptions): Promise<string>;
@@ -24,6 +25,7 @@ export declare class MtLinkSdk {
     openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewServiceConnection): Promise<string>;
     openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewConnectionSetting): Promise<string>;
     openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewCustomerSupport): Promise<string>;
+    openServiceUrl(serviceId: 'vault', options?: VaultOpenServiceUrlViewOnboarding): Promise<string>;
     requestLoginLink(options?: RequestLoginLinkOptions): Promise<void>;
     exchangeToken(options?: ExchangeTokenOptions): Promise<Token>;
     tokenInfo(token: string): Promise<TokenInfo>;
