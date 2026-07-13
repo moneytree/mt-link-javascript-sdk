@@ -10,7 +10,8 @@ import mtLinkSdk, {
   VaultSpecificOptions,
   ServiceId,
   LoginLinkTo,
-  VaultViewServiceList
+  VaultViewServiceList,
+  VaultOpenServiceViewOnboarding
 } from '@moneytree/mt-link-javascript-sdk';
 
 import elements from './elements';
@@ -46,7 +47,7 @@ elements.initializeBtn.onclick = () => {
 };
 
 // Launch authorize
-elements.authorizeBtn.onclick = () => {
+elements.authorizeBtn.onclick = async () => {
   const authorizeOptions: AuthorizeOptions = {};
   const { authorizeOptionsElms } = elements;
 
@@ -86,9 +87,7 @@ elements.doOnboardBtn.onclick = async () => {
 elements.tokenInfoBtn.onclick = async () => {
   const token = elements.tokenElm.value;
 
-  if (!token) {
-    return;
-  }
+  if (!token) return;
 
   const { iat, exp, sub, scope, client_id, app, guest } = await mtLinkSdk.tokenInfo(token);
 
@@ -114,7 +113,7 @@ elements.logoutBtn.onclick = () => {
 };
 
 // Launch open service
-elements.openServiceBtn.onclick = () => {
+elements.openServiceBtn.onclick = async () => {
   const { openServiceOptionsElms, commonOptionsElms } = elements;
   const serviceId: ServiceId = openServiceOptionsElms.serviceId.options[openServiceOptionsElms.serviceId.selectedIndex]
     .value as ServiceId;
@@ -132,7 +131,8 @@ elements.openServiceBtn.onclick = () => {
       | VaultOpenServiceViewServiceConnection
       | VaultOpenServiceViewConnectionSetting
       | VaultOpenServiceViewServiceList
-      | VaultOpenServiceViewCustomerSupport;
+      | VaultOpenServiceViewCustomerSupport
+      | VaultOpenServiceViewOnboarding;
     let openServicesOptions: VaultOptions = {} as VaultOptions;
 
     const getShowBackBarOn = (): VaultSpecificOptions['showBackBarOn'] => {
@@ -154,7 +154,8 @@ elements.openServiceBtn.onclick = () => {
       | 'services-list'
       | 'service-connection'
       | 'connection-setting'
-      | 'customer-support';
+      | 'customer-support'
+      | 'onboarding';
 
     switch (view) {
       case 'services-list':
@@ -187,6 +188,9 @@ elements.openServiceBtn.onclick = () => {
           credentialId: openServiceOptionsElms.credentialId.value,
           showBackBarOn
         };
+        break;
+      case 'onboarding':
+        openServicesOptions = { view };
         break;
       case 'customer-support':
       default:

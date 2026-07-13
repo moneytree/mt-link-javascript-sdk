@@ -232,6 +232,7 @@ export type OpenServiceUrlOptions =
   | VaultOpenServiceUrlViewConnectionUpdate
   | VaultOpenServiceUrlViewConnectionDelete
   | VaultOpenServiceUrlViewCustomerSupport
+  | VaultOpenServiceUrlViewOnboarding
   | LinkKitOpenServiceUrlOptions;
 
 export type Scopes = string | string[];
