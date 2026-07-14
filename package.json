@@ -38,7 +38,7 @@
     "qs": "^6.10.1",
     "snake-case": "^3.0.4",
     "stream-browserify": "^3.0.0",
-    "typedoc": "^0.25.1",
+    "typedoc": "^0.28.20",
     "url-safe-base64": "^1.1.1"
   },
   "devDependencies": {
