@@ -1,6 +1,4 @@
-import { stringify } from 'qs';
-
-import { generateConfigs, mergeConfigs } from '../helper';
+import { generateConfigs, mergeConfigs, objectToQueryString } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, LogoutUrlOptions } from '../typings';
 
@@ -8,7 +6,7 @@ export default async function logoutUrl(storedOptions: StoredOptions, options: L
   const { clientId, mode, cobrandClientId, locale, samlSubjectId } = storedOptions;
 
   const configs = await generateConfigs(mergeConfigs(storedOptions, options));
-  const queryString = stringify({
+  const queryString = objectToQueryString({
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
     locale,

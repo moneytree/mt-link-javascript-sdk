@@ -1,5 +1,4 @@
-import { stringify } from 'qs';
-import { generateConfigs, generateSdkHeaderInfo } from '../helper';
+import { generateConfigs, generateSdkHeaderInfo, objectToQueryString } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, TokenInfo } from '../typings';
 
@@ -10,7 +9,7 @@ export default async function tokenInfo(storedOptions: StoredOptions, token: str
     throw new Error('[mt-link-sdk] Missing parameter `token` in `tokenInfo`.');
   }
 
-  const queryString = stringify({
+  const queryString = objectToQueryString({
     client_id: clientId,
     cobrand_client_id: storedOptions.cobrandClientId,
     configs: await generateConfigs(storedOptions)
