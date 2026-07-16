@@ -1,19 +1,13 @@
-import qs from 'qs';
-
-import { generateSdkHeaderInfo } from '../helper';
+import { generateSdkHeaderInfo, queryStringToObject } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, ExchangeTokenOptions, Token } from '../typings';
 import storage from '../storage';
 
 function getCode(): string | undefined {
   // not available in node environment
-  if (!window) {
-    return;
-  }
+  if (!window) return;
 
-  const { code } = qs.parse(window.location.search, {
-    ignoreQueryPrefix: true
-  });
+  const { code } = queryStringToObject(window.location.search);
 
   return (Array.isArray(code) ? code[code.length - 1] : code) as string | undefined;
 }
