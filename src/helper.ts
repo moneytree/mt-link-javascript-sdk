@@ -176,3 +176,15 @@ function isAuthAction(x: unknown): x is AuthAction {
 function parseAuthAction(x: unknown): AuthAction | undefined {
   return isAuthAction(x) ? x : undefined;
 }
+
+export function objectToQueryString(paramsObject: object): string {
+  const urlSearchParams = new URLSearchParams();
+
+  Object.entries(paramsObject).forEach(([key, value]) => {
+    if (value === undefined || value === null) return;
+
+    urlSearchParams.append(key, value.toString());
+  });
+
+  return urlSearchParams.toString();
+}
