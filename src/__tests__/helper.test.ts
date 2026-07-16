@@ -3,11 +3,11 @@ import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs } from '.
 import packageJson from '../../package.json';
 import { AuthnMethod, ConfigsOptions, StoredOptions } from '../typings';
 
-const mockFetch = jest.spyOn(global, 'fetch')
+const mockFetch = jest.spyOn(global, 'fetch');
 
 describe('helper', () => {
   beforeEach(() => {
-	  jest.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   test('constuctScopes', () => {
@@ -129,11 +129,11 @@ describe('helper', () => {
 
   describe('generateConfigs', () => {
     test('with parameter', async () => {
-			const emailToken = 'email-token';
-			mockFetch.mockResolvedValueOnce({
-				ok: true,
-				json: () => Promise.resolve({ email_token: emailToken })
-			} as Response);
+      const emailToken = 'email-token';
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ email_token: emailToken })
+      } as Response);
 
       const configPayload: StoredOptions & ConfigsOptions = {
         email: 'email',
@@ -157,12 +157,14 @@ describe('helper', () => {
       });
     });
 
+    // Percent-encoding spec can be found here:
+    // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams#percent_encoding
     test('query encoding should make sure config params are also encoded', async () => {
-			const emailToken = 'token&!@#(*)-304should be_encoded';
-			mockFetch.mockResolvedValueOnce({
-				ok: true,
-				json: () => Promise.resolve({ email_token: emailToken })
-			} as Response);
+      const emailToken = 'token&!@#(*)-304should be_encoded';
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ email_token: emailToken })
+      } as Response);
 
       const configPayload: StoredOptions & ConfigsOptions = {
         email: 'does not matter',
@@ -175,8 +177,8 @@ describe('helper', () => {
       };
 
       const result = await generateConfigs(configPayload);
-      expect(result).toContain('email_token=token%26%21%40%23%28%2A%29-304should%20be_encoded');
-      expect(result).toContain('back_to=backTo%20%23%21%40with%20%5B%5Dspecial%3D%20chars');
+      expect(result).toContain('email_token=token%26%21%40%23%28*%29-304should+be_encoded');
+      expect(result).toContain('back_to=backTo+%23%21%40with+%5B%5Dspecial%3D+chars');
     });
 
     test('Should raise an error when passing an array in authnMethod', async () => {
@@ -189,11 +191,11 @@ describe('helper', () => {
     });
 
     test('Should reject invalid authnMethod from config', async () => {
-			const emailToken = 'token1234';
-			mockFetch.mockResolvedValueOnce({
-				ok: true,
-				json: () => Promise.resolve({ email_token: emailToken })
-			} as Response);
+      const emailToken = 'token1234';
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ email_token: emailToken })
+      } as Response);
 
       const configPayload: StoredOptions & ConfigsOptions = {
         email: 'email',
@@ -216,8 +218,8 @@ describe('helper', () => {
       });
     });
 
-		test('it returns configs without email or emailToken if POST fails', async () => {
-			mockFetch.mockResolvedValueOnce({ ok: false } as Response);
+    test('it returns configs without email or emailToken if POST fails', async () => {
+      mockFetch.mockResolvedValueOnce({ ok: false } as Response);
 
       const configPayload: StoredOptions & ConfigsOptions = {
         email: 'email',
@@ -229,10 +231,10 @@ describe('helper', () => {
         mode: 'production'
       };
 
-			const result = await generateConfigs(configPayload);
-			expect(result).not.toContain('email_token');
-			expect(result).not.toContain('email');
-		});
+      const result = await generateConfigs(configPayload);
+      expect(result).not.toContain('email_token');
+      expect(result).not.toContain('email');
+    });
 
     test('without parameter', async () => {
       expect(await generateConfigs()).toBe(`sdk_platform=js&sdk_version=${packageJson.version}`);
