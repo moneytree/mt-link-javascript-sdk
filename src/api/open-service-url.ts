@@ -21,7 +21,7 @@ import {
   VaultOpenServiceUrlViewOnboarding
 } from '../typings';
 
-interface QueryData {
+export interface QueryData {
   client_id?: string;
   cobrand_client_id?: string;
   locale?: string;

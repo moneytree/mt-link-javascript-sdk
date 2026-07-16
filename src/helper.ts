@@ -18,6 +18,7 @@ import {
   StoredOptions
 } from './typings';
 import { MY_ACCOUNT_DOMAINS } from './server-paths';
+import type { QueryData } from './api/open-service-url';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
@@ -176,7 +177,7 @@ function parseAuthAction(x: unknown): AuthAction | undefined {
   return isAuthAction(x) ? x : undefined;
 }
 
-export function objectToQueryString(paramsObject: object): string {
+export function objectToQueryString(paramsObject: Record<string, unknown> | QueryData): string {
   const urlSearchParams = new URLSearchParams();
 
   Object.entries(paramsObject).forEach(([key, value]) => {
