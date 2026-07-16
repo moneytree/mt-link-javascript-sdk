@@ -1,5 +1,4 @@
-import qs from 'qs';
-import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs } from '../helper';
+import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs, queryStringToObject } from '../helper';
 import packageJson from '../../package.json';
 import { AuthnMethod, ConfigsOptions, StoredOptions } from '../typings';
 
@@ -145,7 +144,7 @@ describe('helper', () => {
         mode: 'production'
       };
 
-      expect(qs.parse(await generateConfigs(configPayload))).toEqual({
+      expect(queryStringToObject(await generateConfigs(configPayload))).toEqual({
         email_token: emailToken,
         back_to: 'backTo',
         auth_action: 'signup',
@@ -207,7 +206,7 @@ describe('helper', () => {
         mode: 'production'
       };
 
-      expect(qs.parse(await generateConfigs(configPayload))).toEqual({
+      expect(queryStringToObject(await generateConfigs(configPayload))).toEqual({
         email_token: emailToken,
         back_to: 'backTo',
         auth_action: 'signup',
