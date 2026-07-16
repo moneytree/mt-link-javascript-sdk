@@ -1,9 +1,7 @@
-import qs from 'qs';
-
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import openServiceUrl from '../open-service-url';
-import { generateConfigs } from '../../helper';
+import { generateConfigs, objectToQueryString } from '../../helper';
 
 describe('api', () => {
   describe('open-service-url', () => {
@@ -12,7 +10,7 @@ describe('api', () => {
     test('myaccount', async () => {
       const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'myaccount');
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
 
@@ -24,7 +22,7 @@ describe('api', () => {
         view: 'settings/change-language'
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
 
@@ -36,7 +34,7 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
@@ -52,7 +50,7 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' }),
         group: 'grouping_testing',
         type: 'bank',
@@ -69,7 +67,7 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
@@ -83,7 +81,7 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
@@ -97,7 +95,7 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
@@ -111,7 +109,7 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
@@ -124,7 +122,7 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
 
@@ -140,7 +138,7 @@ describe('api', () => {
       const url = await openServiceUrl(sdk.storedOptions, 'vault', { view: 'onboarding' });
       const configs = await generateConfigs();
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
@@ -153,7 +151,7 @@ describe('api', () => {
     test('link-kit', async () => {
       const url = await openServiceUrl(new MtLinkSdk().storedOptions, 'link-kit');
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
 
@@ -172,7 +170,7 @@ describe('api', () => {
 
       const url = await openServiceUrl(mtLinkSdk.storedOptions, 'myaccount');
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
@@ -187,7 +185,7 @@ describe('api', () => {
         showBackBarOn: { view: 'services-list' }
       });
 
-      const query = qs.stringify({ state: 'url=/services', configs: await generateConfigs() });
+      const query = objectToQueryString({ state: 'url=/services', configs: await generateConfigs() });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
     });
@@ -197,7 +195,7 @@ describe('api', () => {
         showBackBarOn: { view: 'connection-setting', credentialId: '123' }
       });
 
-      const query = qs.stringify({ state: 'url=/connection/123', configs: await generateConfigs() });
+      const query = objectToQueryString({ state: 'url=/connection/123', configs: await generateConfigs() });
 
       expect(url).toBe(`${VAULT_DOMAINS.production}?${query}`);
     });
@@ -214,7 +212,7 @@ describe('api', () => {
 
       const url = await openServiceUrl(instance.storedOptions, 'myaccount');
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: 'clientId',
         saml_subject_id: 'samlSubjectId',
         configs: await generateConfigs()
@@ -229,7 +227,7 @@ describe('api', () => {
 
       const url = await openServiceUrl(instance.storedOptions, 'myaccount');
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: 'clientId',
         configs: await generateConfigs()
       });

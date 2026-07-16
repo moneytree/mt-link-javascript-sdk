@@ -1,6 +1,4 @@
-import { stringify } from 'qs';
-
-import { constructScopes, generateConfigs, mergeConfigs, generateCodeChallenge } from '../helper';
+import { constructScopes, generateConfigs, mergeConfigs, generateCodeChallenge, objectToQueryString } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, AuthorizeUrlOptions } from '../typings';
 import storage from '../storage';
@@ -43,7 +41,7 @@ export default async function authorize(
   const cc = codeChallenge || generateCodeChallenge();
 
   const configs = await generateConfigs(mergeConfigs(storedOptions, rest));
-  const queryString = stringify({
+  const queryString = objectToQueryString({
     client_id: clientId,
     cobrand_client_id: cobrandClientId,
     response_type: 'code',
