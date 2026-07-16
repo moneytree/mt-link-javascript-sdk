@@ -1,6 +1,5 @@
 declare const __VERSION__: string;
 
-import { stringify } from 'qs';
 import { snakeCase } from 'snake-case';
 import createHash from 'create-hash';
 import { encode } from 'url-safe-base64';
@@ -131,7 +130,7 @@ export async function generateConfigs(
     }
   }
 
-  return stringify(snakeCaseConfigs);
+  return objectToQueryString(snakeCaseConfigs);
 }
 
 export function generateCodeChallenge(): string {
