@@ -1,4 +1,4 @@
-import qs from 'qs';
+import { queryStringToObject } from '../../helper';
 
 export interface UrlExpectation {
   baseUrl: string;
@@ -8,7 +8,7 @@ export interface UrlExpectation {
 
 export default function expectUrlToMatchWithPKCE(actual: URL | string, expectation: UrlExpectation) {
   const url = typeof actual === 'string' ? new URL(actual) : actual;
-  const actualQuery = qs.parse(new URLSearchParams(url.search).toString());
+  const actualQuery = queryStringToObject(url.search);
 
   expect(actualQuery.code_challenge).toBeDefined();
   delete actualQuery.code_challenge; // ignore PKCE code challenge because it's randomly generated

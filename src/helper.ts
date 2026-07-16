@@ -1,6 +1,5 @@
 declare const __VERSION__: string;
 
-import { stringify } from 'qs';
 import { snakeCase } from 'snake-case';
 import createHash from 'create-hash';
 import { encode } from 'url-safe-base64';
@@ -19,6 +18,7 @@ import {
   StoredOptions
 } from './typings';
 import { MY_ACCOUNT_DOMAINS } from './server-paths';
+import type { QueryData } from './api/open-service-url';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
@@ -131,7 +131,7 @@ export async function generateConfigs(
     }
   }
 
-  return stringify(snakeCaseConfigs);
+  return objectToQueryString(snakeCaseConfigs);
 }
 
 export function generateCodeChallenge(): string {
@@ -175,4 +175,29 @@ function isAuthAction(x: unknown): x is AuthAction {
 
 function parseAuthAction(x: unknown): AuthAction | undefined {
   return isAuthAction(x) ? x : undefined;
+}
+
+export function objectToQueryString(paramsObject: Record<string, unknown> | QueryData): string {
+  const urlSearchParams = new URLSearchParams();
+
+  Object.entries(paramsObject).forEach(([key, value]) => {
+    if (value === undefined || value === null) return;
+
+    urlSearchParams.append(key, value.toString());
+  });
+
+  return urlSearchParams.toString();
+}
+
+export function queryStringToObject(queryString: string): Record<string, string> {
+  const urlSearchParams = new URLSearchParams(queryString);
+  const paramsObject: Record<string, string> = {};
+
+  urlSearchParams.forEach((value, key) => {
+    if (!value) return;
+
+    paramsObject[key] = value.toString();
+  });
+
+  return paramsObject;
 }

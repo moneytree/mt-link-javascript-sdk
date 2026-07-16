@@ -1,6 +1,4 @@
-import { stringify } from 'qs';
-
-import { generateConfigs, mergeConfigs } from '../helper';
+import { generateConfigs, mergeConfigs, objectToQueryString } from '../helper';
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../server-paths';
 import {
   StoredOptions,
@@ -23,7 +21,7 @@ import {
   VaultOpenServiceUrlViewOnboarding
 } from '../typings';
 
-interface QueryData {
+export interface QueryData {
   client_id?: string;
   cobrand_client_id?: string;
   locale?: string;
@@ -115,7 +113,7 @@ export default async function openServiceUrl(
       return query;
     }
 
-    return stringify(query);
+    return objectToQueryString(query);
   };
 
   const { view: vaultView } = options as VaultServiceTypes;
@@ -131,7 +129,7 @@ export default async function openServiceUrl(
           // eslint-disable-next-line no-case-declarations
           const { group, type, search } = options as VaultViewServiceList;
 
-          return `${VAULT_DOMAINS[mode]}/services?${stringify({
+          return `${VAULT_DOMAINS[mode]}/services?${objectToQueryString({
             ...(getQueryValue(false) as QueryData),
             group,
             type,

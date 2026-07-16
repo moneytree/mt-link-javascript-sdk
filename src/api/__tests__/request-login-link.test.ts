@@ -1,12 +1,11 @@
 declare const __VERSION__: string;
 
 import fetch from 'jest-fetch-mock';
-import qs from 'qs';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import requestLoginLink from '../request-login-link';
-import { generateConfigs } from '../../helper';
+import { generateConfigs, objectToQueryString } from '../../helper';
 
 describe('api', () => {
   describe('request-login-link', () => {
@@ -35,7 +34,7 @@ describe('api', () => {
 
       await requestLoginLink(new MtLinkSdk().storedOptions, { email });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
 
@@ -64,7 +63,7 @@ describe('api', () => {
         loginLinkTo: 'settings/delete-account'
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
 
@@ -109,7 +108,7 @@ describe('api', () => {
 
       await requestLoginLink(mtLinkSdk.storedOptions);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
