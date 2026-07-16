@@ -1,16 +1,14 @@
-import qs from 'qs';
-
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import logoutUrl from '../logout-url';
-import { generateConfigs } from '../../helper';
+import { generateConfigs, objectToQueryString } from '../../helper';
 
 describe('api', () => {
   describe('logout-url', () => {
     test('without calling init', async () => {
       const url = await logoutUrl(new MtLinkSdk().storedOptions);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
 
@@ -31,7 +29,7 @@ describe('api', () => {
       });
       const url = await logoutUrl(mtLinkSkd.storedOptions);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
@@ -50,7 +48,7 @@ describe('api', () => {
         backTo
       });
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ backTo, mode: 'production' })
       });
 

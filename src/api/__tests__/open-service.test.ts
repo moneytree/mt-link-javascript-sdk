@@ -1,9 +1,7 @@
-import qs from 'qs';
-
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import openService from '../open-service';
-import { generateConfigs } from '../../helper';
+import { generateConfigs, objectToQueryString } from '../../helper';
 
 describe('api', () => {
   describe('open-service', () => {
@@ -21,7 +19,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
@@ -36,7 +34,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/settings/change-language?${query}`;
@@ -53,7 +51,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}?${query}`;
@@ -78,7 +76,7 @@ describe('api', () => {
         showRememberMe: false,
         mode: 'production'
       });
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs,
         group: 'grouping_testing',
         type: 'bank',
@@ -100,7 +98,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/service/fauxbank_test_bank?${query}`;
@@ -119,7 +117,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123?${query}`;
@@ -138,7 +136,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123/update?${query}`;
@@ -157,7 +155,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123/delete?${query}`;
@@ -175,7 +173,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/customer-support?${query}`;
@@ -192,7 +190,7 @@ describe('api', () => {
       await openService(sdk.storedOptions, 'vault', { view: 'onboarding' });
       const configs = await generateConfigs();
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
@@ -213,7 +211,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs()
       });
       const url = `${LINK_KIT_DOMAINS.production}?${query}`;
@@ -237,7 +235,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
@@ -264,7 +262,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: 'clientId',
         saml_subject_id: 'samlSubjectId',
         configs: await generateConfigs()
@@ -284,7 +282,7 @@ describe('api', () => {
 
       expect(open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: 'clientId',
         configs: await generateConfigs()
       });

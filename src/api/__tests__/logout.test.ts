@@ -1,9 +1,7 @@
-import qs from 'qs';
-
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import logout from '../logout';
-import { generateConfigs } from '../../helper';
+import { generateConfigs, objectToQueryString } from '../../helper';
 
 describe('api', () => {
   describe('logout', () => {
@@ -14,7 +12,7 @@ describe('api', () => {
 
       expect(window.open).toBeCalledTimes(1);
 
-      const query = qs.stringify({ configs: await generateConfigs() });
+      const query = objectToQueryString({ configs: await generateConfigs() });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
       expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
     });
@@ -35,7 +33,7 @@ describe('api', () => {
 
       expect(window.open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         client_id: clientId,
         cobrand_client_id: cobrandClientId,
         locale,
@@ -54,7 +52,7 @@ describe('api', () => {
 
       expect(window.open).toBeCalledTimes(1);
 
-      const query = qs.stringify({
+      const query = objectToQueryString({
         configs: await generateConfigs({ backTo, mode: 'production' })
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
