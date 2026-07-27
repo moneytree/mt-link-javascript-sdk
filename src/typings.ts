@@ -124,7 +124,7 @@ export type VaultViewServiceConnection = {
   view: 'service-connection';
   /**
    * Service entity key.
-   * @remark ⚠️ If entityKey is invalid the Vault top page will be shown.
+   * @remarks ⚠️ If entityKey is invalid the Vault top page will be shown.
    */
   entityKey: string;
 };
@@ -132,7 +132,7 @@ export type VaultViewConnectionSetting = {
   view: 'connection-setting';
   /**
    * Credential ID.
-   * @remark ⚠️ If credentialId is invalid the Vault top page will be shown.
+   * @remarks ⚠️ If credentialId is invalid the Vault top page will be shown.
    */
   credentialId: string;
 };
@@ -140,7 +140,7 @@ export type VaultViewConnectionUpdate = {
   view: 'connection-update';
   /**
    * Credential ID.
-   * @remark ⚠️ If credentialId is invalid the Vault top page will be shown.
+   * @remarks ⚠️ If credentialId is invalid the Vault top page will be shown.
    */
   credentialId: string;
 };
@@ -148,7 +148,7 @@ export type VaultViewConnectionDelete = {
   view: 'connection-delete';
   /**
    * Credential ID.
-   * @remark ⚠️ If credentialId is invalid the Vault top page will be shown.
+   * @remarks ⚠️ If credentialId is invalid the Vault top page will be shown.
    */
   credentialId: string;
 };
@@ -357,7 +357,7 @@ export type LogoutUrlOptions = Omit<ConfigsOptions, 'isNewTab'>;
  * - `showRememberMe`
  * - `authAction`
  *
- * @remark
+ * @remarks
  * ⚠️ SDK will throw an error if both values here and from the init options are undefined.
  *
  * @see {@link AuthorizeOptions}

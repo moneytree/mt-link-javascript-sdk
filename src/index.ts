@@ -116,7 +116,7 @@ export class MtLinkSdk {
    *
    * You can also choose to display the sign up form when the user is not logged in yet by setting the {@link AuthorizeOptions.authAction} option.
    *
-   * @remark
+   * @remarks
    * You must initialize the SDK via {@link init} before calling this API.
    *
    * @example
@@ -150,7 +150,7 @@ export class MtLinkSdk {
    *
    * If an account with this email address already exists we will redirect the user to the login screen.
    *
-   * @remark
+   * @remarks
    * ⚠️ You must initialize the SDK via the {@link init} before calling this API.
    *
    * ⚠️ For legal reasons, you have to set up your app's terms and conditions URL to use the onboard API.
@@ -197,8 +197,9 @@ export class MtLinkSdk {
    *
    * Pass `serviceId: 'link-kit'` to open the LINK Kit service.
    *
-   * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
-   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
+   * @remarks ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   *
+   * This method is async. Use `await` to ensure the service opens before proceeding.
    */
   public async openService(serviceId: 'link-kit', options?: LinkKitOpenServiceOptions): Promise<void>;
   /**
@@ -206,8 +207,8 @@ export class MtLinkSdk {
    *
    * Open different MyAccount sub-pages by passing the {@link MyAccountServiceTypes} for all possible options.
    *
-   * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
-   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
+   * @remarks ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   * This method is async. Use `await` to ensure the service opens before proceeding.
    */
   public async openService(serviceId: 'myaccount', options?: MyAccountOpenServiceOptions): Promise<void>;
   /**
@@ -220,8 +221,8 @@ export class MtLinkSdk {
    * - `customerSupport`: opens the Vault customer support page, pass {@link VaultOpenServiceViewCustomerSupport} as options.
    * - `onboarding`: opens the Vault custom onboarding page if configured, pass {@link VaultOpenServiceViewOnboarding} as options.
    *
-   * @remark ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
-   * @remark This method is async. Use `await` to ensure the service opens before proceeding.
+   * @remarks ⚠️ calling this API before calling {@link init} will open the services view without branding (company logo etc.)
+   * This method is async. Use `await` to ensure the service opens before proceeding.
    */
   public async openService(serviceId: 'vault', options?: VaultOpenServiceOptions): Promise<void>;
   public async openService(serviceId: 'vault', options?: VaultOpenServiceViewServiceList): Promise<void>;
