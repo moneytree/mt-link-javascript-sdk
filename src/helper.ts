@@ -1,6 +1,5 @@
 declare const __VERSION__: string;
 
-import { snakeCase } from 'snake-case';
 import createHash from 'create-hash';
 import { encode } from 'url-safe-base64';
 import { v4 as uuid } from 'uuid';
@@ -19,6 +18,7 @@ import {
 } from './typings';
 import { MY_ACCOUNT_DOMAINS } from './server-paths';
 import type { QueryData } from './api/open-service-url';
+import { snakeCase } from './snakeCase';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
