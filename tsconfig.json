@@ -7,7 +7,8 @@
     "resolveJsonModule": true,
     "removeComments": true,
     "outDir": "./dist",
-    "lib": ["es2015", "dom"]
+    "lib": ["es2015", "dom"],
+		"types": ["node", "jest"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.json"],
   "exclude": ["./dist", "./node_modules", "*/**/__tests__"]
