@@ -1,5 +1,3 @@
-import { mocked } from 'ts-jest/utils';
-
 import authorize from '../api/authorize';
 import onboard from '../api/onboard';
 import logout from '../api/logout';
@@ -42,23 +40,23 @@ describe('index', () => {
 
     const result1 = await instance.authorize({ scopes: 'scopes' });
     expect(result1).toBeUndefined();
-    expect(authorize).toBeCalledWith(storedOptions, { scopes: 'scopes' });
+    expect(authorize).toHaveBeenCalledWith(storedOptions, { scopes: 'scopes' });
 
     const result2 = await instance.onboard({ scopes: 'scopes' });
     expect(result2).toBeUndefined();
-    expect(onboard).toBeCalledWith(storedOptions, { scopes: 'scopes' });
+    expect(onboard).toHaveBeenCalledWith(storedOptions, { scopes: 'scopes' });
 
     const result3 = await instance.logout({ backTo: 'backTo' });
     expect(result3).toBeUndefined();
-    expect(logout).toBeCalledWith(storedOptions, { backTo: 'backTo' });
+    expect(logout).toHaveBeenCalledWith(storedOptions, { backTo: 'backTo' });
 
     const result4 = await instance.openService('myaccount');
     expect(result4).toBeUndefined();
-    expect(openService).toBeCalledWith(storedOptions, 'myaccount', undefined);
+    expect(openService).toHaveBeenCalledWith(storedOptions, 'myaccount', undefined);
 
     const result5 = await instance.requestLoginLink({ loginLinkTo: 'settings' });
     expect(result5).toBeUndefined();
-    expect(requestLoginLink).toBeCalledWith(storedOptions, { loginLinkTo: 'settings' });
+    expect(requestLoginLink).toHaveBeenCalledWith(storedOptions, { loginLinkTo: 'settings' });
 
     const token = {
       access_token: 'access_token',
@@ -69,13 +67,13 @@ describe('index', () => {
       created_at: Date.now(),
       resource_server: 'jp-api'
     };
-    mocked(exchangeToken).mockResolvedValueOnce(token);
+    jest.mocked(exchangeToken).mockResolvedValueOnce(token);
     const result6 = await instance.exchangeToken({ code: 'code' });
     expect(result6).toEqual(token);
-    expect(exchangeToken).toBeCalledWith(storedOptions, { code: 'code' });
+    expect(exchangeToken).toHaveBeenCalledWith(storedOptions, { code: 'code' });
 
     // @ts-ignore: set tokenInfo with invalid type value
-    mocked(tokenInfo).mockResolvedValueOnce('test');
+    jest.mocked(tokenInfo).mockResolvedValueOnce('test');
     const result7 = await instance.tokenInfo('test');
     expect(result7).toBe('test');
 

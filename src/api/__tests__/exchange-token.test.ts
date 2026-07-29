@@ -5,6 +5,7 @@ import fetch from 'jest-fetch-mock';
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import exchangeToken from '../exchange-token';
+import * as helper from '../../helper';
 
 describe('api', () => {
   describe('exchange-token', () => {
@@ -62,8 +63,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token.json`;
 
-      expect(fetch).toBeCalledTimes(1);
-      expect(fetch).toBeCalledWith(url, {
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(fetch).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -105,9 +106,7 @@ describe('api', () => {
 
       const code = 'realCode';
 
-      jest.spyOn(window, 'location', 'get').mockReturnValueOnce({
-        search: `?code=otherCode&code=${code}`
-      } as typeof window.location);
+      window.history.pushState({}, '', `?code=otherCode&code=${code}`);
 
       await exchangeToken(mtLinkSdk.storedOptions, { state });
 
@@ -121,9 +120,7 @@ describe('api', () => {
       fetch.mockClear();
       fetch.mockResponseOnce(JSON.stringify(token));
 
-      jest.spyOn(window, 'location', 'get').mockReturnValueOnce({
-        search: `?state=otherState&state=${state}`
-      } as typeof window.location);
+      window.history.pushState({}, '', `?state=otherState&state=${state}`);
 
       const actual = await exchangeToken(mtLinkSdk.storedOptions, { code, redirectUri });
 
@@ -131,9 +128,7 @@ describe('api', () => {
     });
 
     test('non browser environment will not auto extract code from url', async () => {
-      const windowSpy = jest.spyOn(global, 'window', 'get');
-      // @ts-ignore: mocking window object to undefined
-      windowSpy.mockImplementation(() => undefined);
+      jest.spyOn(helper, 'hasWindow').mockReturnValue(false);
 
       await expect(exchangeToken(mtLinkSdk.storedOptions)).rejects.toThrow(
         '[mt-link-sdk] Missing option `code` in `exchangeToken`, or failed to get `code` from query/hash value from the URL.'

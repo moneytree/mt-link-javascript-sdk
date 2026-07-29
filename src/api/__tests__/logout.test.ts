@@ -2,6 +2,7 @@ import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import logout from '../logout';
 import { generateConfigs, objectToQueryString } from '../../helper';
+import * as helper from '../../helper';
 
 describe('api', () => {
   describe('logout', () => {
@@ -10,11 +11,11 @@ describe('api', () => {
 
       await logout(new MtLinkSdk().storedOptions);
 
-      expect(window.open).toBeCalledTimes(1);
+      expect(window.open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({ configs: await generateConfigs() });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
-      expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(window.open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('after calling init', async () => {
@@ -31,7 +32,7 @@ describe('api', () => {
       });
       await logout(mtLinkSkd.storedOptions);
 
-      expect(window.open).toBeCalledTimes(1);
+      expect(window.open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         client_id: clientId,
@@ -40,7 +41,7 @@ describe('api', () => {
         configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
-      expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(window.open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('with options', async () => {
@@ -50,19 +51,17 @@ describe('api', () => {
 
       await logout(new MtLinkSdk().storedOptions, { backTo });
 
-      expect(window.open).toBeCalledTimes(1);
+      expect(window.open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs({ backTo, mode: 'production' })
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`;
-      expect(window.open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(window.open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('without window', async () => {
-      const windowSpy = jest.spyOn(global, 'window', 'get');
-      // @ts-ignore: mocking window object to undefined
-      windowSpy.mockImplementation(() => undefined);
+      jest.spyOn(helper, 'hasWindow').mockReturnValue(false);
 
       await expect(logout(new MtLinkSdk().storedOptions)).rejects.toThrow();
     });

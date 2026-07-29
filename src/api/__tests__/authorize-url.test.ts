@@ -1,5 +1,3 @@
-import { mocked } from 'ts-jest/utils';
-
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import authorizeUrl from '../authorize-url';
@@ -11,7 +9,7 @@ jest.mock('../../storage');
 
 describe('api', () => {
   describe('authorize-url', () => {
-    const mockedStorage = mocked(storage);
+    const mockedStorage = jest.mocked(storage);
 
     const clientId = 'clientId';
     const redirectUri = 'redirectUri';

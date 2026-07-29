@@ -49,8 +49,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;
 
-      expect(fetch).toBeCalledTimes(1);
-      expect(fetch).toBeCalledWith(url, {
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(fetch).toHaveBeenCalledWith(url, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
