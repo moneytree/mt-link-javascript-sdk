@@ -30,9 +30,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "buffer": "^6.0.3",
-    "process": "^0.11.10",
-    "stream-browserify": "^3.0.0"
+    "process": "^0.11.10"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -42,6 +40,7 @@
     "@types/node": "^26.1.2",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
+    "buffer": "^6.0.3",
     "conventional-changelog-cli": "^2.1.1",
     "cspell": "^7.3.7",
     "docsify-cli": "^4.4.3",
@@ -52,6 +51,7 @@
     "jest": "^27",
     "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.3.0",
+    "stream-browserify": "^3.0.0",
     "ts-jest": "^27",
     "ts-loader": "^9",
     "typedoc": "^0.28.20",
