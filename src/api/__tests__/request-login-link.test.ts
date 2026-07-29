@@ -40,8 +40,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
 
-      expect(fetch).toBeCalledTimes(1);
-      expect(fetch).toBeCalledWith(url, {
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(fetch).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,8 +69,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
 
-      expect(fetch).toBeCalledTimes(1);
-      expect(fetch).toBeCalledWith(url, {
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(fetch).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -117,8 +117,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
 
-      expect(fetch).toBeCalledTimes(1);
-      expect(fetch).toBeCalledWith(url, {
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(fetch).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

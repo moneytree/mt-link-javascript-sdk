@@ -1,9 +1,8 @@
-import { mocked } from 'ts-jest/utils';
-
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import onboard from '../onboard';
 import { generateConfigs } from '../../helper';
+import * as helper from '../../helper';
 import storage from '../../storage';
 import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';
 
@@ -13,7 +12,7 @@ describe('api', () => {
   describe('onboard', () => {
     const open = (window.open = jest.fn());
 
-    const mockedStorage = mocked(storage);
+    const mockedStorage = jest.mocked(storage);
 
     const clientId = 'clientId';
     const redirectUri = 'redirectUri';
@@ -54,8 +53,8 @@ describe('api', () => {
 
       await onboard(mtLinkSdk.storedOptions);
 
-      expect(open).toBeCalledTimes(1);
-      expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledTimes(1);
+      expect(open).toHaveBeenCalledWith(expect.any(String), '_self', 'noreferrer');
       const url = open.mock.calls[0][0];
       const query = {
         client_id: clientId,
@@ -88,8 +87,8 @@ describe('api', () => {
         email
       });
 
-      expect(open).toBeCalledTimes(1);
-      expect(open).toBeCalledWith(expect.any(String), '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledTimes(1);
+      expect(open).toHaveBeenCalledWith(expect.any(String), '_self', 'noreferrer');
       const url = open.mock.calls[0][0];
       const query = {
         client_id: clientId,
@@ -105,9 +104,7 @@ describe('api', () => {
     });
 
     test('without window', async () => {
-      const windowSpy = jest.spyOn(global, 'window', 'get');
-      // @ts-ignore: mocking window object to undefined
-      windowSpy.mockImplementation(() => undefined);
+      jest.spyOn(helper, 'hasWindow').mockReturnValue(false);
 
       await expect(onboard(new MtLinkSdk().storedOptions)).rejects.toThrow(
         '[mt-link-sdk] `onboard` only works in the browser.'

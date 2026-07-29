@@ -2,6 +2,7 @@ import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../serve
 import { MtLinkSdk } from '../..';
 import openService from '../open-service';
 import { generateConfigs, objectToQueryString } from '../../helper';
+import * as helper from '../../helper';
 
 describe('api', () => {
   describe('open-service', () => {
@@ -17,14 +18,14 @@ describe('api', () => {
 
       await openService(new MtLinkSdk().storedOptions, 'myaccount');
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('myaccount/change-language', async () => {
@@ -32,14 +33,14 @@ describe('api', () => {
 
       await openService(new MtLinkSdk().storedOptions, 'myaccount', { view: 'settings/change-language' });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs()
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/settings/change-language?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault', async () => {
@@ -49,14 +50,14 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/services-list', async () => {
@@ -70,7 +71,7 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const configs = await generateConfigs({
         showRememberMe: false,
@@ -84,7 +85,7 @@ describe('api', () => {
       });
       const url = `${VAULT_DOMAINS.production}/services?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/service-connection', async () => {
@@ -96,14 +97,14 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/service/fauxbank_test_bank?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/connection-setting', async () => {
@@ -115,14 +116,14 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/connection-update', async () => {
@@ -134,14 +135,14 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123/update?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/connection-delete', async () => {
@@ -153,14 +154,14 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/connection/123/delete?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/customer-support', async () => {
@@ -171,14 +172,14 @@ describe('api', () => {
         showRememberMe: false
       });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs({ showRememberMe: false, mode: 'production' })
       });
       const url = `${VAULT_DOMAINS.production}/customer-support?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('vault/onboarding', async () => {
@@ -198,8 +199,8 @@ describe('api', () => {
       });
       const url = `${VAULT_DOMAINS.production}/onboarding?${query}`;
 
-      expect(open).toBeCalledTimes(1);
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledTimes(1);
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('link-kit', async () => {
@@ -209,14 +210,14 @@ describe('api', () => {
         isNewTab: true
       });
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         configs: await generateConfigs()
       });
       const url = `${LINK_KIT_DOMAINS.production}?${query}`;
 
-      expect(open).toBeCalledWith(url, '', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '', 'noreferrer');
     });
 
     test('calling after init will includes client id', async () => {
@@ -233,7 +234,7 @@ describe('api', () => {
 
       await openService(mtLinkSdk.storedOptions, 'myaccount');
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         client_id: clientId,
@@ -243,7 +244,7 @@ describe('api', () => {
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('invalid service id', async () => {
@@ -260,7 +261,7 @@ describe('api', () => {
 
       await openService(instance.storedOptions, 'myaccount');
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         client_id: 'clientId',
@@ -269,7 +270,7 @@ describe('api', () => {
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('undefined saml_subject_id should not be passed down', async () => {
@@ -280,7 +281,7 @@ describe('api', () => {
 
       await openService(instance.storedOptions, 'myaccount');
 
-      expect(open).toBeCalledTimes(1);
+      expect(open).toHaveBeenCalledTimes(1);
 
       const query = objectToQueryString({
         client_id: 'clientId',
@@ -288,13 +289,11 @@ describe('api', () => {
       });
       const url = `${MY_ACCOUNT_DOMAINS.production}/?${query}`;
 
-      expect(open).toBeCalledWith(url, '_self', 'noreferrer');
+      expect(open).toHaveBeenCalledWith(url, '_self', 'noreferrer');
     });
 
     test('without window', async () => {
-      const windowSpy = jest.spyOn(global, 'window', 'get');
-      // @ts-ignore: mocking window object to undefined
-      windowSpy.mockImplementation(() => undefined);
+      jest.spyOn(helper, 'hasWindow').mockReturnValue(false);
 
       await expect(openService(new MtLinkSdk().storedOptions, 'vault')).rejects.toThrow();
     });
