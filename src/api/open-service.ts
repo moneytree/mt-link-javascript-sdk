@@ -1,4 +1,4 @@
-import { getIsTabValue, openWindow } from '../helper';
+import { getIsTabValue, hasWindow, openWindow } from '../helper';
 import {
   StoredOptions,
   ServiceId,
@@ -71,7 +71,7 @@ export default async function openService(
   serviceId: ServiceId,
   options: OpenServiceOptions = {}
 ): Promise<void> {
-  if (!window) {
+  if (!hasWindow()) {
     throw new Error('[mt-link-sdk] `openService` only works in the browser.');
   }
 

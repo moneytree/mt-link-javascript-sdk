@@ -1,11 +1,11 @@
-import { generateSdkHeaderInfo, queryStringToObject } from '../helper';
+import { generateSdkHeaderInfo, hasWindow, queryStringToObject } from '../helper';
 import { MY_ACCOUNT_DOMAINS } from '../server-paths';
 import { StoredOptions, ExchangeTokenOptions, Token } from '../typings';
 import storage from '../storage';
 
 function getCode(): string | undefined {
   // not available in node environment
-  if (!window) return;
+  if (!hasWindow()) return;
 
   const { code } = queryStringToObject(window.location.search);
 
