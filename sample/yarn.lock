@@ -72,7 +72,6 @@ __metadata:
     buffer: "npm:^6.0.3"
     create-hash: "npm:^1.2.0"
     process: "npm:^0.11.10"
-    snake-case: "npm:^3.0.4"
     stream-browserify: "npm:^3.0.0"
     url-safe-base64: "npm:^1.1.1"
   languageName: node
@@ -4536,16 +4535,6 @@ __metadata:
   version: 3.0.3
   resolution: "signal-exit@npm:3.0.3"
   checksum: 10c0/645cf460a417158e7d7fd03fb276aa12aecc49ab61a2ea36dac1987870a454e8af476ed926c8a8713a1adfde69c5964a4ca322c87fcca2367b36e1681207cf5f
-  languageName: node
-  linkType: hard
-
-"snake-case@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "snake-case@npm:3.0.4"
-  dependencies:
-    dot-case: "npm:^3.0.4"
-    tslib: "npm:^2.0.3"
-  checksum: 10c0/ab19a913969f58f4474fe9f6e8a026c8a2142a01f40b52b79368068343177f818cdfef0b0c6b9558f298782441d5ca8ed5932eb57822439fad791d866e62cecd
   languageName: node
   linkType: hard
 
