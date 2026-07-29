@@ -54,7 +54,7 @@
     "ts-jest": "29.4.12",
     "ts-loader": "^9",
     "typedoc": "^0.28.20",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "webpack": "^5",
     "webpack-cli": "^5"
   },
