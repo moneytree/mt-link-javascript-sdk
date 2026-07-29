@@ -1,9 +1,9 @@
-import { getIsTabValue, openWindow } from '../helper';
+import { getIsTabValue, hasWindow, openWindow } from '../helper';
 import { StoredOptions, LogoutOptions } from '../typings';
 import logoutUrl from './logout-url';
 
 export default async function logout(storedOptions: StoredOptions, options: LogoutOptions = {}): Promise<void> {
-  if (!window) {
+  if (!hasWindow()) {
     throw new Error(`[mt-link-sdk] \`logout\` only works in the browser.`);
   }
 

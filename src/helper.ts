@@ -27,6 +27,10 @@ export function getIsTabValue(isNewTab = false): '' | '_self' {
   return isNewTab ? '' : '_self';
 }
 
+export function hasWindow(): boolean {
+  return typeof window !== 'undefined' && !!window;
+}
+
 function fallbackOnUndefined<T>(value: T, fallbackValue: T): T {
   return value === undefined ? fallbackValue : value;
 }
