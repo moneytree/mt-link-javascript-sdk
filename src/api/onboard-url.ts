@@ -32,7 +32,7 @@ export default async function onboardUrl(
 
   storage.del('cv');
 
-  const cc = codeChallenge || generateCodeChallenge();
+  const cc = codeChallenge || (await generateCodeChallenge());
 
   const queryString = objectToQueryString({
     client_id: clientId,

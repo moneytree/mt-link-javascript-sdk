@@ -38,7 +38,7 @@ export default async function authorize(
 
   storage.del('cv');
 
-  const cc = codeChallenge || generateCodeChallenge();
+  const cc = codeChallenge || (await generateCodeChallenge());
 
   const configs = await generateConfigs(mergeConfigs(storedOptions, rest));
   const queryString = objectToQueryString({

@@ -1,6 +1,5 @@
 declare const __VERSION__: string;
 
-import createHash from 'create-hash';
 import { encode } from 'url-safe-base64';
 import { v4 as uuid } from 'uuid';
 import storage from './storage';
@@ -19,6 +18,7 @@ import {
 import { MY_ACCOUNT_DOMAINS } from './server-paths';
 import type { QueryData } from './api/open-service-url';
 import { snakeCase } from './snakeCase';
+import { createBase64Hash } from './createBase64Hash';
 
 export function constructScopes(scopes: Scopes = ''): string | undefined {
   return (Array.isArray(scopes) ? scopes.join(' ') : scopes) || undefined;
@@ -134,12 +134,12 @@ export async function generateConfigs(
   return objectToQueryString(snakeCaseConfigs);
 }
 
-export function generateCodeChallenge(): string {
+export async function generateCodeChallenge(): Promise<string> {
   const codeVerifier = uuid();
 
   storage.set('cv', codeVerifier);
 
-  return encode(createHash('sha256').update(codeVerifier).digest('base64').split('=')[0]);
+  return encode(await createBase64Hash(codeVerifier));
 }
 
 export function generateSdkHeaderInfo(): {
