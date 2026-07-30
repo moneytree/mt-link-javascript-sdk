@@ -1414,7 +1414,6 @@ __metadata:
     "@types/create-hash": "npm:^1.2.6"
     "@types/jest": "npm:^27"
     "@types/node": "npm:^26.1.2"
-    "@types/url-safe-base64": "npm:^1.1.0"
     "@types/uuid": "npm:^8.3.0"
     "@typescript-eslint/eslint-plugin": "npm:^4.23.0"
     "@typescript-eslint/parser": "npm:^4.23.0"
@@ -1435,7 +1434,6 @@ __metadata:
     ts-loader: "npm:^9"
     typedoc: "npm:^0.28.20"
     typescript: "npm:^4.2.4"
-    url-safe-base64: "npm:^1.1.1"
     webpack: "npm:^5"
     webpack-cli: "npm:^5"
   languageName: unknown
@@ -1818,13 +1816,6 @@ __metadata:
   version: 3.0.3
   resolution: "@types/unist@npm:3.0.3"
   checksum: 10c0/2b1e4adcab78388e088fcc3c0ae8700f76619dbcb4741d7d201f87e2cb346bfc29a89003cfea2d76c996e1061452e14fcd737e8b25aacf949c1f2d6b2bc3dd60
-  languageName: node
-  linkType: hard
-
-"@types/url-safe-base64@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@types/url-safe-base64@npm:1.1.0"
-  checksum: 10c0/7061bc6c3e8abc6c0e3ed2e70fafe8bdb7e392f40f94ee7af11c7e9887cedbe01823a818a3844055c66797021ea68e8389813185a11531e7f2e5c03689d94d64
   languageName: node
   linkType: hard
 
@@ -9437,13 +9428,6 @@ __metadata:
     querystringify: "npm:^2.1.1"
     requires-port: "npm:^1.0.0"
   checksum: 10c0/bd5aa9389f896974beb851c112f63b466505a04b4807cea2e5a3b7092f6fbb75316f0491ea84e44f66fed55f1b440df5195d7e3a8203f64fcefa19d182f5be87
-  languageName: node
-  linkType: hard
-
-"url-safe-base64@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "url-safe-base64@npm:1.1.1"
-  checksum: 10c0/00c18311a7c61ee1d83f04f8a78543573078e1542a8885d28fdf9a19b8b9cb31fb4093cf7e17d139f6fc6769fcc14ef9eb344550d6431215a7663d8fea3d518c
   languageName: node
   linkType: hard
 

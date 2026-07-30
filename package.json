@@ -32,8 +32,7 @@
   "dependencies": {
     "buffer": "^6.0.3",
     "process": "^0.11.10",
-    "stream-browserify": "^3.0.0",
-    "url-safe-base64": "^1.1.1"
+    "stream-browserify": "^3.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -42,7 +41,6 @@
     "@types/create-hash": "^1.2.6",
     "@types/jest": "^27",
     "@types/node": "^26.1.2",
-    "@types/url-safe-base64": "^1.1.0",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
