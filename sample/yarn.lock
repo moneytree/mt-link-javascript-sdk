@@ -72,7 +72,6 @@ __metadata:
     buffer: "npm:^6.0.3"
     process: "npm:^0.11.10"
     stream-browserify: "npm:^3.0.0"
-    url-safe-base64: "npm:^1.1.1"
   languageName: node
   linkType: soft
 
