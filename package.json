@@ -32,7 +32,6 @@
   "dependencies": {
     "buffer": "^6.0.3",
     "create-hash": "^1.2.0",
-    "node-fetch": "^2.6.1",
     "process": "^0.11.10",
     "snake-case": "^3.0.4",
     "stream-browserify": "^3.0.0",
@@ -44,7 +43,6 @@
     "@testing-library/jest-dom": "^5.12.0",
     "@types/create-hash": "^1.2.6",
     "@types/jest": "^27",
-    "@types/node-fetch": "^2.5.10",
     "@types/url-safe-base64": "^1.1.0",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
