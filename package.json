@@ -29,9 +29,6 @@
     "start:docs": "docsify serve docs",
     "prepare": "husky install"
   },
-  "dependencies": {
-    "process": "^0.11.10"
-  },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
@@ -51,6 +48,7 @@
     "jest": "^27",
     "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.3.0",
+    "process": "^0.11.10",
     "stream-browserify": "^3.0.0",
     "ts-jest": "^27",
     "ts-loader": "^9",
