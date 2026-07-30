@@ -1,6 +1,5 @@
 declare const __VERSION__: string;
 
-import { v4 as uuid } from 'uuid';
 import storage from './storage';
 
 import {
@@ -135,7 +134,7 @@ export async function generateConfigs(
 }
 
 export async function generateCodeChallenge(): Promise<string> {
-  const codeVerifier = uuid();
+  const codeVerifier = crypto.randomUUID();
 
   storage.set('cv', codeVerifier);
 

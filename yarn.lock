@@ -1414,7 +1414,6 @@ __metadata:
     "@types/create-hash": "npm:^1.2.6"
     "@types/jest": "npm:^27"
     "@types/node": "npm:^26.1.2"
-    "@types/uuid": "npm:^8.3.0"
     "@typescript-eslint/eslint-plugin": "npm:^4.23.0"
     "@typescript-eslint/parser": "npm:^4.23.0"
     buffer: "npm:^6.0.3"
@@ -1816,13 +1815,6 @@ __metadata:
   version: 3.0.3
   resolution: "@types/unist@npm:3.0.3"
   checksum: 10c0/2b1e4adcab78388e088fcc3c0ae8700f76619dbcb4741d7d201f87e2cb346bfc29a89003cfea2d76c996e1061452e14fcd737e8b25aacf949c1f2d6b2bc3dd60
-  languageName: node
-  linkType: hard
-
-"@types/uuid@npm:^8.3.0":
-  version: 8.3.0
-  resolution: "@types/uuid@npm:8.3.0"
-  checksum: 10c0/b39ede3212609c3460b14446629796ab6acb61227a249e89d4d188fed84acfe71569b7d01b30a39f4443703810bf2b0959e586e0334d7088f11ec8606d373cde
   languageName: node
   linkType: hard
 
