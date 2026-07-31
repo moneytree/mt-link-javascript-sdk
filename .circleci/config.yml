@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  security-tools: moneytree/security-tools@2.0.4
+
 docker_defaults: &docker_defaults
   docker:
     - image: cimg/node:26.0
@@ -68,7 +71,12 @@ workflows:
   version: 2.1
   build_and_test:
     jobs:
-      - dependencies
+      - security-tools/supply_chain_guard:
+          context: new_github_mtservice_read
+      - security-tools/bearer
+      - dependencies:
+          requires:
+            - security-tools/supply_chain_guard
       - lint:
           requires:
             - dependencies
