@@ -22,7 +22,6 @@
     "test:dev": "jest --watch",
     "lint": "eslint",
     "format": "prettier scripts src sample/src --write",
-    "spellcheck": "cspell src script sample/src",
     "lint:fix": "yarn lint:js --fix; yarn lint:ts --fix",
     "start:docs": "docsify serve docs",
     "prepare": "husky install"
@@ -39,7 +38,6 @@
     "buffer": "^6.0.3",
     "conventional-changelog": "8.1.0",
     "conventional-changelog-conventionalcommits": "10.2.1",
-    "cspell": "^7.3.7",
     "docsify-cli": "^4.4.3",
     "eslint": "10.7.0",
     "eslint-config-prettier": "10.1.8",
