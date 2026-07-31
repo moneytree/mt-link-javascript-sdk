@@ -280,7 +280,7 @@ elements.openServiceOptionsElms.showBackBarOn.onchange = () => {
 const initializeLinkSDK = (options: InitOptions = {}) => {
   mtLinkSdk.init('af84f08f40970caf17f2e53b31771ceb50d0f32f7d44b826753982e809395290', {
     sdkPlatform: 'js',
-    redirectUri: 'https://localhost:9000',
+    redirectUri: 'https://localhost:9001',
     locale: 'en',
     mode: 'staging',
     ...options
