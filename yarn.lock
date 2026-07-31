@@ -1411,7 +1411,6 @@ __metadata:
     "@commitlint/cli": "npm:^12.1.4"
     "@commitlint/config-conventional": "npm:^12.1.4"
     "@testing-library/jest-dom": "npm:^5.12.0"
-    "@types/create-hash": "npm:^1.2.6"
     "@types/jest": "npm:^27"
     "@types/node": "npm:^26.1.2"
     "@typescript-eslint/eslint-plugin": "npm:^4.23.0"
@@ -1634,15 +1633,6 @@ __metadata:
   version: 1.1.1
   resolution: "@types/color-name@npm:1.1.1"
   checksum: 10c0/2abeac8d8d833e0622c66f21487cc8b522792abb2eff2e40df0e3e53261728cb65bab590edf24953eb8d8653ec88044dc801d9a4e58c489a0f10c025de522868
-  languageName: node
-  linkType: hard
-
-"@types/create-hash@npm:^1.2.6":
-  version: 1.2.6
-  resolution: "@types/create-hash@npm:1.2.6"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10c0/05b8d972a24afb503d80dfad509f6f5c4245ecc612b1cf2d648426caee743a91308bdfec6cf7ea38453f9fffe6143cae047012d964122b85644d75c22ca23a4e
   languageName: node
   linkType: hard
 
