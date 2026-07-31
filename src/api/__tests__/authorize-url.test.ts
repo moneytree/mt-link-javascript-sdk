@@ -147,7 +147,7 @@ describe('api', () => {
         state,
         redirectUri,
         scopes,
-        affiliateCode: null as any
+        affiliateCode: ''
       });
 
       const urlObj = new URL(url);

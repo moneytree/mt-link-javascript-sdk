@@ -48,6 +48,6 @@ export default async function requestLoginLink(
       throw new Error(response.statusText);
     }
   } catch (error) {
-    throw new Error(`[mt-link-sdk] \`requestLoginLink\` execution failed. ${error}`);
+    throw new Error(`[mt-link-sdk] \`requestLoginLink\` execution failed. ${error}`, { cause: error });
   }
 }

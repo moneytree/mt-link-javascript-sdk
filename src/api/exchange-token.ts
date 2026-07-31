@@ -61,6 +61,6 @@ export default async function exchangeToken(
     storage.del('cv');
     return result as Token;
   } catch (error) {
-    throw new Error(`[mt-link-sdk] \`exchangeToken\` execution failed. ${error}`);
+    throw new Error(`[mt-link-sdk] \`exchangeToken\` execution failed. ${error}`, { cause: error });
   }
 }
