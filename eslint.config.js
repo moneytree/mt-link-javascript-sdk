@@ -2,8 +2,6 @@ const { defineConfig } = require('eslint/config');
 
 const tsParser = require('@typescript-eslint/parser');
 const typescriptEslint = require('@typescript-eslint/eslint-plugin');
-const prettier = require('eslint-plugin-prettier');
-const prettierRecommended = require('eslint-plugin-prettier/recommended');
 const js = require('@eslint/js');
 const globals = require('globals');
 
@@ -12,6 +10,7 @@ module.exports = defineConfig([
     ignores: [
       '**/dist',
       '**/docs',
+      '**/coverage',
       'webpack.config.js',
       'sample/webpack.config.js',
       'eslint.config.js',
@@ -19,7 +18,6 @@ module.exports = defineConfig([
     ]
   },
   js.configs.recommended,
-  prettierRecommended,
   typescriptEslint.configs['flat/recommended'],
   {
     languageOptions: {
@@ -36,8 +34,7 @@ module.exports = defineConfig([
     },
 
     plugins: {
-      '@typescript-eslint': typescriptEslint,
-      prettier
+      '@typescript-eslint': typescriptEslint
     },
 
     rules: {
