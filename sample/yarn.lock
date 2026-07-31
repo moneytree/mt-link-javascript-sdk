@@ -3126,7 +3126,6 @@ __metadata:
   dependencies:
     "@moneytree/mt-link-javascript-sdk": "portal:../"
     html-webpack-plugin: "npm:^4.5.0"
-    url-safe-base64: "npm:^1.1.1"
     webpack: "npm:^5.104.1"
     webpack-cli: "npm:^4.2.0"
     webpack-dev-server: "npm:^3.11.0"
@@ -4785,13 +4784,6 @@ __metadata:
     querystringify: "npm:^2.1.1"
     requires-port: "npm:^1.0.0"
   checksum: 10c0/bd5aa9389f896974beb851c112f63b466505a04b4807cea2e5a3b7092f6fbb75316f0491ea84e44f66fed55f1b440df5195d7e3a8203f64fcefa19d182f5be87
-  languageName: node
-  linkType: hard
-
-"url-safe-base64@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "url-safe-base64@npm:1.1.1"
-  checksum: 10c0/00c18311a7c61ee1d83f04f8a78543573078e1542a8885d28fdf9a19b8b9cb31fb4093cf7e17d139f6fc6769fcc14ef9eb344550d6431215a7663d8fea3d518c
   languageName: node
   linkType: hard
 
