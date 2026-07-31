@@ -151,11 +151,7 @@ elements.openServiceBtn.onclick = async () => {
     const showBackBarOn = getShowBackBarOn();
 
     const view = openServiceOptionsElms.vaultView.options[openServiceOptionsElms.vaultView.selectedIndex].value as
-      | 'services-list'
-      | 'service-connection'
-      | 'connection-setting'
-      | 'customer-support'
-      | 'onboarding';
+      'services-list' | 'service-connection' | 'connection-setting' | 'customer-support' | 'onboarding';
 
     switch (view) {
       case 'services-list':

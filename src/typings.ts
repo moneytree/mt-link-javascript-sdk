@@ -1,5 +1,5 @@
 export const supportedAuthAction = ['login', 'signup'] as const;
-export type AuthAction = typeof supportedAuthAction[number];
+export type AuthAction = (typeof supportedAuthAction)[number];
 
 /** @hidden */
 export interface PrivateParams {
@@ -23,7 +23,7 @@ export interface PrivateConfigsOptions {
 }
 
 export const supportedAuthnMethod = ['passwordless', 'sso', 'credentials', 'otp'] as const;
-export type AuthnMethod = typeof supportedAuthnMethod[number];
+export type AuthnMethod = (typeof supportedAuthnMethod)[number];
 
 export interface ConfigsOptions extends PrivateConfigsOptions {
   /**
@@ -190,8 +190,7 @@ export type MyAccountServiceTypes = {
 
 export type MyAccountOpenServiceOptions = ConfigsOptions | (ConfigsOptions & MyAccountServiceTypes);
 export type MyAccountOpenServiceUrlOptions =
-  | ConfigsOptionsWithoutIsNewTab
-  | (ConfigsOptionsWithoutIsNewTab & MyAccountServiceTypes);
+  ConfigsOptionsWithoutIsNewTab | (ConfigsOptionsWithoutIsNewTab & MyAccountServiceTypes);
 
 export type VaultOpenServiceOptions = ConfigsOptions & VaultSpecificOptions;
 export type VaultOpenServiceUrlOptions = ConfigsOptionsWithoutIsNewTab & VaultSpecificOptions;
@@ -267,10 +266,7 @@ export interface AffiliateTrackingParams {
   affiliateCode?: string;
 }
 export interface AuthorizeOptions
-  extends OAuthSharedParams,
-    ConfigsOptions,
-    AuthorizeConfigsOptions,
-    AffiliateTrackingParams {
+  extends OAuthSharedParams, ConfigsOptions, AuthorizeConfigsOptions, AffiliateTrackingParams {
   /**
    * Access scopes you're requesting. This can be a single scope, or an array of scopes.
    *
