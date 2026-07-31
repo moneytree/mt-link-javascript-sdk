@@ -33,6 +33,6 @@ export default async function tokenInfo(storedOptions: StoredOptions, token: str
 
     return result;
   } catch (error) {
-    throw new Error(`[mt-link-sdk] \`tokenInfo\` execution failed. ${error}`);
+    throw new Error(`[mt-link-sdk] \`tokenInfo\` execution failed. ${error}`, { cause: error });
   }
 }

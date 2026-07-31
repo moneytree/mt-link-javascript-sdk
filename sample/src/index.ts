@@ -133,7 +133,7 @@ elements.openServiceBtn.onclick = async () => {
       | VaultOpenServiceViewServiceList
       | VaultOpenServiceViewCustomerSupport
       | VaultOpenServiceViewOnboarding;
-    let openServicesOptions: VaultOptions = {} as VaultOptions;
+    let openServicesOptions: VaultOptions;
 
     const getShowBackBarOn = (): VaultSpecificOptions['showBackBarOn'] => {
       const selectedView =
@@ -151,7 +151,11 @@ elements.openServiceBtn.onclick = async () => {
     const showBackBarOn = getShowBackBarOn();
 
     const view = openServiceOptionsElms.vaultView.options[openServiceOptionsElms.vaultView.selectedIndex].value as
-      'services-list' | 'service-connection' | 'connection-setting' | 'customer-support' | 'onboarding';
+      | 'services-list'
+      | 'service-connection'
+      | 'connection-setting'
+      | 'customer-support'
+      | 'onboarding';
 
     switch (view) {
       case 'services-list':
@@ -314,7 +318,7 @@ const validateToken = async () => {
     `;
 
     switchAuthorizeFunctions('none');
-  } catch (error) {
+  } catch {
     // Disables buttons when a session has not been initialized.
     disabledFunctions();
   }

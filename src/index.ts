@@ -30,7 +30,6 @@ import {
   LinkKitOpenServiceOptions,
   MyAccountOpenServiceOptions,
   OpenServiceOptions,
-  ConfigsOptions,
   VaultOpenServiceOptions,
   VaultOpenServiceUrlOptions,
   VaultOpenServiceUrlViewServiceList,

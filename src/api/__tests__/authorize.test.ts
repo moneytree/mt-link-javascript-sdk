@@ -1,5 +1,5 @@
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
-import { MtLinkSdk } from '../..';
+import { AuthorizeOptions, MtLinkSdk } from '../..';
 import authorize from '../authorize';
 import { generateConfigs } from '../../helper';
 import * as helper from '../../helper';
@@ -165,7 +165,7 @@ describe('api', () => {
       const state = 'state';
       const scopes = 'points_read';
       const samlSubjectId = 'mySubject';
-      const affiliateCode = null as any;
+      const affiliateCode = null;
 
       const mtLinkSdk = new MtLinkSdk();
       mtLinkSdk.init(clientId, { samlSubjectId });
@@ -175,7 +175,7 @@ describe('api', () => {
         redirectUri,
         scopes,
         affiliateCode
-      });
+      } as unknown as AuthorizeOptions);
 
       expect(open).toHaveBeenCalledTimes(1);
       expect(open).toHaveBeenCalledWith(expect.any(String), '_self', 'noreferrer');
