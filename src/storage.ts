@@ -10,7 +10,7 @@ function isStorageAvailable(storage: Storage): boolean {
     storage.setItem(test, test);
     storage.removeItem(test);
     return true;
-  } catch (_) {
+  } catch {
     return false;
   }
 }
