@@ -5,19 +5,16 @@
   "license": "MIT",
   "main": "./src/index.ts",
   "scripts": {
-    "start": "webpack serve"
+    "start": "vite"
   },
   "dependencies": {
     "@moneytree/mt-link-javascript-sdk": "portal:../"
   },
   "devDependencies": {
-    "html-webpack-plugin": "^4.5.0",
-    "url-safe-base64": "^1.1.1",
-    "webpack": "^5.104.1",
-    "webpack-cli": "^4.2.0",
-    "webpack-dev-server": "^3.11.0"
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "vite": "^8.2.0"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=20"
   }
 }
