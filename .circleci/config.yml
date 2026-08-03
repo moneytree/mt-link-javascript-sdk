@@ -58,6 +58,15 @@ jobs:
           name: Running tests
           command: yarn test --maxWorkers=2
 
+  typecheck:
+    <<: *docker_defaults
+    steps:
+      - *attach_workspace
+      - *install_corepack
+      - run:
+          name: Type checking
+          command: yarn typecheck
+
   done:
     <<: *docker_defaults
     steps:
@@ -66,7 +75,7 @@ jobs:
 
 workflows:
   version: 2.1
-  build_and_test:
+  test_on_pr:
     jobs:
       - security-tools/supply_chain_guard:
           context: new_github_mtservice_read
@@ -80,7 +89,11 @@ workflows:
       - unit_test:
           requires:
             - dependencies
+      - typecheck:
+          requires:
+            - dependencies
       - done:
           requires:
             - lint
             - unit_test
+            - typecheck
