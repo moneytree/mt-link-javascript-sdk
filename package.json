@@ -13,13 +13,14 @@
   "author": "Moneytree",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && webpack",
+    "build": "rm -rf dist && vite build && tsc --emitDeclarationOnly",
     "build:docs": "rm -rf docs/types && typedoc --out docs/types src",
     "prepareRelease": "npm run build && git add dist && npm run build:docs && git add docs",
     "createChangelog": "conventional-changelog -p conventionalcommits && git add CHANGELOG.md",
     "version": "npm run prepareRelease && npm run createChangelog",
     "test": "jest --no-cache",
     "test:dev": "jest --watch",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "format": "prettier scripts src sample/src --write",
     "lint:fix": "yarn lint --fix",
@@ -50,11 +51,10 @@
     "process": "^0.11.10",
     "stream-browserify": "^3.0.0",
     "ts-jest": "29.4.12",
-    "ts-loader": "^9",
     "typedoc": "^0.28.20",
     "typescript": "6.0.3",
-    "webpack": "^5",
-    "webpack-cli": "^5"
+    "vite": "^8.1.5",
+    "vite-plugin-node-polyfills": "^0.28.0"
   },
   "packageManager": "yarn@4.14.1"
 }
