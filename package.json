@@ -22,7 +22,7 @@
     "test:dev": "jest --watch",
     "lint": "eslint",
     "format": "prettier scripts src sample/src --write",
-    "lint:fix": "yarn lint:js --fix; yarn lint:ts --fix",
+    "lint:fix": "yarn lint --fix",
     "start:docs": "docsify serve docs",
     "prepare": "husky install"
   },

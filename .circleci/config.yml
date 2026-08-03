@@ -46,11 +46,8 @@ jobs:
       - *attach_workspace
       - *install_corepack
       - run:
-          name: Linting JavaScript
-          command: yarn lint:js
-      - run:
-          name: Linting TypeScript
-          command: yarn lint:ts
+          name: Linting
+          command: yarn lint
 
   unit_test:
     <<: *docker_defaults
