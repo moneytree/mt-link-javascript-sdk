@@ -1,6 +1,6 @@
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import onboard from '../onboard';
+import onboard from '../onboard/onboard';
 import { generateConfigs } from '../../helper';
 import * as helper from '../../helper';
 import storage from '../../storage';

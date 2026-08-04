@@ -1,6 +1,6 @@
-import { generateConfigs, mergeConfigs, generateSdkHeaderInfo, objectToQueryString } from '../helper';
-import { MY_ACCOUNT_DOMAINS } from '../server-paths';
-import { StoredOptions, RequestLoginLinkOptions } from '../typings';
+import { generateConfigs, mergeConfigs, generateSdkHeaderInfo, objectToQueryString } from '../../helper';
+import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { StoredOptions, RequestLoginLinkOptions } from '../../typings';
 
 export default async function requestLoginLink(
   storedOptions: StoredOptions,

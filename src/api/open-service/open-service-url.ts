@@ -1,5 +1,5 @@
-import { generateConfigs, mergeConfigs, objectToQueryString } from '../helper';
-import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../server-paths';
+import { generateConfigs, mergeConfigs, objectToQueryString } from '../../helper';
+import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../server-paths';
 import {
   StoredOptions,
   VaultViewConnectionSetting,
@@ -19,7 +19,7 @@ import {
   VaultOpenServiceUrlViewConnectionDelete,
   VaultOpenServiceUrlViewCustomerSupport,
   VaultOpenServiceUrlViewOnboarding
-} from '../typings';
+} from '../../typings';
 
 export interface QueryData {
   client_id?: string;

@@ -1,14 +1,14 @@
-import authorize from './api/authorize';
-import authorizeUrl from './api/authorize-url';
-import onboard from './api/onboard';
-import onboardUrl from './api/onboard-url';
-import logout from './api/logout';
-import logoutUrl from './api/logout-url';
-import openService from './api/open-service';
-import openServiceUrl from './api/open-service-url';
-import requestLoginLink from './api/request-login-link';
-import exchangeToken from './api/exchange-token';
-import tokenInfo from './api/token-info';
+import authorize from './api/authorize/authorize';
+import authorizeUrl from './api/authorize/authorize-url';
+import onboard from './api/onboard/onboard';
+import onboardUrl from './api/onboard/onboard-url';
+import logout from './api/logout/logout';
+import logoutUrl from './api/logout/logout-url';
+import openService from './api/open-service/open-service';
+import openServiceUrl from './api/open-service/open-service-url';
+import requestLoginLink from './api/request-login-link/request-login-link';
+import exchangeToken from './api/exchange-token/exchange-token';
+import tokenInfo from './api/token-info/token-info';
 import {
   Token,
   StoredOptions,

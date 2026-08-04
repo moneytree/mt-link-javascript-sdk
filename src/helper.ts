@@ -14,7 +14,7 @@ import {
   StoredOptions
 } from './typings';
 import { MY_ACCOUNT_DOMAINS } from './server-paths';
-import type { QueryData } from './api/open-service-url';
+import type { QueryData } from './api/open-service/open-service-url';
 import { snakeCase } from './snakeCase';
 import { createBase64Hash } from './createBase64Hash';
 import { makeUrlSafe } from './makeUrlSafe';
