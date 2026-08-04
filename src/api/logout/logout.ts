@@ -1,5 +1,5 @@
-import { getIsTabValue, hasWindow, openWindow } from '../helper';
-import { StoredOptions, LogoutOptions } from '../typings';
+import { getIsTabValue, hasWindow, openWindow } from '../../helper';
+import { StoredOptions, LogoutOptions } from '../../typings';
 import logoutUrl from './logout-url';
 
 export default async function logout(storedOptions: StoredOptions, options: LogoutOptions = {}): Promise<void> {

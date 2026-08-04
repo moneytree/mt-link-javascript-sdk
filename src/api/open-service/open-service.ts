@@ -1,4 +1,4 @@
-import { getIsTabValue, hasWindow, openWindow } from '../helper';
+import { getIsTabValue, hasWindow, openWindow } from '../../helper';
 import {
   StoredOptions,
   ServiceId,
@@ -13,7 +13,7 @@ import {
   VaultOpenServiceViewConnectionDelete,
   VaultOpenServiceViewCustomerSupport,
   VaultOpenServiceViewOnboarding
-} from '../typings';
+} from '../../typings';
 import openServiceUrl from './open-service-url';
 
 export default async function openService(

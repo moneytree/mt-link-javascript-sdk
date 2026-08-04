@@ -1,6 +1,6 @@
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import onboardUrl from '../onboard-url';
+import onboardUrl from './onboard-url';
 import { generateConfigs } from '../../helper';
 import storage from '../../storage';
 import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';

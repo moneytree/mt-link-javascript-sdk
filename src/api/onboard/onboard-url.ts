@@ -1,7 +1,13 @@
-import { constructScopes, generateConfigs, mergeConfigs, generateCodeChallenge, objectToQueryString } from '../helper';
-import { MY_ACCOUNT_DOMAINS } from '../server-paths';
-import { StoredOptions, OnboardUrlOptions } from '../typings';
-import storage from '../storage';
+import {
+  constructScopes,
+  generateConfigs,
+  mergeConfigs,
+  generateCodeChallenge,
+  objectToQueryString
+} from '../../helper';
+import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { StoredOptions, OnboardUrlOptions } from '../../typings';
+import storage from '../../storage';
 
 export default async function onboardUrl(
   storedOptions: StoredOptions,
