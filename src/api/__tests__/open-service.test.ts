@@ -6,7 +6,7 @@ import * as helper from '../../helper';
 
 describe('api', () => {
   describe('open-service', () => {
-    const open = (window.open = jest.fn());
+    const open = (window.open = vi.fn());
     const clientId = 'clientId';
 
     beforeEach(() => {
@@ -293,7 +293,7 @@ describe('api', () => {
     });
 
     test('without window', async () => {
-      jest.spyOn(helper, 'hasWindow').mockReturnValue(false);
+      vi.spyOn(helper, 'hasWindow').mockReturnValue(false);
 
       await expect(openService(new MtLinkSdk().storedOptions, 'vault')).rejects.toThrow();
     });

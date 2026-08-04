@@ -9,8 +9,8 @@
 		"rootDir": "./src",
     "outDir": "./dist",
     "lib": ["es2022", "dom"],
-		"types": ["node", "jest"]
+		"types": ["node", "vitest/globals"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.json"],
-  "exclude": ["./dist", "./node_modules", "*/**/__tests__"]
+  "exclude": ["./dist", "./node_modules"]
 }

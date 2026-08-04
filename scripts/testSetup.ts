@@ -1,7 +1,11 @@
-import '@testing-library/jest-dom';
-import fetchMock from 'jest-fetch-mock';
-import { TextEncoder } from 'util';
+import { vi } from 'vitest';
+import { TextEncoder } from 'node:util';
 import { webcrypto } from 'node:crypto';
+
+// jest-fetch-mock reaches for the global `jest.fn` at import time, so we
+// stand in a minimal shim before pulling it in under Vitest.
+Object.assign(global, { jest: { fn: vi.fn } });
+const fetchMock = (await import('jest-fetch-mock')).default;
 
 fetchMock.enableMocks();
 
