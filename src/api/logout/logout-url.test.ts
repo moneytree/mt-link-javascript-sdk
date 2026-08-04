@@ -1,0 +1,58 @@
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
+import { MtLinkSdk } from '../..';
+import logoutUrl from './logout-url';
+import { generateConfigs, objectToQueryString } from '../../helpers';
+
+describe('api', () => {
+  describe('logout-url', () => {
+    test('without calling init', async () => {
+      const url = await logoutUrl(new MtLinkSdk().storedOptions);
+
+      const query = objectToQueryString({
+        configs: await generateConfigs()
+      });
+
+      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`);
+    });
+
+    test('after calling init', async () => {
+      window.open = vi.fn();
+
+      const clientId = 'clientId';
+      const cobrandClientId = 'cobrandClientId';
+      const locale = 'locale';
+
+      const mtLinkSkd = new MtLinkSdk();
+      mtLinkSkd.init(clientId, {
+        locale,
+        cobrandClientId
+      });
+      const url = await logoutUrl(mtLinkSkd.storedOptions);
+
+      const query = objectToQueryString({
+        client_id: clientId,
+        cobrand_client_id: cobrandClientId,
+        locale,
+        configs: await generateConfigs()
+      });
+
+      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`);
+    });
+
+    test('with options', async () => {
+      window.open = vi.fn();
+
+      const backTo = 'backTo';
+
+      const url = await logoutUrl(new MtLinkSdk().storedOptions, {
+        backTo
+      });
+
+      const query = objectToQueryString({
+        configs: await generateConfigs({ backTo, mode: 'production' })
+      });
+
+      expect(url).toBe(`${MY_ACCOUNT_DOMAINS.production}/guests/logout?${query}`);
+    });
+  });
+});

@@ -56,7 +56,7 @@ jobs:
       - *install_corepack
       - run:
           name: Running tests
-          command: yarn test --maxWorkers=2
+          command: yarn test --pool=threads --poolOptions.threads.maxThreads=2
 
   typecheck:
     <<: *docker_defaults

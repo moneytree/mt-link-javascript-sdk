@@ -1,0 +1,13 @@
+import { getIsTabValue, hasWindow, openWindow } from '../../helpers';
+import { StoredOptions, OnboardOptions } from '../../typings';
+import onboardUrl from './onboard-url';
+
+export default async function onboard(storedOptions: StoredOptions, options: OnboardOptions = {}): Promise<void> {
+  if (!hasWindow()) {
+    throw new Error('[mt-link-sdk] `onboard` only works in the browser.');
+  }
+
+  const { isNewTab, ...restOptions } = options;
+
+  openWindow(await onboardUrl(storedOptions, restOptions), getIsTabValue(isNewTab));
+}

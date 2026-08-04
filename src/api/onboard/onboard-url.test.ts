@@ -1,0 +1,96 @@
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
+import { MtLinkSdk } from '../..';
+import onboardUrl from './onboard-url';
+import { generateConfigs } from '../../helpers';
+import storage from '../../helpers/storage';
+import expectUrlToMatchWithPKCE from '../../test-utils/expect-url-to-match';
+
+vi.mock('../../helpers/storage');
+
+describe('api', () => {
+  describe('onboard-url', () => {
+    const mockedStorage = vi.mocked(storage);
+
+    const clientId = 'clientId';
+    const redirectUri = 'redirectUri';
+    const email = 'email';
+
+    test('without calling init', async () => {
+      await expect(onboardUrl(new MtLinkSdk().storedOptions)).rejects.toThrow(
+        '[mt-link-sdk] Make sure to call `init` before calling `onboardUrl/onboard`.'
+      );
+    });
+
+    test('redirectUri is required', async () => {
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId);
+
+      await expect(onboardUrl(mtLinkSdk.storedOptions)).rejects.toThrow(
+        '[mt-link-sdk] Missing option `redirectUri` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.'
+      );
+    });
+
+    test('method call without options use default init value', async () => {
+      mockedStorage.set.mockClear();
+
+      const country = 'JP';
+      const scopes = 'points_read';
+      const cobrandClientId = 'cobrandClientId';
+      const locale = 'locale';
+
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId, {
+        redirectUri,
+        scopes,
+        email,
+        locale,
+        cobrandClientId
+      });
+
+      const url = await onboardUrl(mtLinkSdk.storedOptions);
+
+      const query = {
+        client_id: clientId,
+        cobrand_client_id: cobrandClientId,
+        response_type: 'code',
+        scope: scopes,
+        redirect_uri: redirectUri,
+        country,
+        locale,
+        configs: await generateConfigs({ email, mode: 'production' })
+      };
+
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query: query });
+    });
+
+    test('with options', async () => {
+      mockedStorage.set.mockClear();
+
+      const state = 'state';
+      const country = 'JP';
+      const scopes = 'points_read';
+
+      const mtLinkSdk = new MtLinkSdk();
+      mtLinkSdk.init(clientId);
+
+      const url = await onboardUrl(mtLinkSdk.storedOptions, {
+        state,
+        redirectUri,
+        scopes,
+        email
+      });
+
+      const query = {
+        client_id: clientId,
+        response_type: 'code',
+        scope: scopes,
+        redirect_uri: redirectUri,
+        state,
+        country,
+        configs: await generateConfigs({ email, mode: 'production' })
+      };
+
+      expectUrlToMatchWithPKCE(url, { baseUrl: MY_ACCOUNT_DOMAINS.production, path: '/onboard', query });
+    });
+  });
+});

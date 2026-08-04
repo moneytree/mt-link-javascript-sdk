@@ -1,0 +1,58 @@
+import {
+  constructScopes,
+  generateConfigs,
+  mergeConfigs,
+  generateCodeChallenge,
+  objectToQueryString
+} from '../../helpers';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
+import { StoredOptions, OnboardUrlOptions } from '../../typings';
+import storage from '../../helpers/storage';
+
+export default async function onboardUrl(
+  storedOptions: StoredOptions,
+  options: OnboardUrlOptions = {}
+): Promise<string> {
+  const {
+    mode,
+    clientId,
+    cobrandClientId,
+    locale,
+    scopes: defaultScopes,
+    redirectUri: defaultRedirectUri
+  } = storedOptions;
+
+  if (!clientId) {
+    throw new Error('[mt-link-sdk] Make sure to call `init` before calling `onboardUrl/onboard`.');
+  }
+
+  const { scopes = defaultScopes, redirectUri = defaultRedirectUri, codeChallenge, state, ...rest } = options;
+
+  const configs = mergeConfigs(storedOptions, rest, ['authAction', 'showAuthToggle', 'showRememberMe', 'forceLogout']);
+
+  if (!redirectUri) {
+    throw new Error(
+      '[mt-link-sdk] Missing option `redirectUri` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.'
+    );
+  }
+
+  storage.del('cv');
+
+  const cc = codeChallenge || (await generateCodeChallenge());
+
+  const queryString = objectToQueryString({
+    client_id: clientId,
+    cobrand_client_id: cobrandClientId,
+    response_type: 'code',
+    scope: constructScopes(scopes),
+    redirect_uri: redirectUri,
+    code_challenge: cc || undefined,
+    code_challenge_method: cc ? 'S256' : undefined,
+    state,
+    country: 'JP',
+    locale,
+    configs: await generateConfigs(configs)
+  });
+
+  return `${MY_ACCOUNT_DOMAINS[mode]}/onboard?${queryString}`;
+}
