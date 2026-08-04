@@ -1,6 +1,6 @@
 declare const __VERSION__: string;
 
-import fetch from 'jest-fetch-mock';
+import { fetchMock, mockResponseOnce, mockRejectOnce } from '../../test-utils/mockFetch';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
@@ -38,8 +38,7 @@ describe('api', () => {
     });
 
     test('make request', async () => {
-      fetch.mockClear();
-      fetch.mockResponseOnce(JSON.stringify(response));
+      mockResponseOnce(JSON.stringify(response));
 
       await tokenInfo(mtLinkSdk.storedOptions, token);
       const query = objectToQueryString({
@@ -49,8 +48,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/oauth/token/info.json?${query}`;
 
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(url, {
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock).toHaveBeenCalledWith(url, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -64,8 +63,7 @@ describe('api', () => {
     test('failed to request', async () => {
       const error = 'failed';
 
-      fetch.mockClear();
-      fetch.mockRejectedValueOnce(error);
+      mockRejectOnce(error);
 
       await expect(tokenInfo(mtLinkSdk.storedOptions, token)).rejects.toThrow(
         `[mt-link-sdk] \`tokenInfo\` execution failed. ${error}`
@@ -75,8 +73,7 @@ describe('api', () => {
     test('throw error on response with error', async () => {
       const error = 'failed';
 
-      fetch.mockClear();
-      fetch.mockResponseOnce(JSON.stringify({ error: 'error', error_description: error }));
+      mockResponseOnce(JSON.stringify({ error: 'error', error_description: error }));
 
       await expect(tokenInfo(mtLinkSdk.storedOptions, token)).rejects.toThrow(error);
     });
