@@ -10,13 +10,13 @@ import mtLinkSdk, { Mode, MtLinkSdk } from '..';
 import packageJson from '../../package.json';
 import expectUrlToMatchWithPKCE from './helper/expect-url-to-match';
 
-jest.mock('../api/authorize');
-jest.mock('../api/onboard');
-jest.mock('../api/logout');
-jest.mock('../api/open-service');
-jest.mock('../api/request-login-link');
-jest.mock('../api/exchange-token');
-jest.mock('../api/token-info');
+vi.mock('../api/authorize');
+vi.mock('../api/onboard');
+vi.mock('../api/logout');
+vi.mock('../api/open-service');
+vi.mock('../api/request-login-link');
+vi.mock('../api/exchange-token');
+vi.mock('../api/token-info');
 
 describe('index', () => {
   test('MtLinkSdk', async () => {
@@ -67,13 +67,13 @@ describe('index', () => {
       created_at: Date.now(),
       resource_server: 'jp-api'
     };
-    jest.mocked(exchangeToken).mockResolvedValueOnce(token);
+    vi.mocked(exchangeToken).mockResolvedValueOnce(token);
     const result6 = await instance.exchangeToken({ code: 'code' });
     expect(result6).toEqual(token);
     expect(exchangeToken).toHaveBeenCalledWith(storedOptions, { code: 'code' });
 
     // @ts-ignore: set tokenInfo with invalid type value
-    jest.mocked(tokenInfo).mockResolvedValueOnce('test');
+    vi.mocked(tokenInfo).mockResolvedValueOnce('test');
     const result7 = await instance.tokenInfo('test');
     expect(result7).toBe('test');
 

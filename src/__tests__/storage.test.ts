@@ -10,25 +10,20 @@ describe('storage', () => {
     clearStorage();
   });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   test('falls back to sessionStorage if localStorage is unavailable', () => {
-    const originalLocalStorage = window.localStorage;
-    // @ts-ignore, Suppress TypeScript error when deleting window.localStorage for test simulation.
-    delete window.localStorage;
+    vi.spyOn(window, 'localStorage', 'get').mockReturnValue(undefined as unknown as Storage);
     window.sessionStorage.setItem(STORE_KEY, JSON.stringify({ key1: 'value1' }));
     expect(get('key1')).toBe('value1');
-    window.localStorage = originalLocalStorage;
   });
 
   test('throws if neither storage is available', () => {
-    const originalLocalStorage = window.localStorage;
-    const originalSessionStorage = window.sessionStorage;
-    // @ts-ignore, Suppress TypeScript error when deleting window.localStorage for test simulation.
-    delete window.localStorage;
-    // @ts-ignore, Suppress TypeScript error when deleting window.sessionStorage for test simulation.
-    delete window.sessionStorage;
+    vi.spyOn(window, 'localStorage', 'get').mockReturnValue(undefined as unknown as Storage);
+    vi.spyOn(window, 'sessionStorage', 'get').mockReturnValue(undefined as unknown as Storage);
     expect(() => get('key1')).toThrow('Neither localStorage nor sessionStorage is available');
-    window.localStorage = originalLocalStorage;
-    window.sessionStorage = originalSessionStorage;
   });
 
   test('returns undefined if storage contains invalid JSON', () => {

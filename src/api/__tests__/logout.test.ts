@@ -7,7 +7,7 @@ import * as helper from '../../helper';
 describe('api', () => {
   describe('logout', () => {
     test('without calling init', async () => {
-      window.open = jest.fn();
+      window.open = vi.fn();
 
       await logout(new MtLinkSdk().storedOptions);
 
@@ -19,7 +19,7 @@ describe('api', () => {
     });
 
     test('after calling init', async () => {
-      window.open = jest.fn();
+      window.open = vi.fn();
 
       const clientId = 'clientId';
       const cobrandClientId = 'cobrandClientId';
@@ -45,7 +45,7 @@ describe('api', () => {
     });
 
     test('with options', async () => {
-      window.open = jest.fn();
+      window.open = vi.fn();
 
       const backTo = 'backTo';
 
@@ -61,7 +61,7 @@ describe('api', () => {
     });
 
     test('without window', async () => {
-      jest.spyOn(helper, 'hasWindow').mockReturnValue(false);
+      vi.spyOn(helper, 'hasWindow').mockReturnValue(false);
 
       await expect(logout(new MtLinkSdk().storedOptions)).rejects.toThrow();
     });

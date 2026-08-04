@@ -6,13 +6,13 @@ import * as helper from '../../helper';
 import storage from '../../storage';
 import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';
 
-jest.mock('../../storage');
+vi.mock('../../storage');
 
 describe('api', () => {
   describe('onboard', () => {
-    const open = (window.open = jest.fn());
+    const open = (window.open = vi.fn());
 
-    const mockedStorage = jest.mocked(storage);
+    const mockedStorage = vi.mocked(storage);
 
     const clientId = 'clientId';
     const redirectUri = 'redirectUri';
@@ -104,7 +104,7 @@ describe('api', () => {
     });
 
     test('without window', async () => {
-      jest.spyOn(helper, 'hasWindow').mockReturnValue(false);
+      vi.spyOn(helper, 'hasWindow').mockReturnValue(false);
 
       await expect(onboard(new MtLinkSdk().storedOptions)).rejects.toThrow(
         '[mt-link-sdk] `onboard` only works in the browser.'
