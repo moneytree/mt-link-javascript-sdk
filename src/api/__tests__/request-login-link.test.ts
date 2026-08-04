@@ -1,6 +1,6 @@
 declare const __VERSION__: string;
 
-import fetch from 'jest-fetch-mock';
+import { fetchMock, mockRejectOnce } from '../../test-utils/mockFetch';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
@@ -20,9 +20,7 @@ describe('api', () => {
 
     test('failed to request', async () => {
       const error = 'failed';
-
-      fetch.mockClear();
-      fetch.mockRejectedValueOnce(error);
+      mockRejectOnce(error);
 
       await expect(requestLoginLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(
         `[mt-link-sdk] \`requestLoginLink\` execution failed. ${error}`
@@ -30,8 +28,6 @@ describe('api', () => {
     });
 
     test('default loginLinkTo to /settings', async () => {
-      fetch.mockClear();
-
       await requestLoginLink(new MtLinkSdk().storedOptions, { email });
 
       const query = objectToQueryString({
@@ -40,8 +36,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
 
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(url, {
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,8 +52,6 @@ describe('api', () => {
     });
 
     test('prefix loginLinkTo with "/" if provided value do not have one', async () => {
-      fetch.mockClear();
-
       await requestLoginLink(new MtLinkSdk().storedOptions, {
         email,
         loginLinkTo: 'settings/delete-account'
@@ -69,8 +63,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
 
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(url, {
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,16 +80,12 @@ describe('api', () => {
 
     test('throw error on status not within 200 ranges', async () => {
       const statusText = 'failed';
-
-      fetch.mockClear();
-      fetch.mockResolvedValueOnce({ status: 400, statusText } as Response);
+      fetchMock.mockResolvedValueOnce(new Response(null, { status: 400, statusText }));
 
       await expect(requestLoginLink(new MtLinkSdk().storedOptions, { email })).rejects.toThrow(statusText);
     });
 
     test('calling after init will includes client id', async () => {
-      fetch.mockClear();
-
       const cobrandClientId = 'cobrandClientId';
       const locale = 'locale';
 
@@ -117,8 +107,8 @@ describe('api', () => {
 
       const url = `${MY_ACCOUNT_DOMAINS.production}/magic-link.json?${query}`;
 
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(url, {
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock).toHaveBeenCalledWith(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

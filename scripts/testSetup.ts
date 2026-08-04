@@ -1,13 +1,8 @@
-import { vi } from 'vitest';
 import { TextEncoder } from 'node:util';
 import { webcrypto } from 'node:crypto';
+import { fetchMock } from '../src/test-utils/mockFetch';
 
-// jest-fetch-mock reaches for the global `jest.fn` at import time, so we
-// stand in a minimal shim before pulling it in under Vitest.
-Object.assign(global, { jest: { fn: vi.fn } });
-const fetchMock = (await import('jest-fetch-mock')).default;
-
-fetchMock.enableMocks();
+global.fetch = fetchMock;
 
 // JSDOM doesn't implement these, but browsers do
 // [TextEncoder] https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder
