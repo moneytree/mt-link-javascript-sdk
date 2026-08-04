@@ -5,7 +5,7 @@ import { fetchMock, mockResponseOnce, mockRejectOnce } from '../../test-utils/mo
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
 import { generateConfigs, objectToQueryString } from '../../helper';
-import tokenInfo from '../token-info';
+import tokenInfo from './token-info';
 
 describe('api', () => {
   describe('token-info', () => {

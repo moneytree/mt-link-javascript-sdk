@@ -4,7 +4,7 @@ import { fetchMock, mockRejectOnce } from '../../test-utils/mockFetch';
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import requestLoginLink from '../request-login-link';
+import requestLoginLink from './request-login-link';
 import { generateConfigs, objectToQueryString } from '../../helper';
 
 describe('api', () => {

@@ -1,6 +1,6 @@
-import { generateConfigs, generateSdkHeaderInfo, objectToQueryString } from '../helper';
-import { MY_ACCOUNT_DOMAINS } from '../server-paths';
-import { StoredOptions, TokenInfo } from '../typings';
+import { generateConfigs, generateSdkHeaderInfo, objectToQueryString } from '../../helper';
+import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { StoredOptions, TokenInfo } from '../../typings';
 
 export default async function tokenInfo(storedOptions: StoredOptions, token: string): Promise<TokenInfo> {
   const { mode, clientId } = storedOptions;

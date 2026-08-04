@@ -4,7 +4,7 @@ import { fetchMock, mockResponseOnce, mockRejectOnce } from '../../test-utils/mo
 
 import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import exchangeToken from '../exchange-token';
+import exchangeToken from './exchange-token';
 import * as helper from '../../helper';
 
 describe('api', () => {

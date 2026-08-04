@@ -1,5 +1,5 @@
-import { getIsTabValue, hasWindow, openWindow } from '../helper';
-import { StoredOptions, OnboardOptions } from '../typings';
+import { getIsTabValue, hasWindow, openWindow } from '../../helper';
+import { StoredOptions, OnboardOptions } from '../../typings';
 import onboardUrl from './onboard-url';
 
 export default async function onboard(storedOptions: StoredOptions, options: OnboardOptions = {}): Promise<void> {

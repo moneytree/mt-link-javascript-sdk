@@ -1,6 +1,6 @@
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import openServiceUrl from '../open-service-url';
+import openServiceUrl from './open-service-url';
 import { generateConfigs, objectToQueryString } from '../../helper';
 
 describe('api', () => {

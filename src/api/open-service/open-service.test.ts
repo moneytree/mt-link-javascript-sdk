@@ -1,6 +1,6 @@
 import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../server-paths';
 import { MtLinkSdk } from '../..';
-import openService from '../open-service';
+import openService from '../open-service/open-service';
 import { generateConfigs, objectToQueryString } from '../../helper';
 import * as helper from '../../helper';
 
