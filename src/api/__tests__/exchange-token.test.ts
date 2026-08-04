@@ -8,6 +8,10 @@ import exchangeToken from '../exchange-token';
 import * as helper from '../../helper';
 
 describe('api', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   describe('exchange-token', () => {
     const clientId = 'clientId';
     const code = 'code';
@@ -56,7 +60,6 @@ describe('api', () => {
     });
 
     test('make request', async () => {
-      fetch.mockClear();
       fetch.mockResponseOnce(JSON.stringify(token));
 
       await exchangeToken(mtLinkSdk.storedOptions, { code, codeVerifier: '' });
@@ -81,10 +84,9 @@ describe('api', () => {
     });
 
     test('failed to request', async () => {
-      const error = 'failed';
+      const error = new Error('failed');
 
-      fetch.mockClear();
-      fetch.mockRejectedValueOnce(error);
+      fetch.mockRejectOnce(error);
 
       await expect(exchangeToken(mtLinkSdk.storedOptions, { code, state, redirectUri })).rejects.toThrow(
         `[mt-link-sdk] \`exchangeToken\` execution failed. ${error}`
@@ -94,14 +96,12 @@ describe('api', () => {
     test('throw error on response with error', async () => {
       const error = 'failed';
 
-      fetch.mockClear();
       fetch.mockResponseOnce(JSON.stringify({ error: 'error', error_description: error }));
 
       await expect(exchangeToken(mtLinkSdk.storedOptions, { code, state })).rejects.toThrow(error);
     });
 
     test('auto extract code from url query if no code was passed', async () => {
-      fetch.mockClear();
       fetch.mockResponseOnce(JSON.stringify(token));
 
       const code = 'realCode';
@@ -117,7 +117,6 @@ describe('api', () => {
     });
 
     test('auto extract state from url query if no state was passed or set during init', async () => {
-      fetch.mockClear();
       fetch.mockResponseOnce(JSON.stringify(token));
 
       window.history.pushState({}, '', `?state=otherState&state=${state}`);
@@ -128,7 +127,7 @@ describe('api', () => {
     });
 
     test('non browser environment will not auto extract code from url', async () => {
-      jest.spyOn(helper, 'hasWindow').mockReturnValue(false);
+      vi.spyOn(helper, 'hasWindow').mockReturnValue(false);
 
       await expect(exchangeToken(mtLinkSdk.storedOptions)).rejects.toThrow(
         '[mt-link-sdk] Missing option `code` in `exchangeToken`, or failed to get `code` from query/hash value from the URL.'

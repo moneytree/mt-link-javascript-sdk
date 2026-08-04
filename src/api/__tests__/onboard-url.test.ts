@@ -5,11 +5,11 @@ import { generateConfigs } from '../../helper';
 import storage from '../../storage';
 import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';
 
-jest.mock('../../storage');
+vi.mock('../../storage');
 
 describe('api', () => {
   describe('onboard-url', () => {
-    const mockedStorage = jest.mocked(storage);
+    const mockedStorage = vi.mocked(storage);
 
     const clientId = 'clientId';
     const redirectUri = 'redirectUri';

@@ -2,11 +2,11 @@ import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs, queryStr
 import packageJson from '../../package.json';
 import { AuthnMethod, ConfigsOptions, StoredOptions } from '../typings';
 
-const mockFetch = jest.spyOn(global, 'fetch');
+const mockFetch = vi.spyOn(global, 'fetch');
 
 describe('helper', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('constuctScopes', () => {

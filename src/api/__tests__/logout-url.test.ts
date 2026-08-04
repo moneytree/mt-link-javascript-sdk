@@ -16,7 +16,7 @@ describe('api', () => {
     });
 
     test('after calling init', async () => {
-      window.open = jest.fn();
+      window.open = vi.fn();
 
       const clientId = 'clientId';
       const cobrandClientId = 'cobrandClientId';
@@ -40,7 +40,7 @@ describe('api', () => {
     });
 
     test('with options', async () => {
-      window.open = jest.fn();
+      window.open = vi.fn();
 
       const backTo = 'backTo';
 
