@@ -1,4 +1,4 @@
-import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../server-paths';
+import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '.';
 
 describe('server_paths', () => {
   test('MY_ACCOUNT_DOMAINS', () => {

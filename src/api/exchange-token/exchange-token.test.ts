@@ -2,10 +2,10 @@ declare const __VERSION__: string;
 
 import { fetchMock, mockResponseOnce, mockRejectOnce } from '../../test-utils/mockFetch';
 
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { MtLinkSdk } from '../..';
 import exchangeToken from './exchange-token';
-import * as helper from '../../helper';
+import * as helper from '../../helpers';
 
 describe('api', () => {
   beforeEach(() => {

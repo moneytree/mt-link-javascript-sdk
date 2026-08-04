@@ -2,9 +2,9 @@ declare const __VERSION__: string;
 
 import { fetchMock, mockResponseOnce, mockRejectOnce } from '../../test-utils/mockFetch';
 
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { MtLinkSdk } from '../..';
-import { generateConfigs, objectToQueryString } from '../../helper';
+import { generateConfigs, objectToQueryString } from '../../helpers';
 import tokenInfo from './token-info';
 
 describe('api', () => {

@@ -1,7 +1,7 @@
-import { generateSdkHeaderInfo, hasWindow, queryStringToObject } from '../../helper';
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { generateSdkHeaderInfo, hasWindow, queryStringToObject } from '../../helpers';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { StoredOptions, ExchangeTokenOptions, Token } from '../../typings';
-import storage from '../../storage';
+import storage from '../../helpers/storage';
 
 function getCode(): string | undefined {
   // not available in node environment

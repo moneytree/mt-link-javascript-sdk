@@ -1,4 +1,4 @@
-import { getIsTabValue, hasWindow, openWindow } from '../../helper';
+import { getIsTabValue, hasWindow, openWindow } from '../../helpers';
 import { StoredOptions, LogoutOptions } from '../../typings';
 import logoutUrl from './logout-url';
 

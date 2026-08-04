@@ -1,4 +1,4 @@
-import { queryStringToObject } from '../../helper';
+import { queryStringToObject } from '../helpers';
 
 export interface UrlExpectation {
   baseUrl: string;
