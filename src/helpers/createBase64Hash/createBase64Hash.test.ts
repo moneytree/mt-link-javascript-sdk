@@ -1,4 +1,4 @@
-import { createBase64Hash } from '../createBase64Hash';
+import { createBase64Hash } from '.';
 
 describe('createBase64Hash', () => {
   // 'expected' is what Ruby produces from `Digest::SHA256.base64digest(input)`

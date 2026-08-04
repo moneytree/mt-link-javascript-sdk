@@ -1,7 +1,7 @@
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { MtLinkSdk } from '../..';
 import logoutUrl from './logout-url';
-import { generateConfigs, objectToQueryString } from '../../helper';
+import { generateConfigs, objectToQueryString } from '../../helpers';
 
 describe('api', () => {
   describe('logout-url', () => {

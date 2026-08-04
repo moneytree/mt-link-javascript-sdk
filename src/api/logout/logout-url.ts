@@ -1,5 +1,5 @@
-import { generateConfigs, mergeConfigs, objectToQueryString } from '../../helper';
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { generateConfigs, mergeConfigs, objectToQueryString } from '../../helpers';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { StoredOptions, LogoutUrlOptions } from '../../typings';
 
 export default async function logoutUrl(storedOptions: StoredOptions, options: LogoutUrlOptions = {}): Promise<string> {

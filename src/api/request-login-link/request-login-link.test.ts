@@ -2,10 +2,10 @@ declare const __VERSION__: string;
 
 import { fetchMock, mockRejectOnce } from '../../test-utils/mockFetch';
 
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { MtLinkSdk } from '../..';
 import requestLoginLink from './request-login-link';
-import { generateConfigs, objectToQueryString } from '../../helper';
+import { generateConfigs, objectToQueryString } from '../../helpers';
 
 describe('api', () => {
   describe('request-login-link', () => {

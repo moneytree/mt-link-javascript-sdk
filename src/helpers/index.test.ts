@@ -1,4 +1,4 @@
-import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs, queryStringToObject } from '../helper';
+import { constructScopes, getIsTabValue, mergeConfigs, generateConfigs, queryStringToObject } from '.';
 import packageJson from '../../package.json';
 import { AuthnMethod, ConfigsOptions, StoredOptions } from '../typings';
 

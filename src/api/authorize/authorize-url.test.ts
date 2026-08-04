@@ -1,11 +1,11 @@
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { MtLinkSdk } from '../..';
 import authorizeUrl from './authorize-url';
-import { generateConfigs } from '../../helper';
-import storage from '../../storage';
-import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';
+import { generateConfigs } from '../../helpers';
+import storage from '../../helpers/storage';
+import expectUrlToMatchWithPKCE from '../../test-utils/expect-url-to-match';
 
-vi.mock('../../storage');
+vi.mock('../../helpers/storage');
 
 describe('api', () => {
   describe('authorize-url', () => {

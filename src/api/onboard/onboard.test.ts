@@ -1,12 +1,12 @@
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { MtLinkSdk } from '../..';
 import onboard from '../onboard/onboard';
-import { generateConfigs } from '../../helper';
-import * as helper from '../../helper';
-import storage from '../../storage';
-import expectUrlToMatchWithPKCE from '../../__tests__/helper/expect-url-to-match';
+import { generateConfigs } from '../../helpers';
+import * as helper from '../../helpers';
+import storage from '../../helpers/storage';
+import expectUrlToMatchWithPKCE from '../../test-utils/expect-url-to-match';
 
-vi.mock('../../storage');
+vi.mock('../../helpers/storage');
 
 describe('api', () => {
   describe('onboard', () => {
