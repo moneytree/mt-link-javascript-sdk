@@ -1,4 +1,4 @@
-import { getIsTabValue, hasWindow, openWindow } from '../../helper';
+import { getIsTabValue, hasWindow, openWindow } from '../../helpers';
 import { StoredOptions, OnboardOptions } from '../../typings';
 import onboardUrl from './onboard-url';
 

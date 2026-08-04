@@ -1,5 +1,5 @@
-import { generateConfigs, mergeConfigs, objectToQueryString } from '../../helper';
-import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../server-paths';
+import { generateConfigs, mergeConfigs, objectToQueryString } from '../../helpers';
+import { MY_ACCOUNT_DOMAINS, VAULT_DOMAINS, LINK_KIT_DOMAINS } from '../../helpers/serverPaths';
 import {
   StoredOptions,
   VaultViewConnectionSetting,

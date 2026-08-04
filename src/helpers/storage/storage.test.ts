@@ -1,4 +1,4 @@
-import { set, get, del, STORE_KEY } from '../storage';
+import { set, get, del, STORE_KEY } from '.';
 
 function clearStorage() {
   window.localStorage.removeItem(STORE_KEY);

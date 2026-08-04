@@ -1,4 +1,4 @@
-import { makeUrlSafe } from '../makeUrlSafe';
+import { makeUrlSafe } from '.';
 
 describe('makeUrlSafe', () => {
   it('replaces "+" with "-"', () => {

@@ -1,22 +1,23 @@
-import authorize from '../api/authorize/authorize';
-import onboard from '../api/onboard/onboard';
-import logout from '../api/logout/logout';
-import openService from '../api/open-service/open-service';
-import requestLoginLink from '../api/request-login-link/request-login-link';
-import exchangeToken from '../api/exchange-token/exchange-token';
-import tokenInfo from '../api/token-info/token-info';
-import mtLinkSdk, { Mode, MtLinkSdk } from '..';
+import authorize from './api/authorize/authorize';
+import onboard from './api/onboard/onboard';
+import logout from './api/logout/logout';
+import openService from './api/open-service/open-service';
+import requestLoginLink from './api/request-login-link/request-login-link';
+import exchangeToken from './api/exchange-token/exchange-token';
+import tokenInfo from './api/token-info/token-info';
+import { Mode } from './typings';
 
-import packageJson from '../../package.json';
-import expectUrlToMatchWithPKCE from './helper/expect-url-to-match';
+import packageJson from '../package.json';
+import expectUrlToMatchWithPKCE from './test-utils/expect-url-to-match';
+import mtLinkSdk, { MtLinkSdk } from '.';
 
-vi.mock('../api/authorize/authorize');
-vi.mock('../api/onboard/onboard');
-vi.mock('../api/logout/logout');
-vi.mock('../api/open-service/open-service');
-vi.mock('../api/request-login-link/request-login-link');
-vi.mock('../api/exchange-token/exchange-token');
-vi.mock('../api/token-info/token-info');
+vi.mock('./api/authorize/authorize');
+vi.mock('./api/onboard/onboard');
+vi.mock('./api/logout/logout');
+vi.mock('./api/open-service/open-service');
+vi.mock('./api/request-login-link/request-login-link');
+vi.mock('./api/exchange-token/exchange-token');
+vi.mock('./api/token-info/token-info');
 
 describe('index', () => {
   test('MtLinkSdk', async () => {

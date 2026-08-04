@@ -1,4 +1,4 @@
-import { queryStringToObject } from '../helper';
+import { queryStringToObject } from '.';
 
 describe('queryStringToObject', () => {
   it('transforms object to query string', () => {

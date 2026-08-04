@@ -4,10 +4,10 @@ import {
   mergeConfigs,
   generateCodeChallenge,
   objectToQueryString
-} from '../../helper';
-import { MY_ACCOUNT_DOMAINS } from '../../server-paths';
+} from '../../helpers';
+import { MY_ACCOUNT_DOMAINS } from '../../helpers/serverPaths';
 import { StoredOptions, OnboardUrlOptions } from '../../typings';
-import storage from '../../storage';
+import storage from '../../helpers/storage';
 
 export default async function onboardUrl(
   storedOptions: StoredOptions,
