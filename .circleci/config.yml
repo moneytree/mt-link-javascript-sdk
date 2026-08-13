@@ -3,6 +3,13 @@ version: 2.1
 orbs:
   security-tools: moneytree/security-tools@2.0.4
 
+references:
+  no_master_filter: &filters_master_out
+    filters:
+      branches:
+        ignore:
+          - master
+
 docker_defaults: &docker_defaults
   docker:
     - image: cimg/node:26.0
@@ -18,6 +25,11 @@ install_corepack: &install_corepack
     command: npm install -g corepack@latest --force
 
 jobs:
+  start:
+    <<: *docker_defaults
+    steps:
+      - run: echo 'start'
+
   dependencies:
     <<: *docker_defaults
     steps:
@@ -77,9 +89,15 @@ workflows:
   version: 2.1
   test_on_pr:
     jobs:
+      - start:
+        <<: *filters_master_out
       - security-tools/supply_chain_guard:
           context: new_github_mtservice_read
-      - security-tools/bearer
+          requires:
+            - start
+      - security-tools/bearer:
+          requires:
+            - start
       - dependencies:
           requires:
             - security-tools/supply_chain_guard
