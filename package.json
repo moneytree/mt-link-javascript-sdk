@@ -23,7 +23,7 @@
   "author": "Moneytree",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && vite build && tsc --emitDeclarationOnly",
+    "build": "rm -rf dist && vite build && tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:docs": "rm -rf docs/types && typedoc --out docs/types src",
     "prepareRelease": "npm run build && git add dist && npm run build:docs && git add docs",
     "createChangelog": "conventional-changelog -p conventionalcommits && git add CHANGELOG.md",
