@@ -1,2 +1,2 @@
-import { StoredOptions, OnboardOptions } from '../typings';
+import { StoredOptions, OnboardOptions } from '../../typings';
 export default function onboard(storedOptions: StoredOptions, options?: OnboardOptions): Promise<void>;
