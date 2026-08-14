@@ -90,7 +90,7 @@ workflows:
   test_on_pr:
     jobs:
       - start:
-        <<: *filters_master_out
+          <<: *filters_master_out
       - security-tools/supply_chain_guard:
           context: new_github_mtservice_read
           requires:
