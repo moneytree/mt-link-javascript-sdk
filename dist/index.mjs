@@ -1,0 +1,510 @@
+//#region src/helpers/storage/index.ts
+var e = "mt-link-javascript-sdk";
+function t(e) {
+	try {
+		let t = "__storage_test__";
+		return e.setItem(t, t), e.removeItem(t), !0;
+	} catch {
+		return !1;
+	}
+}
+function n() {
+	if (t(window.localStorage)) return window.localStorage;
+	if (t(window.sessionStorage)) return console.error("localStorage not available, falling back to sessionStorage"), window.sessionStorage;
+	throw Error("Neither localStorage nor sessionStorage is available");
+}
+function r() {
+	let t = n();
+	try {
+		let n = t.getItem(e);
+		return n ? JSON.parse(n) : {};
+	} catch (t) {
+		return console.error(`Failed to load or parse data from storage key "${e}":`, t), {};
+	}
+}
+function i(t) {
+	n().setItem(e, JSON.stringify(t));
+}
+function a(e) {
+	return r()[e];
+}
+function o(e, t) {
+	let n = r();
+	n[e] = t, i(n);
+}
+function s(e) {
+	let t = r();
+	delete t[e], i(t);
+}
+var c = {
+	set: o,
+	get: a,
+	del: s
+}, l = ["login", "signup"], u = [
+	"passwordless",
+	"sso",
+	"credentials",
+	"otp"
+], d = {
+	production: "https://myaccount.getmoneytree.com",
+	staging: "https://myaccount-staging.getmoneytree.com",
+	develop: "https://myaccount-develop.getmoneytree.com",
+	local: "http://localhost:3002"
+}, f = {
+	production: "https://vault.getmoneytree.com",
+	staging: "https://vault-staging.getmoneytree.com",
+	develop: "https://vault-develop.getmoneytree.com",
+	local: "http://localhost:9000"
+}, p = {
+	production: "https://linkkit.getmoneytree.com",
+	staging: "https://linkkit-staging.getmoneytree.com",
+	develop: "https://linkkit-develop.getmoneytree.com",
+	local: "http://localhost:9000"
+};
+//#endregion
+//#region src/helpers/snakeCase.ts
+function m(e) {
+	return e.replace(/[A-Z]/g, (e) => `_${e.toLowerCase()}`);
+}
+//#endregion
+//#region src/helpers/createBase64Hash/index.ts
+async function h(e) {
+	let t = new TextEncoder().encode(e), n = await crypto.subtle.digest("SHA-256", t), r = Array.from(new Uint8Array(n)).map((e) => String.fromCharCode(e)).join("");
+	return btoa(r).split("=")[0];
+}
+//#endregion
+//#region src/helpers/makeUrlSafe/index.ts
+var g = {
+	"+": "-",
+	"/": "_"
+};
+function _(e) {
+	return e.replace(/[+/]/g, (e) => g[e]);
+}
+//#endregion
+//#region src/helpers/index.ts
+function v(e = "") {
+	return (Array.isArray(e) ? e.join(" ") : e) || void 0;
+}
+function y(e = !1) {
+	return e ? "" : "_self";
+}
+function b() {
+	return typeof window < "u" && !!window;
+}
+function x(e, t) {
+	return e === void 0 ? t : e;
+}
+function S(e, t, n = []) {
+	let r = {
+		email: x(t.email, e.email),
+		backTo: x(t.backTo, e.backTo),
+		authAction: x(t.authAction, e.authAction),
+		showAuthToggle: x(t.showAuthToggle, e.showAuthToggle),
+		showRememberMe: x(t.showRememberMe, e.showRememberMe),
+		isNewTab: x(t.isNewTab, e.isNewTab),
+		forceLogout: t.forceLogout,
+		authnMethod: k(x(t.authnMethod, e.authnMethod)),
+		sdkPlatform: x(t.sdkPlatform, e.sdkPlatform),
+		sdkVersion: x(t.sdkVersion, e.sdkVersion),
+		mode: e.mode || "production"
+	};
+	return Object.keys(r).forEach((e) => {
+		(r[e] === void 0 || n.indexOf(e) !== -1) && delete r[e];
+	}), r;
+}
+async function C({ email: e, mode: t }) {
+	let n = await fetch(`${d[t]}/email-token`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ email: e })
+	});
+	if (n.ok) return (await n.json()).email_token;
+}
+async function w(e = { mode: "production" }) {
+	let t = {}, n = [
+		"emailToken",
+		"backTo",
+		"authAction",
+		"showAuthToggle",
+		"showRememberMe",
+		"isNewTab",
+		"forceLogout",
+		"authnMethod",
+		"sdkPlatform",
+		"sdkVersion"
+	];
+	if (e.email) {
+		let t = await C({
+			email: e.email,
+			mode: e.mode
+		}).catch(() => void 0);
+		delete e.email, t && (e.emailToken = t);
+	}
+	e.authnMethod &&= k(e.authnMethod), e.authAction &&= j(e.authAction), (!e.sdkPlatform || !e.sdkVersion) && (e.sdkPlatform = "js", e.sdkVersion = "6.0.0");
+	for (let r in e) n.indexOf(r) !== -1 && (t[m(r)] = e[r]);
+	return M(t);
+}
+async function T() {
+	let e = crypto.randomUUID();
+	return c.set("cv", e), _(await h(e));
+}
+function E() {
+	return {
+		"mt-sdk-platform": "js",
+		"mt-sdk-version": "6.0.0"
+	};
+}
+function D(e, t) {
+	return window.open(e, t, "noreferrer");
+}
+function O(e) {
+	return u.includes(e);
+}
+function k(e) {
+	if (Array.isArray(e)) throw TypeError("Array is not allowed for authnMethod");
+	return O(e) ? e : void 0;
+}
+function A(e) {
+	return l.includes(e);
+}
+function j(e) {
+	return A(e) ? e : void 0;
+}
+function M(e) {
+	let t = new URLSearchParams();
+	return Object.entries(e).forEach(([e, n]) => {
+		n != null && t.append(e, n.toString());
+	}), t.toString();
+}
+function N(e) {
+	let t = new URLSearchParams(e), n = {};
+	return t.forEach((e, t) => {
+		e && (n[t] = e.toString());
+	}), n;
+}
+//#endregion
+//#region src/api/authorize/authorize-url.ts
+async function P(e, t = {}) {
+	let { mode: n, clientId: r, cobrandClientId: i, locale: a, scopes: o, redirectUri: s, samlSubjectId: l } = e;
+	if (!r) throw Error("[mt-link-sdk] Make sure to call `init` before calling `authorizeUrl/authorize`.");
+	let { scopes: u = o, redirectUri: f = s, codeChallenge: p, state: m, affiliateCode: h, ...g } = t;
+	if (!f) throw Error("[mt-link-sdk] Missing option `redirectUri` in `authorizeUrl/authorize`, make sure to pass one via `authorizeUrl/authorize` options or `init` options.");
+	c.del("cv");
+	let _ = p || await T(), y = await w(S(e, g)), b = M({
+		client_id: r,
+		cobrand_client_id: i,
+		response_type: "code",
+		scope: v(u),
+		redirect_uri: f,
+		code_challenge: _ || void 0,
+		code_challenge_method: _ ? "S256" : void 0,
+		state: m,
+		country: "JP",
+		locale: a,
+		saml_subject_id: l,
+		configs: y,
+		...h ? { affiliate_code: h } : {}
+	});
+	return `${d[n]}/oauth/authorize?${b}`;
+}
+//#endregion
+//#region src/api/authorize/authorize.ts
+async function F(e, t = {}) {
+	if (!b()) throw Error("[mt-link-sdk] `authorize` only works in the browser.");
+	let { isNewTab: n, ...r } = t;
+	D(await P(e, r), y(n));
+}
+//#endregion
+//#region src/api/onboard/onboard-url.ts
+async function I(e, t = {}) {
+	let { mode: n, clientId: r, cobrandClientId: i, locale: a, scopes: o, redirectUri: s } = e;
+	if (!r) throw Error("[mt-link-sdk] Make sure to call `init` before calling `onboardUrl/onboard`.");
+	let { scopes: l = o, redirectUri: u = s, codeChallenge: f, state: p, ...m } = t, h = S(e, m, [
+		"authAction",
+		"showAuthToggle",
+		"showRememberMe",
+		"forceLogout"
+	]);
+	if (!u) throw Error("[mt-link-sdk] Missing option `redirectUri` in `onboardUrl/onboard`, make sure to pass one via `onboardUrl/onboard` options or `init` options.");
+	c.del("cv");
+	let g = f || await T(), _ = M({
+		client_id: r,
+		cobrand_client_id: i,
+		response_type: "code",
+		scope: v(l),
+		redirect_uri: u,
+		code_challenge: g || void 0,
+		code_challenge_method: g ? "S256" : void 0,
+		state: p,
+		country: "JP",
+		locale: a,
+		configs: await w(h)
+	});
+	return `${d[n]}/onboard?${_}`;
+}
+//#endregion
+//#region src/api/onboard/onboard.ts
+async function L(e, t = {}) {
+	if (!b()) throw Error("[mt-link-sdk] `onboard` only works in the browser.");
+	let { isNewTab: n, ...r } = t;
+	D(await I(e, r), y(n));
+}
+//#endregion
+//#region src/api/logout/logout-url.ts
+async function R(e, t = {}) {
+	let { clientId: n, mode: r, cobrandClientId: i, locale: a, samlSubjectId: o } = e, s = M({
+		client_id: n,
+		cobrand_client_id: i,
+		locale: a,
+		saml_subject_id: o,
+		configs: await w(S(e, t))
+	});
+	return `${d[r]}/guests/logout?${s}`;
+}
+//#endregion
+//#region src/api/logout/logout.ts
+async function z(e, t = {}) {
+	if (!b()) throw Error("[mt-link-sdk] `logout` only works in the browser.");
+	let { isNewTab: n, ...r } = t;
+	D(await R(e, r), y(n));
+}
+//#endregion
+//#region src/api/open-service/open-service-url.ts
+async function B(e, t, n = {}) {
+	let { clientId: r, mode: i, cobrandClientId: a, locale: o, samlSubjectId: s } = e, c = await w(S(e, n)), l = (e) => {
+		switch (e.view) {
+			case "services-list": return "url=/services";
+			case "connection-setting": return `url=/connection/${e.credentialId}`;
+		}
+	}, u = (e = !0) => {
+		let i = t === "vault" && "showBackBarOn" in n && n.showBackBarOn, u = {
+			client_id: r,
+			cobrand_client_id: a,
+			locale: o,
+			saml_subject_id: s,
+			state: i ? l(i) : void 0,
+			configs: c
+		};
+		return e ? M(u) : u;
+	}, { view: m } = n;
+	switch (t) {
+		case "vault":
+			if (!m) return `${f[i]}?${u()}`;
+			switch (m) {
+				case "services-list":
+					let { group: e, type: t, search: r } = n;
+					return `${f[i]}/services?${M({
+						...u(!1),
+						group: e,
+						type: t,
+						search: r
+					})}`;
+				case "service-connection": {
+					let { entityKey: e } = n;
+					return `${f[i]}/service/${e}?${u()}`;
+				}
+				case "connection-setting": {
+					let { credentialId: e } = n;
+					return `${f[i]}/connection/${e}?${u()}`;
+				}
+				case "connection-update": {
+					let { credentialId: e } = n;
+					return `${f[i]}/connection/${e}/update?${u()}`;
+				}
+				case "connection-delete": {
+					let { credentialId: e } = n;
+					return `${f[i]}/connection/${e}/delete?${u()}`;
+				}
+				case "onboarding": return `${f[i]}/onboarding?${u()}`;
+				default: return `${f[i]}/customer-support?${u()}`;
+			}
+		case "myaccount": return `${d[i]}/${n.view || ""}?${u()}`;
+		case "link-kit": return `${p[i]}?${u()}`;
+		default: throw Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openServiceUrl\`, got: ${t}`);
+	}
+}
+//#endregion
+//#region src/api/open-service/open-service.ts
+async function V(e, t, n = {}) {
+	if (!b()) throw Error("[mt-link-sdk] `openService` only works in the browser.");
+	let { isNewTab: r, ...i } = n;
+	switch (t) {
+		case "myaccount":
+			D(await B(e, "myaccount", i), y(r));
+			break;
+		case "vault":
+			D(await B(e, "vault", i), y(r));
+			break;
+		case "link-kit":
+			D(await B(e, "link-kit", i), y(r));
+			break;
+		default: throw Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openService\`, got: ${t}`);
+	}
+}
+//#endregion
+//#region src/api/request-login-link/request-login-link.ts
+async function H(e, t = {}) {
+	let { clientId: n, mode: r, email: i, cobrandClientId: a, locale: o } = e, { email: s = i, loginLinkTo: c, ...l } = t, u = S(e, l, ["email"]);
+	if (!s) throw Error("[mt-link-sdk] Missing option `email` in `requestLoginLink`, make sure to pass one via `requestLoginLink` options or `init` options.");
+	let f = M({
+		client_id: n,
+		cobrand_client_id: a,
+		locale: o,
+		configs: await w(u)
+	}), p = `${d[r]}/magic-link.json?${f}`, m = c || "/settings";
+	m[0] !== "/" && (m = `/${m}`);
+	try {
+		let e = await fetch(p, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				...E()
+			},
+			body: JSON.stringify({
+				email: s,
+				magic_link_to: m
+			})
+		});
+		if (e.status < 200 || e.status >= 300) throw Error(e.statusText);
+	} catch (e) {
+		throw Error(`[mt-link-sdk] \`requestLoginLink\` execution failed. ${e}`, { cause: e });
+	}
+}
+//#endregion
+//#region src/api/exchange-token/exchange-token.ts
+function U() {
+	if (!b()) return;
+	let { code: e } = N(window.location.search);
+	return Array.isArray(e) ? e[e.length - 1] : e;
+}
+async function W(e, t = {}) {
+	let { clientId: n, redirectUri: r, mode: i } = e;
+	if (!n) throw Error("[mt-link-sdk] Make sure to call `init` before calling `exchangeToken`.");
+	let { redirectUri: a = r, code: o = U(), codeVerifier: s } = t;
+	if (!o) throw Error("[mt-link-sdk] Missing option `code` in `exchangeToken`, or failed to get `code` from query/hash value from the URL.");
+	if (!a) throw Error("[mt-link-sdk] Missing option `redirectUri` in `exchangeToken`, make sure to pass one via `exchangeToken` options or `init` options.");
+	try {
+		let e = await (await fetch(`${d[i]}/oauth/token.json`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				...E()
+			},
+			body: JSON.stringify({
+				code: o,
+				client_id: n,
+				grant_type: "authorization_code",
+				redirect_uri: a,
+				code_verifier: s || (o ? c.get("cv") : void 0)
+			})
+		})).json();
+		if (e.error) throw Error(e.error_description);
+		return c.del("cv"), e;
+	} catch (e) {
+		throw Error(`[mt-link-sdk] \`exchangeToken\` execution failed. ${e}`, { cause: e });
+	}
+}
+//#endregion
+//#region src/api/token-info/token-info.ts
+async function G(e, t) {
+	let { mode: n, clientId: r } = e;
+	if (!t) throw Error("[mt-link-sdk] Missing parameter `token` in `tokenInfo`.");
+	let i = M({
+		client_id: r,
+		cobrand_client_id: e.cobrandClientId,
+		configs: await w(e)
+	});
+	try {
+		let e = await (await fetch(`${d[n]}/oauth/token/info.json?${i}`, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${t}`,
+				"API-Version": "1604911588",
+				...E()
+			}
+		})).json();
+		if (e.error) throw Error(e.error_description);
+		return e;
+	} catch (e) {
+		throw Error(`[mt-link-sdk] \`tokenInfo\` execution failed. ${e}`, { cause: e });
+	}
+}
+//#endregion
+//#region src/index.ts
+var K = [
+	"production",
+	"staging",
+	"develop",
+	"local"
+], q = class {
+	constructor() {
+		this.storedOptions = { mode: "production" };
+	}
+	init(e, t = {}) {
+		if (!e) throw Error("[mt-link-sdk] Missing parameter `client_id` in `init`.");
+		let { mode: n = "production", ...r } = t;
+		this.storedOptions = {
+			...this.storedOptions,
+			...r,
+			clientId: e,
+			mode: K.indexOf(n) === -1 ? "production" : n
+		};
+	}
+	setSamlSubjectId(e) {
+		this.storedOptions.samlSubjectId = e;
+	}
+	async authorize(e) {
+		await F(this.storedOptions, e);
+	}
+	async authorizeUrl(e) {
+		return await P(this.storedOptions, e);
+	}
+	async onboard(e) {
+		await L(this.storedOptions, e);
+	}
+	async onboardUrl(e) {
+		return await I(this.storedOptions, e);
+	}
+	async logout(e) {
+		await z(this.storedOptions, e);
+	}
+	async logoutUrl(e) {
+		return await R(this.storedOptions, e);
+	}
+	async openService(e, t) {
+		switch (e) {
+			case "myaccount":
+				await V(this.storedOptions, "myaccount", t);
+				break;
+			case "vault":
+				await V(this.storedOptions, "vault", t);
+				break;
+			case "link-kit":
+				await V(this.storedOptions, "link-kit", t);
+				break;
+			default: throw Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openService\`, got: ${e}`);
+		}
+	}
+	async openServiceUrl(e, t) {
+		switch (e) {
+			case "myaccount": return await B(this.storedOptions, "myaccount", t);
+			case "vault": return await B(this.storedOptions, "vault", t);
+			case "link-kit": return await B(this.storedOptions, "link-kit", t);
+			default: throw Error(`[mt-link-sdk] Invalid \`serviceId\` in \`openServiceUrl\`, got: ${e}`);
+		}
+	}
+	requestLoginLink(e) {
+		return H(this.storedOptions, e);
+	}
+	exchangeToken(e) {
+		return W(this.storedOptions, e);
+	}
+	tokenInfo(e) {
+		return G(this.storedOptions, e);
+	}
+}, J = new q();
+// istanbul ignore next
+window && (window.mtLinkSdk = J, window.MtLinkSdk = q);
+//#endregion
+export { q as MtLinkSdk, J as default, l as supportedAuthAction, u as supportedAuthnMethod };

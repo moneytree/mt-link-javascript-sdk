@@ -1,5 +1,5 @@
 export declare const supportedAuthAction: readonly ["login", "signup"];
-export type AuthAction = typeof supportedAuthAction[number];
+export type AuthAction = (typeof supportedAuthAction)[number];
 export interface PrivateParams {
     cobrandClientId?: string;
     samlSubjectId?: string;
@@ -10,7 +10,7 @@ export interface PrivateConfigsOptions {
     emailToken?: string;
 }
 export declare const supportedAuthnMethod: readonly ["passwordless", "sso", "credentials", "otp"];
-export type AuthnMethod = typeof supportedAuthnMethod[number];
+export type AuthnMethod = (typeof supportedAuthnMethod)[number];
 export interface ConfigsOptions extends PrivateConfigsOptions {
     email?: string;
     backTo?: string;

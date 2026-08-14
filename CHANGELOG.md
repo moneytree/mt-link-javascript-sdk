@@ -1,3 +1,37 @@
+## [6.0.0](https://github.com/moneytree/mt-link-javascript-sdk/compare/5.0.0...6.0.0) (2026-08-14)
+
+This release cleans up a variety of outdated/unnecessary dependencies and vendors the necessary code from others, allowing the SDK to have 0 runtime dependencies. It also switches to using Vite/Vitest from webpack/Jest and offers ESM output alongside CJS. 
+
+We do not anticipate breaking changes for most users, however since the SDK now targets newer browser versions and the release contains many changes we're making this a major release to be safe.
+
+### Features
+
+* **build:** add ESM output ([894bea2](https://github.com/moneytree/mt-link-javascript-sdk/commit/894bea2aeb20ceb03897edd9c3a94637917c4f31))
+* **deps:** bring in supply chain guard & cooldown ([8dbfddd](https://github.com/moneytree/mt-link-javascript-sdk/commit/8dbfddd2fad6f7ec01f100bf9439c0c9c10b7638))
+* **deps:** move `process` dependency to dev deps ([9acab44](https://github.com/moneytree/mt-link-javascript-sdk/commit/9acab44d85f98c1d25147668251b29a745e9f5d6))
+* **helper:** add createBase64Hash helper ([17ea5c9](https://github.com/moneytree/mt-link-javascript-sdk/commit/17ea5c95c7189091ae9b88e34545c5ad2f9de1a0))
+* **helper:** add makeUrlSafe helper ([16ffdfc](https://github.com/moneytree/mt-link-javascript-sdk/commit/16ffdfc971168cc1f78ac9f41bfb444b15ca3818))
+* **helper:** add objectToQueryString helper ([8c8ec1b](https://github.com/moneytree/mt-link-javascript-sdk/commit/8c8ec1b39d7b6ecc772f123cb6474995e7e5b0ef))
+* **helper:** add queryStringToObject helper ([e115892](https://github.com/moneytree/mt-link-javascript-sdk/commit/e1158925507fa51233de4f523b4b3f482aff269f))
+* **qs:** remove from helper.ts ([2c523fa](https://github.com/moneytree/mt-link-javascript-sdk/commit/2c523fa1ac08a4cb5a392076512409fa0d38d265))
+* **qs:** replace `qs.parse` with queryStringToObject ([33c3683](https://github.com/moneytree/mt-link-javascript-sdk/commit/33c3683f50442e752dd55a1da5e5fc43782719c7))
+* **qs:** replace stringify with objectToQueryString ([c9d1972](https://github.com/moneytree/mt-link-javascript-sdk/commit/c9d19727c091270c1a3914327d1da09284d2693a))
+* **sample:** add 'onboarding' to Vault openService options ([1f6c214](https://github.com/moneytree/mt-link-javascript-sdk/commit/1f6c214e9923617afac46c08eda745572d483980))
+* **sample:** migrate /sample from webpack -> vite ([088297a](https://github.com/moneytree/mt-link-javascript-sdk/commit/088297a94642aceb8d77e5ce7b1b3b269387fde4))
+* **test:** polyfill browser APIs in tests ([590a9de](https://github.com/moneytree/mt-link-javascript-sdk/commit/590a9de3714a90ffd76149e2b82b5c3d0b80c03c))
+* **types:** add 'onboarding' to public openService types ([42eb6f5](https://github.com/moneytree/mt-link-javascript-sdk/commit/42eb6f5d37ab4f47d864314b3e262389bdf2fe16))
+* **types:** let TS understand Jest globals ([3461b53](https://github.com/moneytree/mt-link-javascript-sdk/commit/3461b5331f63779982cd808e4cce67cb041fbb6e))
+* **vault:** add "onboarding" to view options for openServiceUrl ([c0c1585](https://github.com/moneytree/mt-link-javascript-sdk/commit/c0c1585b561e4aaa6accc1e11df6f1c4a860e485))
+
+### Bug Fixes
+
+* **build:** don't build test files ([2e72cc0](https://github.com/moneytree/mt-link-javascript-sdk/commit/2e72cc0bd3894abab14b283a285dd17b2fdbb414))
+* **ci:** don't run on master ([85f28d5](https://github.com/moneytree/mt-link-javascript-sdk/commit/85f28d5f42ea071d2986ebf1b0e97d195f560898))
+* **ci:** fix indentation typo in CI config ([0e83828](https://github.com/moneytree/mt-link-javascript-sdk/commit/0e838281ac7e1f044c24cd68df55c30495d8c617))
+* **ci:** use current worker limit CLI arg ([ea73222](https://github.com/moneytree/mt-link-javascript-sdk/commit/ea73222254c9e92101ab303114a0fec0366876e7))
+* **test:** use correct encoding spec in test ([1a47191](https://github.com/moneytree/mt-link-javascript-sdk/commit/1a47191d1119dbaa096195ef09ff863f53a76038))
+* **typedoc:** [@remark](https://github.com/remark) -> [@remarks](https://github.com/remarks) ([4180c80](https://github.com/moneytree/mt-link-javascript-sdk/commit/4180c80c9b189a4f030038f3b871cee26bb4373a))
+
 ## 5.1.0 (2026-07-13)
 
 * feat(sample): add 'onboarding' to Vault openService options ([b1a9541](https://github.com/moneytree/mt-link-javascript-sdk/commit/b1a9541))
