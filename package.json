@@ -45,7 +45,7 @@
     "@typescript-eslint/eslint-plugin": "8.67.0",
     "@typescript-eslint/parser": "8.67.0",
     "buffer": "^6.0.3",
-    "conventional-changelog": "8.1.0",
+    "conventional-changelog": "8.1.2",
     "conventional-changelog-conventionalcommits": "10.2.1",
     "docsify-cli": "^4.4.3",
     "eslint": "10.8.1",
