@@ -7,8 +7,16 @@ references:
   no_master_filter: &filters_master_out
     filters:
       branches:
-        ignore:
-          - master
+        ignore: master
+  only_master_filter: &only_master_filter
+    filters:
+      branches:
+        only: master
+  only_release_tag_filter: &only_release_tag_filter
+    filters:
+      tags:
+        # only on "x.y.z" pattern where x, y & z are numbers (e.g. 1.2.11)
+        only: /^\d+\.\d+\.\d+$/
 
 docker_defaults: &docker_defaults
   docker:
@@ -79,6 +87,16 @@ jobs:
           name: Type checking
           command: yarn typecheck
 
+  publish:
+    <<: *docker_defaults
+    steps:
+      - checkout
+      - run:
+          name: Publish package to NPM
+          command: |
+            export NPM_ID_TOKEN=$(circleci run oidc get --claims '{"aud": "npm:registry.npmjs.org"}')
+            npm publish
+
   done:
     <<: *docker_defaults
     steps:
@@ -115,3 +133,14 @@ workflows:
             - lint
             - unit_test
             - typecheck
+
+  publish_to_npm:
+    jobs:
+      - start:
+          <<: [*only_master_filter, *only_release_tag_filter]
+      - publish:
+          requires:
+            - start
+      - done:
+          requires:
+            - publish
