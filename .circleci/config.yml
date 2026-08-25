@@ -95,7 +95,7 @@ jobs:
           name: Publish package to NPM
           command: |
             export NPM_ID_TOKEN=$(circleci run oidc get --claims '{"aud": "npm:registry.npmjs.org"}')
-            npm publish
+            npm publish --dry-run
 
   done:
     <<: *docker_defaults
