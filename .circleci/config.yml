@@ -8,15 +8,6 @@ references:
     filters:
       branches:
         ignore: master
-  only_master_filter: &only_master_filter
-    filters:
-      branches:
-        only: master
-  only_release_tag_filter: &only_release_tag_filter
-    filters:
-      tags:
-        # only on "x.y.z" pattern where x, y & z are numbers (e.g. 1.2.11)
-        only: /^\d+\.\d+\.\d+$/
 
 docker_defaults: &docker_defaults
   docker:
@@ -90,7 +81,7 @@ jobs:
   publish:
     <<: *docker_defaults
     steps:
-      - checkout
+      - *attach_workspace
       - run:
           name: Publish package to NPM
           command: |
@@ -135,12 +126,15 @@ workflows:
             - typecheck
 
   publish_to_npm:
+    when:
+      matches:
+        pattern: /^\d+\.\d+\.\d+$/
+        value: << pipeline.git.tag >>
     jobs:
-      - start:
-          <<: [*only_master_filter, *only_release_tag_filter]
+      - dependencies
       - publish:
           requires:
-            - start
+            - dependencies
       - done:
           requires:
             - publish
