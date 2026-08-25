@@ -128,7 +128,7 @@ workflows:
   publish_to_npm:
     when:
       matches:
-        pattern: /^\d+\.\d+\.\d+$/
+        pattern: ^\d+\.\d+\.\d+$
         value: << pipeline.git.tag >>
     jobs:
       - dependencies
