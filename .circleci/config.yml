@@ -5,9 +5,10 @@ orbs:
 
 references:
   no_master_filter: &filters_master_out
-    filters:
-      branches:
-        ignore: master
+    filters: pipeline.git.branch != "master"
+
+  release_tag_filter: &only_release_tags
+    filters: pipeline.git.tag matches /^\d+\.\d+\.\d+$/
 
 docker_defaults: &docker_defaults
   docker:
@@ -78,6 +79,19 @@ jobs:
           name: Type checking
           command: yarn typecheck
 
+  check_is_master:
+      <<: *docker_defaults
+      steps:
+        - checkout
+        - run:
+            name: Check tag is on master
+            command: |
+              git fetch origin master
+              if ! git merge-base --is-ancestor HEAD origin/master; then
+                echo "Tag commit is not on master branch"
+                circleci-agent step halt
+              fi
+
   publish:
     <<: *docker_defaults
     steps:
@@ -126,15 +140,18 @@ workflows:
             - typecheck
 
   publish_to_npm:
-    when:
-      matches:
-        pattern: ^\d+\.\d+\.\d+$
-        value: << pipeline.git.tag >>
     jobs:
-      - dependencies
+      - check_is_master:
+          <<: *only_release_tags
+      - dependencies:
+          <<: *only_release_tags
+          requires:
+            - check_is_master
       - publish:
+          <<: *only_release_tags
           requires:
             - dependencies
       - done:
+          <<: *only_release_tags
           requires:
             - publish
