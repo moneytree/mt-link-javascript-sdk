@@ -5,7 +5,7 @@ orbs:
 
 references:
   no_master_filter: &filters_master_out
-    filters: pipeline.git.branch != "master"
+    filters: pipeline.git.branch != "master" and pipeline.git.tag == ""
 
   release_tag_filter: &only_release_tags
     filters: pipeline.git.tag matches /^\d+\.\d+\.\d+$/
