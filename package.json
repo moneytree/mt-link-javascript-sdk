@@ -50,7 +50,7 @@
     "docsify-cli": "^4.4.3",
     "eslint": "10.13.0",
     "eslint-config-prettier": "10.1.8",
-    "globals": "17.13.0",
+    "globals": "17.14.0",
     "husky": "9.1.7",
     "jsdom": "^29.1.1",
     "prettier": "3.9.10",
